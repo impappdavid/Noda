@@ -1,6 +1,7 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import LandingPage from './components/myComponents/LandingPage/LandingPage'
+import Overview from './components/myComponents/LandingPage/Overview/Overview'
+import HowItWorks from './components/myComponents/LandingPage/HowItWorks/HowItWorks'
 
 function App() {
 
@@ -8,7 +9,8 @@ function App() {
     <>
       <Routes>
 
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={<Overview />} />
+        <Route path="/howitworks" element={<HowItWorks />} />
 
         
       </Routes>

@@ -1,9 +1,9 @@
 import Content from "./Content"
-import SideBar from "./Sidebar"
+import SideBar from "../Sidebar"
 
 
 
-const LandingPage = () => {
+const Overview = () => {
 
     return (
         <>
@@ -20,4 +20,4 @@ const LandingPage = () => {
         </>
     )
 }
-export default LandingPage
+export default Overview
