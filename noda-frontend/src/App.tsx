@@ -4,6 +4,7 @@ import Overview from './components/myComponents/LandingPage/Overview/Overview'
 import HowItWorks from './components/myComponents/LandingPage/HowItWorks/HowItWorks'
 import ForRecruiters from './components/myComponents/LandingPage/ForRecruiters/ForRecruiters'
 import Features from './components/myComponents/LandingPage/Features/Features'
+import Pricing from './components/myComponents/LandingPage/Pricing/Pricing'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/howitworks" element={<HowItWorks />} />
         <Route path="/forrecruiters" element={<ForRecruiters />} />
         <Route path="/features" element={<Features />} />
+        <Route path="/pricing" element={<Pricing />} />
 
       </Routes>
     </>
