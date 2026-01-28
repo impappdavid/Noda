@@ -7,6 +7,7 @@ import Features from './components/myComponents/LandingPage/Features/Features'
 import Pricing from './components/myComponents/LandingPage/Pricing/Pricing'
 import ChangeLog from './components/myComponents/LandingPage/Changelog/Changelog'
 import FAQ from './components/myComponents/LandingPage/Faq/Faq'
+import Waitlist from './components/myComponents/LandingPage/Waitlist/WaitList'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/changelog" element={<ChangeLog />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/waitlist" element={<Waitlist />} />
 
       </Routes>
     </>
