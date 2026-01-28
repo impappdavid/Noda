@@ -58,7 +58,7 @@ const HowItWorksContent = () => {
                 </div>
 
                 {/* Accountability Box */}
-                <div className="md:col-span-2 bg-zinc-900 rounded-3xl p-6 flex flex-col justify-between">
+                <div className="md:col-span-2 bg-zinc-800 rounded-3xl p-6 flex flex-col justify-between">
                     <ShieldAlert className="w-5 h-5 text-orange-500 mb-6" />
                     <div>
                         <h3 className="text-md font-bold text-white mb-2">Automated Purgatory</h3>

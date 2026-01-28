@@ -52,7 +52,7 @@ const FeaturesContent = () => {
                         </p>
                     </div>
                     {/* Mini Demo: The Countdown */}
-                    <div className="bg-zinc-900 rounded-[2rem] p-8 h-48 flex flex-col items-center justify-center relative group">
+                    <div className="bg-zinc-800 rounded-[2rem] p-8 h-48 flex flex-col items-center justify-center relative group">
                         <div className="text-white font-mono text-3xl font-bold tracking-tighter">13:23:59:04</div>
                         <div className="text-zinc-500 text-[10px] mt-2 uppercase tracking-widest font-bold">Time to Delisting</div>
                         <div className="absolute top-4 left-6 flex items-center gap-2">

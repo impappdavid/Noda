@@ -3,7 +3,7 @@ import { Check, X } from 'lucide-react';
 const PricingProtocol = () => {
   const plans = [
     { name: "Seeker", price: "Free", desc: "For individual talent.", cta: "Join Waitlist", color: "bg-white" },
-    { name: "Pro", price: "$12", desc: "For power seekers.", cta: "Reserve Pro", color: "bg-zinc-900", text: "text-white" },
+    { name: "Pro", price: "$12", desc: "For power seekers.", cta: "Reserve Pro", color: "bg-zinc-800", text: "text-white" },
     { name: "Recruiter", price: "$49", desc: "For hiring teams.", cta: "Contact Sales", color: "bg-white" }
   ];
 

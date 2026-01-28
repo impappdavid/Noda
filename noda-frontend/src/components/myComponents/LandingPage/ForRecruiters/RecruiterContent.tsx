@@ -61,7 +61,7 @@ const RecruiterContent = () => {
                             The Anti-Ghosting Protocol isn't just for candidates. It ensures your listings remain high-authority. By guaranteeing responses, you attract the highest-tier talent who avoid "dead" job boards.
                         </p>
                     </div>
-                    <div className="flex-1 w-full aspect-square bg-zinc-900 rounded-[3rem] p-8 flex flex-col justify-center items-center text-center">
+                    <div className="flex-1 w-full aspect-square bg-zinc-800 rounded-[3rem] p-8 flex flex-col justify-center items-center text-center">
                         <div className="text-5xl font-bold text-white mb-2">14:00:00</div>
                         <p className="text-zinc-400 font-mono text-xs tracking-widest uppercase">Response Deadline</p>
                     </div>

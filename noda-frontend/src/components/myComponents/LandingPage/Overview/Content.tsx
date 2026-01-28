@@ -68,7 +68,7 @@ const Content = () => {
                     </div>
 
                     {/* Box 2: Anti-Ghosting (Tall) */}
-                    <div className="md:col-span-1 md:row-span-2 bg-zinc-900 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
+                    <div className="md:col-span-1 md:row-span-2 bg-zinc-800 rounded-3xl p-6 flex flex-col justify-between relative overflow-hidden">
                         <div className="relative z-10">
                             <ShieldAlert className="w-4 h-4 text-orange-500 mb-4" />
                             <h3 className="text-lg font-bold text-white mb-4">Anti-Ghosting Protocol.</h3>
