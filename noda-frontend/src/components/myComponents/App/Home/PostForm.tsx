@@ -19,13 +19,13 @@ const PostForm = () => {
     const [isAnonymous, setIsAnonymous] = useState(false);
 
     return (
-        <div className="p-4 border-b border-zinc-300 bg-white">
+        <div className=" border-zinc-300 bg-white">
             <Dialog>
                 {/* The Trigger: A clean input-like button to open the modal */}
                 <DialogTrigger asChild>
-                    <button className="w-full flex items-center justify-between bg-zinc-50 border border-zinc-200 rounded-xl px-4 py-3 text-sm text-zinc-400 hover:bg-zinc-100 transition-all text-left">
+                    <button className="w-full flex items-center justify-between bg-zinc-800 px-4 py-3 text-sm text-zinc-300 hover:bg-zinc-900/90 transition-all text-left cursor-pointer group">
                         <span>Deploy professional insight...</span>
-                        <Plus className="w-4 h-4 text-zinc-300" />
+                        <Plus className="w-4.5 h-4.5 text-zinc-300 group-hover:text-zinc-100 transition-all duration-200" />
                     </button>
                 </DialogTrigger>
 
