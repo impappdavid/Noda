@@ -44,7 +44,7 @@ const PostForm = () => {
                             </div>
                             <div className="flex flex-col">
                                 <span className="text-xs font-bold text-zinc-900">
-                                    {isAnonymous ? 'Anonymous Node' : 'Alex Rivers'}
+                                    {isAnonymous ? 'Anonymous' : 'Alex Rivers'}
                                 </span>
                                 <span className="text-xs text-zinc-500 font-mono uppercase tracking-tighter">
                                     {isAnonymous ? 'Encrypted Signal' : 'Vector Engineer'}
@@ -76,7 +76,7 @@ const PostForm = () => {
                                     id="anonymous-mode"
                                     checked={isAnonymous}
                                     onCheckedChange={setIsAnonymous}
-                                    className="data-[state=checked]:bg-orange-500"
+                                    className="data-[state=checked]:bg-orange-500 "
                                 />
                                 <label
                                     htmlFor="anonymous-mode"
