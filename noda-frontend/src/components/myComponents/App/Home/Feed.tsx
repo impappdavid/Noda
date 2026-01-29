@@ -4,7 +4,7 @@ import {
   MessageSquare, 
   BarChart3, 
   Bookmark, 
-  Share2 
+  Share
 } from "lucide-react"
 
 const Feed = () => {
@@ -26,8 +26,8 @@ const Feed = () => {
                                     <span className="text-sm font-bold text-zinc-900 leading-none">Alex Rivers</span>
                                     <span className="text-xs text-zinc-400 font-mono uppercase tracking-tighter">@arivers</span>
                                 </div>
-                                <span className="text-[11px] text-zinc-500 mt-0.5">Vector Engineer</span>
-                                <span className="text-[9px] text-zinc-400 font-mono tracking-tighter uppercase mt-0.5">Protocol Update • 2h ago</span>
+                                <span className="text-[11px] text-zinc-600 mt-0.5">Vector Engineer</span>
+                                <span className="text-[10px] text-zinc-400 font-mono tracking-tighter uppercase mt-0.5">Protocol Update • 2h ago</span>
                             </div>
                         </div>
 
@@ -50,27 +50,27 @@ const Feed = () => {
                         <div className="flex items-center justify-between pt-1">
                             {/* Primary Stats */}
                             <div className="flex items-center gap-6">
-                                <button className="flex items-center gap-1.5 text-zinc-500 hover:text-orange-500 transition-colors group/stat">
+                                <button className="flex items-center gap-1.5 text-zinc-500 hover:text-orange-500 transition-colors group/stat cursor-pointer">
                                     <Heart className="w-4 h-4 group-hover/stat:fill-orange-500" />
-                                    <span className="text-[11px] font-mono">24</span>
+                                    <span className="text-xs font-mono">24</span>
                                 </button>
-                                <button className="flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 transition-colors">
+                                <button className="flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 transition-colors cursor-pointer">
                                     <MessageSquare className="w-4 h-4" />
-                                    <span className="text-[11px] font-mono">12</span>
+                                    <span className="text-xs font-mono">12</span>
                                 </button>
                                 <div className="flex items-center gap-1.5 text-zinc-500">
                                     <BarChart3 className="w-4 h-4" />
-                                    <span className="text-[11px] font-mono">1.2k</span>
+                                    <span className="text-xs font-mono">1.2k</span>
                                 </div>
                             </div>
 
                             {/* Secondary Actions */}
                             <div className="flex items-center gap-3">
-                                <button className="text-zinc-400 hover:text-zinc-900 transition-colors">
+                                <button className="text-zinc-400 hover:text-zinc-900 transition-colors cursor-pointer">
                                     <Bookmark className="w-4 h-4" />
                                 </button>
-                                <button className="text-zinc-400 hover:text-zinc-900 transition-colors">
-                                    <Share2 className="w-4 h-4" />
+                                <button className="text-zinc-400 hover:text-zinc-900 transition-colors cursor-pointer">
+                                    <Share className="w-4 h-4" />
                                 </button>
                             </div>
                         </div>
