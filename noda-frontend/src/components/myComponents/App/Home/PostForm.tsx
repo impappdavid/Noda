@@ -86,7 +86,7 @@ const PostForm = () => {
                                 </label>
                             </div>
 
-                            <Button className="bg-zinc-900 hover:bg-zinc-800 text-white rounded-xl px-8 h-9 text-xs font-bold group">
+                            <Button className="bg-zinc-800 hover:bg-zinc-900/90 text-white rounded-xl px-8 h-9 text-xs font-bold group">
                                 Deploy Node
                             </Button>
                         </div>
