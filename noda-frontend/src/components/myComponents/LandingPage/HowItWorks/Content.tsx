@@ -87,7 +87,7 @@ const HowItWorksContent = () => {
                 <div className="flex items-center justify-between mb-12">
                     <h2 className="text-xl font-bold text-zinc-900">The Hiring Path</h2>
                     <div className="px-3 py-1 bg-zinc-100 border border-zinc-200 rounded-full">
-                        <span className="text-[10px] font-bold text-zinc-500 tracking-tighter">PHASE: ALPHA-01</span>
+                        <span className="text-xs font-semibold text-zinc-500 tracking-tighter">PHASE: ALPHA-01</span>
                     </div>
                 </div>
 
@@ -110,7 +110,7 @@ const HowItWorksContent = () => {
                                     </div>
                                 </div>
                                 <h3 className="text-lg font-bold text-zinc-900 mb-2">{step.title}</h3>
-                                <p className="text-zinc-500 text-sm leading-relaxed">
+                                <p className="text-zinc-500 text-xs leading-relaxed">
                                     {step.description}
                                 </p>
                             </div>
