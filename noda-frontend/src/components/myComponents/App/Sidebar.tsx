@@ -31,7 +31,7 @@ const routes = [
         name: "Bookmarks",
         route: "/app/bookmarks"
     },
-    
+
 ]
 
 const AppSideBar = () => {
@@ -51,11 +51,13 @@ const AppSideBar = () => {
                             <NavLink
                                 key={item.id}
                                 to={item.route}
-                                end={item.route === "/"}
+                                // This ensures the link is only "active" if the URL 
+                                // matches exactly "/app" and not sub-routes like "/app/jobs"
+                                end={item.route === "/app"}
                                 className={({ isActive }) =>
                                     `text-xs font-medium transition-colors w-fit ${isActive
-                                        ? "text-zinc-900" // Active Style
-                                        : "text-zinc-500/80 hover:text-zinc-900" // Inactive Style
+                                        ? "text-zinc-900 font-bold" // Active Style
+                                        : "text-zinc-500/80 hover:text-zinc-900"
                                     }`
                                 }
                             >

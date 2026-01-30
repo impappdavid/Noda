@@ -165,7 +165,7 @@ const UserDropDown = () => {
                 </DropdownMenuTrigger>
 
                 {/* 2. Menu Content styled for Noda */}
-                <DropdownMenuContent className="w-42 mt-2 rounded-2xl border-zinc-200 p-2 shadow-xl" align="end" forceMount>
+                <DropdownMenuContent className="w-42 mt-2 rounded-2xl border-zinc-200 p-2 " align="end" forceMount>
                     <DropdownMenuLabel className="font-normal px-2 py-2">
                         <div className="flex flex-col ">
                             <p className="text-xs font-bold leading-none text-zinc-900">Alex Rivers</p>
