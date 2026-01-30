@@ -84,7 +84,7 @@ const PostGrid = ({ images }) => {
   if (count === 0) return null;
 
   return (
-    <div className={`mt-3 rounded-2xl overflow-hidden border border-zinc-100 grid gap-1 
+    <div className={`mt-3 rounded-2xl overflow-hidden border border-zinc-100 grid gap-1  
       ${count === 1 ? "grid-cols-1" : "grid-cols-2"} 
       ${count >= 3 ? "aspect-square" : "aspect-auto"}`}>
       

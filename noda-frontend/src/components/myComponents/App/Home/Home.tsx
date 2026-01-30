@@ -17,7 +17,7 @@ const AppHome = () => {
                 <AppSideBar />
 
                 {/* 3. CENTER FEED */}
-                <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen">
+                <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen pt-13">
                     <PostForm />
                     <Feed />
                 </main>

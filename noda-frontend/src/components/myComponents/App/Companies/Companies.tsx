@@ -33,7 +33,7 @@ const AppCompanies = () => {
                                 <input
                                     type="text"
                                     placeholder="Search companies..."
-                                    className="w-full bg-zinc-100 rounded-xl h-12 py-2 pl-9 pr-4 text-xs outline-none transition-all"
+                                    className="w-full rounded-none bg-zinc-100 h-12 py-2 pl-9 pr-4 text-xs outline-none transition-all"
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     value={searchQuery}
                                 />
@@ -46,7 +46,7 @@ const AppCompanies = () => {
                                 <div
                                     key={company.id}
                                     onClick={() => setSelectedCompany(company)}
-                                    className={`p-4 border-b border-zinc-100 cursor-pointer transition-all flex items-center gap-3 ${selectedCompany.id === company.id ? "bg-zinc-300" : "hover:bg-zinc-200/80"
+                                    className={`p-3 border-b border-zinc-300 cursor-pointer transition-all flex items-center gap-3 ${selectedCompany.id === company.id ? "bg-zinc-300" : "hover:bg-zinc-200/80"
                                         }`}
                                 >
                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 text-white ${selectedCompany.id === company.id ? "bg-zinc-800" : "bg-zinc-800 "
@@ -100,14 +100,14 @@ const AppCompanies = () => {
 
                             {/* Intelligence Cards */}
                             <div className="grid grid-cols-2 gap-3 mb-8">
-                                <div className="p-3 rounded-2xl bg-zinc-50 border border-zinc-100">
+                                <div className="p-3 rounded-2xl bg-zinc-50 border border-zinc-300">
                                     <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase block mb-1">Network Rating</span>
                                     <div className="flex items-baseline gap-1">
                                         <span className="text-lg font-bold">{selectedCompany.rating}</span>
                                         <span className="text-[10px] text-zinc-400">/ 5.0</span>
                                     </div>
                                 </div>
-                                <div className="p-3 rounded-2xl bg-zinc-50 border border-zinc-100">
+                                <div className="p-3 rounded-2xl bg-zinc-50 border border-zinc-300">
                                     <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase block mb-1">Total Signals</span>
                                     <div className="flex items-baseline gap-1">
                                         <span className="text-lg font-bold">{selectedCompany.reviews}</span>

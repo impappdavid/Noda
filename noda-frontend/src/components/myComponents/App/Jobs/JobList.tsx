@@ -12,13 +12,13 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                         key={job.id}
                         onClick={() => onSelect(job)}
                         className={`group p-3 border-b border-zinc-300 transition-all cursor-pointer flex flex-col duration-200 ${
-                            isSelected ? "bg-zinc-300" : "bg-white hover:bg-zinc-200/80"
+                            isSelected ? "bg-orange-200" : "bg-white hover:bg-zinc-200/60 "
                         }`}
                     >
                         {/* Top Row: Protocol ID & Actions */}
                         <div className="flex justify-between items-center">
                             <span className={`text-[10px] font-mono uppercase tracking-widest font-bold ${
-                                isSelected ? "text-zinc-400" : "text-zinc-400"
+                                isSelected ? "text-zinc-500" : "text-zinc-400"
                             }`}>
                                 JOB-{job.id}
                             </span>
@@ -45,8 +45,10 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                                 </h3>
                                 <div className={`flex items-center gap-2 text-[11px] transition-colors text-zinc-500`}>
                                     <span className="font-medium">{job.company}</span>
-                                    <span className={isSelected ? "text-zinc-700" : "text-zinc-300"}>•</span>
+                                    <span className={isSelected ? "text-zinc-700" : "text-zinc-400"}>•</span>
                                     <span className="truncate">{job.location}</span>
+                                    <span className={isSelected ? "text-zinc-700" : "text-zinc-400"}>•</span>
+                                    <span className="truncate">{job.experience}</span>
                                 </div>
                             </div>
 
