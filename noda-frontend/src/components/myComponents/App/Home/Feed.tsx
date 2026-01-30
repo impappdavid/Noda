@@ -41,6 +41,21 @@ const testPosts = [
         "https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=800"
     ] // 2 Images
   },
+   {
+    id: "p2",
+    author: {
+      name: "Sarah Chen",
+      username: "@schen_dev",
+      role: "Backend Architect",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+    },
+    postedAgo: "4h",
+    content: "Just updated my Node vector. The matching precision for Rust-based roles is incredibly high.",
+    likes: 903,
+    comments: 120,
+    views: "10.4k",
+    images: [] 
+  },
   {
     id: "p4",
     author: {

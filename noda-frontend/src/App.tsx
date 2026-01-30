@@ -9,6 +9,7 @@ import ChangeLog from './components/myComponents/LandingPage/Changelog/Changelog
 import FAQ from './components/myComponents/LandingPage/Faq/Faq'
 import Waitlist from './components/myComponents/LandingPage/Waitlist/WaitList'
 import AppHome from './components/myComponents/App/Home/Home'
+import AppJobs from './components/myComponents/App/Jobs/Jobs'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/waitlist" element={<Waitlist />} />
 
         <Route path="/app" element={<AppHome />} />
+        <Route path="/app/jobs" element={<AppJobs />} />
 
       </Routes>
     </>
