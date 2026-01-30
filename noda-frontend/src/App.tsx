@@ -10,6 +10,7 @@ import FAQ from './components/myComponents/LandingPage/Faq/Faq'
 import Waitlist from './components/myComponents/LandingPage/Waitlist/WaitList'
 import AppHome from './components/myComponents/App/Home/Home'
 import AppJobs from './components/myComponents/App/Jobs/Jobs'
+import AppCompanies from './components/myComponents/App/Companies/Companies'
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
 
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/jobs" element={<AppJobs />} />
+        <Route path="/app/companies" element={<AppCompanies />} />
 
       </Routes>
     </>
