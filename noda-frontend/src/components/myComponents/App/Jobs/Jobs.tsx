@@ -1,5 +1,6 @@
 import Navbar from '../navbar';
 import AppSideBar from '../Sidebar';
+import JobList from './JobList';
 
 const AppJobs = () => {
 
@@ -14,8 +15,12 @@ const AppJobs = () => {
                 <AppSideBar />
 
                 {/* 3. CENTER FEED */}
-                <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen">
-                    
+                <main className="flex max-w-3xl w-full border-x border-zinc-300 min-h-screen">
+                    <div className="w-1/2">
+                        <JobList />
+                    </div>
+
+                    <div className="w-1/2 bg-black p-2"></div>
                 </main>
 
 
