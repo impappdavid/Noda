@@ -21,7 +21,7 @@ import { useState, useEffect, useRef } from 'react';
 const Navbar = () => {
     return (
         <>
-            <header className="sticky top-0 z-50 w-full border-b border-zinc-300 bg-white/80  backdrop-blur-md">
+            <header className="fixed top-0 z-50 w-full border-b border-zinc-300 bg-white/80  backdrop-blur-md">
                 <div className="max-w-4xl mx-auto px-6 py-2 flex items-center justify-between ">
 
                     {/* Logo */}
