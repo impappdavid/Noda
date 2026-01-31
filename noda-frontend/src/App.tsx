@@ -11,6 +11,7 @@ import Waitlist from './components/myComponents/LandingPage/Waitlist/WaitList'
 import AppHome from './components/myComponents/App/Home/Home'
 import AppJobs from './components/myComponents/App/Jobs/Jobs'
 import AppCompanies from './components/myComponents/App/Companies/Companies'
+import AppTracker from './components/myComponents/App/Tracker/Tracker'
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/jobs" element={<AppJobs />} />
         <Route path="/app/companies" element={<AppCompanies />} />
+        <Route path="/app/tracker" element={<AppTracker />} />
 
       </Routes>
     </>
