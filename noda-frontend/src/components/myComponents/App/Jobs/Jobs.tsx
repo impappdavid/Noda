@@ -46,28 +46,28 @@ const AppJobs = () => {
 
     return (
         <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
-            {/* 1. Navbar must have a fixed height (e.g., h-16) */}
+
             <Navbar />
 
+            {/* Added w-full and consistent max-width to match Home */}
             <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4 overflow-hidden">
-                {/* 2. LEFT SIDEBAR */}
-                <AppSideBar />
+                
+                {/* Fixed width wrapper for sidebar to prevent shifting */}
+                <aside className="w-24 shrink-0">
+                    <AppSideBar />
+                </aside>
 
-                {/* 3. CENTER FEED: Lock this container to the viewport height */}
-                <main className="flex max-w-3xl w-full border-x border-zinc-300 h-full overflow-hidden bg-white">
-                    
-                    {/* 4. SCROLLABLE JOB LIST (Left Pane) */}
+                {/* Changed max-w-3xl to flex-1 to occupy the remaining space consistently */}
+                <main className="flex flex-1 border-x max-w-4xl border-zinc-300 h-full overflow-hidden bg-white">
                     <div className="w-1/2 h-full overflow-y-auto border-r border-zinc-300 scrollbar-hide">
                         <JobList 
                             jobs={jobData} 
                             selectedJob={selectedJob} 
                             onSelect={setSelectedJob} 
                         />
-                        {/* Buffer to allow scrolling past the last card if needed */}
                         <div className="h-20" /> 
                     </div>
 
-                    {/* 5. FIXED JOB INFO (Right Pane) */}
                     <div className="w-1/2 h-full flex flex-col bg-white overflow-hidden">
                         <JobInfo job={selectedJob} />
                     </div>

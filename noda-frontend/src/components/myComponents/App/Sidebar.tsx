@@ -38,7 +38,7 @@ const AppSideBar = () => {
     return (
         <>
             {/* LEFT SIDEBAR: Sticky and Minimalist */}
-            <aside className="w-full md:w-24 shrink-0 sticky top-16">
+            <aside className="w-full shrink-0 sticky top-16">
                 <div className="sticky top-16 flex flex-col ">
                     {/* Logo Section */}
                     <div className="flex flex-col">
