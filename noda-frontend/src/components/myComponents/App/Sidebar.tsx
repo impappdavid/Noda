@@ -13,6 +13,11 @@ const routes = [
     },
     {
         id: 2,
+        name: "Communities",
+        route: "/app/communities"
+    },
+    {
+        id: 2,
         name: "Companies",
         route: "/app/companies"
     },
@@ -20,6 +25,11 @@ const routes = [
         id: 3,
         name: "Tracker",
         route: "/app/tracker"
+    },
+    {
+        id: 3,
+        name: "Calendar",
+        route: "/app/calendar"
     },
     {
         id: 4,

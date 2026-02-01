@@ -1,7 +1,9 @@
-import { 
-  DollarSign, ShieldCheck, ArrowUpRight, Zap, 
-  MapPin, Globe, Clock, Bookmark, Share2, 
-  Timer, User2, Users, Briefcase
+import {
+    DollarSign, ShieldCheck, ArrowUpRight, Zap,
+    Globe, Bookmark,
+    Timer, User2, Briefcase,
+    EllipsisVertical,
+    Share
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -41,12 +43,15 @@ const JobInfo = ({ job }: JobInfoProps) => {
                     <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center shadow-sm">
                         <span className="text-sm font-bold text-white font-mono">{job.company[0]}</span>
                     </div>
-                    <div className="flex gap-1.5">
-                        <button className="p-2 rounded-lg text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50 transition-all">
-                            <Share2 size={15} />
+                    <div className="flex gap-1">
+                        <button className="p-2 rounded-lg text-zinc-400 hover:text-zinc-900 hover:bg-zinc-200 transition-all cursor-pointer">
+                            <Share size={15} />
                         </button>
-                        <button className="p-2 rounded-lg text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50 transition-all">
+                        <button className="p-2 rounded-lg text-zinc-400 hover:text-zinc-900 hover:bg-zinc-200 transition-all cursor-pointer">
                             <Bookmark size={15} />
+                        </button>
+                        <button className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-900 hover:bg-zinc-200 transition-all cursor-pointer">
+                            <EllipsisVertical size={15} />
                         </button>
                     </div>
                 </div>
@@ -54,7 +59,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
                 <h2 className="text-lg font-bold tracking-tight text-zinc-900 leading-tight">
                     {job.role}
                 </h2>
-                
+
                 <div className="flex items-center gap-2 mt-2 text-[11px] text-zinc-500 font-medium">
                     <span className="text-zinc-900 font-bold">{job.company}</span>
                     <span className="text-zinc-300">•</span>

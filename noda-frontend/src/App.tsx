@@ -12,6 +12,7 @@ import AppHome from './components/myComponents/App/Home/Home'
 import AppJobs from './components/myComponents/App/Jobs/Jobs'
 import AppCompanies from './components/myComponents/App/Companies/Companies'
 import AppTracker from './components/myComponents/App/Tracker/Tracker'
+import AppCommunities from './components/myComponents/App/Communities/Communities'
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/app/jobs" element={<AppJobs />} />
         <Route path="/app/companies" element={<AppCompanies />} />
         <Route path="/app/tracker" element={<AppTracker />} />
+        <Route path="/app/communities" element={<AppCommunities />} />
 
       </Routes>
     </>

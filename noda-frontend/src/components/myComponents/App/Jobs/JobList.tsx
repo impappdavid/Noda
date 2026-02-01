@@ -1,5 +1,3 @@
-import { MoreHorizontal } from "lucide-react";
-
 const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
 
     return (
@@ -31,7 +29,6 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                                 }`}>
                                     {job.match}%
                                 </span>
-                                <MoreHorizontal className={`w-3.5 h-3.5 transition-colors text-zinc-600`} />
                             </div>
                         </div>
 
