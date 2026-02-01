@@ -33,7 +33,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
     }
 
     return (
-        <div className="h-full flex flex-col bg-white overflow-hidden animate-in fade-in slide-in-from-right-4 duration-300 pt-12">
+        <div className="h-full flex flex-col bg-white overflow-hidden animate-in fade-in slide-in-from-right-4 duration-300 ">
             {/* 1. Minimalist Header */}
             <div className="p-4 pb-4 border-b border-zinc-100">
                 <div className="flex justify-between items-start mb-4">

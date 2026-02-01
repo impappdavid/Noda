@@ -35,8 +35,8 @@ const AppTracker = () => {
                                     key={tab}
                                     onClick={() => setFilter(tab)}
                                     className={`px-3 py-1 rounded-lg text-[10px] font-bold font-mono transition-all ${filter === tab
-                                            ? "bg-zinc-900 text-white shadow-sm"
-                                            : "bg-zinc-50 text-zinc-400 hover:text-zinc-900"
+                                        ? "bg-zinc-800 text-white shadow-sm"
+                                        : "bg-zinc-50 text-zinc-400 hover:text-zinc-900"
                                         }`}
                                 >
                                     {tab}
@@ -68,7 +68,7 @@ const AppTracker = () => {
                                 // 1. UNSCHEDULED INTERVIEW CARD (SKY GRADIENT)
                                 if (isInterviewing && !hasDate) {
                                     return (
-                                        <div key={item.id} className="p-4 rounded-xl bg-gradient-to-br from-zinc-400 to-zinc-500 flex flex-col justify-between  shadow-md border border-zinc-300">
+                                        <div key={item.id} className="p-4 rounded-xl bg-gradient-to-br from-zinc-400 to-zinc-500 flex flex-col justify-between  shadow-md border border-zinc-300 hover:scale-99 cursor-pointer transition-all">
                                             <div className="flex justify-between items-start">
                                                 <div className="flex flex-col">
                                                     <h3 className="text-sm font-black text-white leading-none uppercase">You got an interview</h3>
@@ -88,7 +88,11 @@ const AppTracker = () => {
 
                                 // 2. STANDARD / SCHEDULED CARD
                                 return (
-                                    <div key={item.id} className={`p-3 rounded-xl flex flex-col justify-between border transition-all ${hasDate ? "border-blue-400 bg-zinc-200/60 ring-1 ring-blue-50" : "bg-zinc-100 border-zinc-200"
+                                    <div key={item.id} className={`p-3 rounded-xl flex flex-col justify-between border transition-all hover:scale-99 cursor-pointer transition-all bg-zinc-100 ${hasDate ? "border-blue-400  ring-1 ring-blue-50" : item.status === 'Offer' ? 'border-emerald-500' :
+                                        
+                                            item.status === 'Applied' ? 'border-orange-500' :
+                                                item.status === 'Rejected' ? 'border-red-500 ' : 'border-zinc-300'
+                                        }
                                         }`}>
                                         <div className="flex justify-between items-start">
                                             <span className="text-[9px] font-mono text-zinc-400 font-bold uppercase tracking-widest">
@@ -119,9 +123,9 @@ const AppTracker = () => {
                                                                 item.status === 'Rejected' ? 'bg-red-500 animate-pulse' : 'bg-zinc-500'
                                                         }`} />
                                                     <span className={`text-[9px] font-bold uppercase tracking-tighter ${item.status === 'Offer' ? 'text-emerald-400' :
-                                                        item.status === 'Interviewing' ? 'text-blue-400 animate-pulse' :
-                                                            item.status === 'Applied' ? 'text-orange-400 animate-pulse' :
-                                                                item.status === 'Rejected' ? 'text-red-400 animate-pulse' : 'text-zinc-400'
+                                                        item.status === 'Interviewing' ? 'text-blue-400 ' :
+                                                            item.status === 'Applied' ? 'text-orange-400' :
+                                                                item.status === 'Rejected' ? 'text-red-400 ' : 'text-zinc-400'
                                                         }`}>
                                                         {item.status}
                                                     </span>

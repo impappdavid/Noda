@@ -3,7 +3,7 @@ import { MoreHorizontal } from "lucide-react";
 const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
 
     return (
-        <div className="flex flex-col border-t border-zinc-100 pt-13">
+        <div className="flex flex-col">
             {jobs.map((job: any) => {
                 const isSelected = selectedJob.id === job.id;
 
