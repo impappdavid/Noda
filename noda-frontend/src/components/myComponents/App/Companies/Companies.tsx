@@ -42,12 +42,7 @@ const AppCompanies = () => {
                     <div className="w-1/2 h-full flex flex-col bg-white overflow-hidden pt-12">
                         <CompanyInfo selectedCompany={selectedCompany}/>
 
-                        {/* Action Footer */}
-                        <div className="p-4 border-t border-zinc-200">
-                            <button className="w-full bg-zinc-900 text-white rounded-xl h-11 text-xs font-bold flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all active:scale-[0.98]">
-                                Write a Signal <MessageSquare size={14} />
-                            </button>
-                        </div>
+                        
                     </div>
                 </main>
             </div>
