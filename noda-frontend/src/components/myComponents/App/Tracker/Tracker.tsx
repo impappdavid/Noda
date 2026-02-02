@@ -1,19 +1,22 @@
 import { useState } from 'react';
-import { Plus, SlidersHorizontal } from 'lucide-react';
+import { Plus, Search, Check, ChevronsUpDown } from 'lucide-react';
 import Navbar from '../navbar';
 import AppSideBar from '../Sidebar';
+import { Button } from "@/components/ui/button";
+import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 const trackerData = [
-    { id: 43, company: "Taco Bell", role: "Oven installation", status: "Interviewing", applied: "2d ago", match: 96, link: "#", interviewDate: null },
-    { id: 44, company: "Vercel", role: "Frontend Deployment", status: "Applied", applied: "5d ago", match: 92, link: "#" },
-    { id: 45, company: "OpenAI", role: "GPU Cluster Setup", status: "Interviewing", applied: "1w ago", match: 88, link: "#", interviewDate: "Feb 12, 14:00" },
-    { id: 46, company: "Linear", role: "Systems Designer", status: "Rejected", applied: "1w ago", match: 94, link: "#" },
+    { id: 43, company: "Taco Bell", role: "Oven installation", status: "Interviewing", applied: "2d ago", match: 96, interviewDate: null },
+    { id: 44, company: "Vercel", role: "Frontend Deployment", status: "Applied", applied: "5d ago", match: 92, interviewDate: null },
+    { id: 45, company: "OpenAI", role: "GPU Cluster Setup", status: "Interviewing", applied: "1w ago", match: 88, interviewDate: "Feb 12, 14:00" },
+    { id: 46, company: "Linear", role: "Systems Designer", status: "Rejected", applied: "1w ago", match: 94, interviewDate: null },
 ];
 
 const AppTracker = () => {
     const [filter, setFilter] = useState("All");
 
-    // 1. Functional Filter Logic
     const filteredData = trackerData.filter(item =>
         filter === "All" ? true : item.status === filter
     );
@@ -27,106 +30,94 @@ const AppTracker = () => {
                 </aside>
 
                 <main className="flex flex-1 flex-col max-w-3xl border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-13">
-                    {/* Header Controls */}
-                    <div className="px-4 py-3 border-b border-zinc-300 flex items-center justify-between bg-white sticky top-0 z-10">
-                        <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide flex-1">
-                            {["All", "Applied", "Interviewing", "Rejected"].map((tab) => (
-                                <button
-                                    key={tab}
-                                    onClick={() => setFilter(tab)}
-                                    className={`px-3 py-1 rounded-lg text-[10px] font-bold font-mono transition-all ${filter === tab
-                                        ? "bg-zinc-800 text-white shadow-sm"
-                                        : "bg-zinc-50 text-zinc-400 hover:text-zinc-900"
-                                        }`}
-                                >
-                                    {tab}
-                                </button>
-                            ))}
-                            <button className="p-1 text-zinc-300 hover:text-zinc-900 ml-1">
-                                <SlidersHorizontal size={14} />
-                            </button>
-                        </div>
+                    
+                    {/* 1. GAPLESS FILTER & STATUS HUB */}
+                    <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-10">
+                        <div className="flex flex-1 items-center divide-x divide-zinc-200 h-full">
+                            {/* Search Node */}
+                            <div className="relative flex-[2] flex items-center bg-white px-3 h-full">
+                                <Search size={14} className="text-zinc-400 mr-2" />
+                                <input 
+                                    placeholder="SEARCH NODES..." 
+                                    className="w-full text-[10px] font-mono font-black uppercase outline-none bg-transparent"
+                                />
+                            </div>
+                            
+                            {/* Status Filter */}
+                            <div className="flex-1 h-full">
+                                <FilterCombobox 
+                                    label="STATUS" 
+                                    current={filter}
+                                    options={["All", "Applied", "Interviewing", "Rejected"].map(s => ({ label: s, value: s }))} 
+                                    onSelect={setFilter}
+                                />
+                            </div>
 
-                        <div className="flex items-center gap-3 pl-4">
-                            {/* 2. Dynamic Total Card Number */}
-                            <span className="text-[9px] font-mono text-zinc-500 uppercase font-bold whitespace-nowrap">
-                                {filteredData.length} {filteredData.length === 1 ? 'Node' : 'Nodes'}
-                            </span>
-                            <button className="bg-zinc-900 text-white p-1.5 rounded-lg hover:bg-zinc-800 transition-all shadow-sm">
-                                <Plus size={14} />
+                            {/* Showing Intelligence Section */}
+                            <div className="w-24 h-full flex items-center justify-center bg-zinc-50 border-r border-zinc-200">
+                                <span className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-tighter">
+                                    {filteredData.length}/{trackerData.length} NODES
+                                </span>
+                            </div>
+
+                            {/* Separate Add Action */}
+                            <button className="px-4 h-full bg-white hover:bg-zinc-50 transition-all active:scale-95 group">
+                                <Plus size={16} className="text-zinc-400 group-hover:text-zinc-900" />
                             </button>
                         </div>
                     </div>
 
-                    {/* Tracker Grid */}
-                    <div className="flex-1 overflow-y-auto p-3 scrollbar-hide bg-zinc-50/10">
-                        <div className="grid grid-cols-2 gap-2">
-                            {filteredData.map((item) => {
-                                const isInterviewing = item.status === "Interviewing";
-                                const hasDate = !!item.interviewDate;
+                    {/* 2. SCHEMATIC GRID */}
+                    <div className="flex-1 overflow-y-auto scrollbar-hide bg-white border-b border-zinc-300">
+                        <div className="grid grid-cols-2">
+                            {filteredData.map((item, index) => {
+                                const isUnscheduled = item.status === "Interviewing" && !item.interviewDate;
+                                const borderClasses = `border-b border-zinc-300 ${index % 2 === 0 ? 'border-r' : ''}`;
 
-                                // 1. UNSCHEDULED INTERVIEW CARD (SKY GRADIENT)
-                                if (isInterviewing && !hasDate) {
-                                    return (
-                                        <div key={item.id} className="p-4 rounded-xl bg-gradient-to-br from-zinc-400 to-zinc-500 flex flex-col justify-between  shadow-md border border-zinc-300 hover:scale-99 cursor-pointer transition-all">
-                                            <div className="flex justify-between items-start">
-                                                <div className="flex flex-col">
-                                                    <h3 className="text-sm font-black text-white leading-none uppercase">You got an interview</h3>
-                                                    <p className="text-[10px] font-bold text-sky-100 uppercase tracking-tighter mt-1">choose the date</p>
-                                                </div>
-                                                <span className="text-[11px] font-mono font-bold text-white/90">{item.match}%</span>
-                                            </div>
-                                            <div className="flex justify-between items-end">
-                                                <span className="text-[10px] font-bold text-white/80 truncate pr-4">
-                                                    {item.company} — {item.role}
-                                                </span>
-                                                <div className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
-                                            </div>
-                                        </div>
-                                    );
-                                }
-
-                                // 2. STANDARD / SCHEDULED CARD
                                 return (
-                                    <div key={item.id} className={`p-3 rounded-xl flex flex-col justify-between border transition-all hover:scale-99 cursor-pointer transition-all bg-zinc-100 ${hasDate ? "border-blue-400  ring-1 ring-blue-50" : item.status === 'Offer' ? 'border-emerald-500' :
-                                        
-                                            item.status === 'Applied' ? 'border-orange-500' :
-                                                item.status === 'Rejected' ? 'border-red-500 ' : 'border-zinc-300'
-                                        }
-                                        }`}>
+                                    <div 
+                                        key={item.id} 
+                                        className={cn(
+                                            "p-3 flex flex-col justify-center min-h-[72px] transition-colors cursor-pointer group relative",
+                                            borderClasses,
+                                            // 3. COLOR-CODED INTERVIEW SELECTION
+                                            isUnscheduled ? "bg-zinc-200 hover:bg-zinc-200/80" : "bg-white hover:bg-zinc-200/60"
+                                        )}
+                                    >
                                         <div className="flex justify-between items-start">
-                                            <span className="text-[9px] font-mono text-zinc-400 font-bold uppercase tracking-widest">
-                                                Applied {item.applied}
-                                            </span>
-                                            <span className={`text-[10px] font-mono font-bold ${item.match > 90 ? 'text-orange-500' : 'text-zinc-400'}`}>
-                                                {item.match}%
-                                            </span>
-                                        </div>
-
-                                        <div className="flex justify-between items-end">
-                                            <div className="min-w-0">
-                                                <h3 className="text-[11px] font-bold text-black truncate tracking-tight">{item.role}</h3>
-                                                <p className="text-[10px] text-zinc-500 font-medium truncate">{item.company}</p>
+                                            <div className="flex flex-col min-w-0">
+                                                <span className={cn(
+                                                    "text-[8px] font-mono font-black uppercase tracking-widest",
+                                                    isUnscheduled ? "text-amber-600" : "text-zinc-400"
+                                                )}>
+                                                    {isUnscheduled ? "INTELLIGENCE REQUIRED" : `APPLIED ${item.applied}`}
+                                                    <span className="mx-1 opacity-30">•</span> {item.match}%
+                                                </span>
+                                                <h3 className="text-[10px] font-black text-zinc-900 uppercase tracking-tight truncate leading-tight mt-1.5">
+                                                    {item.role}
+                                                </h3>
+                                                <p className="text-[9px] text-zinc-500 font-medium truncate uppercase mt-0.5">{item.company}</p>
                                             </div>
 
                                             <div className="flex flex-col items-end gap-1 shrink-0 ml-4">
-                                                {/* Date above status */}
-                                                {hasDate && (
-                                                    <span className="text-[9px] font-mono font-bold text-blue-600 bg-blue-50 px-1 rounded border border-blue-100">
+                                                {/* Date or Action Label */}
+                                                {item.interviewDate ? (
+                                                    <span className="text-[8px] font-mono font-black text-blue-600 bg-blue-100 px-1 border border-blue-200 uppercase py-0.5">
                                                         {item.interviewDate}
                                                     </span>
-                                                )}
+                                                ) : isUnscheduled ? (
+                                                    <div className="text-[8px] font-mono font-black text-amber-600 animate-pulse uppercase">
+                                                        Pick Date
+                                                    </div>
+                                                ) : null}
+                                                
                                                 <div className="flex items-center gap-1.5">
-                                                    <div className={`w-1 h-1 rounded-full ${item.status === 'Offer' ? 'bg-emerald-500' :
-                                                        item.status === 'Interviewing' ? 'bg-blue-500 animate-pulse' :
-                                                            item.status === 'Applied' ? 'bg-orange-500 animate-pulse' :
-                                                                item.status === 'Rejected' ? 'bg-red-500 animate-pulse' : 'bg-zinc-500'
-                                                        }`} />
-                                                    <span className={`text-[9px] font-bold uppercase tracking-tighter ${item.status === 'Offer' ? 'text-emerald-400' :
-                                                        item.status === 'Interviewing' ? 'text-blue-400 ' :
-                                                            item.status === 'Applied' ? 'text-orange-400' :
-                                                                item.status === 'Rejected' ? 'text-red-400 ' : 'text-zinc-400'
-                                                        }`}>
+                                                    <div className={cn("w-1 h-1 rounded-full", 
+                                                        item.status === 'Offer' ? 'bg-emerald-500' :
+                                                        item.status === 'Interviewing' ? 'bg-blue-500' :
+                                                        item.status === 'Applied' ? 'bg-orange-500' : 'bg-red-500'
+                                                    )} />
+                                                    <span className="text-[9px] font-black uppercase tracking-tighter text-zinc-400">
                                                         {item.status}
                                                     </span>
                                                 </div>
@@ -142,5 +133,31 @@ const AppTracker = () => {
         </div>
     );
 };
+
+// COMBOBOX FILTER
+function FilterCombobox({ label, options, current, onSelect }: any) {
+    const [open, setOpen] = useState(false);
+    return (
+        <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+                <Button variant="ghost" className="h-full w-full rounded-none text-[10px] font-mono font-black uppercase hover:bg-zinc-50 px-4 justify-between border-none ring-0">
+                    <span className="truncate text-zinc-400">{current !== "All" ? current : label}</span>
+                    <ChevronsUpDown className="h-3 w-3 shrink-0 opacity-40" />
+                </Button>
+            </PopoverTrigger>
+            <PopoverContent className="p-0 z-[100] w-[190px] rounded-none border-zinc-300" align="start">
+                <Command className="font-mono">
+                    <CommandGroup>
+                        {options.map((opt: any) => (
+                            <CommandItem key={opt.value} value={opt.value} className="text-[10px] font-bold uppercase py-2 cursor-pointer" onSelect={(v) => { onSelect(v); setOpen(false); }}>
+                                {opt.label}
+                            </CommandItem>
+                        ))}
+                    </CommandGroup>
+                </Command>
+            </PopoverContent>
+        </Popover>
+    );
+}
 
 export default AppTracker;
