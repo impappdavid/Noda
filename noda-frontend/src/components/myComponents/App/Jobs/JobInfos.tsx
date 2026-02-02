@@ -34,7 +34,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
     }
 
     return (
-        <div className="h-full flex flex-col bg-white overflow-hidden border-l border-zinc-300">
+        <div className="h-full flex flex-col bg-white overflow-hidden ">
             {/* 1. SQUARED HEADER */}
             <div className="p-5 border-b border-zinc-300 bg-zinc-50/20">
                 <div className="flex justify-between items-start mb-6">

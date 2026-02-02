@@ -13,6 +13,7 @@ import AppJobs from './components/myComponents/App/Jobs/Jobs'
 import AppCompanies from './components/myComponents/App/Companies/Companies'
 import AppTracker from './components/myComponents/App/Tracker/Tracker'
 import AppCommunities from './components/myComponents/App/Communities/Communities'
+import AppCalendar from './components/myComponents/App/Calendar/Calendar'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/app/companies" element={<AppCompanies />} />
         <Route path="/app/tracker" element={<AppTracker />} />
         <Route path="/app/communities" element={<AppCommunities />} />
+        <Route path="/app/calendar" element={<AppCalendar />} />
 
       </Routes>
     </>
