@@ -16,6 +16,7 @@ import AppCommunities from './components/myComponents/App/Communities/Communitie
 import AppCalendar from './components/myComponents/App/Calendar/Calendar'
 import AppNetwork from './components/myComponents/App/Network/Network'
 import AppBookmarks from './components/myComponents/App/Bookmarks/Bookmarks'
+import PostDetail from './components/myComponents/App/Post/Post'
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
         <Route path="/changelog" element={<ChangeLog />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/waitlist" element={<Waitlist />} />
+
+        <Route path="/app/post/:id" element={<PostDetail />} />
 
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/jobs" element={<AppJobs />} />
