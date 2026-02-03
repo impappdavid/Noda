@@ -121,11 +121,11 @@ const BookmarkNodeCard = ({ data }: any) => {
                     </div>
                 </div>
                 <button className="text-zinc-200 group-hover:text-zinc-900 transition-colors">
-                    <ArrowUpRight size={14} />
+                    <ArrowUpRight size={16} />
                 </button>
             </div>
 
-            <div className="flex items-center justify-between mt-auto pt-2 border-t border-zinc-100">
+            <div className="flex items-center justify-between mt-auto ">
                 <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-tighter">
                     {data.meta}
                 </span>

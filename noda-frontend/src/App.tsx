@@ -19,6 +19,7 @@ import AppBookmarks from './components/myComponents/App/Bookmarks/Bookmarks'
 import PostDetail from './components/myComponents/App/Post/Post'
 import JobDetailPage from './components/myComponents/App/Job/Job'
 import CommunityDetail from './components/myComponents/App/Community/Community'
+import UserProfile from './components/myComponents/App/User/User'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/app/post/:id" element={<PostDetail />} />
         <Route path="/app/jobs/:id" element={<JobDetailPage />} />
         <Route path="/app/communities/:id" element={<CommunityDetail />} />
+        <Route path="/app/user/:id" element={<UserProfile />} />
 
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/jobs" element={<AppJobs />} />
