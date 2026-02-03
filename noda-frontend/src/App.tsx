@@ -15,6 +15,7 @@ import AppTracker from './components/myComponents/App/Tracker/Tracker'
 import AppCommunities from './components/myComponents/App/Communities/Communities'
 import AppCalendar from './components/myComponents/App/Calendar/Calendar'
 import AppNetwork from './components/myComponents/App/Network/Network'
+import AppBookmarks from './components/myComponents/App/Bookmarks/Bookmarks'
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/app/communities" element={<AppCommunities />} />
         <Route path="/app/calendar" element={<AppCalendar />} />
         <Route path="/app/network" element={<AppNetwork />} />
+        <Route path="/app/bookmarks" element={<AppBookmarks />} />
 
       </Routes>
     </>
