@@ -14,6 +14,7 @@ import AppCompanies from './components/myComponents/App/Companies/Companies'
 import AppTracker from './components/myComponents/App/Tracker/Tracker'
 import AppCommunities from './components/myComponents/App/Communities/Communities'
 import AppCalendar from './components/myComponents/App/Calendar/Calendar'
+import AppNetwork from './components/myComponents/App/Network/Network'
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/app/tracker" element={<AppTracker />} />
         <Route path="/app/communities" element={<AppCommunities />} />
         <Route path="/app/calendar" element={<AppCalendar />} />
+        <Route path="/app/network" element={<AppNetwork />} />
 
       </Routes>
     </>
