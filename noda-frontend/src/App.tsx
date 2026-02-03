@@ -17,6 +17,7 @@ import AppCalendar from './components/myComponents/App/Calendar/Calendar'
 import AppNetwork from './components/myComponents/App/Network/Network'
 import AppBookmarks from './components/myComponents/App/Bookmarks/Bookmarks'
 import PostDetail from './components/myComponents/App/Post/Post'
+import JobDetailPage from './components/myComponents/App/Job/Job'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path="/waitlist" element={<Waitlist />} />
 
         <Route path="/app/post/:id" element={<PostDetail />} />
+        <Route path="/app/jobs/:id" element={<JobDetailPage />} />
 
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/jobs" element={<AppJobs />} />

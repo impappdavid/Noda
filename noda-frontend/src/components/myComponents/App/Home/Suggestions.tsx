@@ -6,7 +6,7 @@ const Suggestions = () => {
             {/* 4. RIGHT COLUMN */}
             <aside className="hidden xl:block">
                 <div className="sticky top-16 space-y-4">
-                    <div className="w-[145px] bg-zinc-800 rounded-[1.5rem] p-4 text-white shadow-xl border border-white/5 flex flex-col gap-4">
+                    <div className="w-[145px] bg-zinc-800  p-4 text-white shadow-xl border border-white/5 flex flex-col gap-4">
                         {/* Compact Header */}
                         <div className="flex items-center justify-between">
                             <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">

@@ -49,10 +49,10 @@ const PostDetail = () => {
                                 <button className="p-2 text-zinc-400 hover:text-zinc-900"><MoreHorizontal size={14} /></button>
                             </div>
 
-                            <h1 className="text-xl font-bold uppercase tracking-tight leading-tight mb-2">
+                            <h1 className="text-xl font-bold  tracking-tight leading-tight mb-2">
                                 Implementing Anti-Ghosting Protocols in Decentralized Recruitment
                             </h1>
-                            <p className="text-xs text-zinc-500 leading-relaxed font-semibold uppercase tracking-tight mb-8">
+                            <p className="text-xs text-zinc-500 leading-relaxed font-semibold tracking-tight mb-8">
                                 Current intelligence suggests that feedback loops are failing. Our newest node update
                                 enforces a 14-cycle response guarantee to maintain network velocity.
                             </p>
