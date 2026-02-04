@@ -9,7 +9,7 @@ const SearchCompany = ({ searchQuery, setSearchQuery }: any) => {
                     <input
                         type="text"
                         placeholder="Search companies..."
-                        className="w-full rounded-none bg-zinc-100 h-12 py-2 pl-9 pr-4 text-xs outline-none"
+                        className="w-full rounded-none bg-zinc-100 h-10 py-2 pl-9 pr-4 text-xs outline-none"
                         onChange={(e) => setSearchQuery(e.target.value)}
                         value={searchQuery}
                     />

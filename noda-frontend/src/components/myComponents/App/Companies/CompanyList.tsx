@@ -10,10 +10,10 @@ const CompanyList = ({ companyData, selectedCompany, setSelectedCompany }: any) 
                         <div
                             key={company.id}
                             onClick={() => setSelectedCompany(company)}
-                            className={`p-3 border-b border-zinc-300 cursor-pointer transition-all flex items-center gap-3 ${isSelected ? "bg-zinc-300" : "hover:bg-zinc-200/80"
+                            className={`p-3 border-b border-zinc-300 cursor-pointer transition-all flex items-center gap-3 ${isSelected ? "bg-zinc-200" : "hover:bg-zinc-200/60"
                                 }`}
                         >
-                            <div className="w-10 h-10 bg-zinc-200 flex items-center justify-center font-bold text-xs shrink-0 text-zinc-900">
+                            <div className="w-10 h-10 bg-zinc-300 flex items-center justify-center font-bold text-xs shrink-0 text-zinc-900">
                                 {company.name[0]}
                             </div>
                             <div className="flex flex-col min-w-0">
