@@ -39,7 +39,7 @@ const AppCommunities = () => {
                             <div className="flex-1">
                                 <FilterCombobox label="Region" options={[{ label: "Global", value: "global" }]} />
                             </div>
-                            <button className="px-4 h-10 bg-zinc-50 hover:bg-zinc-100 transition-all border-l border-zinc-200 active:scale-95">
+                            <button className="px-3 h-10 bg-zinc-50 hover:bg-zinc-200/80 transition-all active:scale-95 cursor-pointer">
                                 <Plus size={16} />
                             </button>
                         </div>
@@ -50,8 +50,8 @@ const AppCommunities = () => {
                         {/* SECTION PROTOCOL */}
                         {["Popular Intelligence", "For You", "Explore"].map((section) => (
                             <div key={section} className="w-full">
-                                <div className="px-4 py-2 border-b border-zinc-300 flex items-center bg-zinc-50/50">
-                                    <h2 className="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-zinc-400">
+                                <div className="px-3 py-2 border-b border-zinc-300 flex items-center bg-zinc-50/50">
+                                    <h2 className="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-zinc-600">
                                         {section}
                                     </h2>
                                 </div>
@@ -78,27 +78,20 @@ const AppCommunities = () => {
 
 // --- COMPACT PROTOCOL CARD WITH ASSETS ---
 const CompactProtocolCard = ({ community }) => (
-    <div className="group bg-white flex flex-col justify-center  relative hover:bg-zinc-50 transition-all cursor-pointer overflow-hidden">
+    <div className="group bg-white flex flex-col justify-center  relative hover:bg-zinc-100 transition-all cursor-pointer overflow-hidden">
         
-        {/* Subdued Cover Background */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-            <img 
-                src={community.cover} 
-                alt="" 
-                className="w-full h-full object-cover opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-300"
-            />
-        </div>
+        
 
-        <div className="relative z-10 p-4 flex justify-between items-center min-w-0">
+        <div className="relative z-10 p-3 flex justify-between items-center min-w-0">
             <div className="flex items-center gap-3 min-w-0">
                 {/* Square Logo */}
-                <div className="w-8 h-8 rounded bg-zinc-100 border border-zinc-200 flex-shrink-0 flex items-center justify-center overflow-hidden">
-                    <img src={community.logo} alt="" className="w-5 h-5 object-contain opacity-70 group-hover:opacity-100 transition-opacity" />
+                <div className="w-9 h-9 rounded bg-zinc-100 border border-zinc-200 flex-shrink-0 flex items-center justify-center overflow-hidden">
+                    <img src={community.logo} alt="" className="w-7 h-7 object-contain opacity-70 group-hover:opacity-100 transition-opacity" />
                 </div>
 
                 <div className="flex flex-col min-w-0">
-                    <span className="text-[9px] font-mono flex items-center font-black text-zinc-400 uppercase tracking-widest leading-none">
-                        {community.tag} <span className="mx-1.5 opacity-30">•</span> {community.members}
+                    <span className="text-[9px] font-mono flex items-center font-bold text-zinc-500 uppercase tracking-widest leading-none">
+                        {community.tag} <span className="mx-1.5 text-zinc-400">•</span> {community.members}
                     </span>
                     <h3 className="text-[11px] font-bold text-zinc-900 uppercase tracking-tight truncate leading-tight mt-1.5 group-hover:text-black">
                         {community.name}
