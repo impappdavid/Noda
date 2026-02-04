@@ -26,22 +26,22 @@ const AppBookmarks = () => {
                     
                     {/* 1. GAPLESS FILTER BAR */}
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-10">
-                        <div className="flex flex-1 items-center divide-x divide-zinc-200 h-full">
+                        <div className="flex flex-1 items-center divide-x divide-zinc-300 h-full">
                             <div className="relative flex-[2] flex items-center bg-white px-3 h-full">
-                                <Search size={14} className="text-zinc-400 mr-2" />
+                                <Search size={14} className="text-zinc-500 mr-2" />
                                 <input 
                                     placeholder="SEARCH SAVED NODES..." 
                                     className="w-full text-[10px] font-mono font-black uppercase outline-none bg-transparent"
                                 />
                             </div>
-                            <div className="flex-1 flex divide-x divide-zinc-200 h-full">
+                            <div className="flex-1 flex divide-x divide-zinc-300 h-full">
                                 {["All", "Jobs", "Posts"].map((tab) => (
                                     <button 
                                         key={tab}
                                         onClick={() => setFilter(tab)}
                                         className={cn(
-                                            "flex-1 text-[9px] font-mono font-black uppercase tracking-tighter transition-colors",
-                                            filter === tab ? "bg-zinc-900 text-white" : "bg-white text-zinc-400 hover:bg-zinc-50"
+                                            "flex-1 text-[10px] font-mono font-bold uppercase tracking-tighter transition-colors cursor-pointer",
+                                            filter === tab ? "bg-zinc-800 text-white" : "bg-white text-zinc-500 hover:bg-zinc-50"
                                         )}
                                     >
                                         {tab}
@@ -97,36 +97,36 @@ const BookmarkNodeCard = ({ data }: any) => {
     const isJob = data.type === "Job";
 
     return (
-        <div className="p-4 flex flex-col justify-center min-h-[90px] bg-white hover:bg-zinc-50 transition-colors cursor-pointer group relative">
-            <div className="flex justify-between items-start mb-2">
+        <div className="p-3 flex flex-col justify-center min-h-[90px] bg-white hover:bg-zinc-50 transition-colors cursor-pointer group relative">
+            <div className="flex justify-between items-start mb-1">
                 <div className="flex flex-col min-w-0">
-                    <span className="text-[8px] font-mono font-black text-zinc-400 uppercase tracking-widest leading-none">
+                    <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest leading-none">
                         {data.status} 
                         {/* Match signal only for Job nodes */}
                         {isJob && (
                             <>
-                                <span className="mx-1 opacity-30">•</span> 
+                                <span className="mx-1 opacity-50">•</span> 
                                 {data.match}% MATCH
                             </>
                         )}
                     </span>
-                    <h3 className="text-xs font-black text-zinc-900 uppercase tracking-tight truncate leading-tight mt-1.5">
+                    <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-tight truncate leading-tight mt-1.5">
                         {data.title}
                     </h3>
                     <div className="flex items-center gap-1.5 mt-1">
-                        {isJob ? <Briefcase size={10} className="text-zinc-500"/> : <FileText size={10} className="text-zinc-500"/>}
-                        <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-tighter">
+                        {isJob ? <Briefcase size={11} className="text-zinc-600"/> : <FileText size={11} className="text-zinc-6500"/>}
+                        <span className="text-[11px] font-mono font-bold text-zinc-600 uppercase tracking-tighter">
                             {data.entity}
                         </span>
                     </div>
                 </div>
-                <button className="text-zinc-200 group-hover:text-zinc-900 transition-colors">
+                <button className="text-white group-hover:text-zinc-900 transition-colors">
                     <ArrowUpRight size={16} />
                 </button>
             </div>
 
             <div className="flex items-center justify-between mt-auto ">
-                <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-tighter">
+                <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-tighter">
                     {data.meta}
                 </span>
                 <div className="flex gap-2">
