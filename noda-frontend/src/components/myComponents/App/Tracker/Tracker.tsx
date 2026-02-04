@@ -33,7 +33,7 @@ const AppTracker = () => {
                     
                     {/* 1. GAPLESS FILTER & STATUS HUB */}
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-10">
-                        <div className="flex flex-1 items-center divide-x divide-zinc-200 h-full">
+                        <div className="flex flex-1 items-center divide-x divide-zinc-300 h-full">
                             {/* Search Node */}
                             <div className="relative flex-[2] flex items-center bg-white px-3 h-full">
                                 <Search size={14} className="text-zinc-400 mr-2" />
@@ -54,14 +54,14 @@ const AppTracker = () => {
                             </div>
 
                             {/* Showing Intelligence Section */}
-                            <div className="w-24 h-full flex items-center justify-center bg-zinc-50 border-r border-zinc-200">
-                                <span className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-tighter">
+                            <div className="w-24 h-full flex items-center justify-center bg-zinc-50 border-r border-zinc-300">
+                                <span className="text-[10px] font-mono font-bold text-zinc-500  tracking-tighter">
                                     {filteredData.length}/{trackerData.length} NODES
                                 </span>
                             </div>
 
                             {/* Separate Add Action */}
-                            <button className="px-4 h-full bg-white hover:bg-zinc-50 transition-all active:scale-95 group">
+                            <button className="px-3 h-full bg-white hover:bg-zinc-200/80 transition-all cursor-pointer active:scale-95 group">
                                 <Plus size={16} className="text-zinc-400 group-hover:text-zinc-900" />
                             </button>
                         </div>
@@ -87,26 +87,26 @@ const AppTracker = () => {
                                         <div className="flex justify-between items-start">
                                             <div className="flex flex-col min-w-0">
                                                 <span className={cn(
-                                                    "text-[8px] font-mono font-black uppercase tracking-widest",
-                                                    isUnscheduled ? "text-amber-600" : "text-zinc-400"
+                                                    "text-[9px] font-mono font-black uppercase tracking-widest",
+                                                    isUnscheduled ? "text-orange-600" : "text-zinc-500"
                                                 )}>
                                                     {isUnscheduled ? "INTELLIGENCE REQUIRED" : `APPLIED ${item.applied}`}
                                                     <span className="mx-1 opacity-30">•</span> {item.match}%
                                                 </span>
-                                                <h3 className="text-[10px] font-black text-zinc-900 uppercase tracking-tight truncate leading-tight mt-1.5">
+                                                <h3 className="text-[11px] font-bold text-zinc-900 uppercase tracking-tight truncate leading-tight mt-1.5">
                                                     {item.role}
                                                 </h3>
-                                                <p className="text-[9px] text-zinc-500 font-medium truncate uppercase mt-0.5">{item.company}</p>
+                                                <p className="text-[10px] text-zinc-500 font-medium truncate uppercase mt-0.5">{item.company}</p>
                                             </div>
 
                                             <div className="flex flex-col items-end gap-1 shrink-0 ml-4">
                                                 {/* Date or Action Label */}
                                                 {item.interviewDate ? (
-                                                    <span className="text-[8px] font-mono font-black text-blue-600 bg-blue-100 px-1 border border-blue-200 uppercase py-0.5">
+                                                    <span className="text-[9px] font-mono font-black text-blue-600 bg-blue-100 px-1 border border-blue-200 uppercase py-0.5">
                                                         {item.interviewDate}
                                                     </span>
                                                 ) : isUnscheduled ? (
-                                                    <div className="text-[8px] font-mono font-black text-amber-600 animate-pulse uppercase">
+                                                    <div className="text-[9px] font-mono font-black text-orange-600 animate-pulse uppercase">
                                                         Pick Date
                                                     </div>
                                                 ) : null}
