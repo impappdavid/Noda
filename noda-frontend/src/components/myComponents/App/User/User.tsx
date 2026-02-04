@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import {
-    Github, Briefcase, CheckCircle2,
-    GraduationCap, Award, MessageSquare, 
-    Heart, Eye, Bookmark, MoreHorizontal,
-    Terminal, ShieldCheck
+    Github, Briefcase,
+    GraduationCap, Award, MessageSquare,
+    Heart, Eye, MoreHorizontal,
+
+    BadgeCheck
 } from 'lucide-react';
 import Navbar from '../navbar';
 import AppSideBar from '../Sidebar';
@@ -27,10 +28,10 @@ const UserProfile = () => {
 
                 {/* MAIN: GLOBAL FLOW */}
                 <main className="flex flex-1 border-x border-zinc-300 bg-white pt-13 mb-24 min-h-screen flex">
-                    
+
                     {/* CENTER: CONTENT */}
                     <div className="flex-1 flex flex-col border-r border-zinc-300">
-                        
+
                         {/* IDENTITY BANNER */}
                         <div className="relative shrink-0">
                             <div className="h-32 bg-zinc-900 overflow-hidden relative border-b border-zinc-300">
@@ -45,7 +46,7 @@ const UserProfile = () => {
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <h1 className="text-lg font-black uppercase tracking-tighter">John Doe</h1>
-                                    <CheckCircle2 size={14} className="text-blue-600" />
+                                    <BadgeCheck size={16} className="text-emerald-600" />
                                 </div>
                                 <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-tight">Lead Engineer @ Noda Labs</p>
                             </div>
@@ -122,19 +123,20 @@ const UserProfile = () => {
                             )}
 
                             {activeTab === 'Posts' && (
-                                <div className="divide-y divide-zinc-200">
+                                <div className="divide-y divide-zinc-300">
                                     {[1, 2, 3, 4, 5].map(i => (
-                                        <div key={i} className="p-6 hover:bg-zinc-50/50 transition-colors cursor-pointer border-b border-zinc-100">
-                                            <div className="flex items-center justify-between mb-3 text-[8px] font-mono font-black text-zinc-300 uppercase">
+                                        <div key={i} className="p-3 hover:bg-zinc-50/50 transition-colors cursor-pointer border-b border-zinc-300">
+                                            <div className="flex items-center justify-between mb-2 text-[9px] font-mono font-black text-zinc-500 uppercase">
                                                 <span>Node_Signal_0x{i}</span>
                                                 <MoreHorizontal size={12} />
                                             </div>
-                                            <h5 className="text-[11px] font-black uppercase mb-2 text-zinc-900">Distributed Latency Benchmarks for Rust Clusters</h5>
-                                            <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-tight line-clamp-2 mb-4">Initial data suggests zero-copy serialization outperforms traditional methods by 14%...</p>
-                                            <div className="flex items-center gap-6 border-t border-zinc-100 pt-4">
-                                                <PostStat icon={<Eye size={12} />} count="1.2k" />
+                                            <h5 className="text-[11px] font-bold uppercase mb-1 text-zinc-900">Distributed Latency Benchmarks for Rust Clusters</h5>
+                                            <p className="text-xs text-zinc-500 font-semibold tracking-tight line-clamp-2 mb-3">Initial data suggests zero-copy serialization outperforms traditional methods by 14%...</p>
+                                            <div className="flex items-center gap-6 border-t border-zinc-300 pt-2 px-0.5">
+
                                                 <PostStat icon={<Heart size={12} />} count="42" />
                                                 <PostStat icon={<MessageSquare size={12} />} count="12" />
+                                                <PostStat icon={<Eye size={12} />} count="1.2k" />
                                             </div>
                                         </div>
                                     ))}
@@ -156,7 +158,7 @@ const UserProfile = () => {
                                 </div>
                                 <span className="text-[8px] font-mono font-black text-zinc-400 uppercase tracking-tighter">Avail: Immediate</span>
                             </div>
-                            
+
                             <div className="p-3 bg-zinc-50/50">
                                 <h2 className="text-[9px] font-mono font-black uppercase tracking-[0.3em] text-zinc-500">Brief</h2>
                             </div>
@@ -183,9 +185,9 @@ const UserProfile = () => {
 
 // --- HELPERS ---
 const PostStat = ({ icon, count }: any) => (
-    <button className="flex items-center gap-1.5 text-zinc-400 hover:text-zinc-900 transition-colors">
+    <button className="flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 transition-colors">
         {icon}
-        <span className="text-[9px] font-mono font-black uppercase tracking-tighter">{count}</span>
+        <span className="text-[11px] font-mono font-black uppercase tracking-tighter">{count}</span>
     </button>
 );
 

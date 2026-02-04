@@ -20,6 +20,7 @@ import PostDetail from './components/myComponents/App/Post/Post'
 import JobDetailPage from './components/myComponents/App/Job/Job'
 import CommunityDetail from './components/myComponents/App/Community/Community'
 import UserProfile from './components/myComponents/App/User/User'
+import NotificationsPage from './components/myComponents/App/Notifications/Notifications'
 
 function App() {
 
@@ -49,6 +50,8 @@ function App() {
         <Route path="/app/calendar" element={<AppCalendar />} />
         <Route path="/app/network" element={<AppNetwork />} />
         <Route path="/app/bookmarks" element={<AppBookmarks />} />
+
+        <Route path="/app/notifications" element={<NotificationsPage />} />
 
       </Routes>
     </>
