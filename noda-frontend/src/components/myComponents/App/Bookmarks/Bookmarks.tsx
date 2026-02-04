@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, Bookmark, ArrowUpRight, Briefcase, FileText, MessageSquare } from 'lucide-react';
-import Navbar from '../navbar';
+import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import { cn } from "@/lib/utils";
 

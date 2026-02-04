@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Plus, Search, Check, ChevronsUpDown } from 'lucide-react';
-import Navbar from '../navbar';
+import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import { Button } from "@/components/ui/button";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";

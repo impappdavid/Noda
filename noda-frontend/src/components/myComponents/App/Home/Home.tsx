@@ -1,8 +1,8 @@
-import Navbar from '../navbar';
 import AppSideBar from '../Sidebar';
 import PostForm from './PostForm';
 import Feed from './Feed';
 import Suggestions from './Suggestions';
+import Navbar from '../AppNavbar';
 
 const AppHome = () => {
   return (

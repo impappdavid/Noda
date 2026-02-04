@@ -2,7 +2,7 @@ import {
     ArrowLeft, MessageSquare, Heart, Eye, Send,
     MoreHorizontal, Bookmark, Share2, AlertTriangle
 } from 'lucide-react';
-import Navbar from '../navbar';
+import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 
 const PostDetail = () => {

@@ -4,7 +4,7 @@ import {
   Save, LogOut, Trash2, AtSign, FileText,
   AlertTriangle, Palette
 } from 'lucide-react';
-import Navbar from '../navbar';
+import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ const SettingsPage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-white text-zinc-900 font-sans flex flex-col relative">
+        <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col relative">
             <Navbar />
             
             <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4">
@@ -30,7 +30,7 @@ const SettingsPage = () => {
                     </div>
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen flex pt-12 mb-24 relative overflow-visible">
+                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen flex pt-12  relative overflow-visible">
                     
                     {/* ENLARGED CATEGORY RAIL */}
                     <div className="w-48 flex flex-col border-r border-zinc-300 bg-zinc-50/30 sticky top-12 h-[calc(100vh-52px)]">

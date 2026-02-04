@@ -20,7 +20,7 @@ const PostForm = () => {
 
     return (
         <div className=" border-zinc-300 bg-white">
-            <Dialog>
+            <Dialog >
                 {/* The Trigger: A clean input-like button to open the modal */}
                 <DialogTrigger asChild>
                     <button className="w-full flex items-center justify-between bg-zinc-800 px-4 py-3 text-sm text-zinc-300 hover:bg-zinc-900/90 transition-all text-left cursor-pointer group">

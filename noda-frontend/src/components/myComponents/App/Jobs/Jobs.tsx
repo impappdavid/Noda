@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SlidersHorizontal, Check, ChevronsUpDown } from 'lucide-react';
-import Navbar from '../navbar';
+import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import JobInfo from './JobInfos';
 import JobList from './JobList';

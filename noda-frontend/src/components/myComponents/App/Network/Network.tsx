@@ -1,5 +1,5 @@
 import { Plus, Search, X, } from 'lucide-react';
-import Navbar from '../navbar';
+import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import { cn } from "@/lib/utils";
 

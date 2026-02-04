@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Search, Globe, Users, Star, MessageSquare, ShieldAlert } from 'lucide-react';
-import Navbar from '../navbar';
+import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import SearchCompany from './SearchForm';
 import CompanyList from './CompanyList';

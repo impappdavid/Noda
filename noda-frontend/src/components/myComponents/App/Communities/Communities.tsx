@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ArrowUpRight, Plus, Check, ChevronsUpDown } from 'lucide-react';
-import Navbar from '../navbar';
+import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 
 // Shadcn UI Components

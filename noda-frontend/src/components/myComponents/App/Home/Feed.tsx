@@ -110,8 +110,8 @@ const Feed = () => {
   return (
     <div className="flex flex-col">
       {testPosts.map((post) => (
-        <div key={post.id} className="p-5 border-b border-zinc-300 hover:bg-zinc-50/20 transition-colors group">
-          <div className="flex justify-between items-start mb-3">
+        <div key={post.id} className="p-3 border-b border-zinc-300 hover:bg-zinc-50/20 transition-colors group">
+          <div className="flex justify-between items-start mb-2">
             <div className="flex gap-3">
               <div className="w-10 h-10 rounded-full bg-zinc-100 border border-zinc-200 shrink-0 overflow-hidden">
                 <img src={post.author.avatar} alt={post.author.name} className="w-full h-full object-cover" />
@@ -126,13 +126,11 @@ const Feed = () => {
                     {post.author.username}
                   </span>
                 </div>
-                <span className="text-[11px] text-zinc-600 mt-0.5">{post.author.role}</span>
-                <span className="text-[10px] text-zinc-400 font-mono tracking-tighter uppercase mt-0.5">
-                  Protocol Update • {post.postedAgo} ago
-                </span>
+                <span className="text-[11px] text-zinc-600 mt-0.5">{post.author.role} • {post.postedAgo} ago</span>
+                
               </div>
             </div>
-            <button className="text-zinc-400 hover:text-zinc-900 transition-colors p-1">
+            <button className="text-zinc-500 hover:text-zinc-900 transition-colors p-1">
               <MoreHorizontal className="w-4 h-4" />
             </button>
           </div>
