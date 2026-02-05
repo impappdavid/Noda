@@ -22,6 +22,7 @@ import CommunityDetail from './components/myComponents/App/Community/Community'
 import UserProfile from './components/myComponents/App/User/User'
 import NotificationsPage from './components/myComponents/App/Notifications/Notifications'
 import SettingsPage from './components/myComponents/App/Settings/Settings'
+import MessagesPage from './components/myComponents/App/Messages/Messages'
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
 
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/settings" element={<SettingsPage />} />
+        <Route path="/app/messages" element={<MessagesPage />} />
 
       </Routes>
     </>
