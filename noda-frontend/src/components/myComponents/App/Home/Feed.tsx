@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import {
   MoreHorizontal,
   Heart,
@@ -10,6 +10,7 @@ import {
   EyeOff,
   Flag,
   X as CloseIcon,
+  Check
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -19,7 +20,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 
 // --- UTILITIES ---
 const cn = (...classes: (string | boolean | undefined | null)[]): string =>
@@ -43,22 +43,29 @@ const testPosts = [
     images: ["https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800"]
   },
   {
-    id: "p2",
+    id: "p_poll_1",
     author: {
-      name: "Sarah Chen",
-      username: "@schen_dev",
-      role: "Backend Architect",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+      name: "Marcus Vane",
+      username: "@mv_arch",
+      role: "Systems Architect",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
     },
-    postedAgo: "4h",
-    content: "Just updated my Node vector. The matching precision for Rust-based roles is incredibly high.",
-    likes: 56,
-    comments: 8,
-    views: "2.4k",
-    images: [
-      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800",
-      "https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=800"
-    ]
+    postedAgo: "1h",
+    content: "Which serialization protocol are you prioritizing for low-latency node clusters in 2026?",
+    likes: 89,
+    comments: 34,
+    views: "5.6k",
+    images: [],
+    poll: {
+      options: [
+        { label: "Protocol Buffers", votes: 450 },
+        { label: "Cap'n Proto", votes: 120 },
+        { label: "FlatBuffers", votes: 310 },
+        { label: "MessagePack", votes: 85 }
+      ],
+      totalVotes: 965,
+      hasVoted: false
+    }
   },
   {
     id: "p4",
@@ -82,7 +89,6 @@ const testPosts = [
   }
 ];
 
-// --- MAIN FEED COMPONENT ---
 export default function Feed() {
   const navigate = useNavigate();
 
@@ -90,6 +96,9 @@ export default function Feed() {
   const [likedPosts, setLikedPosts] = useState<Record<string, boolean>>({});
   const [bookmarkedPosts, setBookmarkedPosts] = useState<Record<string, boolean>>({});
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  
+  // State for Poll Voting
+  const [userVotes, setUserVotes] = useState<Record<string, number | null>>({});
 
   const handleRedirect = (e: React.MouseEvent, username: string) => {
     e.stopPropagation();
@@ -109,12 +118,17 @@ export default function Feed() {
     setBookmarkedPosts((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const handleVote = (e: React.MouseEvent, postId: string, optionIndex: number) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (userVotes[postId] !== undefined) return; // Prevent multiple votes
+    setUserVotes(prev => ({ ...prev, [postId]: optionIndex }));
+  };
+
   return (
     <div className="max-w-2xl mx-auto flex flex-col relative bg-white min-h-screen">
       
-      
-
-      {/* 2. IMAGE LIGHTBOX (X-Style) */}
+      {/* IMAGE LIGHTBOX */}
       {selectedImg && (
         <div 
           className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
@@ -131,7 +145,7 @@ export default function Feed() {
         </div>
       )}
 
-      {/* 3. FEED THREAD */}
+      {/* FEED THREAD */}
       {testPosts.map((post) => (
         <Link 
           to={`/app/post/${post.id}`} 
@@ -169,8 +183,66 @@ export default function Feed() {
               {post.content}
             </p>
 
+            {/* POLL IMPLEMENTATION */}
+            {post.poll && (
+                <div className="space-y-2 mb-4 pr-2" onClick={(e) => e.preventDefault()}>
+                    {post.poll.options.map((option, idx) => {
+                        const isVoted = userVotes[post.id] !== undefined;
+                        const userChoice = userVotes[post.id] === idx;
+                        const percentage = isVoted 
+                            ? Math.round(((option.votes + (userChoice ? 1 : 0)) / (post.poll!.totalVotes + 1)) * 100) 
+                            : 0;
+
+                        return (
+                            <button
+                                key={idx}
+                                onClick={(e) => handleVote(e, post.id, idx)}
+                                disabled={isVoted}
+                                className={cn(
+                                    "relative w-full h-9 rounded-lg border text-left px-3 overflow-hidden transition-all group/poll",
+                                    isVoted ? "border-zinc-200 cursor-default" : "border-zinc-300 hover:border-zinc-900 cursor-pointer"
+                                )}
+                            >
+                                {/* Percentage Bar */}
+                                {isVoted && (
+                                    <div 
+                                        className={cn(
+                                            "absolute inset-y-0 left-0 transition-all duration-1000 ease-out",
+                                            userChoice ? "bg-orange-500/10" : "bg-zinc-100"
+                                        )}
+                                        style={{ width: `${percentage}%` }}
+                                    />
+                                )}
+                                
+                                <div className="relative z-10 flex justify-between items-center h-full">
+                                    <div className="flex items-center gap-2">
+                                        <span className={cn(
+                                            "text-xs font-bold",
+                                            userChoice ? "text-orange-600" : "text-zinc-700"
+                                        )}>
+                                            {option.label}
+                                        </span>
+                                        {userChoice && <Check size={12} className="text-orange-600" />}
+                                    </div>
+                                    {isVoted && (
+                                        <span className="text-[10px] font-mono font-black text-zinc-500">
+                                            {percentage}%
+                                        </span>
+                                    )}
+                                </div>
+                            </button>
+                        );
+                    })}
+                    {userVotes[post.id] !== undefined && (
+                        <p className="text-[10px] font-mono font-bold text-zinc-400 mt-1 uppercase tracking-widest">
+                            {post.poll.totalVotes + 1} Signals_Received • Final_Results
+                        </p>
+                    )}
+                </div>
+            )}
+
             {/* DYNAMIC GRID */}
-            {post.images.length > 0 && (
+            {post.images && post.images.length > 0 && (
               <div className={cn(
                 "rounded-2xl overflow-hidden border border-zinc-100 grid gap-1 mb-4",
                 post.images.length === 1 ? "grid-cols-1" : "grid-cols-2",
@@ -234,8 +306,6 @@ export default function Feed() {
   );
 }
 
-
-
 // --- OPTIONS DROPDOWN COMPONENT ---
 function PostOptions() {
   return (
@@ -248,7 +318,7 @@ function PostOptions() {
           <MoreHorizontal size={16} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-24 rounded-xl border-zinc-300 p-1 shadow-2xl" onClick={(e)=>e.stopPropagation()}>
+      <DropdownMenuContent align="end" className="w-24 rounded-xl border-zinc-300 p-1 shadow-2xl bg-white" onClick={(e)=>e.stopPropagation()}>
         <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-lg hover:bg-zinc-200"> <Link2 size={12} /> Copy_URL </DropdownMenuItem>
         <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-lg hover:bg-zinc-200"> <EyeOff size={12} /> Hide_Node </DropdownMenuItem>
         <DropdownMenuSeparator />
