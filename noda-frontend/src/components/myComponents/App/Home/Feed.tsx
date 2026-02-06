@@ -164,7 +164,7 @@ export default function Feed() {
                 <div className="flex items-center gap-2">
                   <span 
                     onClick={(e) => handleRedirect(e, post.author.name)}
-                    className="text-sm font-black text-zinc-900 hover:underline cursor-pointer"
+                    className="text-sm font-bold text-zinc-900 hover:underline cursor-pointer"
                   >
                     {post.author.name}
                   </span>
@@ -199,8 +199,8 @@ export default function Feed() {
                                 onClick={(e) => handleVote(e, post.id, idx)}
                                 disabled={isVoted}
                                 className={cn(
-                                    "relative w-full h-9 rounded-lg border text-left px-3 overflow-hidden transition-all group/poll",
-                                    isVoted ? "border-zinc-200 cursor-default" : "border-zinc-300 hover:border-zinc-900 cursor-pointer"
+                                    "relative w-full h-9 rounded-lg border text-left px-3 overflow-hidden transition-colors group/poll",
+                                    isVoted ? "border-zinc-300 cursor-default" : "border-zinc-300 hover:border-orange-500 hover:bg-orange-500/10 cursor-pointer"
                                 )}
                             >
                                 {/* Percentage Bar */}
@@ -208,7 +208,7 @@ export default function Feed() {
                                     <div 
                                         className={cn(
                                             "absolute inset-y-0 left-0 transition-all duration-1000 ease-out",
-                                            userChoice ? "bg-orange-500/10" : "bg-zinc-100"
+                                            userChoice ? "bg-orange-500/20" : "bg-zinc-200"
                                         )}
                                         style={{ width: `${percentage}%` }}
                                     />
