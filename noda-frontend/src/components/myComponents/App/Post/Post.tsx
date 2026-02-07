@@ -77,7 +77,7 @@ const PostDetail = () => {
 
             <div className="max-w-4xl w-full mx-auto px-6 flex gap-4">
                 <aside className="w-24 flex-none">
-                    <div className="sticky top-0 pt-4">
+                    <div className="sticky top-0 pt-16">
                         <AppSideBar />
                     </div>
                 </aside>
@@ -215,7 +215,7 @@ const PostDetail = () => {
                     </main>
 
                     {/* RIGHT ASIDE */}
-                    <aside className="sticky top-0 h-screen pt-13 w-40 flex flex-col gap-4">
+                    <aside className="sticky top-0 h-screen pt-15 w-40 flex flex-col gap-4">
                         <div className="p-3 bg-zinc-50 border border-zinc-200 rounded-2xl">
                             <h4 className="text-[9px] font-mono font-black uppercase text-zinc-400 mb-3 tracking-widest">Node_Intelligence</h4>
                             <div className="flex items-center gap-3">
