@@ -131,10 +131,10 @@ export default function Feed() {
       {/* IMAGE LIGHTBOX */}
       {selectedImg && (
         <div 
-          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-[100] bg-black/20 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setSelectedImg(null)}
         >
-          <button className="absolute top-4 right-4 p-2 hover:bg-zinc-800/80 rounded-full cursor-pointer text-white/50 hover:text-white transition-colors">
+          <button className="absolute top-4 right-4 p-2 hover:bg-zinc-800/60  cursor-pointer text-black/50 hover:text-white transition-colors">
             <CloseIcon size={26} />
           </button>
           <img 
@@ -155,7 +155,7 @@ export default function Feed() {
           <div className="flex justify-between items-start mb-1">
             <div className="flex gap-3">
               <div 
-                className="w-10 h-10 rounded-full border border-zinc-200 overflow-hidden cursor-pointer active:scale-95 transition-transform"
+                className="w-10 h-10  border border-zinc-200 overflow-hidden cursor-pointer active:scale-95 transition-transform"
                 onClick={(e) => handleRedirect(e, post.author.name)}
               >
                 <img src={post.author.avatar} alt={post.author.name} className="w-full h-full object-cover" />
@@ -199,7 +199,7 @@ export default function Feed() {
                                 onClick={(e) => handleVote(e, post.id, idx)}
                                 disabled={isVoted}
                                 className={cn(
-                                    "relative w-full h-9 rounded-lg border text-left px-3 overflow-hidden transition-colors group/poll",
+                                    "relative w-full h-9  border text-left px-3 overflow-hidden transition-colors group/poll",
                                     isVoted ? "border-zinc-300 cursor-default" : "border-zinc-300 hover:border-orange-500 hover:bg-orange-500/10 cursor-pointer"
                                 )}
                             >
@@ -244,7 +244,7 @@ export default function Feed() {
             {/* DYNAMIC GRID */}
             {post.images && post.images.length > 0 && (
               <div className={cn(
-                "rounded-2xl overflow-hidden border border-zinc-100 grid gap-1 mb-4",
+                " overflow-hidden border border-zinc-100 grid gap-1 mb-4",
                 post.images.length === 1 ? "grid-cols-1" : "grid-cols-2",
                 post.images.length >= 3 ? "aspect-square" : "aspect-video"
               )}>
@@ -312,17 +312,17 @@ function PostOptions() {
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <button 
-          className="text-zinc-500 hover:text-zinc-900 p-1.5 rounded-lg hover:bg-zinc-200 outline-none cursor-pointer transition-colors"
+          className="text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors"
           onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
         >
           <MoreHorizontal size={16} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-24 rounded-xl border-zinc-300 p-1 shadow-2xl bg-white" onClick={(e)=>e.stopPropagation()}>
-        <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-lg hover:bg-zinc-200"> <Link2 size={12} /> Copy_URL </DropdownMenuItem>
-        <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-lg hover:bg-zinc-200"> <EyeOff size={12} /> Hide_Node </DropdownMenuItem>
+      <DropdownMenuContent align="end" className="w-24 rounded-none border-zinc-300 p-1 shadow-2xl bg-white" onClick={(e)=>e.stopPropagation()}>
+        <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-200/80"> <Link2 size={12} /> Copy_URL </DropdownMenuItem>
+        <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-200/80"> <EyeOff size={12} /> Hide_Node </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="gap-1.5 text-xs font-mono text-red-600 rounded-lg hover:bg-zinc-200 focus:text-red-600 cursor-pointer py-2"> <Flag size={12} /> Report </DropdownMenuItem>
+        <DropdownMenuItem className="gap-1.5 text-xs font-mono text-red-600 rounded-none hover:bg-zinc-200/80 focus:text-red-600 cursor-pointer py-2"> <Flag size={12} /> Report </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

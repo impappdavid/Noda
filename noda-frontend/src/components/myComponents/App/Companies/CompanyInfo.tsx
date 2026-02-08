@@ -1,6 +1,26 @@
-import { Globe, ShieldAlert, Users, Plus } from "lucide-react"
+import { useState } from "react"
+import { Globe, ShieldAlert, Users, Plus, Star, X, EyeOff, Eye, Send } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Switch } from "@/components/ui/switch"
+
+const cn = (...classes: (string | boolean | undefined | null)[]): string =>
+    classes.filter(Boolean).join(" ");
 
 const CompanyInfo = ({ selectedCompany }: any) => {
+    const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(0);
+    const [comment, setComment] = useState("");
+    const [isAnonymous, setIsAnonymous] = useState(true);
+
+    const handleSubmitFeedback = () => {
+        // Logic to transmit signal
+        console.log({ rating, comment, isAnonymous });
+        setIsFeedbackOpen(false);
+        setRating(0);
+        setComment("");
+    };
+
     return (
         <div className="flex flex-col h-full bg-white overflow-hidden border-zinc-300 pt-1">
             {/* 1. Header Protocol */}
@@ -73,16 +93,98 @@ const CompanyInfo = ({ selectedCompany }: any) => {
                 </div>
             </div>
 
-            {/* 4. FULL-WIDTH SQUARED ACTION BUTTON */}
-            <button 
-                className="w-full h-12 bg-zinc-900 flex items-center justify-center gap-3 hover:bg-black transition-all active:scale-[0.99] shrink-0"
-                onClick={() => {/* Trigger Dialog Logic */}}
-            >
-                <Plus size={16} className="text-white" />
-                <span className="text-[10px] font-mono font-black text-white uppercase tracking-[0.2em]">
-                    Submit Intel Signal
-                </span>
-            </button>
+            {/* 4. FEEDBACK DIALOG INTEGRATION */}
+            <Dialog open={isFeedbackOpen} onOpenChange={setIsFeedbackOpen}>
+                <DialogTrigger asChild>
+                    <button className="w-full h-12 bg-zinc-800 flex items-center justify-center gap-3 hover:bg-black transition-all active:scale-[0.99] shrink-0 cursor-pointer">
+                        <Plus size={16} className="text-white" />
+                        <span className="text-[10px] font-mono font-black text-white uppercase tracking-[0.2em]">
+                            Submit Intel Signal
+                        </span>
+                    </button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md bg-white border border-none rounded-none p-0 overflow-hidden shadow-2xl">
+                    <DialogHeader className="p-4 bg-zinc-800 text-white flex flex-row items-center justify-between space-y-0">
+                        <DialogTitle className="text-[10px] font-mono font-black uppercase tracking-[0.2em]">
+                            Initialize_Feedback_Protocol
+                        </DialogTitle>
+                    </DialogHeader>
+
+                    <div className="p-4 space-y-4">
+                        {/* Rating Logic */}
+                        <div>
+                            <label className="text-[10px] font-mono font-bold uppercase text-zinc-500 mb-3 block">Signal_Strength (Rating)</label>
+                            <div className="flex gap-2">
+                                {[1, 2, 3, 4, 5].map((star) => (
+                                    <button
+                                        key={star}
+                                        type="button"
+                                        className="transition-transform active:scale-90 cursor-pointer"
+                                        onClick={() => setRating(star)}
+                                        onMouseEnter={() => setHover(star)}
+                                        onMouseLeave={() => setHover(0)}
+                                    >
+                                        <Star
+                                            size={24}
+                                            className={cn(
+                                                "transition-colors",
+                                                (hover || rating) >= star 
+                                                    ? "fill-orange-500 text-orange-500" 
+                                                    : "text-zinc-500"
+                                            )}
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Comment Input */}
+                        <div>
+                            <label className="text-[10px] font-mono font-black uppercase text-zinc-500 mb-2 block">Intelligence_Report (Comment)</label>
+                            <textarea
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                                placeholder="Describe internal node conditions..."
+                                className="w-full h-24 p-3 bg-zinc-50 border border-zinc-300 text-xs font-mono outline-none focus:border-zinc-900 resize-none placeholder:text-zinc-400"
+                            />
+                        </div>
+
+                        {/* Privacy Protocol */}
+                        <div className="flex items-center justify-between p-2">
+                            <div className="flex items-center gap-3">
+                                {isAnonymous ? <EyeOff size={18} className="text-orange-600" /> : <Eye size={18} className="text-zinc-500" />}
+                                <div>
+                                    <p className="text-[11px] font-mono font-black uppercase text-zinc-900">Anonymous_Protocol</p>
+                                    <p className="text-[9px] font-mono text-zinc-500 uppercase">Hide source node identity</p>
+                                </div>
+                            </div>
+                            <Switch 
+                                checked={isAnonymous} 
+                                onCheckedChange={setIsAnonymous} 
+                                className="scale-75"
+                            />
+                        </div>
+
+                        {/* Submission */}
+                        <div className="flex gap-2">
+                            <button 
+                                onClick={() => setIsFeedbackOpen(false)}
+                                className="flex-1 h-10 border border-zinc-300 text-[11px] font-mono font-black uppercase hover:bg-zinc-300/80 transition-colors cursor-pointer"
+                            >
+                                Abort
+                            </button>
+                            <button 
+                                onClick={handleSubmitFeedback}
+                                disabled={!rating || comment.length < 5}
+                                className="flex-[2] h-10 bg-zinc-800 text-white text-[11px] font-mono font-black uppercase hover:bg-zinc-900 disabled:bg-zinc-200 disabled:text-zinc-500 transition-all flex items-center cursor-pointer justify-center gap-2"
+                            >
+                                <Send size={12} />
+                                Transmit_Signal
+                            </button>
+                        </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
         </div>
     )
 }

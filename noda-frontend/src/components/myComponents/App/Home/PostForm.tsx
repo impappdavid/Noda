@@ -58,8 +58,8 @@ export default function PostForm() {
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <div className={cn(
-                                    "w-12 h-12 border flex items-center justify-center transition-colors overflow-hidden",
-                                    isAnonymous ? "bg-zinc-900 border-orange-600" : "bg-zinc-100 border-zinc-200"
+                                    "w-12 h-12 flex items-center justify-center transition-colors overflow-hidden",
+                                    isAnonymous ? "bg-zinc-800 " : "bg-zinc-100"
                                 )}>
                                     {isAnonymous ? (
                                         <EyeOff size={18} className="text-orange-600" />
@@ -104,7 +104,7 @@ export default function PostForm() {
                         {images.length > 0 && (
                             <div className={cn("grid gap-1 border border-zinc-200 overflow-hidden mb-4", images.length === 1 ? "grid-cols-1" : "grid-cols-2")}>
                                 {images.map((src, idx) => (
-                                    <div key={idx} className="relative aspect-video bg-zinc-100">
+                                    <div key={idx} className="relative aspect-auto bg-zinc-100">
                                         <img src={src} alt="" className="w-full h-full object-cover" />
                                         <button
                                             type="button"
@@ -121,7 +121,7 @@ export default function PostForm() {
                         {showPoll && (
                             <div className="p-4 bg-zinc-50 border border-zinc-200 space-y-4">
                                 <div className="flex justify-between items-center border-b border-zinc-200 pb-2">
-                                    <span className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-[0.2em]">Poll_Parameters</span>
+                                    <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em]">Poll_Parameters</span>
                                     <button type="button" onClick={() => setShowPoll(false)} className="text-zinc-400 hover:text-red-500 cursor-pointer">
                                         <X size={14} />
                                     </button>

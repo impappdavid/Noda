@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { Link } from 'react-router-dom';
 
 // Mock data with visual assets added
 const communityData = [
@@ -78,7 +79,7 @@ const AppCommunities = () => {
 
 // --- COMPACT PROTOCOL CARD WITH ASSETS ---
 const CompactProtocolCard = ({ community }) => (
-    <div className="group bg-white flex flex-col justify-center  relative hover:bg-zinc-100 transition-all cursor-pointer overflow-hidden">
+    <Link to={`/app/communities/${community.name}`} className="group bg-white flex flex-col justify-center  relative hover:bg-zinc-100 transition-all cursor-pointer overflow-hidden">
         
         
 
@@ -106,7 +107,7 @@ const CompactProtocolCard = ({ community }) => (
                 />
             </div>
         </div>
-    </div>
+    </Link>
 );
 
 // --- COMBOBOX FILTER COMPONENT ---
