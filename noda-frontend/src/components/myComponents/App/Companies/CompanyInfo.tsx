@@ -145,7 +145,7 @@ const CompanyInfo = ({ selectedCompany }: any) => {
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
                                 placeholder="Describe internal node conditions..."
-                                className="w-full h-24 p-3 bg-zinc-50 border border-zinc-300 text-xs font-mono outline-none focus:border-zinc-900 resize-none placeholder:text-zinc-400"
+                                className="w-full h-24 p-3 bg-zinc-50 border border-zinc-300 text-xs font-mono outline-none resize-none placeholder:text-zinc-400"
                             />
                         </div>
 
