@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
     DollarSign, ShieldCheck, ArrowUpRight, Zap,
     Bookmark, Timer, User2, Briefcase,
@@ -134,8 +134,7 @@ interface JobInfoProps {
         location: string;
         salary: string;
         description: string;
-        workMode: "Remote" | "Hybrid" | "Onsite";
-        authorId: string;
+        workMode: string;
         authorName: string;
     } | null;
 }
@@ -210,7 +209,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
                         <User2 size={12} className="text-zinc-500" />
                     </div>
                     <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest">
-                        Posted by <Link to={`/app/user/${job.authorId}`} className="text-zinc-900 hover:underline">{job.authorName}</Link> • 14 days ago
+                        Posted by <Link to={`/app/user/${job.id}`} className="text-zinc-900 hover:underline">{job.authorName}</Link> • 14 days ago
                     </span>
                 </div>
                 <div className="flex flex-col p-3">
