@@ -23,6 +23,7 @@ import UserProfile from './components/myComponents/App/User/User'
 import NotificationsPage from './components/myComponents/App/Notifications/Notifications'
 import SettingsPage from './components/myComponents/App/Settings/Settings'
 import MessagesPage from './components/myComponents/App/Messages/Messages'
+import CompanyPage from './components/myComponents/App/Company/Company'
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
         <Route path="/app/jobs/:id" element={<JobDetailPage />} />
         <Route path="/app/communities/:id" element={<CommunityDetail />} />
         <Route path="/app/user/:id" element={<UserProfile />} />
+        <Route path="/app/company/:id" element={<CompanyPage />} />
 
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/jobs" element={<AppJobs />} />
