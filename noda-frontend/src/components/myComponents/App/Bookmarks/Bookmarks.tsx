@@ -3,6 +3,7 @@ import { Search, Bookmark, ArrowUpRight, Briefcase, FileText, MessageSquare } fr
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import { cn } from "@/lib/utils";
+import { Link } from 'react-router-dom';
 
 const bookmarkData = [
     { id: 1, type: "Job", title: "Systems Architect", entity: "Rust Foundation", meta: "125k - 180k", status: "Active", match: 94 },
@@ -97,7 +98,7 @@ const BookmarkNodeCard = ({ data }: any) => {
     const isJob = data.type === "Job";
 
     return (
-        <div className="p-3 flex flex-col justify-center min-h-[90px] bg-white hover:bg-zinc-50 transition-colors cursor-pointer group relative">
+        <Link to={data.type === "Job" ? `/app/jobs/${data.id}` : `/app/post/${data.id}`} className="p-3 flex flex-col justify-center min-h-[90px] bg-white hover:bg-zinc-50 transition-colors cursor-pointer group relative">
             <div className="flex justify-between items-start mb-1">
                 <div className="flex flex-col min-w-0">
                     <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest leading-none">
@@ -135,7 +136,7 @@ const BookmarkNodeCard = ({ data }: any) => {
                     </button>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
