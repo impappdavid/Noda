@@ -146,11 +146,11 @@ const PostDetail = () => {
                                                     key={idx}
                                                     onClick={() => !isVoted && setUserVote(idx)}
                                                     className={cn(
-                                                        "relative w-full h-10 rounded-xl border text-left px-4 overflow-hidden transition-all",
-                                                        isVoted ? "border-zinc-100 cursor-default" : "border-zinc-300 hover:border-zinc-900 cursor-pointer"
+                                                        "relative w-full h-9 rounded-none border text-left text-xs px-4 overflow-hidden transition-all",
+                                                        isVoted ? "border-zinc-300 cursor-default" : "border-zinc-300 hover:border-orange-500 hover:bg-orange-500/20 cursor-pointer"
                                                     )}
                                                 >
-                                                    {isVoted && <div className="absolute inset-y-0 left-0 bg-zinc-50" style={{ width: `${percentage}%` }} />}
+                                                    {isVoted && <div className="absolute inset-y-0 left-0 bg-zinc-200" style={{ width: `${percentage}%` }} />}
                                                     <div className="relative z-10 flex justify-between items-center h-full">
                                                         <span className="text-xs font-bold">{option.label}</span>
                                                         {isVoted && <span className="text-[10px] font-mono font-black">{percentage}%</span>}
@@ -162,7 +162,7 @@ const PostDetail = () => {
                                 )}
 
                                 {post.images.length > 0 && (
-                                    <div className="rounded-2xl overflow-hidden border border-zinc-100 grid grid-cols-2 gap-1 mb-4 aspect-video">
+                                    <div className=" overflow-hidden border border-zinc-100 grid grid-cols-2 gap-1 mb-4 aspect-video">
                                         {post.images.map((img, i) => (
                                             <img
                                                 key={i}
