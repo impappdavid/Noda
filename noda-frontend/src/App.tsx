@@ -24,6 +24,7 @@ import NotificationsPage from './components/myComponents/App/Notifications/Notif
 import SettingsPage from './components/myComponents/App/Settings/Settings'
 import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
+import CreatePost from './components/myComponents/App/Admin/CreatePost/CreatePost'
 
 function App() {
 
@@ -58,6 +59,8 @@ function App() {
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/settings" element={<SettingsPage />} />
         <Route path="/app/messages" element={<MessagesPage />} />
+
+        <Route path="/app/admin/post" element={<CreatePost />} />
 
       </Routes>
     </>
