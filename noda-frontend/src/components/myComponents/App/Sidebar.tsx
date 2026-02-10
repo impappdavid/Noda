@@ -33,6 +33,7 @@ const AppSideBar = () => {
         // CEO and Recruiter nodes can manage vacancy deployments
         if (userSession.role === "CEO" || userSession.role === "RECRUITER") {
             adminOptions.push({ name: "Post_Jobs", route: "/app/admin/jobs" });
+            adminOptions.push({ name: "Applications", route: "/app/admin/applications" });
         }
 
         // Only CEO nodes can modify core company specifications and team directory

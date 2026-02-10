@@ -28,6 +28,7 @@ import CreatePost from './components/myComponents/App/Admin/CreatePost/CreatePos
 import PostJob from './components/myComponents/App/Admin/PostJob/PostJob'
 import CompanyDashboard from './components/myComponents/App/Admin/Dashboard/Dashboard'
 import TeamNodesManager from './components/myComponents/App/Admin/Team/Team'
+import ManageApplicants from './components/myComponents/App/Admin/Applications/Applications'
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
         <Route path="/app/admin/jobs" element={<PostJob />} />
         <Route path="/app/admin/dashboard" element={<CompanyDashboard />} />
         <Route path="/app/admin/team" element={<TeamNodesManager />} />
+        <Route path="/app/admin/applications" element={<ManageApplicants />} />
 
       </Routes>
     </>
