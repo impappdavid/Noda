@@ -37,7 +37,7 @@ const AppSideBar = () => {
 
         // Only CEO nodes can modify core company specifications and team directory
         if (userSession.role === "CEO") {
-            adminOptions.push({ name: "Company_Specs", route: "/app/admin/specs" });
+            adminOptions.push({ name: "Company_Dash", route: "/app/admin/dashboard" });
             adminOptions.push({ name: "Team_Nodes", route: "/app/admin/team" });
         }
 
