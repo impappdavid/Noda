@@ -27,6 +27,7 @@ import CompanyPage from './components/myComponents/App/Company/Company'
 import CreatePost from './components/myComponents/App/Admin/CreatePost/CreatePost'
 import PostJob from './components/myComponents/App/Admin/PostJob/PostJob'
 import CompanyDashboard from './components/myComponents/App/Admin/Dashboard/Dashboard'
+import TeamNodesManager from './components/myComponents/App/Admin/Team/Team'
 
 function App() {
 
@@ -65,6 +66,7 @@ function App() {
         <Route path="/app/admin/post" element={<CreatePost />} />
         <Route path="/app/admin/jobs" element={<PostJob />} />
         <Route path="/app/admin/dashboard" element={<CompanyDashboard />} />
+        <Route path="/app/admin/team" element={<TeamNodesManager />} />
 
       </Routes>
     </>
