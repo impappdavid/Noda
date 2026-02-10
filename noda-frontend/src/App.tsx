@@ -25,6 +25,7 @@ import SettingsPage from './components/myComponents/App/Settings/Settings'
 import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
 import CreatePost from './components/myComponents/App/Admin/CreatePost/CreatePost'
+import PostJob from './components/myComponents/App/Admin/PostJob/PostJob'
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
         <Route path="/app/messages" element={<MessagesPage />} />
 
         <Route path="/app/admin/post" element={<CreatePost />} />
+        <Route path="/app/admin/jobs" element={<PostJob />} />
 
       </Routes>
     </>

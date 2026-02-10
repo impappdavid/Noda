@@ -92,7 +92,7 @@ const AppSideBar = () => {
                                         cn(
                                             "text-xs font-medium transition-colors w-fit",
                                             isActive 
-                                                ? "text-orange-600 font-bold" 
+                                                ? "text-orange-600 " 
                                                 : "text-zinc-500/80 hover:text-orange-600"
                                         )
                                     }
