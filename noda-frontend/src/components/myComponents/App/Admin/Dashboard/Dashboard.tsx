@@ -1,13 +1,14 @@
+import React from 'react';
 import { 
     Activity, Users, Eye, MessageSquare, 
-    Heart, BarChart3, 
-    Zap, ArrowUpRight,  Target
+    Heart, BarChart3, Zap, Target
 } from 'lucide-react';
-import { cn } from "@/lib/utils";
 import Navbar from '../../AppNavbar';
 import AppSideBar from '../../Sidebar';
+import { StatModule, MetricRow } from './DashboardStats';
+import PerformanceRow from './PerformanceRow';
 
-const CompanyDashboard = () => {
+const CompanyDashboard: React.FC = () => {
     return (
         <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
             <Navbar />
@@ -31,12 +32,12 @@ const CompanyDashboard = () => {
                                 </p>
                             </div>
                             <div className="flex gap-2">
-                                <button className="h-9 px-4 border border-zinc-300 text-[9px] font-mono font-black uppercase hover:bg-zinc-50 transition-colors cursor-pointer">Export_Logs</button>
+                                <button className="h-9 px-4 border border-zinc-300 text-[9px] font-mono font-black uppercase hover:bg-zinc-50 transition-colors cursor-pointer bg-white">Export_Logs</button>
                                 <button className="h-9 px-4 bg-zinc-800 text-white text-[9px] font-mono font-black uppercase hover:bg-zinc-900 transition-colors cursor-pointer">Refresh_Stream</button>
                             </div>
                         </div>
 
-                        {/* 2. HIGH-LEVEL BROADCAST STATS (4-COLUMN GRID) */}
+                        {/* 2. BROADCAST STATS */}
                         <div className="grid grid-cols-4 gap-px bg-zinc-300 border border-zinc-300">
                             <StatModule label="Avg_Applies" value="442" trend="+12.4%" icon={<Users size={12} />} />
                             <StatModule label="Avg_Post_Views" value="12.8k" trend="+5.2%" icon={<Eye size={12} />} />
@@ -45,11 +46,9 @@ const CompanyDashboard = () => {
                         </div>
                     </div>
 
-                    {/* 3. DETAILED PERFORMANCE ANALYSIS */}
+                    {/* 3. PERFORMANCE ANALYSIS */}
                     <div className="flex-1 p-4 space-y-4 bg-white">
-                        
                         <div className="grid grid-cols-2 gap-4">
-                            {/* Company Page Velocity */}
                             <section className="space-y-4">
                                 <h4 className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2">
                                     <Target size={14} className="text-orange-600" /> Page_Uplink_Velocity
@@ -72,7 +71,6 @@ const CompanyDashboard = () => {
                                 </div>
                             </section>
 
-                            {/* Node Integrity Monitor */}
                             <section className="space-y-4">
                                 <h4 className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2">
                                     <Zap size={14} className="text-orange-600" /> Signal_Resonance_Index
@@ -99,65 +97,17 @@ const CompanyDashboard = () => {
                     </div>
 
                     {/* 5. SYSTEM STATUS FOOTER */}
-                    <div className="p-3 bg-zinc-800 flex justify-between items-center shrink-0">
+                    <footer className="p-3 bg-zinc-800 flex justify-between items-center shrink-0">
                         <span className="text-[9px] font-mono text-zinc-300 uppercase tracking-[0.2em]">Telemetry_Stream: ACTIVE</span>
                         <div className="flex items-center gap-4">
                             <span className="text-[9px] font-mono text-zinc-300 uppercase">Uptime: 100%</span>
-                            <span className="text-[9px] font-mono text-orange-500  uppercase">Admin_Authorized</span>
+                            <span className="text-[9px] font-mono text-orange-500 uppercase">Admin_Authorized</span>
                         </div>
-                    </div>
+                    </footer>
                 </main>
             </div>
         </div>
     );
 };
-
-// --- SUB-COMPONENTS ---
-
-const StatModule = ({ label, value, trend, icon, isNegative }: any) => (
-    <div className="bg-white p-4 flex flex-col justify-center transition-colors hover:bg-zinc-100">
-        <div className="flex items-center gap-2 mb-1 text-zinc-500">
-            {icon}
-            <span className="text-[9px] font-mono font-black uppercase tracking-widest">{label}</span>
-        </div>
-        <div className="flex items-baseline gap-2">
-            <span className="text-xl font-bold tracking-tighter">{value}</span>
-            <span className={cn(
-                "text-[10px] font-mono font-black",
-                isNegative ? "text-red-600" : "text-emerald-600"
-            )}>
-                {trend}
-            </span>
-        </div>
-    </div>
-);
-
-const MetricRow = ({ label, value }: any) => (
-    <div className="flex justify-between items-center">
-        <span className="text-[9px] font-mono font-black text-zinc-500 uppercase">{label}</span>
-        <span className="text-[10px] font-bold uppercase text-zinc-900">{value}</span>
-    </div>
-);
-
-const PerformanceRow = ({ title, views, likes, comments }: any) => (
-    <div className="flex items-center justify-between p-3 hover:bg-zinc-50 transition-all cursor-pointer group">
-        <span className="text-xs font-bold uppercase tracking-tight group-hover:text-orange-600 transition-colors">{title}</span>
-        <div className="flex gap-6 items-center">
-            <div className="flex flex-col items-end">
-                <span className="text-[9px] font-mono font-black text-zinc-500 uppercase">Views</span>
-                <span className="text-[11px] font-black">{views}</span>
-            </div>
-            <div className="flex flex-col items-end">
-                <span className="text-[9px] font-mono font-black text-zinc-500 uppercase">Likes</span>
-                <span className="text-[11px] font-black">{likes}</span>
-            </div>
-            <div className="flex flex-col items-end">
-                <span className="text-[9px] font-mono font-black text-zinc-500 uppercase">Comm.</span>
-                <span className="text-[11px] font-black">{comments}</span>
-            </div>
-            <ArrowUpRight size={16} className="text-white group-hover:text-zinc-900 transition-all" />
-        </div>
-    </div>
-);
 
 export default CompanyDashboard;
