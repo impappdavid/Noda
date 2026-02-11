@@ -1,12 +1,35 @@
-import { useState } from "react"
-import { Globe, ShieldAlert, Users, Plus, Star, X, EyeOff, Eye, Send } from "lucide-react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Switch } from "@/components/ui/switch"
+import React, { useState } from "react";
+import { 
+    Globe, 
+    ShieldAlert, 
+    Users, 
+    Plus, 
+    Star, 
+    EyeOff, 
+    Eye, 
+    Send 
+} from "lucide-react";
+import { 
+    Dialog, 
+    DialogContent, 
+    DialogHeader, 
+    DialogTitle, 
+    DialogTrigger 
+} from "@/components/ui/dialog";
+import { Switch } from "@/components/ui/switch";
+import type { Company } from "@/types/companies";
 
+
+
+interface CompanyInfoProps {
+    selectedCompany: Company;
+}
+
+// Helper for conditional classes
 const cn = (...classes: (string | boolean | undefined | null)[]): string =>
     classes.filter(Boolean).join(" ");
 
-const CompanyInfo = ({ selectedCompany }: any) => {
+const CompanyInfo = ({ selectedCompany }: CompanyInfoProps) => {
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
@@ -14,8 +37,15 @@ const CompanyInfo = ({ selectedCompany }: any) => {
     const [isAnonymous, setIsAnonymous] = useState(true);
 
     const handleSubmitFeedback = () => {
-        // Logic to transmit signal
-        console.log({ rating, comment, isAnonymous });
+        // Transmission Logic
+        console.log({ 
+            companyId: selectedCompany.id, 
+            rating, 
+            comment, 
+            isAnonymous 
+        });
+        
+        // Reset state
         setIsFeedbackOpen(false);
         setRating(0);
         setComment("");
@@ -96,14 +126,14 @@ const CompanyInfo = ({ selectedCompany }: any) => {
             {/* 4. FEEDBACK DIALOG INTEGRATION */}
             <Dialog open={isFeedbackOpen} onOpenChange={setIsFeedbackOpen}>
                 <DialogTrigger asChild>
-                    <button className="w-full h-12 bg-zinc-800 flex items-center justify-center gap-3 hover:bg-black transition-all active:scale-[0.99] shrink-0 cursor-pointer">
+                    <button className="w-full h-12 bg-zinc-800 flex items-center justify-center gap-3 hover:bg-black transition-all active:scale-[0.99] shrink-0 cursor-pointer border-none outline-none">
                         <Plus size={16} className="text-white" />
                         <span className="text-[10px] font-mono font-black text-white uppercase tracking-[0.2em]">
                             Submit Intel Signal
                         </span>
                     </button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-md bg-white border border-none rounded-none p-0 overflow-hidden shadow-2xl">
+                <DialogContent className="sm:max-w-md bg-white border-none rounded-none p-0 overflow-hidden shadow-2xl">
                     <DialogHeader className="p-4 bg-zinc-800 text-white flex flex-row items-center justify-between space-y-0">
                         <DialogTitle className="text-[10px] font-mono font-black uppercase tracking-[0.2em]">
                             Initialize_Feedback_Protocol
@@ -119,7 +149,7 @@ const CompanyInfo = ({ selectedCompany }: any) => {
                                     <button
                                         key={star}
                                         type="button"
-                                        className="transition-transform active:scale-90 cursor-pointer"
+                                        className="transition-transform active:scale-90 cursor-pointer bg-transparent border-none p-0"
                                         onClick={() => setRating(star)}
                                         onMouseEnter={() => setHover(star)}
                                         onMouseLeave={() => setHover(0)}
@@ -169,14 +199,14 @@ const CompanyInfo = ({ selectedCompany }: any) => {
                         <div className="flex gap-2">
                             <button 
                                 onClick={() => setIsFeedbackOpen(false)}
-                                className="flex-1 h-10 border border-zinc-300 text-[11px] font-mono font-black uppercase hover:bg-zinc-300/80 transition-colors cursor-pointer"
+                                className="flex-1 h-10 border border-zinc-300 text-[11px] font-mono font-black uppercase hover:bg-zinc-100 transition-colors cursor-pointer bg-white"
                             >
                                 Abort
                             </button>
                             <button 
                                 onClick={handleSubmitFeedback}
                                 disabled={!rating || comment.length < 5}
-                                className="flex-[2] h-10 bg-zinc-800 text-white text-[11px] font-mono font-black uppercase hover:bg-zinc-900 disabled:bg-zinc-200 disabled:text-zinc-500 transition-all flex items-center cursor-pointer justify-center gap-2"
+                                className="flex-[2] h-10 bg-zinc-800 text-white text-[11px] font-mono font-black uppercase hover:bg-zinc-900 disabled:bg-zinc-200 disabled:text-zinc-500 transition-all flex items-center cursor-pointer justify-center gap-2 border-none"
                             >
                                 <Send size={12} />
                                 Transmit_Signal
@@ -186,7 +216,8 @@ const CompanyInfo = ({ selectedCompany }: any) => {
                 </DialogContent>
             </Dialog>
         </div>
-    )
-}
+    );
+};
 
-export default CompanyInfo;
+// Use React.memo for a performance boost - prevents re-render unless company changes
+export default React.memo(CompanyInfo);
