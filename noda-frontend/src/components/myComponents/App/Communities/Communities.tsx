@@ -2,8 +2,8 @@ import React, { useMemo, useState } from 'react';
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import CompactProtocolCard from './CompactProtocolCard';
-import type { Community } from '@/types/community';
-import { communityData } from '@/types/community';
+import type { Community } from '@/types/communities';
+import { communityData } from '@/types/communities';
 import CommunitiesFilter from './CommunitiesFilter';
 
 const AppCommunities: React.FC = () => {

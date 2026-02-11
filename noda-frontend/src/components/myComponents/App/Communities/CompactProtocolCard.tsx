@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import type { Community } from '@/types/community';
+import type { Community } from '@/types/communities';
 
 interface CardProps {
     community: Community;
