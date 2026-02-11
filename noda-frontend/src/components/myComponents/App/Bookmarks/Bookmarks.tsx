@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import { Search, Bookmark, ArrowUpRight, Briefcase, FileText, MessageSquare } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Search } from 'lucide-react';
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import { cn } from "@/lib/utils";
-import { Link } from 'react-router-dom';
+import BookmarkNodeCard from './BookmarkNodeCard';
+import type { BookmarkNode } from '@/types/bookmarks';
 
-const bookmarkData = [
+const bookmarkData: BookmarkNode[] = [
     { id: 1, type: "Job", title: "Systems Architect", entity: "Rust Foundation", meta: "125k - 180k", status: "Active", match: 94 },
     { id: 2, type: "Post", title: "Memory Safety in GPU Clusters", entity: "@lex_nodes", meta: "1.2k reads", status: "Technical" },
     { id: 3, type: "Job", title: "Frontend Lead", entity: "Vercel", meta: "Equity + Salary", status: "Closing Soon", match: 92 },
@@ -13,7 +14,21 @@ const bookmarkData = [
 ];
 
 const AppBookmarks = () => {
-    const [filter, setFilter] = useState("All");
+    const [filter, setFilter] = useState<"All" | "Jobs" | "Posts">("All");
+    const [searchQuery, setSearchQuery] = useState("");
+
+    // Performance: Memoize filtered results to avoid recalculation on every re-render
+    const filteredNodes = useMemo(() => {
+        return bookmarkData.filter((node) => {
+            const matchesTab = filter === "All" || (filter === "Jobs" ? node.type === "Job" : node.type === "Post");
+            const matchesSearch = node.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                 node.entity.toLowerCase().includes(searchQuery.toLowerCase());
+            return matchesTab && matchesSearch;
+        });
+    }, [filter, searchQuery]);
+
+    const jobs = filteredNodes.filter(n => n.type === "Job");
+    const posts = filteredNodes.filter(n => n.type === "Post");
 
     return (
         <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
@@ -25,7 +40,7 @@ const AppBookmarks = () => {
 
                 <main className="flex flex-1 flex-col max-w-3xl border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-13">
                     
-                    {/* 1. GAPLESS FILTER BAR */}
+                    {/* FILTER BAR */}
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-10">
                         <div className="flex flex-1 items-center divide-x divide-zinc-300 h-full">
                             <div className="relative flex-[2] flex items-center bg-white px-3 h-full">
@@ -33,10 +48,12 @@ const AppBookmarks = () => {
                                 <input 
                                     placeholder="SEARCH SAVED NODES..." 
                                     className="w-full text-[10px] font-mono font-black uppercase outline-none bg-transparent"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                             </div>
                             <div className="flex-1 flex divide-x divide-zinc-300 h-full">
-                                {["All", "Jobs", "Posts"].map((tab) => (
+                                {(["All", "Jobs", "Posts"] as const).map((tab) => (
                                     <button 
                                         key={tab}
                                         onClick={() => setFilter(tab)}
@@ -53,39 +70,31 @@ const AppBookmarks = () => {
                     </div>
 
                     <div className="flex-1 overflow-y-auto scrollbar-hide pb-20">
-                        
-                        {/* 2. SAVED JOBS - RETAINS MATCH % */}
-                        {(filter === "All" || filter === "Jobs") && (
+                        {/* SAVED JOBS */}
+                        {jobs.length > 0 && (
                             <section className="w-full">
-                                <div className="px-4 py-2 border-b border-zinc-300 flex items-center bg-zinc-50/50">
-                                    <h2 className="text-[9px] font-mono font-black uppercase tracking-[0.3em] text-zinc-900">
-                                        Saved Job Nodes
-                                    </h2>
-                                </div>
+                                <SectionHeader title="Saved Job Nodes" />
                                 <div className="grid grid-cols-2 divide-x divide-zinc-300 border-b border-zinc-300">
-                                    {bookmarkData.filter(d => d.type === "Job").map((job) => (
-                                        <BookmarkNodeCard key={job.id} data={job} />
-                                    ))}
+                                    {jobs.map((job) => <BookmarkNodeCard key={job.id} data={job} />)}
                                 </div>
                             </section>
                         )}
 
-                        {/* 3. POST INTELLIGENCE - REMOVED MATCH % */}
-                        {(filter === "All" || filter === "Posts") && (
+                        {/* POST INTELLIGENCE */}
+                        {posts.length > 0 && (
                             <section className="w-full">
-                                <div className="px-4 py-2 border-b border-zinc-300 flex items-center bg-zinc-50/50">
-                                    <h2 className="text-[9px] font-mono font-black uppercase tracking-[0.3em] text-zinc-900">
-                                        Post Intelligence
-                                    </h2>
-                                </div>
+                                <SectionHeader title="Post Intelligence" />
                                 <div className="grid grid-cols-2 divide-x divide-zinc-300 border-b border-zinc-300">
-                                    {bookmarkData.filter(d => d.type === "Post").map((post) => (
-                                        <BookmarkNodeCard key={post.id} data={post} />
-                                    ))}
+                                    {posts.map((post) => <BookmarkNodeCard key={post.id} data={post} />)}
                                 </div>
                             </section>
                         )}
-                        
+
+                        {filteredNodes.length === 0 && (
+                            <div className="p-10 text-center font-mono text-[10px] text-zinc-400 uppercase tracking-[0.3em]">
+                                No nodes found in current buffer
+                            </div>
+                        )}
                     </div>
                 </main>
             </div>
@@ -93,51 +102,12 @@ const AppBookmarks = () => {
     );
 };
 
-// --- SQUARED BOOKMARK CARD ---
-const BookmarkNodeCard = ({ data }: any) => {
-    const isJob = data.type === "Job";
-
-    return (
-        <Link to={data.type === "Job" ? `/app/jobs/${data.id}` : `/app/post/${data.id}`} className="p-3 flex flex-col justify-center min-h-[90px] bg-white hover:bg-zinc-50 transition-colors cursor-pointer group relative">
-            <div className="flex justify-between items-start mb-1">
-                <div className="flex flex-col min-w-0">
-                    <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest leading-none">
-                        {data.status} 
-                        {/* Match signal only for Job nodes */}
-                        {isJob && (
-                            <>
-                                <span className="mx-1 opacity-50">•</span> 
-                                {data.match}% MATCH
-                            </>
-                        )}
-                    </span>
-                    <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-tight truncate leading-tight mt-1.5">
-                        {data.title}
-                    </h3>
-                    <div className="flex items-center gap-1.5 mt-1">
-                        {isJob ? <Briefcase size={11} className="text-zinc-600"/> : <FileText size={11} className="text-zinc-6500"/>}
-                        <span className="text-[11px] font-mono font-bold text-zinc-600 uppercase tracking-tighter">
-                            {data.entity}
-                        </span>
-                    </div>
-                </div>
-                <button className="text-white group-hover:text-zinc-900 transition-colors">
-                    <ArrowUpRight size={16} />
-                </button>
-            </div>
-
-            <div className="flex items-center justify-between mt-auto ">
-                <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-tighter">
-                    {data.meta}
-                </span>
-                <div className="flex gap-2">
-                    <button className="text-zinc-900">
-                        <Bookmark size={12} fill="currentColor" />
-                    </button>
-                </div>
-            </div>
-        </Link>
-    );
-};
+const SectionHeader = ({ title }: { title: string }) => (
+    <div className="px-4 py-2 border-b border-zinc-300 flex items-center bg-zinc-50/50">
+        <h2 className="text-[9px] font-mono font-black uppercase tracking-[0.3em] text-zinc-900">
+            {title}
+        </h2>
+    </div>
+);
 
 export default AppBookmarks;
