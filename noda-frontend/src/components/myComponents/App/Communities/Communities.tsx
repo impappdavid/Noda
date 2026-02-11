@@ -1,23 +1,30 @@
-
-import { ArrowUpRight, Plus, Check, ChevronsUpDown } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
+import CompactProtocolCard from './CompactProtocolCard';
+import type { Community } from '@/types/community';
+import { communityData } from '@/types/community';
+import CommunitiesFilter from './CommunitiesFilter';
 
-// Shadcn UI Components
+const AppCommunities: React.FC = () => {
+    const [searchQuery, setSearchQuery] = useState("");
 
-import { Link } from 'react-router-dom';
-import FilterCombobox from './CommunitiesFilter';
+    // Performance: Filter the list based on the search query
+    const filteredSections = useMemo(() => {
+        const sections = ["Popular Intelligence", "For You", "Explore"];
 
-// Mock data with visual assets added
-const communityData = [
-    { id: 1, name: "Rust Protocol", members: "12.4k", type: "Popular", tag: "Systems", logo: "https://www.rust-lang.org/static/images/rust-logo-blk.svg", cover: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=400" },
-    { id: 2, name: "Frontend Ops", members: "8.2k", type: "For You", tag: "Full-Stack", logo: "https://vercel.com/api/www/avatar/vercel?s=48", cover: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=400" },
-    { id: 3, name: "AI Alignment", members: "24k", type: "Explore", tag: "Senior", logo: "https://openai.com/favicon.ico", cover: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=400" },
-    { id: 4, name: "Fintech Nodes", members: "5.1k", type: "Popular", tag: "Engineering", logo: "https://stripe.com/favicon.ico", cover: "https://images.unsplash.com/photo-1551288049-bbbda5366392?q=80&w=400" },
-    { id: 5, name: "Web3 Ledger", members: "3.2k", type: "Popular", tag: "Crypto", logo: "https://ethereum.org/favicon.ico", cover: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=400" },
-];
+        return sections.map(sectionName => {
+            const items = communityData.filter(c => {
+                const matchesSection = sectionName.includes(c.type);
+                const matchesSearch = c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    c.tag.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesSection && matchesSearch;
+            });
 
-const AppCommunities = () => {
+            return { title: sectionName, items };
+        });
+    }, [searchQuery]); // Only re-run when searchQuery changes
+
     return (
         <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
             <Navbar />
@@ -28,46 +35,25 @@ const AppCommunities = () => {
                 </aside>
 
                 <main className="flex flex-1 flex-col max-w-4xl border-x border-zinc-300 h-full overflow-hidden bg-white pt-13">
-
-                    {/* 1. FILTER BAR (NO GAPS) */}
+                    {/* FILTER BAR */}
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30">
-                        <div className="flex flex-1 items-center divide-x divide-zinc-200">
-                            <div className="flex-1">
-                                <FilterCombobox label="Category" options={[{ label: "Dev", value: "dev" }]} />
-                            </div>
-                            <div className="flex-1">
-                                <FilterCombobox label="Region" options={[{ label: "Global", value: "global" }]} />
-                            </div>
-                            <button className="px-3 h-10 bg-zinc-50 hover:bg-zinc-200/80 transition-all active:scale-95 cursor-pointer">
-                                <Plus size={16} />
-                            </button>
-                        </div>
+                        <CommunitiesFilter
+                            value={searchQuery}
+                            onChange={setSearchQuery}
+                        />
                     </div>
 
+                    {/* SCROLLABLE CONTENT */}
                     <div className="flex-1 overflow-y-auto scrollbar-hide pb-20">
-
-                        {/* SECTION PROTOCOL */}
-                        {["Popular Intelligence", "For You", "Explore"].map((section) => (
-                            <div key={section} className="w-full">
-                                <div className="px-3 py-2 border-b border-zinc-300 flex items-center bg-zinc-50/50">
-                                    <h2 className="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-zinc-600">
-                                        {section}
-                                    </h2>
-                                </div>
-                                <div className="grid grid-cols-3 border-b border-zinc-300 divide-x divide-zinc-300">
-                                    {communityData
-                                        .filter(c => section.includes(c.type))
-                                        .map(c => (
-                                            <CompactProtocolCard key={c.id} community={c} />
-                                        ))}
-                                    {/* Empty cells to maintain 3-column grid structure */}
-                                    {Array.from({ length: (3 - (communityData.filter(c => section.includes(c.type)).length % 3)) % 3 }).map((_, i) => (
-                                        <div key={i} className="bg-zinc-50/20" />
-                                    ))}
-                                </div>
-                            </div>
+                        {filteredSections.map(section => (
+                            section.items.length > 0 && (
+                                <CommunitySection
+                                    key={section.title}
+                                    title={section.title}
+                                    communities={section.items}
+                                />
+                            )
                         ))}
-
                     </div>
                 </main>
             </div>
@@ -75,40 +61,30 @@ const AppCommunities = () => {
     );
 };
 
-// --- COMPACT PROTOCOL CARD WITH ASSETS ---
-const CompactProtocolCard = ({ community }) => (
-    <Link to={`/app/communities/${community.name}`} className="group bg-white flex flex-col justify-center  relative hover:bg-zinc-100 transition-all cursor-pointer overflow-hidden">
-        
-        
+// Helper component for Section Grid logic
+const CommunitySection = ({ title, communities }: { title: string, communities: Community[] }) => {
+    // Calculate how many empty slots are needed to keep the 3-column look
+    const emptySlots = (3 - (communities.length % 3)) % 3;
 
-        <div className="relative z-10 p-3 flex justify-between items-center min-w-0">
-            <div className="flex items-center gap-3 min-w-0">
-                {/* Square Logo */}
-                <div className="w-9 h-9 rounded bg-zinc-100 border border-zinc-200 flex-shrink-0 flex items-center justify-center overflow-hidden">
-                    <img src={community.logo} alt="" className="w-7 h-7 object-contain opacity-70 group-hover:opacity-100 transition-opacity" />
-                </div>
-
-                <div className="flex flex-col min-w-0">
-                    <span className="text-[9px] font-mono flex items-center font-bold text-zinc-500 uppercase tracking-widest leading-none">
-                        {community.tag} <span className="mx-1.5 text-zinc-400">•</span> {community.members}
-                    </span>
-                    <h3 className="text-[11px] font-bold text-zinc-900 uppercase tracking-tight truncate leading-tight mt-1.5 group-hover:text-black">
-                        {community.name}
-                    </h3>
-                </div>
+    return (
+        <div className="w-full">
+            <div className="px-3 py-2 border-b border-zinc-300 flex items-center bg-zinc-50/50">
+                <h2 className="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-zinc-600">
+                    {title}
+                </h2>
             </div>
+            <div className="grid grid-cols-3 border-b border-zinc-300 divide-x divide-zinc-300">
+                {communities.map(c => (
+                    <CompactProtocolCard key={c.id} community={c} />
+                ))}
 
-            <div className="flex items-center justify-center pl-2">
-                <ArrowUpRight 
-                    size={14} 
-                    className="text-zinc-200 group-hover:text-zinc-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-200" 
-                />
+                {/* Empty cells to maintain 3-column grid structure */}
+                {Array.from({ length: emptySlots }).map((_, i) => (
+                    <div key={`empty-${i}`} className="bg-zinc-50/20" />
+                ))}
             </div>
         </div>
-    </Link>
-);
-
-// --- COMBOBOX FILTER COMPONENT ---
-
+    );
+};
 
 export default AppCommunities;
