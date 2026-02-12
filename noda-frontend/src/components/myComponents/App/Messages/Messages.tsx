@@ -27,7 +27,7 @@ const MessagesPage = () => {
             <Navbar />
 
             <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4 overflow-hidden">
-                <aside className="w-24 shrink-0">
+                <aside className="w-25 shrink-0">
                     <div className="h-full py-4"><AppSideBar /></div>
                 </aside>
 

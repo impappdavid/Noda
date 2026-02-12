@@ -10,7 +10,7 @@ const AppHome = () => {
       <Navbar />
 
       <div className="max-w-4xl w-full mx-auto px-6 flex gap-4">
-        <aside className="w-24 flex-none">
+        <aside className="w-25 flex-none">
           <AppSideBar />
         </aside>
 

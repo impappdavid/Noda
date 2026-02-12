@@ -22,7 +22,7 @@ const SettingsPage = () => {
             <Navbar />
             
             <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4 overflow-hidden">
-                <aside className="w-24 shrink-0 relative">
+                <aside className="w-25 shrink-0 relative">
                     <div className="sticky top-13 h-fit py-4"><AppSideBar /></div>
                 </aside>
 

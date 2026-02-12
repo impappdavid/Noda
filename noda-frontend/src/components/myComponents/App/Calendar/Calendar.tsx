@@ -46,7 +46,7 @@ const AppCalendar = () => {
         <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
             <Navbar />
             <div className="flex flex-1 w-full max-w-4xl mx-auto px-6 overflow-hidden">
-                <aside className="w-24 shrink-0"><AppSideBar /></aside>
+                <aside className="w-25 shrink-0"><AppSideBar /></aside>
                 <main className="flex flex-1 flex-col max-w-3xl border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-13">
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-10">
                         <div className="flex flex-1 items-center divide-x divide-zinc-300 h-full">

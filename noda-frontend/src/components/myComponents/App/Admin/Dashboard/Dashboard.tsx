@@ -13,7 +13,7 @@ const CompanyDashboard: React.FC = () => {
         <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
             <Navbar />
             <div className="flex flex-1 w-full max-w-4xl mx-auto px-6 overflow-hidden">
-                <aside className="w-24 shrink-0 border-r border-zinc-100">
+                <aside className="w-25 shrink-0 border-r border-zinc-100">
                     <AppSideBar />
                 </aside>
 
