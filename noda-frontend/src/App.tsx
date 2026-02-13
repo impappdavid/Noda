@@ -29,6 +29,7 @@ import PostJob from './components/myComponents/App/Admin/PostJob/PostJob'
 import CompanyDashboard from './components/myComponents/App/Admin/Dashboard/Dashboard'
 import TeamNodesManager from './components/myComponents/App/Admin/Team/Team'
 import ManageApplicants from './components/myComponents/App/Admin/Applications/Applications'
+import FounderIdeaPortal from './components/myComponents/App/Idea/Idea'
 
 function App() {
 
@@ -59,6 +60,7 @@ function App() {
         <Route path="/app/calendar" element={<AppCalendar />} />
         <Route path="/app/network" element={<AppNetwork />} />
         <Route path="/app/bookmarks" element={<AppBookmarks />} />
+        <Route path="/app/idea" element={<FounderIdeaPortal />} />
 
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/settings" element={<SettingsPage />} />
