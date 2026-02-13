@@ -58,7 +58,7 @@ const AdminReportsPage = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
+                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
                     
                     {/* 1. ADMIN HEADER */}
                     <div className="px-4 h-9 bg-zinc-800 flex justify-between items-center shrink-0">
@@ -91,12 +91,12 @@ const AdminReportsPage = () => {
 
                                 {/* --- HIGH-FIDELITY MODAL --- */}
                                 <DialogContent className="sm:max-w-[600px] p-0 rounded-none border-none overflow-hidden">
-                                    <DialogHeader className="p-3 bg-red-600 text-white space-y-0 flex-row items-center justify-between">
+                                    <DialogHeader className="p-4 bg-red-600 text-white space-y-0 flex-row items-center justify-between">
                                         <div className="flex items-center gap-3">
                                             <AlertTriangle size={14} />
                                             <DialogTitle className="text-[10px] font-mono font-black uppercase tracking-widest">In_Review: {report.reason}</DialogTitle>
                                         </div>
-                                        <span className="text-[9px] font-mono font-black uppercase mr-10">Ref_ID: {report.id}</span>
+                                        <span className="text-[10px] font-mono font-black uppercase mr-10">Ref_ID: {report.id}</span>
                                     </DialogHeader>
 
                                     <div className="flex flex-col max-h-[80vh] overflow-y-auto scrollbar-hide">
