@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ShieldCheck, ArrowRight, Zap, Terminal,  X,  Image as ImageIcon2 } from 'lucide-react';
-import Navbar from '../AppNavbar';
-import AppSideBar from '../Sidebar';
+import Navbar from '../../AppNavbar';
+import AppSideBar from '../../Sidebar';
 import { cn } from "@/lib/utils";
 import {
   Select,

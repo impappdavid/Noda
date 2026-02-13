@@ -46,7 +46,7 @@ const AppSideBar = () => {
         
         // Only Founders can inject new ideas into the system
         if (userSession.isFounder) {
-            nodaOptions.push({ name: "Create_Idea", route: "/app/noda/create" });
+            nodaOptions.push({ name: "Create_Idea", route: "/app/noda/idea" });
         }
         
         // Public nodes for community resonance and roadmap tracking
@@ -103,7 +103,7 @@ const AppSideBar = () => {
                                     cn(
                                         "text-xs font-medium transition-colors w-fit",
                                         isActive 
-                                            ? "text-zinc-900 font-bold underline underline-offset-4 decoration-orange-500" 
+                                            ? "text-zinc-900  " 
                                             : "text-zinc-500/80 hover:text-zinc-900"
                                     )
                                 }

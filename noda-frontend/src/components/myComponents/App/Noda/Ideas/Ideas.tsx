@@ -3,8 +3,8 @@ import {
     MessageSquare, ArrowUpRight, Terminal, 
     ThumbsUp, ThumbsDown, X, Zap, Calendar, Info 
 } from 'lucide-react';
-import Navbar from '../AppNavbar';
-import AppSideBar from '../Sidebar';
+import Navbar from '../../AppNavbar';
+import AppSideBar from '../../Sidebar';
 import { cn } from "@/lib/utils";
 import {
   Dialog,

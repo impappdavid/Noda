@@ -29,8 +29,9 @@ import PostJob from './components/myComponents/App/Admin/PostJob/PostJob'
 import CompanyDashboard from './components/myComponents/App/Admin/Dashboard/Dashboard'
 import TeamNodesManager from './components/myComponents/App/Admin/Team/Team'
 import ManageApplicants from './components/myComponents/App/Admin/Applications/Applications'
-import FounderIdeaPortal from './components/myComponents/App/Idea/Idea'
-import IdeaResonanceBoard from './components/myComponents/App/Ideas/Ideas'
+import FounderIdeaPortal from './components/myComponents/App/Noda/Idea/Idea'
+import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
+import RoadmapBoard from './components/myComponents/App/Noda/Roadmap/Roadmap'
 
 function App() {
 
@@ -61,8 +62,10 @@ function App() {
         <Route path="/app/calendar" element={<AppCalendar />} />
         <Route path="/app/network" element={<AppNetwork />} />
         <Route path="/app/bookmarks" element={<AppBookmarks />} />
-        <Route path="/app/idea" element={<FounderIdeaPortal />} />
-        <Route path="/app/ideas" element={<IdeaResonanceBoard />} />
+
+        <Route path="/app/noda/idea" element={<FounderIdeaPortal />} />
+        <Route path="/app/noda/ideas" element={<IdeaResonanceBoard />} />
+        <Route path="/app/noda/roadmap" element={<RoadmapBoard />} />
 
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/settings" element={<SettingsPage />} />
