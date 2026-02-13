@@ -6,7 +6,8 @@ const userSession = {
     hasCompany: true,
     companyName: "OpenAI",
     role: "CEO", 
-    isFounder: true, // New flag for Noda Founder status
+    isFounder: true,
+    isAdmin: true, // Platform level privileges
 };
 
 const routes = [
@@ -22,17 +23,15 @@ const routes = [
 
 const AppSideBar = () => {
     
-    // Determine administrative nodes
+    // 1. Company Level Admin
     const getAdminRoutes = () => {
         if (!userSession.hasCompany) return [];
         const adminOptions = [];
         adminOptions.push({ name: "Create_Post", route: "/app/admin/post" });
-
         if (userSession.role === "CEO" || userSession.role === "RECRUITER") {
             adminOptions.push({ name: "Post_Jobs", route: "/app/admin/jobs" });
             adminOptions.push({ name: "Applications", route: "/app/admin/applications" });
         }
-
         if (userSession.role === "CEO") {
             adminOptions.push({ name: "Company_Dash", route: "/app/admin/dashboard" });
             adminOptions.push({ name: "Team_Nodes", route: "/app/admin/team" });
@@ -40,32 +39,38 @@ const AppSideBar = () => {
         return adminOptions;
     };
 
-    // Determine Noda Protocol nodes
+    // 2. Platform Level (Noda)
     const getNodaRoutes = () => {
         const nodaOptions = [];
-        
-        // Only Founders can inject new ideas into the system
         if (userSession.isFounder) {
             nodaOptions.push({ name: "Create_Idea", route: "/app/noda/idea" });
         }
-        
-        // Public nodes for community resonance and roadmap tracking
         nodaOptions.push({ name: "Ideas", route: "/app/noda/ideas" });
         nodaOptions.push({ name: "Roadmap", route: "/app/noda/roadmap" });
-        
         return nodaOptions;
+    };
+
+    // 3. Platform Admin (Noda Admin Only)
+    const getNodaAdminRoutes = () => {
+        if (!userSession.isAdmin) return [];
+        return [
+            { name: "Reports", route: "/app/noda/admin/reports" },
+            { name: "Notifications", route: "/app/noda/admin/notifications" },
+            { name: "Idea_Review", route: "/app/noda/admin/review" },
+        ];
     };
 
     const adminRoutes = getAdminRoutes();
     const nodaRoutes = getNodaRoutes();
+    const platformAdminRoutes = getNodaAdminRoutes();
 
     return (
         <aside className="w-full shrink-0 sticky top-16">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-8">
                 
-                {/* 1. SYSTEM MENU SECTION */}
+                {/* SECTION 1: SYSTEM MENU */}
                 <div className="flex flex-col">
-                    <div className="text-[10px] font-mono text-zinc-400 uppercase mb-3 tracking-widest leading-none">
+                    <div className="text-[10px] font-mono text-zinc-400 uppercase mb-3 tracking-widest leading-none underline underline-offset-4 decoration-zinc-100">
                         [Menu]
                     </div>
                     <nav className="flex flex-col gap-2">
@@ -75,12 +80,8 @@ const AppSideBar = () => {
                                 to={item.route}
                                 end={item.route === "/app"}
                                 className={({ isActive }) =>
-                                    cn(
-                                        "text-xs font-medium transition-colors w-fit px-0",
-                                        isActive 
-                                            ? "text-zinc-900 font-bold" 
-                                            : "text-zinc-500/80 hover:text-zinc-900"
-                                    )
+                                    cn("text-xs font-medium transition-colors w-fit",
+                                        isActive ? "text-zinc-900 " : "text-zinc-500/80 hover:text-zinc-900")
                                 }
                             >
                                 {item.name}
@@ -89,7 +90,7 @@ const AppSideBar = () => {
                     </nav>
                 </div>
 
-                {/* 2. NODA PROTOCOL SECTION */}
+                {/* SECTION 2: NODA PROTOCOL */}
                 <div className="flex flex-col">
                     <div className="text-[10px] font-mono text-zinc-400 uppercase mb-3 tracking-widest leading-none font-bold">
                         [Noda]
@@ -100,12 +101,8 @@ const AppSideBar = () => {
                                 key={idx}
                                 to={item.route}
                                 className={({ isActive }) =>
-                                    cn(
-                                        "text-xs font-medium transition-colors w-fit",
-                                        isActive 
-                                            ? "text-zinc-900  " 
-                                            : "text-zinc-500/80 hover:text-zinc-900"
-                                    )
+                                    cn("text-xs font-medium transition-colors w-fit",
+                                        isActive ? "text-zinc-900 " : "text-zinc-500/80 hover:text-zinc-900")
                                 }
                             >
                                 {item.name}
@@ -114,10 +111,34 @@ const AppSideBar = () => {
                     </nav>
                 </div>
 
-                {/* 3. COMPANY PROTOCOL SECTION (Conditional) */}
+                {/* SECTION 3: NODA ADMIN (New Partition) */}
+                {userSession.isAdmin && (
+                    <div className="flex flex-col animate-in fade-in slide-in-from-left-2 duration-300">
+                        <div className="text-[10px] font-mono text-zinc-400 uppercase mb-3 tracking-widest leading-none font-black flex items-center gap-2">
+                             
+                             [Admin]
+                        </div>
+                        <nav className="flex flex-col gap-2">
+                            {platformAdminRoutes.map((item, idx) => (
+                                <NavLink
+                                    key={idx}
+                                    to={item.route}
+                                    className={({ isActive }) =>
+                                        cn("text-xs font-medium transition-colors w-fit",
+                                            isActive ? "text-zinc-900 " : "text-zinc-500/80 hover:text-zinc-900")
+                                    }
+                                >
+                                    {item.name}
+                                </NavLink>
+                            ))}
+                        </nav>
+                    </div>
+                )}
+
+                {/* SECTION 4: COMPANY ADMIN */}
                 {userSession.hasCompany && (
                     <div className="flex flex-col animate-in fade-in slide-in-from-left-2 duration-500">
-                        <div className="text-[10px] font-mono text-orange-600 uppercase mb-3 tracking-widest leading-none flex items-center font-bold">
+                        <div className="text-[10px] font-mono text-orange-600 uppercase mb-3 tracking-widest leading-none font-bold">
                             [{userSession.companyName}_Admin]
                         </div>
                         <nav className="flex flex-col gap-2">
@@ -126,12 +147,8 @@ const AppSideBar = () => {
                                     key={idx}
                                     to={item.route}
                                     className={({ isActive }) =>
-                                        cn(
-                                            "text-xs font-medium transition-colors w-fit",
-                                            isActive 
-                                                ? "text-orange-600 font-bold" 
-                                                : "text-zinc-500/80 hover:text-orange-600"
-                                        )
+                                        cn("text-xs font-medium transition-colors w-fit",
+                                            isActive ? "text-black " : "text-zinc-500/80 hover:text-orange-600")
                                     }
                                 >
                                     {item.name}
