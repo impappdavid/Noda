@@ -24,14 +24,15 @@ import NotificationsPage from './components/myComponents/App/Notifications/Notif
 import SettingsPage from './components/myComponents/App/Settings/Settings'
 import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
-import CreatePost from './components/myComponents/App/Admin/CreatePost/CreatePost'
-import PostJob from './components/myComponents/App/Admin/PostJob/PostJob'
-import CompanyDashboard from './components/myComponents/App/Admin/Dashboard/Dashboard'
-import TeamNodesManager from './components/myComponents/App/Admin/Team/Team'
-import ManageApplicants from './components/myComponents/App/Admin/Applications/Applications'
+import CreatePost from './components/myComponents/App/CompanyAdmin/CreatePost/CreatePost'
+import PostJob from './components/myComponents/App/CompanyAdmin/PostJob/PostJob'
+import CompanyDashboard from './components/myComponents/App/CompanyAdmin/Dashboard/Dashboard'
+import TeamNodesManager from './components/myComponents/App/CompanyAdmin/Team/Team'
+import ManageApplicants from './components/myComponents/App/CompanyAdmin/Applications/Applications'
 import FounderIdeaPortal from './components/myComponents/App/Noda/Idea/Idea'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
 import RoadmapBoard from './components/myComponents/App/Noda/Roadmap/Roadmap'
+import AdminReportsPage from './components/myComponents/App/Admin/Reports/Reports'
 
 function App() {
 
@@ -66,6 +67,8 @@ function App() {
         <Route path="/app/noda/idea" element={<FounderIdeaPortal />} />
         <Route path="/app/noda/ideas" element={<IdeaResonanceBoard />} />
         <Route path="/app/noda/roadmap" element={<RoadmapBoard />} />
+
+        <Route path="/app/noda/admin/reports" element={<AdminReportsPage />} />
 
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/settings" element={<SettingsPage />} />
