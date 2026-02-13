@@ -30,6 +30,7 @@ import CompanyDashboard from './components/myComponents/App/Admin/Dashboard/Dash
 import TeamNodesManager from './components/myComponents/App/Admin/Team/Team'
 import ManageApplicants from './components/myComponents/App/Admin/Applications/Applications'
 import FounderIdeaPortal from './components/myComponents/App/Idea/Idea'
+import IdeaResonanceBoard from './components/myComponents/App/Ideas/Ideas'
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
         <Route path="/app/network" element={<AppNetwork />} />
         <Route path="/app/bookmarks" element={<AppBookmarks />} />
         <Route path="/app/idea" element={<FounderIdeaPortal />} />
+        <Route path="/app/ideas" element={<IdeaResonanceBoard />} />
 
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/settings" element={<SettingsPage />} />
