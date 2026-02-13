@@ -33,6 +33,7 @@ import FounderIdeaPortal from './components/myComponents/App/Noda/Idea/Idea'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
 import RoadmapBoard from './components/myComponents/App/Noda/Roadmap/Roadmap'
 import AdminReportsPage from './components/myComponents/App/Admin/Reports/Reports'
+import AdminNotificationsPage from './components/myComponents/App/Admin/Notifications/Notifications'
 
 function App() {
 
@@ -69,6 +70,7 @@ function App() {
         <Route path="/app/noda/roadmap" element={<RoadmapBoard />} />
 
         <Route path="/app/noda/admin/reports" element={<AdminReportsPage />} />
+        <Route path="/app/noda/admin/notifications" element={<AdminNotificationsPage />} />
 
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/settings" element={<SettingsPage />} />
