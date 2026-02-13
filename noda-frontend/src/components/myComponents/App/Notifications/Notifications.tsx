@@ -29,7 +29,7 @@ const NotificationsPage = () => {
                     </div>
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen flex pt-13 mb-24">
+                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen flex pt-12.5 mb-24">
 
                     {/* CENTER: NOTIFICATION FEED */}
                     <div className="flex-1 flex flex-col border-r border-zinc-300">

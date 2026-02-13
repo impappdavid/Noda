@@ -62,7 +62,7 @@ const PostDetail = () => {
                 </aside>
 
                 <div className="flex-1 flex gap-3">
-                    <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen pt-13">
+                    <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen pt-12.5">
                         {/* SUB-HEADER */}
                         <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-[52px] z-20 h-10 divide-x divide-zinc-200">
                             <button onClick={() => navigate(-1)} className="px-3 h-full hover:bg-zinc-50 flex items-center gap-3 cursor-pointer transition-colors">

@@ -22,7 +22,7 @@ const RoadmapProtocol = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
+                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
 
                     {/* 1. COMPACT HEADER */}
                     <div className="px-4 h-8 border-b border-zinc-300 bg-zinc-800 flex justify-between items-center shrink-0">

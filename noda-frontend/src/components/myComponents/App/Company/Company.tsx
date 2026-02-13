@@ -28,7 +28,7 @@ const CompanyPage: React.FC = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
+                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
                     {/* BRANDED HEADER AREA */}
                     <header className="relative shrink-0">
                         <div className="h-32 w-full bg-zinc-900 relative overflow-hidden">

@@ -34,7 +34,7 @@ const AppCommunities: React.FC = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 flex-col max-w-4xl border-x border-zinc-300 h-full overflow-hidden bg-white pt-13">
+                <main className="flex flex-1 flex-col max-w-4xl border-x border-zinc-300 h-full overflow-hidden bg-white pt-12.5">
                     {/* FILTER BAR */}
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30">
                         <CommunitiesFilter

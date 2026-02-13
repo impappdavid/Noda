@@ -22,7 +22,7 @@ const AppNetwork = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 flex-col border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-13">
+                <main className="flex flex-1 flex-col border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-12.5">
                     
                     {/* 1. MINIMAL SEARCH & ACTION */}
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white h-10 sticky top-0 z-30 shrink-0">

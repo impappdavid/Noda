@@ -38,7 +38,7 @@ const PostJob = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-row pt-13 divide-x divide-zinc-300">
+                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-row pt-12.5 divide-x divide-zinc-300">
                     <div className="flex-1 flex flex-col bg-white overflow-y-auto scrollbar-hide">
                         <header className="p-4 border-b border-zinc-300 bg-zinc-800 text-white flex justify-between items-center shrink-0">
                             <div className="flex items-center gap-2">

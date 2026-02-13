@@ -20,7 +20,7 @@ const UserProfile: React.FC = () => {
                     </div>
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 bg-white pt-13 mb-24 min-h-screen">
+                <main className="flex flex-1 border-x border-zinc-300 bg-white pt-12.5 mb-24 min-h-screen">
                     <div className="flex-1 flex flex-col border-r border-zinc-300">
                         {/* IDENTITY BANNER */}
                         <section className="relative shrink-0">

@@ -17,7 +17,7 @@ const CompanyDashboard: React.FC = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-y-auto scrollbar-hide flex-col pt-13">
+                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-y-auto scrollbar-hide flex-col pt-12.5">
                     
                     {/* 1. DASHBOARD HEADER */}
                     <div className="p-4 border-b border-zinc-300 bg-zinc-50/50">

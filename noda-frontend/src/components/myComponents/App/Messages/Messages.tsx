@@ -31,7 +31,7 @@ const MessagesPage = () => {
                     <div className="h-full py-4"><AppSideBar /></div>
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 bg-white h-full overflow-hidden pt-13">
+                <main className="flex flex-1 border-x border-zinc-300 bg-white h-full overflow-hidden pt-12.5">
                     {/* THREAD VIEW */}
                     <div className="flex-1 flex flex-col bg-white">
                         <header className="border-b border-zinc-300 p-3 flex items-center justify-between bg-white shrink-0">

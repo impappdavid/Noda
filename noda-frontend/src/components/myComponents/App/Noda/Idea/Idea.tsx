@@ -30,7 +30,7 @@ const FounderIdeaPortal = () => {
           <AppSideBar />
         </aside>
 
-        <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
+        <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
           
           {/* 1. PROTOCOL HEADER */}
           <div className="px-4 py-2 bg-zinc-800 bg-white flex justify-between items-center shrink-0">

@@ -38,7 +38,7 @@ const AppBookmarks = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 flex-col max-w-3xl border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-13">
+                <main className="flex flex-1 flex-col max-w-3xl border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-12.5">
                     
                     {/* FILTER BAR */}
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-10">
