@@ -35,6 +35,7 @@ import RoadmapBoard from './components/myComponents/App/Noda/Roadmap/Roadmap'
 import AdminReportsPage from './components/myComponents/App/Admin/Reports/Reports'
 import AdminNotificationsPage from './components/myComponents/App/Admin/Notifications/Notifications'
 import IdeaReviewPage from './components/myComponents/App/Admin/Review/Review'
+import LoginPage from './components/myComponents/Auth/Login/Login'
 
 function App() {
 
@@ -50,6 +51,9 @@ function App() {
         <Route path="/changelog" element={<ChangeLog />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/waitlist" element={<Waitlist />} />
+
+
+        <Route path="/login" element={<LoginPage />} />
 
         <Route path="/app/post/:id" element={<PostDetail />} />
         <Route path="/app/jobs/:id" element={<JobDetailPage />} />
