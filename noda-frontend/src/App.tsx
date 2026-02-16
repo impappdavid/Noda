@@ -35,8 +35,8 @@ import RoadmapBoard from './components/myComponents/App/Noda/Roadmap/Roadmap'
 import AdminReportsPage from './components/myComponents/App/Admin/Reports/Reports'
 import AdminNotificationsPage from './components/myComponents/App/Admin/Notifications/Notifications'
 import IdeaReviewPage from './components/myComponents/App/Admin/Review/Review'
-import LoginPage from './components/myComponents/Auth/Login/Login'
 import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
+import AuthController from './components/myComponents/Auth/Login/LoginController'
 
 function App() {
 
@@ -54,7 +54,7 @@ function App() {
         <Route path="/waitlist" element={<Waitlist />} />
 
 
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<AuthController />} />
         <Route path="/signup" element={<SignupPage />} />
 
         <Route path="/app/post/:id" element={<PostDetail />} />
