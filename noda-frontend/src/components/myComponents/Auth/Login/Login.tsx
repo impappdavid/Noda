@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Terminal, Lock, Fingerprint, X, ArrowRight } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
     const [authData, setAuthData] = useState({ node_id: "", access_key: "", remember: false });
@@ -30,9 +31,9 @@ const LoginPage = () => {
                             Noda_Auth
                         </span>
                     </div>
-                    <a href="/" className="text-zinc-500 hover:text-white transition-colors">
+                    <Link to="/" className="text-zinc-500 hover:text-white transition-colors">
                         <X size={16} />
-                    </a>
+                    </Link>
                 </div>
 
                 <form onSubmit={handleLogin} className="flex flex-col">
@@ -115,12 +116,12 @@ const LoginPage = () => {
 
                 {/* 5. LEGAL FOOTER */}
                 <div className="h-10 bg-zinc-50 flex justify-between items-center border-t border-zinc-900 px-4">
-                    <span className="text-[8px] font-mono font-bold text-zinc-500 uppercase tracking-tighter">
+                    <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-tighter">
                         v.2.8_Stable
                     </span>
                     <div className="flex gap-4">
-                        <a href="#" className="text-[8px] font-mono font-black text-zinc-500 hover:text-zinc-900 hover:underline uppercase tracking-tighter">Privacy_Policy</a>
-                        <a href="#" className="text-[8px] font-mono font-black text-zinc-500 hover:text-zinc-900 hover:underline uppercase tracking-tighter">Terms_of_Service</a>
+                        <Link to={`/privacy_policy`} className="text-[9px] font-mono font-black text-zinc-500 hover:text-zinc-900 hover:underline uppercase tracking-tighter">Privacy_Policy</Link>
+                        <Link to={`/terms_of_service`} className="text-[9px] font-mono font-black text-zinc-500 hover:text-zinc-900 hover:underline uppercase tracking-tighter">Terms_of_Service</Link>
                     </div>
                 </div>
             </div>

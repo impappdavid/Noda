@@ -36,6 +36,7 @@ import AdminReportsPage from './components/myComponents/App/Admin/Reports/Report
 import AdminNotificationsPage from './components/myComponents/App/Admin/Notifications/Notifications'
 import IdeaReviewPage from './components/myComponents/App/Admin/Review/Review'
 import LoginPage from './components/myComponents/Auth/Login/Login'
+import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
 
 
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
 
         <Route path="/app/post/:id" element={<PostDetail />} />
         <Route path="/app/jobs/:id" element={<JobDetailPage />} />
