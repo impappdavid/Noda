@@ -1,5 +1,4 @@
 import React from 'react';
-import { Bookmark, Share2 } from 'lucide-react';
 import { IntelligenceMetric } from './JobComponents';
 
 interface JobSidebarProps {
@@ -9,7 +8,7 @@ interface JobSidebarProps {
 
 const JobSidebar: React.FC<JobSidebarProps> = ({ recruiter, analytics }) => (
     <aside className="flex-1 flex flex-col h-full bg-white overflow-hidden min-w-[200px]">
-        <div className="p-3 border-b border-zinc-300 bg-zinc-50/50">
+        <div className="p-3 h-9 border-b border-zinc-300 bg-zinc-50/50">
             <h2 className="text-[10px] font-mono font-black uppercase tracking-[0.3em] text-zinc-500">Node Controller</h2>
         </div>
         <div className="p-3 border-b border-zinc-300">
@@ -36,18 +35,9 @@ const JobSidebar: React.FC<JobSidebarProps> = ({ recruiter, analytics }) => (
             <IntelligenceMetric label="Nodes" value={analytics.nodes} />
         </div>
 
-        <div className="grid grid-cols-2 divide-x divide-zinc-300 border-t border-zinc-300 h-14 shrink-0">
-            <SidebarAction icon={<Bookmark size={16} />} label="Save" />
-            <SidebarAction icon={<Share2 size={16} />} label="Share" />
-        </div>
+        
     </aside>
 );
 
-const SidebarAction = ({ icon, label }: { icon: React.ReactNode; label: string }) => (
-    <button className="flex flex-col items-center justify-center hover:bg-zinc-200 transition-colors cursor-pointer">
-        {icon}
-        <span className="text-[10px] font-mono font-black mt-1 uppercase text-zinc-500">{label}</span>
-    </button>
-);
 
 export default JobSidebar;
