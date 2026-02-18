@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { 
-    MessageSquare, ArrowUpRight, Terminal, 
-    ThumbsUp, ThumbsDown, X, Zap, Calendar, Info 
+import { useState } from 'react';
+import { Terminal, 
+    ThumbsUp, ThumbsDown, Zap, Calendar, Info, 
+    Maximize
 } from 'lucide-react';
 import Navbar from '../../AppNavbar';
 import AppSideBar from '../../Sidebar';
-import { cn } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
@@ -94,7 +93,7 @@ const IdeaResonanceBoard = () => {
                                                 <Terminal size={10} className="text-zinc-900" />
                                                 <span className="text-[9px] font-mono font-black uppercase text-zinc-900">{idea.founder}</span>
                                             </div>
-                                            <ArrowUpRight size={12} className="text-zinc-300 group-hover:text-zinc-900 transition-colors" />
+                                            <Maximize size={12} className="text-zinc-300 group-hover:text-zinc-900 transition-colors" />
                                         </div>
                                     </div>
                                 </DialogTrigger>
@@ -141,12 +140,7 @@ const IdeaResonanceBoard = () => {
                                         </div>
                                     </div>
                                     
-                                    <div className="bg-zinc-50 p-3 flex justify-center border-t border-zinc-100">
-                                        <div className="flex items-center gap-2">
-                                            <MessageSquare size={12} className="text-zinc-400" />
-                                            <span className="text-[8px] font-mono font-black text-zinc-400 uppercase tracking-widest">Discussion_Thread_Cooming_Soon</span>
-                                        </div>
-                                    </div>
+                                    
                                 </DialogContent>
                             </Dialog>
                         ))}
