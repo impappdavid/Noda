@@ -187,7 +187,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
 
                 <div className="flex items-center gap-2 mt-3 text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
                     {/* COMPANY LINK */}
-                    <Link to={`/app/jobs/${job.id}`} className="text-zinc-900 hover:underline">
+                    <Link to={`/app/company/${job.id}`} className="text-zinc-900 hover:underline">
                         {job.company}
                     </Link>
                     <span>|</span>
