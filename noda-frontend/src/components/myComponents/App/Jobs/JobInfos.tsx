@@ -53,7 +53,7 @@ const ReportModal = ({ isOpen, onClose, nodeTitle }: { isOpen: boolean; onClose:
                     <div className="flex items-center gap-2">
                         <AlertTriangle size={16} className="text-red-500" />
                         <DialogTitle className="text-[11px] font-mono font-black uppercase tracking-widest">
-                            Security_Protocol: Report_Node
+                            Security_Protocol: Report
                         </DialogTitle>
                     </div>
                 </DialogHeader>
@@ -62,7 +62,7 @@ const ReportModal = ({ isOpen, onClose, nodeTitle }: { isOpen: boolean; onClose:
                     <div className="px-4 pb-4 space-y-4">
                         <div>
                             <DialogDescription className="text-[11px] font-mono font-bold text-zinc-500 uppercase mb-4">
-                                Target_Node: <span className="text-zinc-900">{nodeTitle}</span>
+                                Target: <span className="text-zinc-900">{nodeTitle}</span>
                             </DialogDescription>
 
                             <label className="text-[10px] font-mono font-black uppercase text-zinc-500 mb-2 block">Violation_Category</label>
@@ -149,7 +149,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
                 <div className="w-12 h-12 bg-zinc-50 border border-zinc-300 flex items-center justify-center mb-4">
                     <Zap className="w-5 h-5 text-zinc-300" />
                 </div>
-                <p className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest">Select a node to initialize preview</p>
+                <p className="text-[11px] font-mono text-zinc-400 uppercase tracking-widest">Select a job to initialize preview</p>
             </div>
         );
     }
@@ -192,7 +192,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
                     </Link>
                     <span>|</span>
                     <span>{job.location}</span>
-                    <span className="text-emerald-600 ml-1">• LIVE NODE</span>
+                    <span className="text-emerald-600 ml-1">• LIVE</span>
                 </div>
             </div>
 
@@ -212,9 +212,9 @@ const JobInfo = ({ job }: JobInfoProps) => {
                         Posted by <Link to={`/app/user/${job.id}`} className="text-zinc-900 hover:underline">{job.authorName}</Link> • 14 days ago
                     </span>
                 </div>
-                <div className="flex flex-col p-3">
-                    <section className="mb-6">
-                        <h4 className="text-[9px] font-mono font-black text-zinc-900 uppercase tracking-[0.3em] mb-3 flex items-center gap-3">Role Specification <div className="h-[1px] flex-1 bg-zinc-300"></div></h4>
+                <div className="flex flex-col ">
+                    <h4 className="text-[9px] p-3 border-b border-zinc-300 font-mono font-black text-zinc-900 uppercase tracking-[0.3em] flex items-center gap-3">Role Specification</h4>
+                    <section className="py-2 px-3">
                         <p className="text-[11px] text-zinc-700 leading-relaxed font-bold tracking-tight">{job.description}</p>
                     </section>
                 </div>

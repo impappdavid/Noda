@@ -33,7 +33,7 @@ const FounderIdeaPortal = () => {
         <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
           
           {/* 1. PROTOCOL HEADER */}
-          <div className="px-4 py-2 bg-zinc-800 bg-white flex justify-between items-center shrink-0">
+          <div className="px-3 py-2 h-9 bg-zinc-800 bg-white flex justify-between items-center shrink-0">
             <div className="flex items-center gap-2">
               <ShieldCheck size={14} className="text-orange-500" />
               <span className="text-[11px] font-mono font-bold text-white uppercase tracking-widest">Protocol: Idea_Injection</span>

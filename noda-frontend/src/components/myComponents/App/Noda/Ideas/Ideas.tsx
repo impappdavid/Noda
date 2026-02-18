@@ -50,7 +50,7 @@ const IdeaResonanceBoard = () => {
                 <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
 
                     {/* 1. SLIM HEADER */}
-                    <div className="px-4 h-9 border-b border-zinc-300 bg-zinc-800 flex justify-between items-center shrink-0">
+                    <div className="px-3 h-9 border-b border-zinc-300 bg-zinc-800 flex justify-between items-center shrink-0">
                         <span className="text-[9px] font-mono font-black uppercase tracking-widest text-zinc-300">[RESONANCE_FEED]</span>
                         <div className="flex items-center gap-2">
                              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
