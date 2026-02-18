@@ -25,7 +25,7 @@ const RoadmapProtocol = () => {
                 <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
 
                     {/* 1. COMPACT HEADER */}
-                    <div className="px-4 h-8 border-b border-zinc-300 bg-zinc-800 flex justify-between items-center shrink-0">
+                    <div className="px-3 h-9 border-b border-zinc-300 bg-zinc-800 flex justify-between items-center shrink-0">
                         <span className="text-[9px] font-mono font-black uppercase tracking-[0.4em] text-zinc-300">Roadmap_Index</span>
                         <span className="text-[9px] font-mono font-black text-zinc-300 uppercase italic">v.4.0_STABLE</span>
                     </div>
