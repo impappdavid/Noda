@@ -9,7 +9,7 @@ const MessageBubble: React.FC<Message> = ({ sender, text, time, isMe }) => (
             <span className="text-[9px] font-mono font-bold text-zinc-400">{time}</span>
         </div>
         <div className={cn(
-            "px-3 py-3 border rounded-lg text-xs leading-relaxed tracking-tight",
+            "px-3 py-2 border rounded-none text-xs leading-relaxed tracking-tight",
             isMe ? "bg-zinc-800 text-white border-zinc-900" : "bg-white border-zinc-300 text-zinc-600"
         )}>
             {text}

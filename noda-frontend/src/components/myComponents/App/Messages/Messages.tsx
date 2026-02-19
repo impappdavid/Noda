@@ -55,12 +55,12 @@ const MessagesPage = () => {
 
                         <footer className="border-t border-zinc-300 bg-white p-0">
                             <div className="relative flex items-center">
-                                <textarea 
+                                <input 
                                     placeholder="TRANSMIT_SIGNAL..." 
-                                    className="w-full bg-zinc-50 border-none px-3 py-4 pr-12 text-[10px] font-mono font-black uppercase outline-none focus:bg-white transition-all resize-none h-14"
+                                    className="w-full px-3 py-4 pr-12 text-[12px] text-white  font-mono font-bold outline-none transition-all resize-none h-12 placeholder:text-zinc-500 bg-zinc-800 "
                                 />
-                                <button className="absolute right-0 h-full px-4 bg-zinc-800 text-white hover:bg-black transition-colors border-none cursor-pointer">
-                                    <Send size={14} />
+                                <button className="absolute aspect-square flex items-center justify-center right-0 h-full px-4 bg-zinc-800 text-white hover:bg-zinc-900 transition-colors border-l border-zinc-300 cursor-pointer">
+                                    <Send size={16} />
                                 </button>
                             </div>
                         </footer>

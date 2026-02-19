@@ -111,7 +111,7 @@ const NotificationsPage = () => {
 
 const SignalItem = ({ s }: { s: any }) => (
     <div className={cn(
-        "p-3 flex gap-4 transition-colors cursor-pointer group",
+        "p-2 flex gap-4 transition-colors cursor-pointer group",
         s.unread ? "bg-blue-50/20" : "hover:bg-zinc-50/50"
     )}>
         <div className="shrink-0 relative">

@@ -12,37 +12,35 @@ interface DirectoryProps {
 const NodeDirectory: React.FC<DirectoryProps> = ({ nodes, activeNode, onNodeSelect }) => {
     return (
         <aside className="w-40 flex flex-col bg-zinc-50/30 border-l border-zinc-300">
-            <div className="border-b border-zinc-300 bg-white p-2">
+            <div className="border-b border-zinc-300 bg-white">
                 <div className="relative group">
-                    <Search className="absolute left-2 top-2.5 text-zinc-300 group-focus-within:text-zinc-900" size={12} />
+                    <Search className="absolute left-2 top-3 text-zinc-500 " size={12} />
                     <input 
                         type="text" 
                         placeholder="SEARCH..." 
-                        className="w-full bg-zinc-50 h-8 pl-7 pr-2 text-[9px] font-mono font-bold uppercase outline-none focus:border-zinc-900 border border-transparent"
+                        className="w-full bg-zinc-50 h-9 pl-7 pr-2 text-[10px] font-mono font-bold uppercase outline-none border border-transparent"
                     />
                 </div>
             </div>
 
             <div className="flex-1 overflow-y-auto scrollbar-hide">
-                <div className="px-3 py-2 border-b border-zinc-200 bg-zinc-50/50">
-                    <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest">Active_Threads</span>
-                </div>
+                
                 {nodes.map((node) => (
                     <button
                         key={node.id}
                         onClick={() => onNodeSelect(node.id)}
                         className={cn(
-                            "w-full p-3 flex flex-col gap-1 border-b border-zinc-200 text-left transition-all",
-                            activeNode === node.id ? "bg-white shadow-[inset_3px_0_0_0_#18181b]" : "hover:bg-zinc-100/50"
+                            "w-full p-2 flex flex-col gap-1 border-b border-zinc-300 text-left transition-all cursor-pointer",
+                            activeNode === node.id ? "bg-zinc-300" : "hover:bg-zinc-100/50"
                         )}
                     >
                         <div className="flex justify-between items-start">
-                            <span className="text-[10px] font-black uppercase tracking-tighter truncate">{node.name}</span>
-                            <span className="text-[8px] font-mono text-zinc-400">{node.time}</span>
+                            <span className="text-[10px] font-bold uppercase tracking-tighter truncate">{node.name}</span>
+                            <span className="text-[9px]  text-zinc-500">{node.time}</span>
                         </div>
                         <p className={cn(
                             "text-[9px] font-bold uppercase truncate tracking-tight",
-                            node.unread ? 'text-black' : 'text-zinc-500'
+                            node.unread ? 'text-bold' : 'text-zinc-500'
                         )}>{node.lastMsg}</p>
                     </button>
                 ))}
