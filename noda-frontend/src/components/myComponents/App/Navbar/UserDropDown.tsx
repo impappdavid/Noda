@@ -9,6 +9,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { User, Settings, LogOut, ShieldCheck, CreditCard } from "lucide-react"
+import { Link } from "react-router-dom"
 
 
 const UserDropDown = () => {
@@ -26,27 +27,28 @@ const UserDropDown = () => {
                 </DropdownMenuTrigger>
 
                 {/* 2. Menu Content styled for Noda */}
-                <DropdownMenuContent className="w-42 mt-2 rounded-none border-zinc-300 p-2 " align="end" forceMount>
+                <DropdownMenuContent className="w-42 mt-2 rounded-none border-zinc-300 p-1 " align="end" forceMount>
                     <DropdownMenuLabel className="font-normal px-2 py-2">
                         <div className="flex flex-col ">
                             <p className="text-xs font-bold leading-none text-zinc-900">Alex Rivers</p>
-                            <p className="text-xs font-mono leading-none text-zinc-400 uppercase tracking-tighter mt-1">
-                                Node: 0x82f...a1c
-                            </p>
                         </div>
                     </DropdownMenuLabel>
 
                     <DropdownMenuSeparator className="bg-zinc-200" />
 
                     <DropdownMenuGroup>
-                        <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-100 focus:text-zinc-900 cursor-pointer">
-                            <User className=" h-4 w-4 text-zinc-400" />
-                            <span>Profile</span>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
-                            <Settings className=" h-4 w-4 text-zinc-400" />
-                            <span>Settings</span>
-                        </DropdownMenuItem>
+                        <Link to={`/app/user/me`}>
+                            <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-100 focus:text-zinc-900 cursor-pointer">
+                                <User className=" h-4 w-4 text-zinc-400" />
+                                <span>Profile</span>
+                            </DropdownMenuItem>
+                        </Link>
+                        <Link to={`/app/settings`}>
+                            <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
+                                <Settings className=" h-4 w-4 text-zinc-400" />
+                                <span>Settings</span>
+                            </DropdownMenuItem>
+                        </Link>
                         <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
                             <CreditCard className=" h-4 w-4 text-zinc-400" />
                             <span>Billing Tiers</span>
@@ -65,6 +67,7 @@ const UserDropDown = () => {
 
                     <DropdownMenuSeparator className="bg-zinc-50" />
 
+                    
                     <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-red-500 focus:bg-red-50 focus:text-red-600 cursor-pointer mt-1">
                         <LogOut className=" h-4 w-4" />
                         <span>Logout</span>
