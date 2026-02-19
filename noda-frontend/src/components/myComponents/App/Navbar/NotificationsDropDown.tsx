@@ -34,7 +34,7 @@ const MOCK_NOTIFICATIONS = [
 
 const NotificationsDropDown = () => {
     return (
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
                 <button className="p-2 hover:bg-zinc-200/80 text-zinc-500 hover:text-zinc-900 transition-colors cursor-pointer outline-none">
                     <Bell className="w-4 h-4" />
