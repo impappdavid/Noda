@@ -79,7 +79,7 @@ const ManageApplicants = () => {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder={view === 'LIST' ? "FILTER_VACANCIES..." : "SEARCH_APPLICANTS..."} 
-                                className="w-full h-10 border-b border-zinc-300 pl-10 pr-4 text-[10px] font-mono font-bold uppercase outline-none"
+                                className="w-full h-10 border-b border-zinc-300 pl-10 pr-4 text-[11px] font-mono font-bold outline-none"
                             />
                         </div>
                         <button className="px-4 h-10 border-l border-b border-zinc-300 flex items-center gap-2 text-[9px] font-mono font-black uppercase hover:bg-zinc-200 transition-colors cursor-pointer">
@@ -104,14 +104,7 @@ const ManageApplicants = () => {
                         )}
                     </div>
 
-                    {/* SYSTEM STATUS FOOTER */}
-                    <footer className="h-10 bg-zinc-900 border-t border-zinc-800 flex items-center px-6 justify-between shrink-0">
-                        <span className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest">Protocol: Applicant_Control_v.2.06</span>
-                        <div className="flex items-center gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            <span className="text-[8px] font-mono text-emerald-500 uppercase font-black tracking-widest">Uplink_Encrypted</span>
-                        </div>
-                    </footer>
+                    
                 </main>
             </div>
         </div>
