@@ -13,6 +13,7 @@ import {
   Check
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,11 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// --- UTILITIES ---
-const cn = (...classes: (string | boolean | undefined | null)[]): string =>
-  classes.filter(Boolean).join(" ");
-
-// --- DATA SCHEMA ---
+// --- 1. DATA SCHEMA (MUST BE AT THE TOP) ---
 const testPosts = [
   {
     id: "p1",
@@ -89,22 +86,74 @@ const testPosts = [
   }
 ];
 
+// --- 2. UTILITIES ---
+const cn = (...classes: (string | boolean | undefined | null)[]): string =>
+  classes.filter(Boolean).join(" ");
+
+// --- 3. SUB-COMPONENTS ---
+const LikeButton = ({ post, isLiked, onToggle }: { post: any, isLiked: boolean, onToggle: (e: React.MouseEvent) => void }) => (
+  <button
+    onClick={onToggle}
+    className={cn(
+      "relative flex items-center gap-2 text-xs font-mono transition-colors cursor-pointer outline-none group",
+      isLiked ? "text-orange-600" : "text-zinc-500 hover:text-orange-600"
+    )}
+  >
+    <AnimatePresence>
+      {isLiked && (
+        <motion.span
+          initial={{ scale: 0, opacity: 1 }}
+          animate={{ scale: 2.5, opacity: 0 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="absolute left-1 inset-0 w-4 h-4 border border-orange-500 rounded-full z-0"
+        />
+      )}
+    </AnimatePresence>
+    <motion.div
+      animate={isLiked ? { scale: [1, 1.4, 1], rotate: [0, 15, -15, 0] } : { scale: 1 }}
+      transition={{ duration: 0.3 }}
+      className="relative z-10"
+    >
+      <Heart size={16} className={cn("transition-all duration-300", isLiked ? "fill-orange-600 stroke-orange-600" : "fill-transparent stroke-current")} />
+    </motion.div>
+    <div className="overflow-hidden h-4">
+      <AnimatePresence mode="wait">
+        <motion.span 
+          key={isLiked ? "liked" : "unliked"}
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -10, opacity: 0 }}
+          className="font-black block"
+        >
+          {post.likes + (isLiked ? 1 : 0)}
+        </motion.span>
+      </AnimatePresence>
+    </div>
+  </button>
+);
+
+const PostOptions = () => (
+  <DropdownMenu modal={false}>
+    <DropdownMenuTrigger asChild>
+      <button className="text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors" onClick={(e) => e.stopPropagation()}>
+        <MoreHorizontal size={16} />
+      </button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent align="end" className="w-24 rounded-none border-zinc-300 p-1 shadow-2xl bg-white" onClick={(e)=>e.stopPropagation()}>
+      <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-200/80"><Link2 size={12} /> Copy_URL</DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem className="gap-1.5 text-xs font-mono text-red-600 cursor-pointer py-2 hover:bg-red-50"><Flag size={12} /> Report</DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
+
+// --- 4. MAIN COMPONENT ---
 export default function Feed() {
   const navigate = useNavigate();
-
-  // State for Interactions
   const [likedPosts, setLikedPosts] = useState<Record<string, boolean>>({});
   const [bookmarkedPosts, setBookmarkedPosts] = useState<Record<string, boolean>>({});
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
-  
-  // State for Poll Voting
-  const [userVotes, setUserVotes] = useState<Record<string, number | null>>({});
-
-  const handleRedirect = (e: React.MouseEvent, username: string) => {
-    e.stopPropagation();
-    e.preventDefault();
-    navigate(`/app/user/${username}`);
-  };
 
   const toggleLike = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
@@ -112,187 +161,55 @@ export default function Feed() {
     setLikedPosts((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const toggleBookmark = (e: React.MouseEvent, id: string) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setBookmarkedPosts((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
-  const handleVote = (e: React.MouseEvent, postId: string, optionIndex: number) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (userVotes[postId] !== undefined) return; // Prevent multiple votes
-    setUserVotes(prev => ({ ...prev, [postId]: optionIndex }));
-  };
-
   return (
     <div className="max-w-2xl mx-auto flex flex-col relative bg-white min-h-screen">
-      
-      {/* IMAGE LIGHTBOX */}
+      {/* Lightbox logic remains same... */}
       {selectedImg && (
-        <div 
-          className="fixed inset-0 z-[100] bg-black/20 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
-          onClick={() => setSelectedImg(null)}
-        >
-          <button className="absolute top-4 right-4 p-2 hover:bg-zinc-800/60  cursor-pointer text-black/50 hover:text-white transition-colors">
-            <CloseIcon size={26} />
-          </button>
-          <img 
-            src={selectedImg} 
-            className="max-w-full max-h-[90vh] object-contain" 
-            onClick={(e) => e.stopPropagation()} 
-          />
+        <div className="fixed inset-0 z-[100] bg-black/20 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200" onClick={() => setSelectedImg(null)}>
+          <button className="absolute top-4 right-4 p-2 text-black/50 hover:text-white transition-colors cursor-pointer"><CloseIcon size={26} /></button>
+          <img src={selectedImg} className="max-w-full max-h-[90vh] object-contain" onClick={(e) => e.stopPropagation()} />
         </div>
       )}
 
-      {/* FEED THREAD */}
       {testPosts.map((post) => (
-        <Link 
-          to={`/app/post/${post.id}`} 
-          key={post.id} 
-          className="p-3 border-b border-zinc-300 hover:bg-zinc-200/60 transition-colors group block"
-        >
+        <Link to={`/app/post/${post.id}`} key={post.id} className="p-3 border-b border-zinc-300 hover:bg-zinc-200/60 transition-colors group block">
           <div className="flex justify-between items-start mb-1">
             <div className="flex gap-3">
-              <div 
-                className="w-10 h-10  border border-zinc-200 overflow-hidden cursor-pointer active:scale-95 transition-transform"
-                onClick={(e) => handleRedirect(e, post.author.name)}
-              >
-                <img src={post.author.avatar} alt={post.author.name} className="w-full h-full object-cover" />
-              </div>
-              <div className="flex flex-col">
-                <div className="flex items-center gap-2">
-                  <span 
-                    onClick={(e) => handleRedirect(e, post.author.name)}
-                    className="text-sm font-bold text-zinc-900 hover:underline cursor-pointer"
-                  >
-                    {post.author.name}
-                  </span>
-                  <span className="text-xs font-mono text-zinc-400 uppercase">{post.author.username}</span>
-                </div>
-                <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase">
-                  {post.author.role} • {post.postedAgo}
-                </span>
-              </div>
+               <div className="w-10 h-10 border border-zinc-200 overflow-hidden shrink-0"><img src={post.author.avatar} alt="av" className="w-full h-full object-cover" /></div>
+               <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-zinc-900">{post.author.name}</span>
+                    <span className="text-xs font-mono text-zinc-400 uppercase">{post.author.username}</span>
+                  </div>
+                  <span className="text-[10px] font-mono font-black text-zinc-500 uppercase">{post.author.role} • {post.postedAgo}</span>
+               </div>
             </div>
             <PostOptions />
           </div>
 
           <div className="pl-13 md:pl-[52px]">
-            <p className="text-sm text-zinc-800 leading-relaxed mb-3">
-              {post.content}
-            </p>
+            <p className="text-sm text-zinc-800 leading-relaxed mb-3">{post.content}</p>
 
-            {/* POLL IMPLEMENTATION */}
-            {post.poll && (
-                <div className="space-y-2 mb-4 pr-2" onClick={(e) => e.preventDefault()}>
-                    {post.poll.options.map((option, idx) => {
-                        const isVoted = userVotes[post.id] !== undefined;
-                        const userChoice = userVotes[post.id] === idx;
-                        const percentage = isVoted 
-                            ? Math.round(((option.votes + (userChoice ? 1 : 0)) / (post.poll!.totalVotes + 1)) * 100) 
-                            : 0;
-
-                        return (
-                            <button
-                                key={idx}
-                                onClick={(e) => handleVote(e, post.id, idx)}
-                                disabled={isVoted}
-                                className={cn(
-                                    "relative w-full h-9  border text-left px-3 overflow-hidden transition-colors group/poll",
-                                    isVoted ? "border-zinc-300 cursor-default" : "border-zinc-300 hover:border-orange-500 hover:bg-orange-500/10 cursor-pointer"
-                                )}
-                            >
-                                {/* Percentage Bar */}
-                                {isVoted && (
-                                    <div 
-                                        className={cn(
-                                            "absolute inset-y-0 left-0 transition-all duration-1000 ease-out",
-                                            userChoice ? "bg-orange-500/20" : "bg-zinc-200"
-                                        )}
-                                        style={{ width: `${percentage}%` }}
-                                    />
-                                )}
-                                
-                                <div className="relative z-10 flex justify-between items-center h-full">
-                                    <div className="flex items-center gap-2">
-                                        <span className={cn(
-                                            "text-xs font-bold",
-                                            userChoice ? "text-orange-600" : "text-zinc-700"
-                                        )}>
-                                            {option.label}
-                                        </span>
-                                        {userChoice && <Check size={12} className="text-orange-600" />}
-                                    </div>
-                                    {isVoted && (
-                                        <span className="text-[10px] font-mono font-black text-zinc-500">
-                                            {percentage}%
-                                        </span>
-                                    )}
-                                </div>
-                            </button>
-                        );
-                    })}
-                    {userVotes[post.id] !== undefined && (
-                        <p className="text-[10px] font-mono font-bold text-zinc-400 mt-1 uppercase tracking-widest">
-                            {post.poll.totalVotes + 1} Signals_Received • Final_Results
-                        </p>
-                    )}
-                </div>
-            )}
-
-            {/* DYNAMIC GRID */}
             {post.images && post.images.length > 0 && (
-              <div className={cn(
-                " overflow-hidden border border-zinc-100 grid gap-1 mb-4",
-                post.images.length === 1 ? "grid-cols-1" : "grid-cols-2",
-                post.images.length >= 3 ? "aspect-square" : "aspect-video"
-              )}>
+              <div className={cn("overflow-hidden border border-zinc-100 grid gap-1 mb-4", post.images.length === 1 ? "grid-cols-1" : "grid-cols-2", post.images.length >= 3 ? "aspect-square" : "aspect-video")}>
                 {post.images.slice(0, 4).map((img, idx) => (
-                  <div 
-                    key={idx} 
-                    className={cn(
-                      "relative bg-zinc-100 overflow-hidden cursor-pointer",
-                      post.images.length === 3 && idx === 0 ? "row-span-2" : ""
-                    )}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      setSelectedImg(img);
-                    }}
-                  >
+                  <div key={idx} className={cn("relative bg-zinc-100 overflow-hidden cursor-pointer", post.images.length === 3 && idx === 0 ? "row-span-2" : "")} onClick={(e) => { e.stopPropagation(); e.preventDefault(); setSelectedImg(img); }}>
                     <img src={img} className="w-full h-full object-cover hover:opacity-90 transition-opacity" />
                   </div>
                 ))}
               </div>
             )}
 
-            {/* ACTION ROW */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-8">
-                <button 
-                  onClick={(e) => toggleLike(e, post.id)}
-                  className={cn(
-                    "flex items-center gap-2 text-xs font-mono transition-colors cursor-pointer",
-                    likedPosts[post.id] ? "text-orange-600" : "text-zinc-500 hover:text-orange-600"
-                  )}
-                >
-                  <Heart size={16} className={likedPosts[post.id] ? "fill-orange-600" : ""} />
-                  {post.likes + (likedPosts[post.id] ? 1 : 0)}
-                </button>
-                <button className="flex items-center gap-2 text-xs font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer" onClick={(e) => e.stopPropagation()}>
-                  <MessageSquare size={16} />
-                  {post.comments}
-                </button>
-                <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
-                  <BarChart3 size={16} />
-                  {post.views}
-                </div>
+                <LikeButton post={post} isLiked={!!likedPosts[post.id]} onToggle={(e) => toggleLike(e, post.id)} />
+                <button className="flex items-center gap-2 text-xs font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer" onClick={(e) => e.stopPropagation()}><MessageSquare size={16} /> {post.comments}</button>
+                <div className="flex items-center gap-2 text-xs font-mono text-zinc-500"><BarChart3 size={16} /> {post.views}</div>
               </div>
               <div className="flex items-center gap-4 text-zinc-500">
                 <button 
-                  onClick={(e) => toggleBookmark(e, post.id)}
-                  className={bookmarkedPosts[post.id] ? "text-zinc-900 cursor-pointer" : "hover:text-zinc-900 cursor-pointer"}
+                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); setBookmarkedPosts(p => ({...p, [post.id]: !p[post.id]})); }}
+                    className={bookmarkedPosts[post.id] ? "text-zinc-900 cursor-pointer" : "hover:text-zinc-900 cursor-pointer"}
                 >
                   <Bookmark size={16} className={bookmarkedPosts[post.id] ? "fill-zinc-900" : ""} />
                 </button>
@@ -303,27 +220,5 @@ export default function Feed() {
         </Link>
       ))}
     </div>
-  );
-}
-
-// --- OPTIONS DROPDOWN COMPONENT ---
-function PostOptions() {
-  return (
-    <DropdownMenu modal={false}>
-      <DropdownMenuTrigger asChild>
-        <button 
-          className="text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors"
-          onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}
-        >
-          <MoreHorizontal size={16} />
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-24 rounded-none border-zinc-300 p-1 shadow-2xl bg-white" onClick={(e)=>e.stopPropagation()}>
-        <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-200/80"> <Link2 size={12} /> Copy_URL </DropdownMenuItem>
-        <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-200/80"> <EyeOff size={12} /> Hide_Node </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="gap-1.5 text-xs font-mono text-red-600 rounded-none hover:bg-zinc-200/80 focus:text-red-600 cursor-pointer py-2"> <Flag size={12} /> Report </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
   );
 }
