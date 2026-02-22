@@ -136,7 +136,7 @@ const LikeButton = ({ post, isLiked, onToggle }: { post: any, isLiked: boolean, 
 const PostOptions = () => (
   <DropdownMenu modal={false}>
     <DropdownMenuTrigger asChild>
-      <button className="text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors" onClick={(e) => e.stopPropagation()}>
+      <button className="text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors" onClick={(e) => e.preventDefault()}>
         <MoreHorizontal size={16} />
       </button>
     </DropdownMenuTrigger>

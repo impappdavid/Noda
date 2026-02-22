@@ -34,9 +34,18 @@ const AppJobs = () => {
                             <div className="flex-1">
                                 <FilterCombobox label="Source" options={[
                                     { label: "All", value: "all" },
-                                    { label: "Direct", value: "direct" },
-                                    { label: "Vector", value: "vector" },
-                                    { label: "External", value: "external" }
+                                    { label: "Noda", value: "noda" },
+                                    { label: "JSearch", value: "jsearch" },
+                                    { label: "USAJOBS", value: "usajobs" }
+                                ]} />
+                            </div>
+
+                            <div className="flex-1">
+                                <FilterCombobox label="Date Posted" options={[
+                                    { label: "Any Time", value: "any" },
+                                    { label: "Past Month", value: "month" },
+                                    { label: "Past week", value: "week" },
+                                    { label: "Past 24 hours", value: "day" }
                                 ]} />
                             </div>
 

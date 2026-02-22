@@ -34,7 +34,7 @@ const FilterCombobox = ({ label, options }: { label: string, options: { label: s
                 </Button>
             </PopoverTrigger>
             {/* PopoverContent width matches trigger for a clean look */}
-            <PopoverContent className="p-0 z-[100] w-[212px] rounded-none border-zinc-300" align="start">
+            <PopoverContent className="p-0 z-[100] w-[160px] rounded-none border-zinc-300" align="start">
                 <Command className="font-mono">
                     <CommandGroup>
                         {options.map((opt) => (
