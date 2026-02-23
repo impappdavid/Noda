@@ -7,10 +7,8 @@ import {
   Bookmark,
   Share,
   Link2,
-  EyeOff,
   Flag,
   X as CloseIcon,
-  Check
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,7 +26,7 @@ const testPosts = [
     id: "p1",
     author: {
       name: "Alex Rivers",
-      username: "@arivers",
+      username: "arivers",
       role: "Vector Engineer",
       avatar: "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=100&auto=format&fit=crop",
     },
@@ -43,7 +41,7 @@ const testPosts = [
     id: "p_poll_1",
     author: {
       name: "Marcus Vane",
-      username: "@mv_arch",
+      username: "mv_arch",
       role: "Systems Architect",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
     },
@@ -68,7 +66,7 @@ const testPosts = [
     id: "p4",
     author: {
       name: "Anonymous Node",
-      username: "@encrypted",
+      username: "encrypted",
       role: "Senior Lead",
       avatar: "https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=18181b",
     },
@@ -178,8 +176,8 @@ export default function Feed() {
                <div className="w-10 h-10 border border-zinc-200 overflow-hidden shrink-0"><img src={post.author.avatar} alt="av" className="w-full h-full object-cover" /></div>
                <div className="flex flex-col">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-zinc-900">{post.author.name}</span>
-                    <span className="text-xs font-mono text-zinc-400 uppercase">{post.author.username}</span>
+                    <span className="text-sm font-bold text-zinc-900 hover:underline" onClick={(e) => {e.preventDefault(); navigate(`/app/user/${post.author.username}`)}}>{post.author.name}</span>
+                    <span className="text-xs font-mono text-zinc-500">@{post.author.username}</span>
                   </div>
                   <span className="text-[10px] font-mono font-black text-zinc-500 uppercase">{post.author.role} • {post.postedAgo}</span>
                </div>
