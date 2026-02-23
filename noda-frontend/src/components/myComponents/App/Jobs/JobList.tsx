@@ -18,14 +18,14 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                             <span className={`text-[10px] font-mono uppercase tracking-wide font-bold ${
                                 isSelected ? "text-zinc-600" : "text-zinc-500"
                             }`}>
-                                JOB-{job.id}
+                                {job.company}
                             </span>
                             <div className="flex items-center gap-2">
                                 {/* Match Percentage Pill */}
                                 <span className={`text-[10px] font-mono font-bold flex items-center justify-center px-1.5 py-0.5 rounded border ${
                                     isSelected 
-                                        ? (job.match > 90 ? 'border-orange-600/80 text-orange-600 ' : 'border-zinc-800 text-zinc-800')
-                                        : (job.match > 90 ? 'bg-orange-500/20 border-transparent text-orange-600' : 'bg-zinc-200 border-transparent text-zinc-500')
+                                        ? (job.match > 90 ? 'bg-sky-500/20 border-sky-500/50 text-sky-600 ' : 'border-zinc-800/50 bg-zinc-500/20 text-zinc-800')
+                                        : (job.match > 90 ? 'bg-sky-500/20 border-transparent text-sky-600' : 'bg-zinc-200 border-transparent text-zinc-500')
                                 }`}>
                                     {job.match}%
                                 </span>
@@ -40,13 +40,12 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                                 }`}>
                                     {job.role}
                                 </h3>
-                                <div className={`flex items-center gap-2 text-[11px] transition-colors text-zinc-500`}>
-                                    <span className="font-medium">{job.company}</span>
-                                    <span className={isSelected ? "text-zinc-700" : "text-zinc-400"}>•</span>
+                                <div className={`flex items-center gap-2 text-[11px] transition-colors text-zinc-600`}>
                                     <span className="truncate">{job.workMode}</span>
                                     <span className={isSelected ? "text-zinc-700" : "text-zinc-400"}>•</span>
                                     <span className="truncate">{job.experience}</span>
-                                    
+                                    <span className={isSelected ? "text-zinc-700" : "text-zinc-400"}>•</span>
+                                    <span className="truncate">{job.type}</span>
                                 </div>
                             </div>
 
