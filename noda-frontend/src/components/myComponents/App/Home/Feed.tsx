@@ -94,7 +94,7 @@ const LikeButton = ({ post, isLiked, onToggle }: { post: any, isLiked: boolean, 
     onClick={onToggle}
     className={cn(
       "relative flex items-center gap-2 text-xs font-mono transition-colors cursor-pointer outline-none group",
-      isLiked ? "text-orange-600" : "text-zinc-500 hover:text-orange-600"
+      isLiked ? "text-pink-600" : "text-zinc-500 hover:text-pink-600"
     )}
   >
     <AnimatePresence>
@@ -104,7 +104,7 @@ const LikeButton = ({ post, isLiked, onToggle }: { post: any, isLiked: boolean, 
           animate={{ scale: 2.5, opacity: 0 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="absolute left-1 inset-0 w-4 h-4 border border-orange-500 rounded-full z-0"
+          className="absolute left-1 inset-0 w-4 h-4 border border-pink-500 rounded-full z-0"
         />
       )}
     </AnimatePresence>
@@ -113,7 +113,7 @@ const LikeButton = ({ post, isLiked, onToggle }: { post: any, isLiked: boolean, 
       transition={{ duration: 0.3 }}
       className="relative z-10"
     >
-      <Heart size={16} className={cn("transition-all duration-300", isLiked ? "fill-orange-600 stroke-orange-600" : "fill-transparent stroke-current")} />
+      <Heart size={16} className={cn("transition-all duration-300", isLiked ? "fill-pink-600 stroke-pink-600" : "fill-transparent stroke-current")} />
     </motion.div>
     <div className="overflow-hidden h-4">
       <AnimatePresence mode="wait">
