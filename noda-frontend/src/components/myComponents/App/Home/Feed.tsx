@@ -9,6 +9,7 @@ import {
   Link2,
   Flag,
   X as CloseIcon,
+  X,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -19,8 +20,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog"
 
-// --- 1. DATA SCHEMA (MUST BE AT THE TOP) ---
+// --- 1. DATA SCHEMA ---
 const testPosts = [
   {
     id: "p1",
@@ -117,7 +122,7 @@ const LikeButton = ({ post, isLiked, onToggle }: { post: any, isLiked: boolean, 
     </motion.div>
     <div className="overflow-hidden h-4">
       <AnimatePresence mode="wait">
-        <motion.span 
+        <motion.span
           key={isLiked ? "liked" : "unliked"}
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -138,7 +143,7 @@ const PostOptions = () => (
         <MoreHorizontal size={16} />
       </button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent align="end" className="w-24 rounded-none border-zinc-300 p-1 shadow-2xl bg-white" onClick={(e)=>e.stopPropagation()}>
+    <DropdownMenuContent align="end" className="w-24 rounded-none border-zinc-300 p-1 shadow-2xl bg-white" onClick={(e) => e.stopPropagation()}>
       <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-200/80"><Link2 size={12} /> Copy_URL</DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem className="gap-1.5 text-xs font-mono text-red-600 cursor-pointer py-2 hover:bg-red-50"><Flag size={12} /> Report</DropdownMenuItem>
@@ -152,6 +157,9 @@ export default function Feed() {
   const [likedPosts, setLikedPosts] = useState<Record<string, boolean>>({});
   const [bookmarkedPosts, setBookmarkedPosts] = useState<Record<string, boolean>>({});
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
+  // Track the whole post object for the dialog info
+  const [selectedPost, setSelectedPost] = useState<any>(null); 
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const toggleLike = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
@@ -161,26 +169,19 @@ export default function Feed() {
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col relative bg-white min-h-screen">
-      {/* Lightbox logic remains same... */}
-      {selectedImg && (
-        <div className="fixed inset-0 z-[100] bg-black/20 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200" onClick={() => setSelectedImg(null)}>
-          <button className="absolute top-4 right-4 p-2 text-black/50 hover:text-white transition-colors cursor-pointer"><CloseIcon size={26} /></button>
-          <img src={selectedImg} className="max-w-full max-h-[90vh] object-contain" onClick={(e) => e.stopPropagation()} />
-        </div>
-      )}
 
       {testPosts.map((post) => (
         <Link to={`/app/post/${post.id}`} key={post.id} className="p-3 border-b border-zinc-300 hover:bg-zinc-200/60 transition-colors group block">
           <div className="flex justify-between items-start mb-1">
             <div className="flex gap-3">
-               <div className="w-10 h-10 border border-zinc-200 overflow-hidden shrink-0"><img src={post.author.avatar} alt="av" className="w-full h-full object-cover" /></div>
-               <div className="flex flex-col">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-zinc-900 hover:underline" onClick={(e) => {e.preventDefault(); navigate(`/app/user/${post.author.username}`)}}>{post.author.name}</span>
-                    <span className="text-xs font-mono text-zinc-500">@{post.author.username}</span>
-                  </div>
-                  <span className="text-[10px] font-mono font-black text-zinc-500 uppercase">{post.author.role} • {post.postedAgo}</span>
-               </div>
+              <div className="w-10 h-10 border border-zinc-200 overflow-hidden shrink-0"><img src={post.author.avatar} alt="av" className="w-full h-full object-cover" /></div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-zinc-900 hover:underline" onClick={(e) => { e.preventDefault(); navigate(`/app/user/${post.author.username}`) }}>{post.author.name}</span>
+                  <span className="text-xs font-mono text-zinc-500">@{post.author.username}</span>
+                </div>
+                <span className="text-[10px] font-mono font-black text-zinc-500 uppercase">{post.author.role} • {post.postedAgo}</span>
+              </div>
             </div>
             <PostOptions />
           </div>
@@ -191,7 +192,17 @@ export default function Feed() {
             {post.images && post.images.length > 0 && (
               <div className={cn("overflow-hidden border border-zinc-100 grid gap-1 mb-4", post.images.length === 1 ? "grid-cols-1" : "grid-cols-2", post.images.length >= 3 ? "aspect-square" : "aspect-video")}>
                 {post.images.slice(0, 4).map((img, idx) => (
-                  <div key={idx} className={cn("relative bg-zinc-100 overflow-hidden cursor-pointer", post.images.length === 3 && idx === 0 ? "row-span-2" : "")} onClick={(e) => { e.stopPropagation(); e.preventDefault(); setSelectedImg(img); }}>
+                  <div 
+                    key={idx} 
+                    className={cn("relative bg-zinc-100 overflow-hidden cursor-pointer", post.images.length === 3 && idx === 0 ? "row-span-2" : "")} 
+                    onClick={(e) => { 
+                        e.stopPropagation(); 
+                        e.preventDefault(); 
+                        setSelectedImg(img); 
+                        setSelectedPost(post); // Set the current post context
+                        setDialogOpen(true); 
+                    }}
+                  >
                     <img src={img} className="w-full h-full object-cover hover:opacity-90 transition-opacity" />
                   </div>
                 ))}
@@ -205,9 +216,9 @@ export default function Feed() {
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-500"><BarChart3 size={16} /> {post.views}</div>
               </div>
               <div className="flex items-center gap-4 text-zinc-500">
-                <button 
-                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); setBookmarkedPosts(p => ({...p, [post.id]: !p[post.id]})); }}
-                    className={bookmarkedPosts[post.id] ? "text-zinc-900 cursor-pointer" : "hover:text-zinc-900 cursor-pointer"}
+                <button
+                  onClick={(e) => { e.stopPropagation(); e.preventDefault(); setBookmarkedPosts(p => ({ ...p, [post.id]: !p[post.id] })); }}
+                  className={bookmarkedPosts[post.id] ? "text-zinc-900 cursor-pointer" : "hover:text-zinc-900 cursor-pointer"}
                 >
                   <Bookmark size={16} className={bookmarkedPosts[post.id] ? "fill-zinc-900" : ""} />
                 </button>
@@ -217,6 +228,52 @@ export default function Feed() {
           </div>
         </Link>
       ))}
+
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="w-full flex rounded-none bg-transparent border-none shadow-none p-0 max-w-none h-screen">
+          <div className="absolute top-4 left-4 text-white bg-zinc-800/70 p-1.5 cursor-pointer hover:bg-zinc-800 transition-colors z-50" onClick={() => setDialogOpen(false)}><X className="w-4.5 h-4.5" /></div>
+          
+          <div className="w-3/4 h-screen flex items-center justify-center">
+            {selectedImg && (
+              <img src={selectedImg} className="max-w-full max-h-full object-contain" onClick={(e) => e.stopPropagation()} />
+            )}
+          </div>
+
+          <div className="w-1/4 bg-white h-screen border-l border-zinc-300 p-3 flex flex-col ">
+            {selectedPost && (
+              <>
+                <div className="flex justify-between items-start mb-1 ">
+                  <div className="flex gap-3">
+                    <div className="w-10 h-10 border border-zinc-200 overflow-hidden shrink-0">
+                        <img src={selectedPost.author.avatar} alt="av" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-bold text-zinc-900 hover:underline">{selectedPost.author.name}</span>
+                        <span className="text-xs font-mono text-zinc-500">@{selectedPost.author.username}</span>
+                      </div>
+                      <span className="text-[10px] font-mono font-black text-zinc-500 uppercase">{selectedPost.author.role} • {selectedPost.postedAgo}</span>
+                    </div>
+                  </div>
+                  <PostOptions />
+                </div>
+
+                <div className="pl-13 md:pl-[52px] border-b border-zinc-300 pb-4">
+                  <p className="text-sm text-zinc-800 leading-relaxed mb-3">{selectedPost.content}</p>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-8">
+                      <LikeButton post={selectedPost} isLiked={!!likedPosts[selectedPost.id]} onToggle={(e) => toggleLike(e, selectedPost.id)} />
+                      <button className="flex items-center gap-2 text-xs font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer"><MessageSquare size={16} /> {selectedPost.comments}</button>
+                      <div className="flex items-center gap-2 text-xs font-mono text-zinc-500"><BarChart3 size={16} /> {selectedPost.views}</div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
