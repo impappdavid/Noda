@@ -61,7 +61,7 @@ const AdminNotificationsPage = () => {
                                     </span>
                                     {targetRoute && <LinkIcon size={10} className="text-orange-500 animate-pulse" />}
                                 </div>
-                                <p className="text-[11px] font-mono font-bold text-zinc-600 uppercase truncate">
+                                <p className="text-[11px] font-mono font-bold text-zinc-600 uppercase">
                                     {lastBroadcast.message}
                                 </p>
                             </div>
