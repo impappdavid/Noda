@@ -10,6 +10,7 @@ import {
   Flag,
   X as CloseIcon,
   X,
+  CornerDownRight,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -158,7 +159,7 @@ export default function Feed() {
   const [bookmarkedPosts, setBookmarkedPosts] = useState<Record<string, boolean>>({});
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   // Track the whole post object for the dialog info
-  const [selectedPost, setSelectedPost] = useState<any>(null); 
+  const [selectedPost, setSelectedPost] = useState<any>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const toggleLike = (e: React.MouseEvent, id: string) => {
@@ -192,15 +193,15 @@ export default function Feed() {
             {post.images && post.images.length > 0 && (
               <div className={cn("overflow-hidden border border-zinc-100 grid gap-1 mb-4", post.images.length === 1 ? "grid-cols-1" : "grid-cols-2", post.images.length >= 3 ? "aspect-square" : "aspect-video")}>
                 {post.images.slice(0, 4).map((img, idx) => (
-                  <div 
-                    key={idx} 
-                    className={cn("relative bg-zinc-100 overflow-hidden cursor-pointer", post.images.length === 3 && idx === 0 ? "row-span-2" : "")} 
-                    onClick={(e) => { 
-                        e.stopPropagation(); 
-                        e.preventDefault(); 
-                        setSelectedImg(img); 
-                        setSelectedPost(post); // Set the current post context
-                        setDialogOpen(true); 
+                  <div
+                    key={idx}
+                    className={cn("relative bg-zinc-100 overflow-hidden cursor-pointer", post.images.length === 3 && idx === 0 ? "row-span-2" : "")}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      setSelectedImg(img);
+                      setSelectedPost(post); // Set the current post context
+                      setDialogOpen(true);
                     }}
                   >
                     <img src={img} className="w-full h-full object-cover hover:opacity-90 transition-opacity" />
@@ -232,20 +233,20 @@ export default function Feed() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="w-full flex rounded-none bg-transparent border-none shadow-none p-0 max-w-none h-screen">
           <div className="absolute top-4 left-4 text-white bg-zinc-800/70 p-1.5 cursor-pointer hover:bg-zinc-800 transition-colors z-50" onClick={() => setDialogOpen(false)}><X className="w-4.5 h-4.5" /></div>
-          
+
           <div className="w-3/4 h-screen flex items-center justify-center">
             {selectedImg && (
               <img src={selectedImg} className="max-w-full max-h-full object-contain" onClick={(e) => e.stopPropagation()} />
             )}
           </div>
 
-          <div className="w-1/4 bg-white h-screen border-l border-zinc-300 p-3 flex flex-col ">
+          <div className="w-1/4 bg-white h-screen border-l border-zinc-300 flex flex-col ">
             {selectedPost && (
               <>
-                <div className="flex justify-between items-start mb-1 ">
+                <div className="flex justify-between items-start mb-1 p-3">
                   <div className="flex gap-3">
                     <div className="w-10 h-10 border border-zinc-200 overflow-hidden shrink-0">
-                        <img src={selectedPost.author.avatar} alt="av" className="w-full h-full object-cover" />
+                      <img src={selectedPost.author.avatar} alt="av" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex flex-col">
                       <div className="flex items-center gap-2">
@@ -258,7 +259,7 @@ export default function Feed() {
                   <PostOptions />
                 </div>
 
-                <div className="pl-13 md:pl-[52px] border-b border-zinc-300 pb-4">
+                <div className="pl-13 md:pl-[52px] pb-4">
                   <p className="text-sm text-zinc-800 leading-relaxed mb-3">{selectedPost.content}</p>
 
                   <div className="flex items-center justify-between">
@@ -266,6 +267,39 @@ export default function Feed() {
                       <LikeButton post={selectedPost} isLiked={!!likedPosts[selectedPost.id]} onToggle={(e) => toggleLike(e, selectedPost.id)} />
                       <button className="flex items-center gap-2 text-xs font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer"><MessageSquare size={16} /> {selectedPost.comments}</button>
                       <div className="flex items-center gap-2 text-xs font-mono text-zinc-500"><BarChart3 size={16} /> {selectedPost.views}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-full h-10 flex border-y border-zinc-300">
+                  <div className="flex gap-1 w-full">
+                    <img src={selectedPost.author.avatar} alt="" className="w-10 h-10 object-cover" />
+                    <input type="text" placeholder="Post your reply" className="rounded-none outline-none w-full px-2 text-xs" />
+                  </div>
+                  <button className="bg-zinc-800 hover:bg-zinc-900 transition-colors px-3 pl-4 text-white text-xs cursor-pointer uppercase font-mono">Post</button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto  scrollbar-hide">
+                  <div key={12} className="py-4 border-b border-zinc-300 px-3">
+                    <div className="flex gap-3">
+                      <div className="w-8 h-8 border border-zinc-300 overflow-hidden shrink-0"><img src={selectedPost.author.avatar} className="w-full h-full object-cover" /></div>
+                      <div className="flex flex-col">
+                        <div className="flex items-start justify-between ">
+                          <div className="flex flex-col gap-0.5 mb-1">
+                            <div className="flex gap-2 items-center">
+                              <span className="text-[12px] font-bold">Béla Iván</span>
+                              <span className="text-[12px] text-zinc-500">@belaivan</span>
+                            </div>
+                            <span className="text-[10px] font-mono text-zinc-500 uppercase font-semibold">Vector Engineer</span>
+                          </div>
+                          <span className="text-[10px] font-mono text-zinc-600">2h</span>
+                        </div>
+                        <p className="text-[11px] text-zinc-600 leading-snug">Signal received. Node verification remains stable under current latency benchmarks.</p>
+                        <div className="flex gap-4 mt-2">
+                          <button className="text-[11px] font-mono text-zinc-500 hover:text-pink-600 cursor-pointer transition-colors flex items-center gap-1"><Heart size={14} /> 320</button>
+                          <button className="text-[11px] font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer transition-colors flex items-center gap-1"><CornerDownRight size={14} /> REPLY</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
