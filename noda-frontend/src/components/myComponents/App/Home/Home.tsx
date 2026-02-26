@@ -14,7 +14,7 @@ const AppHome = () => {
           <AppSideBar />
         </aside>
 
-        <div className="flex-1 flex gap-3">
+        <div className="flex-1 flex gap-2">
           <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen pt-12.5">
             <PostForm />
             <Feed />

@@ -1,66 +1,132 @@
-import { TrendingUp } from "lucide-react"
+import { cn } from "@/lib/utils";
+import { ChevronRight, Target, TrendingUp } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const Suggestions = () => {
+
     return (
         <>
             {/* 4. RIGHT COLUMN */}
             <aside className="hidden xl:block">
-                <div className="sticky top-16 space-y-4">
-                    <div className="w-[145px] bg-zinc-800  p-4 text-white shadow-xl border border-white/5 flex flex-col gap-4">
-                        {/* Compact Header */}
-                        <div className="flex items-center justify-between">
-                            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-                                Intelligence
+                <div className="sticky top-16 space-y-4 w-37">
+                    <Link
+                        to={`/app/premium`}
+                        className="w-37 bg-zinc-800 p-2 block transition-all duration-300 cursor-pointer group shadow-2xl relative overflow-hidden no-underline"
+                    >
+                        {/* HOVER GLOW EFFECT */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/0 via-orange-500/0 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                        {/* TOP BAND */}
+                        <div className="flex justify-between items-center mb-2 relative z-10">
+                            <span className="text-[12px] font-black tracking-tighter flex gap-0.5 items-end text-white group-hover:text-orange-50 transition-colors">
+                                NODA<span className="text-orange-500 group-hover:animate-pulse uppercase text-[10px]">premium</span>
                             </span>
-                            <div className="w-1 h-1 rounded-full bg-orange-500 animate-pulse" />
+
+                            {/* ENERGIZED INDICATOR */}
+                            <div className="relative">
+                                <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse shadow-[0_0_5px_rgba(249,115,22,0.5)]" />
+                                <div className="absolute inset-0 w-1.5 h-1.5 bg-orange-500 rounded-full animate-ping opacity-0 group-hover:opacity-40" />
+                            </div>
                         </div>
 
-                        {/* Vertical Stat Stack */}
-                        <div className="space-y-4">
-                            {/* Applied */}
-                            <div className="flex flex-col gap-0.5">
-                                <div className="text-xs text-zinc-400 font-mono uppercase tracking-tighter">Applied</div>
-                                <div className="flex items-center gap-1.5">
-                                    <span className="text-xl font-bold tracking-tighter leading-none">14</span>
-                                    <span className="text-[10px] text-orange-500 font-bold bg-orange-500/10 px-1 py-0.5 rounded">
-                                        +2
-                                    </span>
-                                </div>
+                        {/* CTA SECTION */}
+                        <div className="flex flex-col gap-1.5 relative z-10">
+                            {/* EXPANDING DIVIDER */}
+                            <div className="relative h-[1px] w-full bg-zinc-700 overflow-hidden">
+                                <div className="absolute inset-0 bg-orange-500 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out" />
                             </div>
 
-                            {/* Divider */}
-                            <div className="h-[1px] w-full bg-white/5" />
-                            <div className="flex justify-between pr-1">
-                                {/* Posts */}
-                                <div className="flex flex-col gap-0.5">
-                                    <div className="text-xs text-zinc-400 font-mono uppercase tracking-tighter">Posts</div>
-                                    <span className="text-lg font-bold tracking-tighter text-zinc-100 leading-none">42</span>
-                                </div>
+                            <div className="flex items-center justify-between">
+                                <span className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-tighter group-hover:text-zinc-200 transition-colors">
+                                    Try now
+                                </span>
 
-                                {/* Views */}
-                                <div className="flex flex-col gap-0.5">
-                                    <div className="text-xs text-zinc-400 font-mono uppercase tracking-tighter">Views</div>
-                                    <span className="text-lg font-bold tracking-tighter text-zinc-100 leading-none">8.4k</span>
+                                {/* MECHANICAL CHEVRON ANIMATION */}
+                                <div className="transform transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110">
+                                    <ChevronRight size={12} className="text-orange-500" />
+                                </div>
+                            </div>
+                        </div>
+                    </Link>
+
+                    {/* --- 1. SETUP_PROGRESS (Mechanical Initialization) --- */}
+                    <div className="space-y-3 p-2 border border-zinc-300">
+                        <div className="flex items-center justify-between border-b border-zinc-900 pb-2">
+                            <h3 className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-widest">
+                                Init_Sequence
+                            </h3>
+                            <span className="text-[10px] font-mono font-bold text-zinc-500">65%</span>
+                        </div>
+
+                        <div className="space-y-4">
+                            {/* Progress Bar Segmented */}
+                            <div className="flex gap-1 h-1">
+                                <div className="flex-1 bg-zinc-800" />
+                                <div className="flex-1 bg-zinc-800" />
+                                <div className="flex-1 bg-zinc-800" />
+                                <div className="flex-1 bg-zinc-200" />
+                                <div className="flex-1 bg-zinc-200" />
+                            </div>
+
+                            {/* Task Checklist */}
+                            <div className="space-y-2">
+                                <div className="flex items-center gap-2 opacity-100">
+                                    <div className="w-2 h-2 border border-zinc-900 flex items-center justify-center bg-zinc-800">
+                                        <div className="w-1 h-1 bg-white" />
+                                    </div>
+                                    <span className="text-[10px] font-mono font-black uppercase text-zinc-900">Node_Verified</span>
+                                </div>
+                                <div className="flex items-center gap-2 opacity-40 hover:opacity-100 transition-opacity cursor-pointer group">
+                                    <div className="w-2 h-2 border border-zinc-300 group-hover:border-zinc-900" />
+                                    <span className="text-[9px] font-mono font-black uppercase text-zinc-500 group-hover:text-zinc-900">Sync_Vector</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Recommendations */}
-                    <div className="bg-white p-2">
-                        <h3 className="text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-widest mb-4">Suggested Nodes</h3>
-                        <div className="space-y-4">
-                            {[1, 2, 3].map((i) => (
-                                <div key={i} className="flex items-center justify-between group cursor-pointer">
-                                    <div className="flex items-center gap-3">
-                                        <div>
-                                            <div className="text-[11px] font-bold group-hover:text-orange-500 transition-colors">Vercel</div>
-                                            <div className="text-[9px] text-zinc-400">96% Vector Match</div>
+                    <div className="space-y-2 p-2 border border-zinc-300">
+                        <div className="flex items-center justify-between border-b border-zinc-300 pb-2">
+                            <h3 className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest">
+                                ACtivity
+                            </h3>
+                            <Target size={14} className="text-zinc-500" />
+                        </div>
+
+                        <div className="space-y-2">
+                            {/* 7 Individual Squares for the Week */}
+                            <div className="grid grid-cols-7 gap-1">
+                                {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, i) => {
+                                    // Mock activity levels for the current week
+                                    const levels = [3, 2, 0, 1, 3, 0, 0];
+                                    const level = levels[i];
+
+                                    return (
+                                        <div key={i} className="flex flex-col gap-1.5 items-center">
+                                            <div
+                                                className={cn(
+                                                    "aspect-square w-full transition-colors duration-500",
+                                                    level === 0 && "bg-zinc-50 border border-zinc-100",
+                                                    level === 1 && "bg-orange-500/20",
+                                                    level === 2 && "bg-orange-500/40",
+                                                    level === 3 && "bg-orange-500 "
+                                                )}
+                                                title={`${day}: Level ${level}`}
+                                            />
+                                            <span className="text-[9px] font-mono font-black text-zinc-500 uppercase">
+                                                {day}
+                                            </span>
                                         </div>
-                                    </div>
-                                    <TrendingUp className="w-3 h-3 text-zinc-300 group-hover:text-zinc-900 transition-colors" />
+                                    );
+                                })}
+                            </div>
+
+                            <div className="flex justify-between items-center pt-1 border-t border-zinc-50">
+                                <span className="text-[10px] text-zinc-500 uppercase tracking-tighter">Today</span>
+                                <div className="flex gap-1 items-center opacity-60">
+                                    <div className="w-1 h-1 bg-orange-800 rounded-full" />
+                                    <div className="w-1 h-1 bg-orange-800 rounded-full" />
                                 </div>
-                            ))}
+                            </div>
                         </div>
                     </div>
                 </div>
