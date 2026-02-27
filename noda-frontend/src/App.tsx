@@ -37,6 +37,7 @@ import AdminNotificationsPage from './components/myComponents/App/Admin/Notifica
 import IdeaReviewPage from './components/myComponents/App/Admin/Review/Review'
 import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
 import AuthController from './components/myComponents/Auth/Login/LoginController'
+import PremiumPage from './components/myComponents/App/Premium/Premium'
 
 function App() {
 
@@ -71,6 +72,7 @@ function App() {
         <Route path="/app/calendar" element={<AppCalendar />} />
         <Route path="/app/network" element={<AppNetwork />} />
         <Route path="/app/bookmarks" element={<AppBookmarks />} />
+        <Route path="/app/premium" element={<PremiumPage />} />
 
         <Route path="/app/noda/idea" element={<FounderIdeaPortal />} />
         <Route path="/app/noda/ideas" element={<IdeaResonanceBoard />} />
