@@ -9,7 +9,7 @@ import FilterCombobox from './JobFilters';
 
 
 const jobData = [
-    { id: 43, type:"Full-time", workMode:"Remote", authorName:"test", company: "Taco Bell", role: "Oven installation", location: "Kansas City", experience: "1-3 year", status: "Live", match: 96, salary: "$25/hr", description: `## PHASE_01: SYSTEM_OVERVIEW
+    { id: 43, type:"Full-time", workMode:"Remote", authorName:"test", company: "Taco Bell", role: "Frontend Developer", location: "Kansas City", experience: "1-3 year", status: "Live", match: 96, salary: "$25/hr", description: `## PHASE_01: SYSTEM_OVERVIEW
 Looking for a **Precision-Focused Specialist** to lead industrial oven calibration and thermal deployment protocols. You will be responsible for the structural integrity of thermal cycles and the optimization of heat-distribution vectors.
 
 ### CORE_RESPONSIBILITIES:

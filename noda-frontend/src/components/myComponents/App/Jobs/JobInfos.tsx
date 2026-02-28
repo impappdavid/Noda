@@ -217,7 +217,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
                     </div>
 
                     <Link to={`/app/jobs/${job.id}`} className="hover:underline block">
-                        <h2 className="text-xl font-black tracking-tighter text-zinc-900 leading-tight uppercase italic">
+                        <h2 className="text-xl font-bold tracking-tighter text-zinc-900 leading-tight">
                             {job.role}
                         </h2>
                     </Link>
