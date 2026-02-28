@@ -24,8 +24,8 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                                 {/* Match Percentage Pill */}
                                 <span className={`text-[10px] font-mono font-bold flex items-center justify-center px-1.5 py-0.5 rounded border ${
                                     isSelected 
-                                        ? (job.match > 90 ? 'bg-sky-500/20 border-sky-500/50 text-sky-600 ' : 'border-zinc-800/50 bg-zinc-500/20 text-zinc-800')
-                                        : (job.match > 90 ? 'bg-sky-500/20 border-transparent text-sky-600' : 'bg-zinc-200 border-transparent text-zinc-500')
+                                        ? (job.match > 90 ? 'bg-orange-500/20 border-orange-500/50 text-orange-700 ' : 'border-zinc-800/30 bg-zinc-500/20 text-zinc-800')
+                                        : (job.match > 90 ? 'bg-orange-500/20 border-transparent text-orange-700' : 'bg-zinc-200 border-transparent text-zinc-500')
                                 }`}>
                                     {job.match}%
                                 </span>

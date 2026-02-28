@@ -116,10 +116,10 @@ const PremiumPage = () => {
                                         <div className="p-3 flex items-center justify-between h-[54px]">
                                             <div className="flex items-start gap-3">
                                                 <div className={cn(
-                                                    "w-3 h-3 rounded-full border flex items-center justify-center shrink-0 mt-1",
+                                                    "w-3 h-3 rounded-none border flex items-center justify-center shrink-0 mt-1",
                                                     isActive ? "bg-orange-500" : "border-zinc-300"
                                                 )}>
-                                                    {isActive && <div className="w-1 h-1 bg-white rounded-full" />}
+                                                    {isActive && <div className="w-1 h-1 bg-white rounded-none" />}
                                                 </div>
                                                 <div className="flex flex-col">
                                                     <div className="flex items-center gap-2">
