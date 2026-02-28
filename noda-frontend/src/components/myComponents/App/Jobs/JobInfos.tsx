@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
-    DollarSign, ShieldCheck, ArrowUpRight, Zap,
-    Bookmark, Timer, User2, Briefcase,
-    Share, MapPin, Flag, AlertTriangle, CheckCircle2
+    DollarSign, ArrowUpRight, Zap,
+    Bookmark, User2, Briefcase,
+    Share, MapPin, Flag, AlertTriangle, CheckCircle2, Loader2
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import ReactMarkdown from 'react-markdown';
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import remarkGfm from 'remark-gfm';
 import {
     Dialog,
     DialogContent,
@@ -20,6 +23,38 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+
+// --- ANIMATED MATCH NODE ---
+const MatchNode = ({ targetValue }: { targetValue: number }) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const count = useMotionValue(0);
+    const rounded = useTransform(count, (latest) => Math.round(latest));
+
+    useEffect(() => {
+        setIsLoading(true);
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+            animate(count, targetValue, { duration: 2, ease: "easeOut" });
+        }, 1200);
+        return () => clearTimeout(timer);
+    }, [targetValue, count]);
+
+    return (
+        <div className="flex flex-col items-center justify-center px-1 py-2">
+            <div className="flex items-center font-bold text-[10px] uppercase tracking-tight h-4">
+                {isLoading ? (
+                    <Loader2 size={10} className="animate-spin text-orange-500" />
+                ) : (
+                    <span className="text-orange-600 flex items-center gap-0.5">
+                        <Zap size={10} className="fill-current" />
+                        <motion.span>{rounded}</motion.span>%
+                    </span>
+                )}
+            </div>
+            <span className="text-[9px] font-mono text-zinc-400 uppercase font-bold tracking-tighter mt-1">MATCH_SCORE</span>
+        </div>
+    );
+};
 
 // --- VIOLATION CONSTANTS ---
 const VIOLATION_CATEGORIES = [
@@ -49,7 +84,7 @@ const ReportModal = ({ isOpen, onClose, nodeTitle }: { isOpen: boolean; onClose:
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="sm:max-w-md bg-white border-none rounded-none p-0 overflow-hidden shadow-2xl">
-                <DialogHeader className="p-4 bg-zinc-800 text-white flex flex-row items-center justify-between space-y-0">
+                <DialogHeader className="p-4 bg-zinc-800 text-white flex flex-row items-center justify-between space-y-0 text-left">
                     <div className="flex items-center gap-2">
                         <AlertTriangle size={16} className="text-red-500" />
                         <DialogTitle className="text-[11px] font-mono font-black uppercase tracking-widest">
@@ -60,12 +95,12 @@ const ReportModal = ({ isOpen, onClose, nodeTitle }: { isOpen: boolean; onClose:
 
                 {!submitted ? (
                     <div className="px-4 pb-4 space-y-4">
-                        <div>
-                            <DialogDescription className="text-[11px] font-mono font-bold text-zinc-500 uppercase mb-4">
+                        <div className="mt-4">
+                            <DialogDescription className="text-[11px] font-mono font-bold text-zinc-500 uppercase mb-4 text-left">
                                 Target: <span className="text-zinc-900">{nodeTitle}</span>
                             </DialogDescription>
 
-                            <label className="text-[10px] font-mono font-black uppercase text-zinc-500 mb-2 block">Violation_Category</label>
+                            <label className="text-[10px] font-mono font-black uppercase text-zinc-500 mb-2 block text-left">Violation_Category</label>
 
                             <Select onValueChange={setCategory} value={category}>
                                 <SelectTrigger className="w-full h-10 rounded-none border-zinc-300 bg-zinc-50 font-mono text-[10px] cursor-pointer font-bold uppercase focus:ring-0 focus:border-zinc-900">
@@ -90,7 +125,7 @@ const ReportModal = ({ isOpen, onClose, nodeTitle }: { isOpen: boolean; onClose:
                             </Select>
                         </div>
 
-                        <div className="flex flex-col">
+                        <div className="flex flex-col text-left">
                             <label className="text-[10px] font-mono font-black uppercase text-zinc-500 mb-2 block">Evidence_Log</label>
                             <textarea
                                 value={description}
@@ -101,7 +136,7 @@ const ReportModal = ({ isOpen, onClose, nodeTitle }: { isOpen: boolean; onClose:
                         </div>
 
                         <div className="flex gap-2">
-                            <button onClick={onClose} className="flex-1 h-10 border border-zinc-300 text-[11px] font-mono font-black uppercase hover:bg-zinc-200/80 cursor-pointer transition-color">
+                            <button onClick={onClose} className="flex-1 h-10 border border-zinc-300 text-[11px] font-mono font-black uppercase hover:bg-zinc-200/80 cursor-pointer transition-colors">
                                 Abort
                             </button>
                             <button
@@ -116,7 +151,7 @@ const ReportModal = ({ isOpen, onClose, nodeTitle }: { isOpen: boolean; onClose:
                 ) : (
                     <div className="p-8 flex flex-col items-center justify-center text-center">
                         <CheckCircle2 size={46} className="text-emerald-500 mb-4 animate-in zoom-in duration-300" />
-                        <h3 className="text-sm font-black uppercase tracking-widest mb-1">Signal_Processed</h3>
+                        <h3 className="text-sm font-black uppercase tracking-widest mb-1 text-zinc-900">Signal_Processed</h3>
                         <p className="text-[11px] font-mono text-zinc-500 uppercase tracking-widest">Review_In_Progress</p>
                     </div>
                 )}
@@ -136,6 +171,7 @@ interface JobInfoProps {
         description: string;
         workMode: string;
         authorName: string;
+        match: number;
     } | null;
 }
 
@@ -155,73 +191,104 @@ const JobInfo = ({ job }: JobInfoProps) => {
     }
 
     return (
-        <div className="h-full flex flex-col bg-white overflow-hidden">
-            <div className="p-3 border-b border-zinc-300 bg-zinc-50/20">
-                <div className="flex justify-between items-start mb-2">
-                    <div className="w-10 h-10 bg-zinc-900 flex items-center justify-center border border-zinc-800">
-                        <span className="text-sm font-black text-white font-mono">{job.company[0]}</span>
+        <div className="h-full flex flex-col bg-white overflow-hidden border-r border-zinc-300">
+            {/* FIXED HEADER SECTION */}
+            <div className="shrink-0">
+                <div className="p-4 border-b border-zinc-300 bg-zinc-50/20">
+                    <div className="flex justify-between items-start mb-2">
+                        <div className="w-10 h-10 bg-zinc-900 flex items-center justify-center border border-zinc-800">
+                            <span className="text-sm font-black text-white font-mono">{job.company[0]}</span>
+                        </div>
+                        <div className="flex">
+                            <button className="px-2 py-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-300/60 aspect-square cursor-pointer transition-colors"><Share size={14} /></button>
+                            <button
+                                onClick={() => setIsBookmarked(!isBookmarked)}
+                                className={cn("px-2 py-2 cursor-pointer hover:bg-zinc-300/60 transition-all", isBookmarked ? "text-zinc-900 bg-orange-50/50" : "text-zinc-400 hover:text-zinc-900")}
+                            >
+                                <Bookmark size={14} className={cn(isBookmarked && "fill-current")} />
+                            </button>
+                            <button
+                                onClick={() => setIsReportOpen(true)}
+                                className="px-2 py-2 text-zinc-400 hover:text-red-600 hover:bg-red-500/20 cursor-pointer transition-colors"
+                            >
+                                <Flag size={14} />
+                            </button>
+                        </div>
                     </div>
-                    <div className="flex">
-                        <button className="px-2 py-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-300/60 aspect-squared cursor-pointer transition-colors"><Share size={14} /></button>
-                        <button
-                            onClick={() => setIsBookmarked(!isBookmarked)}
-                            className={cn("px-2 py-2 cursor-pointer hover:bg-zinc-300/60 transition-all", isBookmarked ? "text-zinc-900 bg-orange-50/50" : "text-zinc-400 hover:text-zinc-900")}
-                        >
-                            <Bookmark size={14} className={cn(isBookmarked && "fill-current")} />
-                        </button>
-                        <button
-                            onClick={() => setIsReportOpen(true)}
-                            className="px-2 py-2 text-zinc-400 hover:text-red-600 hover:bg-red-500/20 cursor-pointer transition-colors"
-                        >
-                            <Flag size={14} />
-                        </button>
-                    </div>
-                </div>
 
-                {/* ROLE LINK */}
-                <Link to={`/app/jobs/${job.id}`} className="hover:underline">
-                    <h2 className="text-xl font-bold tracking-tight text-zinc-900 leading-tight">
-                        {job.role}
-                    </h2>
-                </Link>
-
-                <div className="flex items-center gap-2 mt-1 text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
-                    {/* COMPANY LINK */}
-                    <Link to={`/app/company/${job.id}`} className="text-zinc-900 hover:underline">
-                        {job.company}
+                    <Link to={`/app/jobs/${job.id}`} className="hover:underline block">
+                        <h2 className="text-xl font-black tracking-tighter text-zinc-900 leading-tight uppercase italic">
+                            {job.role}
+                        </h2>
                     </Link>
-                    <span>|</span>
-                    <span>{job.location}</span>
+
+                    <div className="flex items-center gap-2 mt-1 text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-400">
+                        <Link to={`/app/company/${job.id}`} className="text-zinc-900 hover:underline">
+                            {job.company}
+                        </Link>
+                        <span>|</span>
+                        <span className="text-emerald-600">Active_Signal</span>
+                    </div>
                 </div>
-            </div>
 
-            <div className="grid grid-cols-4 border-b border-zinc-300 divide-x divide-zinc-300 bg-white shrink-0">
-                <IntelligenceNode label="SALARY" value={job.salary} icon={<DollarSign size={10} />} />
-                <IntelligenceNode label="WORK MODE" value={job.workMode} icon={<MapPin size={10} />} />
-                <IntelligenceNode label="JOB TYPE" value="Full-time" icon={<Briefcase size={10} />} />
-                <IntelligenceNode label="RESPONSE" value="~24H" icon={<Timer size={10} className="text-emerald-500" />} protocolIcon={<ShieldCheck size={10} className="text-emerald-500 ml-1" />} />
-            </div>
+                {/* META NODES */}
+                <div className="grid grid-cols-4 border-b border-zinc-300 divide-x divide-zinc-300 bg-white">
+                    <IntelligenceNode label="SALARY" value={job.salary} icon={<DollarSign size={10} />} />
+                    <IntelligenceNode label="LOC" value={job.workMode} icon={<MapPin size={10} />} />
+                    <IntelligenceNode label="TYPE" value="Full-time" icon={<Briefcase size={10} />} />
+                    <MatchNode targetValue={job.match || 0} />
+                </div>
 
-            <div className="flex-1 overflow-y-auto scrollbar-hide">
-                <div className="flex items-center gap-3 p-3 border-b border-zinc-300">
-                    <div className="w-7 h-7 bg-zinc-100 border border-zinc-300 flex items-center justify-center">
+                {/* AUTHOR INFO */}
+                <div className="flex items-center gap-3 p-2 border-b border-zinc-300">
+                    <div className="w-7 h-7 bg-zinc-100 border border-zinc-300 flex items-center justify-center shrink-0">
                         <User2 size={12} className="text-zinc-500" />
                     </div>
-                    <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest">
-                        Posted by <Link to={`/app/user/${job.id}`} className="text-zinc-900 hover:underline">{job.authorName}</Link> • 14 days ago
+                    <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">
+                        Node_Owner: <Link to={`/app/user/${job.id}`} className="text-zinc-900 hover:underline">{job.authorName}</Link>
                     </span>
                 </div>
-                <div className="flex flex-col ">
-                    <h4 className="text-[9px] p-3 border-b border-zinc-300 font-mono font-black text-zinc-900 uppercase tracking-[0.3em] flex items-center gap-3">Role Specification</h4>
-                    <section className="py-2 px-3">
-                        <p className="text-[11px] text-zinc-700 leading-relaxed font-bold tracking-tight">{job.description}</p>
+
+                {/* SKILL REGISTRY */}
+                <div className="flex flex-col border-b border-zinc-300">
+                    <h4 className="text-[9px] px-2 py-2 border-b border-zinc-300 font-mono font-black text-zinc-400 uppercase tracking-[0.3em] bg-zinc-50/10">Skill_Registry</h4>
+                    <section className="py-2 px-2 flex flex-wrap gap-1">
+                        {["React", "TypeScript", "TailwindCSS", "Node.js"].map(skill => (
+                            <div key={skill} className="border border-zinc-200 px-1.5 py-1 text-[9px] font-bold uppercase text-zinc-600 bg-zinc-50">
+                                {skill}
+                            </div>
+                        ))}
                     </section>
                 </div>
+                
+                {/* STICKY DESCRIPTION HEADER */}
+                <h4 className="text-[9px] px-2 py-2 border-b border-zinc-300 font-mono font-black text-zinc-400 uppercase tracking-[0.3em] bg-white">Operational_Parameters</h4>
             </div>
 
-            <button className="w-full bg-zinc-800 h-12 flex items-center justify-center gap-3 hover:bg-zinc-900 transition-all text-white uppercase text-[11px] font-black tracking-[0.3em] cursor-pointer">
-                Deploy Application <ArrowUpRight size={14} />
-            </button>
+            {/* ISOLATED SCROLLABLE DESCRIPTION AREA */}
+            <div className="flex-1 overflow-y-auto scrollbar-hide bg-white p-2">
+                <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                        h2: ({ node, ...props }) => <h2 className="text-[11px] font-bold uppercase tracking-widest text-zinc-900 pb-1 mt-4 first:mt-0 border-b border-zinc-100" {...props} />,
+                        h3: ({ node, ...props }) => <h3 className="text-[10px] font-bold uppercase tracking-wide text-zinc-800 mb-2 mt-4" {...props} />,
+                        p: ({ node, ...props }) => <p className="text-[11px] text-zinc-600 leading-relaxed mb-4 whitespace-pre-line" {...props} />,
+                        ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-4 space-y-1" {...props} />,
+                        li: ({ node, ...props }) => <li className="text-[11px] text-zinc-600 marker:text-zinc-900" {...props} />,
+                        strong: ({ node, ...props }) => <strong className="font-bold text-zinc-900" {...props} />,
+                        hr: () => <hr className="my-4 border-zinc-200" />,
+                    }}
+                >
+                    {job.description}
+                </ReactMarkdown>
+            </div>
+
+            {/* FIXED FOOTER ACTION */}
+            <div className="shrink-0 border-t border-zinc-300 bg-white">
+                <button className="w-full bg-zinc-900 h-12 flex items-center justify-center gap-3 hover:bg-orange-600 transition-all text-white uppercase text-[11px] font-bold tracking-[0.3em] cursor-pointer active:scale-[0.98]">
+                    Apply NOW <ArrowUpRight size={14} />
+                </button>
+            </div>
 
             <ReportModal
                 isOpen={isReportOpen}
@@ -234,7 +301,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
 
 const IntelligenceNode = ({ label, value, icon, protocolIcon }: any) => (
     <div className="flex flex-col items-center justify-center px-1 py-2">
-        <div className="flex items-center font-bold text-[10px] uppercase tracking-tight">
+        <div className="flex items-center font-bold text-[10px] uppercase tracking-tight text-zinc-900">
             <span className="mr-1 opacity-50">{icon}</span> {value} {protocolIcon}
         </div>
         <span className="text-[9px] font-mono text-zinc-400 uppercase font-bold tracking-tighter mt-1">{label}</span>

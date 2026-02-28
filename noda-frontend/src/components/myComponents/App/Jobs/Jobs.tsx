@@ -9,7 +9,30 @@ import FilterCombobox from './JobFilters';
 
 
 const jobData = [
-    { id: 43, type:"Full-time", workMode:"Remote", authorName:"test", company: "Taco Bell", role: "Oven installation", location: "Kansas City", experience: "1-3 year", status: "Live", match: 96, salary: "$25/hr", description: "Looking for a precision-focused specialist to handle industrial oven calibration and thermal deployment." },
+    { id: 43, type:"Full-time", workMode:"Remote", authorName:"test", company: "Taco Bell", role: "Oven installation", location: "Kansas City", experience: "1-3 year", status: "Live", match: 96, salary: "$25/hr", description: `## PHASE_01: SYSTEM_OVERVIEW
+Looking for a **Precision-Focused Specialist** to lead industrial oven calibration and thermal deployment protocols. You will be responsible for the structural integrity of thermal cycles and the optimization of heat-distribution vectors.
+
+### CORE_RESPONSIBILITIES:
+* **Calibration_Uplink**: Perform sub-millimeter precision calibration on high-capacity industrial ovens (Grade-A to Grade-D).
+* **Thermal_Deployment**: Map thermal heat maps using IR-Vector sensors and adjust nozzle velocity to eliminate cold-zone anomalies.
+* **Safety_Protocol**: Ensure 100% compliance with ISO-9001 and Thermal-Safety-Standard-40.
+* **Telemetry_Logging**: Document all variance data into the Central Intelligence Hub for weekly audit reviews.
+
+---
+
+## PHASE_02: REQUIRED_SPECIFICATIONS
+* **Experience**: 5+ years in Thermal Dynamics or Industrial Engineering.
+* **Tooling**: Mastery of infrared thermography and PID control loop tuning.
+* **Logic**: Ability to solve complex thermodynamic equations under high-pressure deployment windows.
+* **Bio-Compliance**: Must be comfortable working in high-heat environments (up to 180°C with protective shielding).
+
+---
+
+
+## PHASE_03: UPLINK_BENEFITS
+* **Tier_01_Access**: Full health, dental, and vision insurance nodes.
+* **Equity_Stakes**: 0.05% Vector-Equity per year of deployment.
+* **Remote_Sync**: 2 days/week of remote telemetry analysis allowed.` },
     { id: 44, type:"Freelance", workMode:"Hybrid", authorName:"test2", company: "Vercel", role: "Frontend Deployment", location: "Remote", experience: "3-5 year", status: "Live", match: 92, salary: "$140k - $180k", description: "Optimization of edge-side rendering pipelines and global frontend infrastructure." },
     { id: 45, type:"Contract", workMode:"On-site", authorName:"test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
 ];
