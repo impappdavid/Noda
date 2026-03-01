@@ -194,7 +194,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
         <div className="h-full flex flex-col bg-white overflow-hidden border-r border-zinc-300">
             {/* FIXED HEADER SECTION */}
             <div className="shrink-0">
-                <div className="p-4 border-b border-zinc-300 bg-zinc-50/20">
+                <div className="p-2 border-b border-zinc-300 bg-zinc-50/20">
                     <div className="flex justify-between items-start mb-2">
                         <div className="w-10 h-10 bg-zinc-900 flex items-center justify-center border border-zinc-800">
                             <span className="text-sm font-black text-white font-mono">{job.company[0]}</span>
@@ -266,17 +266,17 @@ const JobInfo = ({ job }: JobInfoProps) => {
             </div>
 
             {/* ISOLATED SCROLLABLE DESCRIPTION AREA */}
-            <div className="flex-1 overflow-y-auto scrollbar-hide bg-white p-2">
+            <div className="flex-1 overflow-y-auto scrollbar-hide bg-white p-3">
                 <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     components={{
-                        h2: ({ node, ...props }) => <h2 className="text-[11px] font-bold uppercase tracking-widest text-zinc-900 pb-1 mt-4 first:mt-0 border-b border-zinc-100" {...props} />,
-                        h3: ({ node, ...props }) => <h3 className="text-[10px] font-bold uppercase tracking-wide text-zinc-800 mb-2 mt-4" {...props} />,
-                        p: ({ node, ...props }) => <p className="text-[11px] text-zinc-600 leading-relaxed mb-4 whitespace-pre-line" {...props} />,
+                        h2: ({ node, ...props }) => <h2 className="text-[12px] font-bold tracking-widest text-zinc-900 pb-1 mt-4 first:mt-0 " {...props} />,
+                        h3: ({ node, ...props }) => <h3 className="text-[11px] font-bold tracking-wide text-zinc-800 mb-2 mt-4" {...props} />,
+                        p: ({ node, ...props }) => <p className="text-[12px] text-zinc-600 leading-relaxed mb-4 whitespace-pre-line" {...props} />,
                         ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-4 space-y-1" {...props} />,
-                        li: ({ node, ...props }) => <li className="text-[11px] text-zinc-600 marker:text-zinc-900" {...props} />,
+                        li: ({ node, ...props }) => <li className="text-[12px] text-zinc-600 marker:text-zinc-500" {...props} />,
                         strong: ({ node, ...props }) => <strong className="font-bold text-zinc-900" {...props} />,
-                        hr: () => <hr className="my-4 border-zinc-200" />,
+                        hr: () => <hr className="my-4 border-zinc-300" />,
                     }}
                 >
                     {job.description}

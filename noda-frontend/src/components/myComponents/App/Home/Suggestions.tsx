@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ChevronRight, Target, TrendingUp } from "lucide-react"
+import { ChevronDown, ChevronRight, Target, TrendingUp } from "lucide-react"
 import { Link } from "react-router-dom"
 
 const Suggestions = () => {
@@ -8,7 +8,7 @@ const Suggestions = () => {
         <>
             {/* 4. RIGHT COLUMN */}
             <aside className="hidden xl:block">
-                <div className="sticky top-16 space-y-4 w-37">
+                <div className="sticky top-16 space-y-3 w-37">
                     <Link
                         to={`/app/premium`}
                         className="w-37 bg-zinc-800 p-2 block transition-all duration-300 cursor-pointer group shadow-2xl relative overflow-hidden no-underline"
@@ -50,37 +50,21 @@ const Suggestions = () => {
                     </Link>
 
                     {/* --- 1. SETUP_PROGRESS (Mechanical Initialization) --- */}
-                    <div className="space-y-3 p-2 border border-zinc-300">
-                        <div className="flex items-center justify-between border-b border-zinc-900 pb-2">
-                            <h3 className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-widest">
-                                Init_Sequence
-                            </h3>
-                            <span className="text-[10px] font-mono font-bold text-zinc-500">65%</span>
+                    <div className=" flex items-center justify-between p-2 bg-gradient-to-br from-orange-600 to-orange-800 cursor-pointer">
+                        <div className="flex gap-1 items-center">
+                            <ChevronDown className="w-3.5 h-3.5 text-white"/>
+                            <div className="text-[10px] text-white uppercase">Profile</div>
                         </div>
-
-                        <div className="space-y-4">
-                            {/* Progress Bar Segmented */}
-                            <div className="flex gap-1 h-1">
-                                <div className="flex-1 bg-zinc-800" />
-                                <div className="flex-1 bg-zinc-800" />
-                                <div className="flex-1 bg-zinc-800" />
-                                <div className="flex-1 bg-zinc-200" />
-                                <div className="flex-1 bg-zinc-200" />
+                        <div className="flex gap-1 items-center">
+                            <div className="flex gap-0.5 items-center">
+                                <div className="h-[13px] w-[2px] bg-orange-400"></div>
+                                <div className="h-[13px] w-[2px] bg-orange-400"></div>
+                                <div className="h-[13px] w-[2px] bg-orange-400"></div>
+                                <div className="h-[13px] w-[2px] bg-orange-400"></div>
+                                <div className="h-[13px] w-[2px] bg-zinc-300"></div>
+                                <div className="h-[13px] w-[2px] bg-zinc-300"></div>
                             </div>
-
-                            {/* Task Checklist */}
-                            <div className="space-y-2">
-                                <div className="flex items-center gap-2 opacity-100">
-                                    <div className="w-2 h-2 border border-zinc-900 flex items-center justify-center bg-zinc-800">
-                                        <div className="w-1 h-1 bg-white" />
-                                    </div>
-                                    <span className="text-[10px] font-mono font-black uppercase text-zinc-900">Node_Verified</span>
-                                </div>
-                                <div className="flex items-center gap-2 opacity-40 hover:opacity-100 transition-opacity cursor-pointer group">
-                                    <div className="w-2 h-2 border border-zinc-300 group-hover:border-zinc-900" />
-                                    <span className="text-[9px] font-mono font-black uppercase text-zinc-500 group-hover:text-zinc-900">Sync_Vector</span>
-                                </div>
-                            </div>
+                            <div className="text-[10px] text-zinc-200">4/6</div>
                         </div>
                     </div>
 

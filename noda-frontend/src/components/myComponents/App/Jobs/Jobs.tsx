@@ -9,7 +9,8 @@ import FilterCombobox from './JobFilters';
 
 
 const jobData = [
-    { id: 43, type:"Full-time", workMode:"Remote", authorName:"test", company: "Taco Bell", role: "Frontend Developer", location: "Kansas City", experience: "1-3 year", status: "Live", match: 96, salary: "$25/hr", description: `## PHASE_01: SYSTEM_OVERVIEW
+    {
+        id: 43, type: "Full-time", workMode: "Remote", authorName: "test", company: "Taco Bell", role: "Frontend Developer", location: "Kansas City", experience: "1-3 year", status: "Live", match: 96, salary: "$25/hr", description: `## PHASE_01: SYSTEM_OVERVIEW
 Looking for a **Precision-Focused Specialist** to lead industrial oven calibration and thermal deployment protocols. You will be responsible for the structural integrity of thermal cycles and the optimization of heat-distribution vectors.
 
 ### CORE_RESPONSIBILITIES:
@@ -33,8 +34,15 @@ Looking for a **Precision-Focused Specialist** to lead industrial oven calibrati
 * **Tier_01_Access**: Full health, dental, and vision insurance nodes.
 * **Equity_Stakes**: 0.05% Vector-Equity per year of deployment.
 * **Remote_Sync**: 2 days/week of remote telemetry analysis allowed.` },
-    { id: 44, type:"Freelance", workMode:"Hybrid", authorName:"test2", company: "Vercel", role: "Frontend Deployment", location: "Remote", experience: "3-5 year", status: "Live", match: 92, salary: "$140k - $180k", description: "Optimization of edge-side rendering pipelines and global frontend infrastructure." },
-    { id: 45, type:"Contract", workMode:"On-site", authorName:"test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
+    { id: 44, type: "Freelance", workMode: "Hybrid", authorName: "test2", company: "Vercel", role: "Frontend Deployment", location: "Remote", experience: "3-5 year", status: "Live", match: 92, salary: "$140k - $180k", description: "Optimization of edge-side rendering pipelines and global frontend infrastructure." },
+    { id: 45, type: "Contract", workMode: "On-site", authorName: "test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
+    { id: 46, type: "Freelance", workMode: "Hybrid", authorName: "test2", company: "Vercel", role: "Frontend Deployment", location: "Remote", experience: "3-5 year", status: "Live", match: 92, salary: "$140k - $180k", description: "Optimization of edge-side rendering pipelines and global frontend infrastructure." },
+    { id: 47, type: "Contract", workMode: "On-site", authorName: "test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
+    { id: 48, type: "Freelance", workMode: "Hybrid", authorName: "test2", company: "Vercel", role: "Frontend Deployment", location: "Remote", experience: "3-5 year", status: "Live", match: 92, salary: "$140k - $180k", description: "Optimization of edge-side rendering pipelines and global frontend infrastructure." },
+    { id: 49, type: "Contract", workMode: "On-site", authorName: "test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
+    { id: 50, type: "Freelance", workMode: "Hybrid", authorName: "test2", company: "Vercel", role: "Frontend Deployment", location: "Remote", experience: "3-5 year", status: "Live", match: 92, salary: "$140k - $180k", description: "Optimization of edge-side rendering pipelines and global frontend infrastructure." },
+    { id: 51, type: "Contract", workMode: "On-site", authorName: "test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
+    
 ];
 
 const AppJobs = () => {
@@ -90,7 +98,7 @@ const AppJobs = () => {
                                     { label: "Hybrid", value: "hybrid" }
                                 ]} />
                             </div>
-                            
+
                             {/* All Filters Button: Fixed width at the end */}
                             <button className="flex items-center justify-center gap-1.5 px-4 h-10 bg-zinc-50 hover:bg-zinc-100 text-[10px] font-bold text-zinc-500 hover:text-zinc-900 transition-all shrink-0">
                                 <SlidersHorizontal size={12} />
