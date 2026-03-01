@@ -54,7 +54,7 @@ export default function PostForm() {
                     </DialogHeader>
 
                     {/* Scrollable Content */}
-                    <div className="px-6 py-2 space-y-6 overflow-y-auto scrollbar-hide flex-1">
+                    <div className="px-3 space-y-4 overflow-y-auto scrollbar-hide flex-1">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <div className={cn(
@@ -96,7 +96,7 @@ export default function PostForm() {
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                             placeholder="What professional signal are you sending?"
-                            className="w-full h-fit bg-transparent border-none focus:ring-0 outline-none text-base font-medium placeholder:text-zinc-400 resize-none overflow-hidden"
+                            className="w-full min-h-24 bg-transparent border-none focus:ring-0 outline-none text-base placeholder:text-zinc-400 resize-none overflow-hidden"
                             rows={1}
                         />
 
