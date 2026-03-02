@@ -137,6 +137,13 @@ const testPosts = [
 
       "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800",
 
+      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800",
+
+      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800",
+
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800",
+
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800"
 
     ]
@@ -244,22 +251,47 @@ export default function Feed() {
             <p className="text-sm text-zinc-800 leading-relaxed mb-3">{post.content}</p>
 
             {post.images && post.images.length > 0 && (
-              <div className={cn("overflow-hidden border border-zinc-100 grid gap-1 mb-4", post.images.length === 1 ? "grid-cols-1" : "grid-cols-2", post.images.length >= 3 ? "aspect-square" : "aspect-video")}>
-                {post.images.slice(0, 4).map((img, idx) => (
-                  <div
-                    key={idx}
-                    className={cn("relative bg-zinc-100 overflow-hidden cursor-pointer", post.images.length === 3 && idx === 0 ? "row-span-2" : "")}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      setSelectedImg(img);
-                      setSelectedPost(post);
-                      setDialogOpen(true);
-                    }}
-                  >
-                    <img src={img} className="w-full h-full object-cover hover:opacity-90 transition-opacity" />
-                  </div>
-                ))}
+              <div className={cn(
+                "overflow-hidden border border-zinc-100 grid gap-1 mb-4",
+                post.images.length === 1 ? "grid-cols-1" : "grid-cols-2",
+                post.images.length >= 3 ? "aspect-square" : "aspect-video"
+              )}>
+                {post.images.slice(0, 4).map((img, idx) => {
+                  const isFourthImage = idx === 3;
+                  const hasMoreImages = post.images.length > 4;
+
+                  return (
+                    <div
+                      key={idx}
+                      className={cn(
+                        "relative bg-zinc-100 overflow-hidden cursor-pointer group",
+                        post.images.length === 3 && idx === 0 ? "row-span-2" : ""
+                      )}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        setSelectedImg(img);
+                        setSelectedPost(post);
+                        setDialogOpen(true);
+                      }}
+                    >
+                      <img
+                        src={img}
+                        className="w-full h-full object-cover hover:opacity-90 transition-opacity"
+                        alt={`Post media ${idx + 1}`}
+                      />
+
+                      {/* OVERLAY FOR +N MORE IMAGES */}
+                      {isFourthImage && hasMoreImages && (
+                        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center transition-colors group-hover:bg-black/60">
+                          <span className="text-white text-sm font-mono font-black tracking-widest uppercase">
+                            +{post.images.length - 3} more
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
 
@@ -284,7 +316,7 @@ export default function Feed() {
       ))}
 
       {/* New separated component */}
-      <PostViewDialog 
+      <PostViewDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
         selectedImg={selectedImg}
