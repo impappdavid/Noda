@@ -37,7 +37,7 @@ interface IntelligenceMetricProps {
 }
 
 export const IntelligenceMetric = React.memo(({ label, value, color }: IntelligenceMetricProps) => (
-    <div className="flex flex-col items-center justify-between">
+    <div className="flex items-center justify-between">
         <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-tight">{label}</span>
         <span className={cn("text-[11px] font-bold uppercase tracking-tighter", color || "text-zinc-900")}>{value}</span>
     </div>
