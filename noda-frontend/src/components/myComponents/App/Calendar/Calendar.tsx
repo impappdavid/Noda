@@ -9,16 +9,16 @@ import type { InterviewNode } from '@/types/calendar';
 const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 const AppCalendar = () => {
-    const [currentDate, setCurrentDate] = useState(new Date(2026, 1, 1));
+    // Dynamic initialization based on current date
+    const today = useMemo(() => new Date(), []);
+    const [currentDate, setCurrentDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
     const [selectedDate, setSelectedDate] = useState<number | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [showAddForm, setShowAddForm] = useState(false);
 
-    const [interviewNodes] = useState<InterviewNode[]>([
-        { id: 1, date: 12, month: 1, year: 2026, hour: "14:00", company: "OpenAI", type: "Technical", status: "Confirmed", jobLink: "https://openai.com" },
-        { id: 2, date: 15, month: 1, year: 2026, hour: "10:30", company: "Vercel", type: "Culture Node", status: "Pending", jobLink: "https://vercel.com" },
-        { id: 3, date: 22, month: 1, year: 2026, hour: "16:00", company: "Linear", type: "Systems Design", status: "Confirmed", jobLink: "https://linear.app" },
-        { id: 4, date: 12, month: 1, year: 2026, hour: "09:00", company: "Anthropic", type: "Screening", status: "Confirmed", jobLink: "https://anthropic.com" },
+    const [interviewNodes, setInterviewNodes] = useState<InterviewNode[]>([
+        { id: 1, date: 12, month: 2, year: 2026, hour: "14:00", company: "OpenAI", type: "Technical", status: "Confirmed", jobLink: "https://openai.com" },
+        { id: 2, date: 15, month: 2, year: 2026, hour: "10:30", company: "Vercel", type: "Culture Node", status: "Pending", jobLink: "https://vercel.com" },
     ]);
 
     const calendarGrid = useMemo(() => {
@@ -42,6 +42,20 @@ const AppCalendar = () => {
     const nextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
     const prevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
 
+    const handleAddNode = (newNode: Omit<InterviewNode, 'id' | 'month' | 'year' | 'date'>) => {
+        if (!selectedDate) return;
+        const entry: InterviewNode = {
+            ...newNode,
+            id: Date.now(),
+            date: selectedDate,
+            month: currentDate.getMonth(),
+            year: currentDate.getFullYear(),
+            status: "Confirmed"
+        };
+        setInterviewNodes(prev => [...prev, entry]);
+        setShowAddForm(false);
+    };
+
     return (
         <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
             <Navbar />
@@ -57,8 +71,8 @@ const AppCalendar = () => {
                                     <button onClick={nextMonth} className="p-1 hover:bg-zinc-200 transition-colors cursor-pointer"><ChevronRight size={12} /></button>
                                 </div>
                             </div>
-                            <div className="flex-1 px-4 flex items-center justify-center bg-zinc-50/50 font-mono text-[9px] font-black text-zinc-400">
-                                SYSTEM_TIME: {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                            <div className="flex-1 px-4 flex items-center justify-center bg-zinc-50/50 font-mono text-[9px] font-black text-zinc-400 uppercase tracking-tighter">
+                                SYSTEM_TIME: {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false})}
                             </div>
                         </div>
                     </div>
@@ -70,15 +84,20 @@ const AppCalendar = () => {
                             ))}
                         </div>
                         <div className="grid grid-cols-7 divide-x divide-zinc-300">
-                            {calendarGrid.map((day, i) => (
-                                <CalendarCell 
-                                    key={i} 
-                                    day={day} 
-                                    interviews={interviewNodes.filter(n => n.date === day && n.month === currentDate.getMonth() && n.year === currentDate.getFullYear())}
-                                    isCurrent={day === 9 && currentDate.getMonth() === 1}
-                                    onClick={() => { if(day) { setSelectedDate(day); setIsDialogOpen(true); } }}
-                                />
-                            ))}
+                            {calendarGrid.map((day, i) => {
+                                const isToday = day === today.getDate() && 
+                                               currentDate.getMonth() === today.getMonth() && 
+                                               currentDate.getFullYear() === today.getFullYear();
+                                return (
+                                    <CalendarCell 
+                                        key={i} 
+                                        day={day} 
+                                        interviews={interviewNodes.filter(n => n.date === day && n.month === currentDate.getMonth() && n.year === currentDate.getFullYear())}
+                                        isCurrent={isToday}
+                                        onClick={() => { if(day) { setSelectedDate(day); setIsDialogOpen(true); } }}
+                                    />
+                                );
+                            })}
                         </div>
                     </div>
                 </main>
@@ -92,6 +111,7 @@ const AppCalendar = () => {
                 activities={selectedActivities}
                 showAddForm={showAddForm}
                 setShowAddForm={setShowAddForm}
+                onAdd={handleAddNode}
             />
         </div>
     );
