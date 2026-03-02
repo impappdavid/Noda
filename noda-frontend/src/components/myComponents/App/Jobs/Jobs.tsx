@@ -5,6 +5,7 @@ import AppSideBar from '../Sidebar';
 import JobInfo from './JobInfos';
 import JobList from './JobList';
 import FilterCombobox from './JobFilters';
+import AllFiltersDialog from './AllFilter';
 
 
 
@@ -100,10 +101,7 @@ const AppJobs = () => {
                             </div>
 
                             {/* All Filters Button: Fixed width at the end */}
-                            <button className="flex items-center justify-center gap-1.5 px-4 h-10 bg-zinc-50 hover:bg-zinc-100 text-[10px] font-bold text-zinc-500 hover:text-zinc-900 transition-all shrink-0">
-                                <SlidersHorizontal size={12} />
-                                <span className="hidden sm:inline">All Filters</span>
-                            </button>
+                            <AllFiltersDialog />
                         </div>
                     </div>
 
