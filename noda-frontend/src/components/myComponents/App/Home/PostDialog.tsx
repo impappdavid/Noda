@@ -202,7 +202,7 @@ export default function PostViewDialog({
                 <PostOptions />
               </div>
 
-              <div className="pl-13 md:pl-[52px] pb-4">
+              <div className="pl-13 md:pl-[64px] pb-4">
                 <p className="text-sm text-zinc-800 leading-relaxed mb-3">{selectedPost.content}</p>
 
                 <div className="flex items-center justify-between px-1">
