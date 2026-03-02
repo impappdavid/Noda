@@ -1,6 +1,7 @@
 import { Plus, Search, X, ArrowUpRight, } from 'lucide-react';
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
+import { Link } from 'react-router-dom';
 
 const networkData = [
     { id: 1, name: "Marcus Vane", role: "Principal Engineer", company: "OpenAI", type: "Hiring", match: 98 },
@@ -108,7 +109,7 @@ const MinimalSection = ({ title, data }: any) => (
 );
 
 const MinimalNodeCard = ({ person }: any) => (
-    <div className="p-1.5 bg-white flex flex-col border-r border-zinc-300 justify-between  group hover:bg-zinc-50 transition-all relative cursor-pointer">
+    <Link to={`/app/user/${person.name}`} className="p-1.5 bg-white flex flex-col border-r border-zinc-300 justify-between  group hover:bg-zinc-50 transition-all relative cursor-pointer">
         <div className="flex justify-between items-start">
             {/* Left: Avatar Box */}
             <img src='https://marszalstudio.pl/wp-content/uploads/2024/01/fajne-zdjecia-profilowe-19.webp' className=" flex items-center justify-center font-mono font-black text-xs group-hover:bg-zinc-800 group-hover:text-white transition-all" />
@@ -127,13 +128,13 @@ const MinimalNodeCard = ({ person }: any) => (
                     <span className="text-zinc-900 font-black">@{person.company}</span>
                 </p>
             </div>
-            <button className="w-6 h-6 bg-orange-500 flex justify-center items-center text-white cursor-pointer hover:bg-orange-600 transition-colors">
+            <button onClick={(e) => e.preventDefault()} className="w-6 h-6 bg-orange-500 flex justify-center items-center text-white cursor-pointer hover:bg-orange-600 transition-colors">
                 <Plus className='w-3.5 h-3.5'/>
             </button>
         </div>
 
 
-    </div>
+    </Link>
 );
 
 
