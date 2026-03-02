@@ -11,7 +11,7 @@ interface IntelligenceNodeProps {
 
 export const IntelligenceNode = React.memo(({ label, value, active, protocol }: IntelligenceNodeProps) => (
     <div className={cn(
-        "flex-1 flex items-center px-4 gap-2 transition-colors",
+        "flex-1 flex  items-center px-4 gap-2 transition-colors",
         active && "bg-zinc-50/50"
     )}>
         <span className="text-[10px] font-mono font-black text-zinc-400 uppercase tracking-tighter shrink-0">
@@ -37,7 +37,7 @@ interface IntelligenceMetricProps {
 }
 
 export const IntelligenceMetric = React.memo(({ label, value, color }: IntelligenceMetricProps) => (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col items-center justify-between">
         <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-tight">{label}</span>
         <span className={cn("text-[11px] font-bold uppercase tracking-tighter", color || "text-zinc-900")}>{value}</span>
     </div>

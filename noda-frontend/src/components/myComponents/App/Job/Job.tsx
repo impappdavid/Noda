@@ -10,7 +10,7 @@ import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import JobSidebar from './JobSidebar';
 import { IntelligenceNode } from './JobComponents';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const JOB_MOCK_DATA = {
     id: "0x7F4",
@@ -42,6 +42,7 @@ We are seeking a **Lead Systems Architect** to oversee the development of memory
 };
 
 const JobDetail: React.FC = () => {
+    const navigate = useNavigate();
     return (
         <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
             <Navbar />
@@ -57,7 +58,7 @@ const JobDetail: React.FC = () => {
                         
                         {/* 1. COMMAND HEADER - ADDED REPORT BUTTON */}
                         <header className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-9 divide-x divide-zinc-300 shrink-0">
-                            <button className="px-3 h-full hover:bg-zinc-100 transition-colors flex items-center gap-2 group cursor-pointer outline-none border-r border-zinc-300">
+                            <button onClick={() => navigate(-1)} className="px-3 h-full hover:bg-zinc-100 transition-colors flex items-center gap-2 group cursor-pointer outline-none border-r border-zinc-300">
                                 <ArrowLeft size={12} className="text-zinc-500 group-hover:text-zinc-900" />
                                 <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">Return</span>
                             </button>
@@ -98,7 +99,7 @@ const JobDetail: React.FC = () => {
                                 <IntelligenceNode label="LOC" value={JOB_MOCK_DATA.workMode} icon={<MapPin size={10} />} active />
                                 <IntelligenceNode label="TYPE" value={JOB_MOCK_DATA.type} icon={<Briefcase size={10} />} />
                                 <div className="flex flex-col items-center justify-center px-1 bg-zinc-50/30">
-                                    <div className="flex items-center font-black text-[11px] text-orange-600">
+                                    <div className="flex items-center font-bold text-[11px] text-orange-600">
                                         <Clock size={10} className="mr-1 stroke-[3px]" /> {JOB_MOCK_DATA.avgRespond}
                                     </div>
                                     <span className="text-[8px] font-mono text-zinc-400 uppercase font-black tracking-tighter">AVG_RESPOND</span>

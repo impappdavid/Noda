@@ -83,13 +83,7 @@ const JobSidebar: React.FC<JobSidebarProps> = ({
                 </div>
             </div>
 
-            {/* FOOTER STATUS */}
-            <div className="p-2 bg-zinc-50 border-t border-zinc-300">
-                <div className="flex items-center gap-1.5">
-                    <div className="w-1 h-1 bg-emerald-500 rounded-full animate-pulse" />
-                    <span className="text-[8px] font-mono font-black text-zinc-400 uppercase">Uplink_Active</span>
-                </div>
-            </div>
+            
         </aside>
     );
 };
