@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   X,
   MessageSquare,
@@ -9,6 +9,7 @@ import {
   Link2,
   Flag,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
@@ -29,12 +30,13 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi, // Added type for API
 } from "@/components/ui/carousel";
 
 const cn = (...classes: (string | boolean | undefined | null)[]): string =>
   classes.filter(Boolean).join(" ");
 
-// --- Sub-components (LikeButton & PostOptions remain unchanged) ---
+// --- Sub-components ---
 const LikeButton = ({ post, isLiked, onToggle }: { post: any, isLiked: boolean, onToggle: (e: React.MouseEvent) => void }) => (
   <button
     onClick={onToggle}
@@ -110,7 +112,23 @@ export default function PostViewDialog({
   toggleLike
 }: PostViewDialogProps) {
   
+  // Carousel State Logic
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
   const initialIndex = selectedPost?.images?.indexOf(selectedImg) ?? 0;
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -122,32 +140,42 @@ export default function PostViewDialog({
           <X className="w-4.5 h-4.5" />
         </div>
 
-        <div className="w-3/4 h-screen flex items-center justify-center">
+        <div className="w-3/4 h-screen flex flex-col items-center justify-center relative bg-black/5">
           {selectedPost?.images && selectedPost.images.length > 0 ? (
-            <Carousel 
-              className="w-full h-full flex items-center justify-center"
-              opts={{
-                startIndex: initialIndex,
-              }}
-            >
-              <CarouselContent className="h-full items-center">
-                {selectedPost.images.map((img: string, index: number) => (
-                  <CarouselItem key={index} className="flex items-center justify-center h-full">
-                    <img 
-                      src={img} 
-                      className="max-w-full max-h-full object-contain" 
-                      onClick={(e) => e.stopPropagation()} 
-                    />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              {selectedPost.images.length > 1 && (
-                <>
-                  <CarouselPrevious className="left-8 bg-zinc-800/50 border-none text-white hover:bg-zinc-800 hover:text-white rounded-none" />
-                  <CarouselNext className="right-8 bg-zinc-800/50 border-none text-white hover:bg-zinc-800 hover:text-white rounded-none" />
-                </>
+            <>
+              <Carousel 
+                setApi={setApi} // Set the API to track index
+                className="w-full h-full flex items-center justify-center"
+                opts={{
+                  startIndex: initialIndex,
+                }}
+              >
+                <CarouselContent className="h-full items-center">
+                  {selectedPost.images.map((img: string, index: number) => (
+                    <CarouselItem key={index} className="flex items-center justify-center h-full">
+                      <img 
+                        src={img} 
+                        className="max-w-full max-h-full object-contain" 
+                        onClick={(e) => e.stopPropagation()} 
+                      />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                {selectedPost.images.length > 1 && (
+                  <>
+                    <CarouselPrevious className="left-8 bg-zinc-800/50 border-none text-white hover:bg-zinc-800 hover:text-white rounded-none" />
+                    <CarouselNext className="right-8 bg-zinc-800/50 border-none text-white hover:bg-zinc-800 hover:text-white rounded-none" />
+                  </>
+                )}
+              </Carousel>
+
+              {/* IMAGE COUNTER */}
+              {count > 1 && (
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-zinc-800/80 px-3 py-1.5 text-white font-mono text-[11px] font-bold tracking-widest pointer-events-none">
+                  {current} / {count}
+                </div>
               )}
-            </Carousel>
+            </>
           ) : (
             selectedImg && (
               <img src={selectedImg} className="max-w-full max-h-full object-contain" onClick={(e) => e.stopPropagation()} />
@@ -177,7 +205,7 @@ export default function PostViewDialog({
               <div className="pl-13 md:pl-[52px] pb-4">
                 <p className="text-sm text-zinc-800 leading-relaxed mb-3">{selectedPost.content}</p>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between px-1">
                   <div className="flex items-center gap-8">
                     <LikeButton post={selectedPost} isLiked={!!likedPosts[selectedPost.id]} onToggle={(e) => toggleLike(e, selectedPost.id)} />
                     <button className="flex items-center gap-2 text-xs font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer"><MessageSquare size={16} /> {selectedPost.comments}</button>
