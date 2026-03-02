@@ -9,7 +9,6 @@ import {
   Link2,
   Flag,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
@@ -23,11 +22,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// --- Utilities ---
+// --- SHADCN CAROUSEL ---
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 const cn = (...classes: (string | boolean | undefined | null)[]): string =>
   classes.filter(Boolean).join(" ");
 
-// --- Sub-components ---
+// --- Sub-components (LikeButton & PostOptions remain unchanged) ---
 const LikeButton = ({ post, isLiked, onToggle }: { post: any, isLiked: boolean, onToggle: (e: React.MouseEvent) => void }) => (
   <button
     onClick={onToggle}
@@ -102,6 +109,9 @@ export default function PostViewDialog({
   likedPosts,
   toggleLike
 }: PostViewDialogProps) {
+  
+  const initialIndex = selectedPost?.images?.indexOf(selectedImg) ?? 0;
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="w-full flex rounded-none bg-transparent border-none shadow-none p-0 max-w-none h-screen">
@@ -113,8 +123,35 @@ export default function PostViewDialog({
         </div>
 
         <div className="w-3/4 h-screen flex items-center justify-center">
-          {selectedImg && (
-            <img src={selectedImg} className="max-w-full max-h-full object-contain" onClick={(e) => e.stopPropagation()} />
+          {selectedPost?.images && selectedPost.images.length > 0 ? (
+            <Carousel 
+              className="w-full h-full flex items-center justify-center"
+              opts={{
+                startIndex: initialIndex,
+              }}
+            >
+              <CarouselContent className="h-full items-center">
+                {selectedPost.images.map((img: string, index: number) => (
+                  <CarouselItem key={index} className="flex items-center justify-center h-full">
+                    <img 
+                      src={img} 
+                      className="max-w-full max-h-full object-contain" 
+                      onClick={(e) => e.stopPropagation()} 
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              {selectedPost.images.length > 1 && (
+                <>
+                  <CarouselPrevious className="left-8 bg-zinc-800/50 border-none text-white hover:bg-zinc-800 hover:text-white rounded-none" />
+                  <CarouselNext className="right-8 bg-zinc-800/50 border-none text-white hover:bg-zinc-800 hover:text-white rounded-none" />
+                </>
+              )}
+            </Carousel>
+          ) : (
+            selectedImg && (
+              <img src={selectedImg} className="max-w-full max-h-full object-contain" onClick={(e) => e.stopPropagation()} />
+            )
           )}
         </div>
 
@@ -165,7 +202,7 @@ export default function PostViewDialog({
                       <div className="flex items-start justify-between ">
                         <div className="flex flex-col gap-0.5 mb-1">
                           <div className="flex gap-2 items-center">
-                            <span className="text-[12px] font-bold">Béla Iván</span>
+                            <span className="text-[12px] font-bold text-zinc-900">Béla Iván</span>
                             <span className="text-[12px] text-zinc-500">@belaivan</span>
                           </div>
                           <span className="text-[10px] font-mono text-zinc-500 uppercase font-semibold">Vector Engineer</span>
