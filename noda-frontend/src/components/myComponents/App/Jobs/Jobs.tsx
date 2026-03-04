@@ -43,6 +43,9 @@ Looking for a **Precision-Focused Specialist** to lead industrial oven calibrati
     { id: 49, type: "Contract", workMode: "On-site", authorName: "test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
     { id: 50, type: "Freelance", workMode: "Hybrid", authorName: "test2", company: "Vercel", role: "Frontend Deployment", location: "Remote", experience: "3-5 year", status: "Live", match: 92, salary: "$140k - $180k", description: "Optimization of edge-side rendering pipelines and global frontend infrastructure." },
     { id: 51, type: "Contract", workMode: "On-site", authorName: "test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
+    { id: 52, type: "Contract", workMode: "On-site", authorName: "test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
+    { id: 53, type: "Contract", workMode: "On-site", authorName: "test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
+    { id: 54, type: "Contract", workMode: "On-site", authorName: "test3", company: "OpenAI", role: "GPU Cluster Setup", location: "Remote", experience: "+5 year", status: "Closed", match: 88, salary: "$200k - $300k", description: "Managing large-scale H100 clusters and high-performance computing interconnects." },
     
 ];
 
@@ -107,13 +110,12 @@ const AppJobs = () => {
 
                     {/* 2. DUAL PANE CONTENT */}
                     <div className="flex flex-1 overflow-hidden">
-                        <div className="w-1/2 h-full overflow-y-auto border-r border-zinc-300 scrollbar-hide">
+                        <div className="w-1/2 h-screen overflow-y-auto border-r border-zinc-300 scrollbar-hide">
                             <JobList
                                 jobs={jobData}
                                 selectedJob={selectedJob}
                                 onSelect={setSelectedJob}
                             />
-                            <div className="h-20" />
                         </div>
 
                         <div className="w-1/2 h-full flex flex-col bg-white overflow-hidden">
