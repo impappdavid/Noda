@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Search, X, Terminal } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const SearchBar = () => {
     const navigate = useNavigate();
@@ -98,7 +97,7 @@ const SearchBar = () => {
             if (roleValue) params.append("role", roleValue);
             if (locValue) params.append("location", locValue);
         } else if (activeCommand === "/user") {
-            path = "users";
+            path = "user";
             params.append("username", roleValue);
         } else if (activeCommand === "/company"){
             path = "companies";

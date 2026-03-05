@@ -38,7 +38,7 @@ import IdeaReviewPage from './components/myComponents/App/Admin/Review/Review'
 import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
 import AuthController from './components/myComponents/Auth/Login/LoginController'
 import PremiumPage from './components/myComponents/App/Premium/Premium'
-import UserSearchPage from './components/myComponents/App/Users/Users'
+import UserSearchPage from './components/myComponents/App/Users/User'
 
 function App() {
 
@@ -65,7 +65,7 @@ function App() {
         <Route path="/app/user/:id" element={<UserProfile />} />
         <Route path="/app/company/:id" element={<CompanyPage />} />
 
-        <Route path="/app/users" element={<UserSearchPage />} />
+        <Route path="/app/user" element={<UserSearchPage />} />
 
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/jobs" element={<AppJobs />} />
