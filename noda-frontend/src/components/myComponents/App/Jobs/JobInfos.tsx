@@ -227,7 +227,9 @@ const JobInfo = ({ job }: JobInfoProps) => {
                             {job.company}
                         </Link>
                         <span>|</span>
-                        <span className="text-emerald-600">Active_Signal</span>
+                        <span className="text-emerald-600">~24H</span>
+                        <span>|</span>
+                        <span className="text-zinc-600">posted 12days ago</span>
                     </div>
                 </div>
 
