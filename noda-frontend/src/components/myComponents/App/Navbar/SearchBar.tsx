@@ -182,7 +182,7 @@ const SearchBar = () => {
                         onChange={handleInputChange}
                         onKeyDown={handleKeyDown}
                         placeholder="/user, /job, /company, /community..."
-                        className="flex-1 bg-transparent border-none outline-none text-xs font-mono font-bold uppercase placeholder:text-zinc-300 h-full"
+                        className="flex-1 bg-transparent border-none outline-none text-xs font-mono placeholder:text-zinc-400 h-full"
                     />
                 )}
 
