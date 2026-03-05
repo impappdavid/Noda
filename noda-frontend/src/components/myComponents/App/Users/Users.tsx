@@ -19,7 +19,7 @@ const UserSearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const usernameQuery = searchParams.get("username") || "";
 
-    const [displayLimit, setDisplayLimit] = useState(12);
+    const [displayLimit, setDisplayLimit] = useState(15);
     const [isSyncing, setIsSyncing] = useState(false);
     const observerTarget = useRef(null);
 
@@ -36,7 +36,7 @@ const UserSearchPage = () => {
     const loadMoreNodes = useCallback(() => {
         setIsSyncing(true);
         setTimeout(() => {
-            setDisplayLimit(prev => prev + 9);
+            setDisplayLimit(prev => prev + 15);
             setIsSyncing(false);
         }, 600);
     }, []);
@@ -85,15 +85,15 @@ const UserSearchPage = () => {
                         </div>
 
                         {/* GRID LAYOUT (Col-3) */}
-                        <div className="grid grid-cols-3 bg-zinc-300 gap-[1px] border-b border-zinc-300">
+                        <div className="grid grid-cols-1 bg-zinc-300 gap-[1px] border-b border-zinc-300">
                             {currentUsers.map((person) => (
                                 <Link
                                     key={person.id}
                                     to={`/app/user/${person.name}`}
-                                    className="p-1.5 bg-white flex flex-col justify-between group hover:bg-zinc-50 transition-all relative cursor-pointer aspect-square"
+                                    className="p-1.5 bg-white flex gap-2 justify-between items-center group hover:bg-zinc-50 transition-all relative cursor-pointer"
                                 >
                                     <div className="flex justify-between items-start">
-                                        <div className="w-full h-full bg-zinc-100 overflow-hidden border border-zinc-300">
+                                        <div className="w-12 bg-zinc-100 overflow-hidden border border-zinc-300">
                                             <img
                                                 src='https://marszalstudio.pl/wp-content/uploads/2024/01/fajne-zdjecia-profilowe-19.webp'
                                                 className="w-full h-full object-cover transition-all"
@@ -102,25 +102,29 @@ const UserSearchPage = () => {
                                         </div>
                                     </div>
 
-                                    <div className="mt-2 w-full flex justify-between items-end">
-                                        <div className="space-y-1">
-                                            <div className="flex items-center gap-1">
-                                                <h3 className="text-[11px] font-bold uppercase tracking-tight leading-none">{person.name}</h3>
-                                                <div className="opacity-0 group-hover:opacity-100 transition-all translate-x-1 group-hover:translate-x-0">
-                                                    <ArrowUpRight size={12} className="text-zinc-800" />
+                                    <div className=" w-full  relative">
+                                        <button
+                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                                            className="w-7 px-2 h-7 absolute top-0 right-0 bg-orange-500 flex justify-center items-center text-white  uppercase cursor-pointer hover:bg-orange-600 transition-colors"
+                                        >
+                                            <Plus className='w-5 h-5' />
+                                        </button>
+                                        <div className="">
+                                            <div className="flex w-full">
+                                                <div className="flex items-center gap-1">
+                                                    <h3 className="text-[11px] font-bold uppercase tracking-tight leading-none">{person.name}</h3>
+                                                    <div className="opacity-0 group-hover:opacity-100 transition-all translate-x-1 group-hover:translate-x-0">
+                                                        <ArrowUpRight size={12} className="text-zinc-800" />
+                                                    </div>
                                                 </div>
+
                                             </div>
                                             <p className="text-[10px] font-mono text-zinc-500 uppercase leading-tight tracking-wider">
                                                 {person.role} <br />
                                                 <span className="text-zinc-900 font-black">@{person.company}</span>
                                             </p>
                                         </div>
-                                        <button
-                                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-                                            className="w-6 h-6 bg-orange-500 flex justify-center items-center text-white cursor-pointer hover:bg-orange-600 transition-colors"
-                                        >
-                                            <Plus className='w-3.5 h-3.5' />
-                                        </button>
+
                                     </div>
                                 </Link>
                             ))}

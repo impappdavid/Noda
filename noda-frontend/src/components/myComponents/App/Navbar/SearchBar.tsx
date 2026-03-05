@@ -121,7 +121,7 @@ const SearchBar = () => {
 
     return (
         <div ref={containerRef} className="flex-1 max-w-xl relative group z-50">
-            <div className="relative flex items-center bg-zinc-50 border border-zinc-200 focus-within:border-orange-500 transition-all px-2 h-8 gap-2 overflow-hidden shadow-sm">
+            <div className="relative flex items-center bg-zinc-50 border border-zinc-300 focus-within:border-orange-500 transition-all px-2 h-8 gap-2 overflow-hidden ">
 
                 {!activeCommand && <Search className="w-3.5 h-3.5 text-zinc-400 ml-1" />}
 
