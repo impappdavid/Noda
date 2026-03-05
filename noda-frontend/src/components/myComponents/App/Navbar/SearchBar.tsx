@@ -100,7 +100,7 @@ const SearchBar = () => {
             path = "user";
             params.append("username", roleValue);
         } else if (activeCommand === "/company"){
-            path = "companies";
+            path = "company";
             params.append("company", roleValue);
         }
 
