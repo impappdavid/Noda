@@ -191,7 +191,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
     }
 
     return (
-        <div className="h-full flex flex-col bg-white overflow-hidden border-r border-zinc-300">
+        <div className="h-full flex flex-col bg-white overflow-hidden ">
             {/* FIXED HEADER SECTION */}
             <div className="shrink-0">
                 <div className="p-2 border-b border-zinc-300 bg-zinc-50/20">
