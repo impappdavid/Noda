@@ -48,7 +48,7 @@ const SearchBar = () => {
         const val = e.target.value;
 
         if (!activeCommand) {
-            const cmd = ["/user", "/job", "/company", "/community"].find(c => val.toLowerCase().startsWith(c));
+            const cmd = ["/user", "/job", "/company"].find(c => val.toLowerCase().startsWith(c));
             if (cmd) {
                 setActiveCommand(cmd);
                 setRoleValue("");
@@ -180,7 +180,7 @@ const SearchBar = () => {
                         value={roleValue}
                         onChange={handleInputChange}
                         onKeyDown={handleKeyDown}
-                        placeholder="/user, /job, /company, /community..."
+                        placeholder="/user, /job, /company..."
                         className="flex-1 bg-transparent border-none outline-none text-xs font-mono placeholder:text-zinc-400 h-full"
                     />
                 )}
