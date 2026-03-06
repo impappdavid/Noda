@@ -8,7 +8,7 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { User, Settings, LogOut, ShieldCheck, CreditCard } from "lucide-react"
+import { User, Settings, LogOut, ShieldCheck, CreditCard, BadgePlus } from "lucide-react"
 import { Link } from "react-router-dom"
 
 
@@ -63,11 +63,17 @@ const UserDropDown = () => {
                             <span>Verification</span>
                             <DropdownMenuShortcut className="text-[9px] font-mono">BETA</DropdownMenuShortcut>
                         </DropdownMenuItem>
+                        <Link to={`/app/createcompany`}>
+                            <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
+                                <BadgePlus className=" h-4 w-4 text-orange-500" />
+                                <span>Create a company</span>
+                            </DropdownMenuItem>
+                        </Link>
                     </DropdownMenuGroup>
 
                     <DropdownMenuSeparator className="bg-zinc-50" />
 
-                    
+
                     <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-red-500 focus:bg-red-50 focus:text-red-600 cursor-pointer mt-1">
                         <LogOut className=" h-4 w-4" />
                         <span>Logout</span>

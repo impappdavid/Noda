@@ -40,6 +40,7 @@ import AuthController from './components/myComponents/Auth/Login/LoginController
 import PremiumPage from './components/myComponents/App/Premium/Premium'
 import UserSearchPage from './components/myComponents/App/UserSearch/User'
 import CompanySearchPage from './components/myComponents/App/CompanySearch/CompanySearch'
+import CreateCompanyPage from './components/myComponents/App/CreateCompany/CreateCompany'
 
 function App() {
 
@@ -68,6 +69,8 @@ function App() {
 
         <Route path="/app/user" element={<UserSearchPage />} />
         <Route path="/app/company" element={<CompanySearchPage />} />
+
+        <Route path="/app/createcompany" element={<CreateCompanyPage />} />
 
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/jobs" element={<AppJobs />} />
