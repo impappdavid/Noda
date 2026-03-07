@@ -1,87 +1,114 @@
-import React from 'react';
 import { cn } from "@/lib/utils";
+import { Circle, CheckCircle2, Info } from "lucide-react";
 import Navbar from '../../AppNavbar';
 import AppSideBar from '../../Sidebar';
+import Suggestions from '../../Home/Suggestions';
 
 const RoadmapProtocol = () => {
     const timeline = [
-        
-        { id: "04", title: "MOBILE_UPLINK", date: "TBA", status: "WAIT", desc: "NATIVE PROTOCOL DEPLOYMENT." },
-        { id: "03", title: "NEURAL_MATCH_V2", date: "MAR_26", status: "WAIT", desc: "VECTOR RESONANCE ALGORITHM." },
-        { id: "02", title: "FOUNDER_WAITLIST", date: "FEB_26", status: "LIVE", desc: "ACTIVE INJECTION PORTAL OPEN." },
-        { id: "01", title: "CORE_SYSTEM_INIT", date: "JAN_26", status: "DONE", desc: "BASE INFRASTRUCTURE DEPLOYED." },
-
-
+        {
+            id: "04",
+            title: "Upcoming - Dark Mode",
+            date: "MAR_26",
+            status: "WAIT",
+            updates: [
+                { date: "05_MAR", log: "UI color palette saturation adjusted." },
+                { date: "01_MAR", log: "Initial CSS variable mapping complete." }
+            ]
+        },
+        {
+            id: "03",
+            title: "Settings_Module_v2",
+            date: "FEB_26",
+            status: "LIVE",
+            updates: [
+                { date: "24_FEB", log: "Implemented select in the settings." },
+                { date: "20_FEB", log: "Linked user preferences to local storage." }
+            ]
+        },
+        {
+            id: "01",
+            title: "Core_System_Init",
+            date: "JAN_26",
+            status: "DONE",
+            updates: [
+                { date: "15_JAN", log: "Base infrastructure deployed successfully." }
+            ]
+        }
     ];
 
     return (
-        <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
+        <div className="min-h-screen bg-white text-zinc-900 font-sans">
             <Navbar />
-            <div className="flex flex-1 w-full max-w-4xl mx-auto px-6 overflow-hidden">
-                <aside className="w-25 shrink-0 ">
+
+            <div className="max-w-4xl w-full mx-auto px-6 flex gap-4">
+                {/* LEFT SIDEBAR */}
+                <aside className="w-25 flex-none">
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
+                <div className="flex-1 flex gap-2">
+                    {/* MAIN ROADMAP FEED */}
+                    <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen pt-12.5 bg-white">
 
-                    {/* 1. COMPACT HEADER */}
-                    <div className="px-3 h-9 border-b border-zinc-300 bg-zinc-800 flex justify-between items-center shrink-0">
-                        <span className="text-[9px] font-mono font-black uppercase tracking-[0.4em] text-zinc-300">Roadmap_Index</span>
-                        <span className="text-[9px] font-mono font-black text-zinc-300 uppercase italic">v.4.0_STABLE</span>
-                    </div>
+                        {/* TERMINAL HEADER */}
+                        <div className="px-2 py-2 border-b border-zinc-300 bg-zinc-800 flex justify-between items-center sticky top-0 z-20">
+                            <div className="flex items-center gap-2">
+                                <Info size={14} className="text-orange-500" />
+                                <span className="text-[10px]  font-semibold uppercase tracking-widest text-white">Evolution_Registry_v4</span>
+                            </div>
+                            <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-tighter">Status: Synchronized</span>
+                        </div>
 
-                    {/* 2. DATA STRIP LIST */}
-                    <div className="flex-1 overflow-y-auto scrollbar-hide">
-                        <div className="flex flex-col">
-                            {timeline.map((node, idx) => (
-                                <div key={idx} className="group border-b border-zinc-50 hover:bg-zinc-50/50 transition-colors px-4 py-2 flex items-center gap-6">
+                        {/* TIMELINE CONTENT */}
+                        <div className="p-2">
+                            <div className="relative border-l border-zinc-300 ml-3 pl-7 space-y-10">
+                                {timeline.map((node, idx) => (
+                                    <div key={idx} className="relative group">
 
-                                    {/* STATUS SYMBOL */}
-                                    <div className="w-4 flex justify-center items-start shrink-0">
-                                        {node.status === "DONE" && <span className="text-[18px] font-black text-emerald-600">●</span>}
-                                        {node.status === "LIVE" && <span className="text-[18px] font-black text-orange-600 animate-pulse">●</span>}
-                                        {node.status === "WAIT" && <span className="text-[18px] font-black text-zinc-500">●</span>}
-                                    </div>
+                                        {/* NODE POINT */}
+                                        <div className={cn(
+                                            "absolute -left-[41px] top-0 w-6 h-6 bg-white border-2 flex items-center justify-center  z-10",
+                                            node.status === "DONE" ? "border-emerald-500 text-emerald-500" :
+                                                node.status === "LIVE" ? "border-orange-500 text-orange-500 animate-pulse" :
+                                                    "border-zinc-300 text-zinc-300"
+                                        )}>
+                                            {node.status === "DONE" ? <CheckCircle2 size={12} /> : <Circle size={8} fill="currentColor" />}
+                                        </div>
 
-                                    {/* PRIMARY DATA */}
-                                    <div className="flex-1 flex items-center justify-between min-w-0">
+                                        {/* ENTRY CONTENT */}
                                         <div className="flex flex-col">
-                                            <div className="flex items-center gap-3">
-                                                <h3 className="text-[11px] font-bold uppercase tracking-tight truncate group-hover:text-orange-600 transition-colors">
+                                            <div className="flex items-center justify-between">
+                                                <h3 className="text-sm font-black uppercase tracking-tight group-hover:text-orange-600 transition-colors">
                                                     {node.title}
                                                 </h3>
-                                                <span className="text-[9px] font-mono font-black text-zinc-500">#N_{node.id}</span>
+                                                <span className="text-[9px] font-mono font-black text-zinc-400 italic">[{node.date}]</span>
                                             </div>
-                                            <p className="text-[9px] font-mono font-bold text-zinc-500 uppercase truncate">
-                                                {node.desc}
-                                            </p>
-                                        </div>
 
-                                        {/* METADATA */}
-                                        <div className="flex items-center gap-4 shrink-0">
-                                            <span className={cn(
-                                                "text-[9px] font-mono font-black uppercase tracking-tighter",
-                                                node.status === "LIVE" ? "text-orange-600" : node.status === "DONE" ? "text-emerald-600" : "text-zinc-500"
-                                            )}>
-                                                {node.status}
-                                            </span>
-                                            <span className="text-[9px] font-mono font-black text-zinc-900 w-12 text-right">{node.date}</span>
+                                            {/* UPDATED NOTES BLOCK */}
+                                            <div className="mt-2 space-y-1">
+                                                {node.updates.map((update, uIdx) => (
+                                                    <div key={uIdx} className="flex gap-3 items-start border border-zinc-200 p-2.5 hover:border-zinc-300 transition-all group/note">
+                                                        <span className="text-[8px] font-mono font-black text-zinc-500 mt-0.5 shrink-0">
+                                                            {update.date} //
+                                                        </span>
+                                                        <p className="text-[10px] font-mono font-bold text-zinc-600 uppercase leading-relaxed group-hover/note:text-zinc-900">
+                                                            {update.log}
+                                                        </p>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
-                    </div>
 
-                    {/* 3. SLIM STATUS LINE */}
-                    <div className="h-6 bg-white border-t border-zinc-100 flex items-center px-4 shrink-0">
-                        <div className="flex gap-4 opacity-30 grayscale">
-                            <span className="text-[7px] font-mono font-black uppercase">●_Stable</span>
-                            <span className="text-[7px] font-mono font-black uppercase">▶_Active</span>
-                            <span className="text-[7px] font-mono font-black uppercase">○_Planned</span>
-                        </div>
-                    </div>
-                </main>
+                       
+                    </main>
+
+                    <Suggestions />
+                </div>
             </div>
         </div>
     );
