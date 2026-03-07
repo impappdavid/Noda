@@ -1,114 +1,159 @@
-import React, { useState } from 'react';
-import { Terminal, Lock, Fingerprint, X, ArrowRight } from 'lucide-react';
-import { cn } from "@/lib/utils";
-import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Eye, EyeOff, Mail, Lock, CircleAlert, CircleQuestionMark, Github, Chrome } from "lucide-react"
+import { useState } from "react"
 
-// Added Prop Type
-interface LoginPageProps {
-    onLoginInitiated: (data: any) => void;
-}
+import { useNavigate } from "react-router-dom"
 
-const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
-    const [authData, setAuthData] = useState({ node_id: "", access_key: "", remember: false });
-    const [isAuthenticating, setIsAuthenticating] = useState(false);
+function LoginForm() {
 
-    const handleLogin = (e: React.FormEvent) => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [showPassword, setShowPassword] = useState(false)
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword)
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsAuthenticating(true);
-        
-        // Simulate API delay, then trigger the 2FA flow in AuthController
-        setTimeout(() => {
-            setIsAuthenticating(false);
-            onLoginInitiated(authData);
-        }, 1200);
-    };
+        setLoading(true);
+        setError(null);
 
+        try {
+            navigate('/feed')
+            // Clear form
+            setEmail("");
+            setPassword("");
+        } catch (error: any) {
+            setError(error.message || 'An error occurred during signup');
+            setLoading(false);
+        } finally {
+            setLoading(false);
+        }
+    }
     return (
-        <div className="h-screen bg-zinc-50 flex items-center justify-center p-6 font-sans text-zinc-900">
-            <div className="w-full max-w-[420px] bg-white shadow-lg shadow-zinc-500/50 flex flex-col overflow-hidden ">
-                
-                {/* 1. NODA AUTH HEADER */}
-                <div className="px-4 h-12 bg-zinc-800 flex justify-between items-center shrink-0">
-                    <div className="flex items-center gap-2">
-                        <img src="/noda.png" alt="NODA" className="w-5 h-5 object-contain grayscale invert" />
-                        <span className="text-[11px] font-mono font-black text-white uppercase tracking-[0.3em]">Noda_Auth</span>
+        <>
+            <div className="w-full h-screen flex justify-center items-center">
+                <div className="bg-white w-full sm:w-96 p-3 py-3 mt-3 sm:mt-0 sm:border border-zinc-300 dark:border-zinc-800/70 flex flex-col gap-4 sm:items-center">
+                    <div className="flex justify-between w-full items-center">
+
+                        <div className="p-1 hover:bg-zinc-300/80 dark:hover:bg-zinc-800/60 transition-all duration-200">
+                            <img src="/noda.png" alt="logo" className="w-6 h-6 rounded-sm" />
+                        </div>
+
+                        <div className="font-semibold ">
+                            Sign In
+                        </div>
+
+                        <div className="p-1 hover:bg-zinc-300/80 dark:hover:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400 transition-all duration-200">
+                            <a href="../" className="">
+                                <CircleQuestionMark className="w-5 h-5 " />
+                            </a>
+                        </div>
+
                     </div>
-                    <Link to="/" className="text-zinc-500 hover:text-white transition-colors"><X size={16} /></Link>
-                </div>
+                    <div className="flex flex-col w-full gap-2">
+                        {/* Social Login Section */}
 
-                <form onSubmit={handleLogin} className="flex flex-col">
-                    <div className="flex flex-col">
-                        {/* NODE ID */}
-                        <div className="group">
-                            <label className="text-[10px] p-3 border-b border-zinc-300 font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none bg-zinc-50/30">
-                                Node_Identifier
-                            </label>
-                            <div className="flex p-3 items-center border-b border-zinc-300 transition-colors">
-                                <Terminal className="w-4 h-4 text-zinc-900 mr-3 shrink-0" />
-                                <input
+
+                        <div className="grid grid-cols-2 gap-2">
+                            <Button variant="outline" className="rounded-none border-zinc-800/20 hover:bg-zinc-100 transition-all duration-200 flex gap-2 h-10">
+                                <Chrome className="h-4 w-4" />
+                                Google
+                            </Button>
+                            <Button variant="outline" className="rounded-none border-zinc-800/20 hover:bg-zinc-100 transition-all duration-200 flex gap-2 h-10">
+                                <Github className="h-4 w-4" />
+                                GitHub
+                            </Button>
+                        </div>
+
+                        <div className="relative my-2">
+                            <div className="absolute inset-0 flex items-center">
+                                <span className="w-full border-t border-zinc-300 dark:border-zinc-800/70" />
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                                <span className="bg-white px-2 text-zinc-500">Or continue with</span>
+                            </div>
+                        </div>
+                        <form onSubmit={handleSubmit} className="flex flex-col w-full gap-2">
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <Mail className="h-4 w-4 text-zinc-500" />
+                                </div>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    className="pl-10 h-10 rounded-none border-zinc-800/20 hover:border-zinc-400 dark:hover:border-zinc-800  transition-all duration-300"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    type="text"
-                                    placeholder="ENTER_USERNAME"
-                                    className="w-full text-xs font-semibold outline-none bg-transparent placeholder:text-zinc-400 tracking-tight"
-                                    onChange={(e) => setAuthData({ ...authData, node_id: e.target.value })}
                                 />
                             </div>
-                        </div>
-
-                        {/* ACCESS KEY */}
-                        <div className="group">
-                            <label className="text-[10px] p-3 border-b border-zinc-300 font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none bg-zinc-50/30">
-                                Access_Key
-                            </label>
-                            <div className="flex p-3 items-center border-b border-zinc-300 transition-colors">
-                                <Lock className="w-4 h-4 text-zinc-900 mr-3 shrink-0" />
-                                <input
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <Lock className="h-4 w-4 text-gray-500" />
+                                </div>
+                                <Input
+                                    id="password"
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Enter your password"
+                                    className="pl-10 pr-10 h-10 rounded-none border-zinc-800/20 hover:border-zinc-400 dark:hover:border-zinc-800 transition-all duration-300"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                     required
-                                    type="password"
-                                    placeholder="ENTER_PASSWORD"
-                                    className="w-full text-xs font-semibold outline-none bg-transparent placeholder:text-zinc-400 tracking-tight"
-                                    onChange={(e) => setAuthData({ ...authData, access_key: e.target.value })}
                                 />
+                                <div className="pr-2">
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        size="icon"
+                                        className="absolute inset-y-0.5 pr-2 right-0 flex items-center justify-center hover:bg-transparent dark:hover:bg-transparent cursor-pointer text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
+                                        onClick={togglePasswordVisibility}
+                                        aria-label={showPassword ? "Hide password" : "Show password"}
+                                    >
+                                        {showPassword ? <EyeOff className="h-4 w-4 " /> : <Eye className="h-4 w-4 " />}
+                                    </Button>
+                                </div>
                             </div>
-                        </div>
-
-                        {/* UTILITY LINE */}
-                        <div className="flex items-center justify-between p-3 bg-white border-b border-zinc-900">
-                            <div className="flex items-center gap-2">
-                                <input 
-                                    type="checkbox" 
-                                    id="remember"
-                                    className="w-3 h-3 accent-zinc-900 cursor-pointer border-zinc-300 rounded-none"
-                                    onChange={(e) => setAuthData({ ...authData, remember: e.target.checked })}
-                                />
-                                <label htmlFor="remember" className="text-[9px] font-mono font-black text-zinc-900 uppercase tracking-widest cursor-pointer select-none">Remember_Me</label>
+                            {error && (
+                                <div className="text-red-400 p-2 h-8 text-xs border border-red-500/40 bg-red-500/20 rounded-lg transition-all duration-300 flex items-center gap-1">
+                                    <CircleAlert className="w-4 h-4 text-red-400" />
+                                    <div className="">
+                                        {error}
+                                    </div>
+                                </div>
+                            )}
+                            <div className="flex justify-between my-2 px-1">
+                                <div className="flex items-center space-x-1 ">
+                                    <Checkbox id="terms" className="border-orange-500" />
+                                    <Label htmlFor="terms" className="text-xs text-zinc-500  cursor-pointer">Remember me</Label>
+                                </div>
+                                <a href="" className="text-zinc-400 text-xs text-zinc-500 dark:text-zinc-400 hover:underline">Forgot password?</a>
                             </div>
-                            <button type="button" className="text-[9px] font-mono font-black text-zinc-500 hover:text-red-600 transition-colors uppercase tracking-widest underline underline-offset-2 cursor-pointer">Forgot_Password?</button>
-                        </div>
-                    </div>
+                            <Button
+                                disabled={loading}
+                                className="rounded-none h-10 bg-orange-500 hover:bg-orange-600 transition-all duration-200 cursor-pointer text-white">
+                                {loading ? 'Signing In...' : 'Sign In'}
+                            </Button>
 
-                    <button
-                        disabled={isAuthenticating}
-                        className={cn(
-                            "h-12 flex items-center justify-center gap-4 font-mono font-black text-[11px] uppercase tracking-[0.5em] transition-all cursor-pointer",
-                            isAuthenticating ? "bg-emerald-600 text-white" : "bg-zinc-800 text-white hover:bg-zinc-900 disabled:bg-zinc-100"
-                        )}
-                    >
-                        {isAuthenticating ? "Synchronizing" : "Initialize_Entry"}
-                        {isAuthenticating ? <Fingerprint size={20} className="animate-pulse" /> : <ArrowRight size={18} />}
-                    </button>
-                </form>
 
-                <div className="h-10 bg-zinc-50 flex justify-between items-center border-t border-zinc-900 px-4">
-                    <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-tighter italic">v.2.8_Stable</span>
-                    <div className="flex gap-4">
-                        <Link to="/privacy_policy" className="text-[9px] font-mono font-black text-zinc-500 hover:text-zinc-900 hover:underline uppercase tracking-tighter">Privacy_Policy</Link>
-                        <Link to="/terms_of_service" className="text-[9px] font-mono font-black text-zinc-500 hover:text-zinc-900 hover:underline uppercase tracking-tighter">Terms_of_Service</Link>
+
+                            <div className="flex justify-center w-full mt-2">
+                                <div className="text-xs text-zinc-600 dark:text-zinc-400">Don't have an account? <a href="./signup" className="text-orange-600 dark:text-blue-400 hover:underline">Sign Up</a></div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
-
-export default LoginPage;
+        </>
+    )
+}
+export default LoginForm
