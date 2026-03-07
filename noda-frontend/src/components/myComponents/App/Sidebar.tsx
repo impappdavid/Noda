@@ -27,15 +27,16 @@ const AppSideBar = () => {
     const getAdminRoutes = () => {
         if (!userSession.hasCompany) return [];
         const adminOptions = [];
-        adminOptions.push({ name: "Create_Post", route: "/app/admin/post" });
+        if (userSession.role === "CEO") {
+            adminOptions.push({ name: "Dashboard", route: "/app/admin/dashboard" });
+            adminOptions.push({ name: "Team Members", route: "/app/admin/team" });
+        }
+        adminOptions.push({ name: "Create Post", route: "/app/admin/post" });
         if (userSession.role === "CEO" || userSession.role === "RECRUITER") {
-            adminOptions.push({ name: "Post_Jobs", route: "/app/admin/jobs" });
+            adminOptions.push({ name: "Post Jobs", route: "/app/admin/jobs" });
             adminOptions.push({ name: "Applications", route: "/app/admin/applications" });
         }
-        if (userSession.role === "CEO") {
-            adminOptions.push({ name: "Company_Dash", route: "/app/admin/dashboard" });
-            adminOptions.push({ name: "Team_Nodes", route: "/app/admin/team" });
-        }
+        
         return adminOptions;
     };
 
@@ -43,7 +44,7 @@ const AppSideBar = () => {
     const getNodaRoutes = () => {
         const nodaOptions = [];
         if (userSession.isFounder) {
-            nodaOptions.push({ name: "Create_Idea", route: "/app/noda/idea" });
+            nodaOptions.push({ name: "Create Idea", route: "/app/noda/idea" });
         }
         nodaOptions.push({ name: "Ideas", route: "/app/noda/ideas" });
         nodaOptions.push({ name: "Roadmap", route: "/app/noda/roadmap" });
@@ -56,7 +57,7 @@ const AppSideBar = () => {
         return [
             { name: "Reports", route: "/app/noda/admin/reports" },
             { name: "Notifications", route: "/app/noda/admin/notifications" },
-            { name: "Idea_Review", route: "/app/noda/admin/review" },
+            { name: "Idea Review", route: "/app/noda/admin/review" },
         ];
     };
 
