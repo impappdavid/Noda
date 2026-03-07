@@ -41,25 +41,20 @@ function LoginForm() {
     return (
         <>
             <div className="w-full h-screen flex justify-center items-center">
-                <div className="bg-white w-full sm:w-96 p-3 py-3 mt-3 sm:mt-0 sm:border border-zinc-300 dark:border-zinc-800/70 flex flex-col gap-4 sm:items-center">
-                    <div className="flex justify-between w-full items-center">
-
-                        <div className="p-1 hover:bg-zinc-300/80 dark:hover:bg-zinc-800/60 transition-all duration-200">
-                            <img src="/noda.png" alt="logo" className="w-6 h-6 rounded-sm" />
+                <div className="bg-white w-full sm:w-96  mt-3 sm:mt-0 sm:border border-zinc-300 dark:border-zinc-800/70 flex flex-col gap-2 sm:items-center pb-2">
+                    <div className="flex justify-between w-full items-center bg-zinc-800 p-1.5">
+                        <div className="p-1 hover:bg-zinc-700/80 dark:hover:bg-zinc-800/60 transition-all duration-200">
+                            <img src="/noda.png" alt="logo" className="w-6 h-6" />
                         </div>
-
-                        <div className="font-semibold ">
-                            Sign In
+                        <div className="font-semibold uppercase text-xs tracking-widest text-white">
+                            Sign Up
                         </div>
-
-                        <div className="p-1 hover:bg-zinc-300/80 dark:hover:bg-zinc-800/60 text-zinc-600 dark:text-zinc-400 transition-all duration-200">
-                            <a href="../" className="">
-                                <CircleQuestionMark className="w-5 h-5 " />
-                            </a>
+                        <div className="p-1 hover:bg-zinc-700/80 w-6 h-6 dark:hover:bg-zinc-800/60 text-zinc-400 dark:text-zinc-400 transition-all duration-200 cursor-pointer">
+                            <CircleQuestionMark className="w-4 h-4 " />
                         </div>
-
                     </div>
-                    <div className="flex flex-col w-full gap-2">
+
+                    <div className="flex flex-col w-full gap-2 px-1.5">
                         {/* Social Login Section */}
 
 
