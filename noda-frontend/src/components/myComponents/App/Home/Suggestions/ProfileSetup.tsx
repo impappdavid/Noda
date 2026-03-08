@@ -58,7 +58,7 @@ const ProfileSetup = () => {
                                 animate={{ height: "auto", opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                                className="overflow-hidden bg-zinc-900 border-x border-b border-zinc-800"
+                                className="overflow-hidden bg-white border-x border-b border-zinc-400"
                             >
                                 <div className="p-2">
                                     {/* STEP LIST */}
@@ -75,7 +75,7 @@ const ProfileSetup = () => {
                                                 )}
                                                 <span className={cn(
                                                     "text-[9px] font-mono uppercase tracking-tight",
-                                                    step.status === "finished" ? "text-zinc-300 font-bold" : "text-zinc-600"
+                                                    step.status === "finished" ? "text-zinc-400 font-bold" : "text-zinc-600"
                                                 )}>
                                                     {step.label}
                                                 </span>
@@ -85,7 +85,7 @@ const ProfileSetup = () => {
 
                                     {/* INSTRUCTION TEXT AT THE BOTTOM */}
                                     <div className="pt-2 border-t border-zinc-800/50">
-                                        <p className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-tighter">
+                                        <p className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-tighter">
                                             Complete your profile to proceed
                                         </p>
                                     </div>
