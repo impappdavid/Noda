@@ -14,10 +14,10 @@ export const ToolbarButton = React.memo(({ icon, label, onClick, active }: Toolb
         onClick={onClick}
         className={cn(
             "h-9 px-3 flex items-center gap-2 transition-colors cursor-pointer group",
-            active ? "bg-orange-500/10 text-orange-600 border-b-2 border-orange-600" : "hover:bg-zinc-50 text-zinc-600"
+            active ? "bg-zinc-800 text-white" : "hover:bg-zinc-800/40 text-zinc-600"
         )}
     >
-        <span className={cn(active ? "text-orange-600" : "group-hover:text-zinc-900")}>{icon}</span>
+        <span className={cn(active ? "text-white" : "group-hover:text-zinc-900")}>{icon}</span>
         <span className="text-[10px] font-mono font-black uppercase">{label}</span>
     </button>
 ));
