@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Send, Image as ImageIcon, BarChart3, CheckCircle2, Terminal, Users, Zap, MoreHorizontal, MessageSquare, Bookmark, Share, Heart, X } from 'lucide-react';
+import { Send, Image as ImageIcon, BarChart3, CheckCircle2, Terminal, Users, Zap, MoreHorizontal, MessageSquare, Bookmark, Share, Heart, X, Loader2 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import Navbar from '../../AppNavbar';
 import AppSideBar from '../../Sidebar';
@@ -12,7 +12,7 @@ const CreatePost = () => {
     const [isTransmitting, setIsTransmitting] = useState(false);
     const [images, setImages] = useState<string[]>([]);
     const [poll, setPoll] = useState<Poll | null>(null);
-    
+
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     // 1. AUTO-EXPANDING TEXTAREA LOGIC
@@ -66,7 +66,7 @@ const CreatePost = () => {
 
                         {/* SCROLLABLE CONTAINER (TextArea + Preview grow here) */}
                         <div className="flex-1 overflow-y-auto scrollbar-hide flex flex-col">
-                            
+
                             <div className="p-2 bg-white flex-1 flex flex-col">
                                 {/* Author Info */}
                                 <div className="flex justify-between items-start mb-3 shrink-0">
@@ -84,7 +84,7 @@ const CreatePost = () => {
 
                                 {/* Content Input Area */}
                                 <div className="pl-[52px] flex-1 flex flex-col">
-                                    <textarea 
+                                    <textarea
                                         ref={textareaRef}
                                         value={content}
                                         onChange={(e) => setContent(e.target.value)}
@@ -107,7 +107,7 @@ const CreatePost = () => {
                                                     return (
                                                         <div key={idx} className={cn("relative bg-zinc-100 overflow-hidden", images.length === 3 && idx === 0 ? "row-span-2" : "")}>
                                                             <img src={img} className="w-full h-full object-cover" alt="preview" />
-                                                            
+
                                                             {/* Blur Overlay for 4th Image */}
                                                             {isFourth && hasMore && (
                                                                 <div className="absolute inset-0 bg-zinc-900/60 backdrop-blur-[4px] flex items-center justify-center">
@@ -116,9 +116,9 @@ const CreatePost = () => {
                                                                     </span>
                                                                 </div>
                                                             )}
-                                                            
+
                                                             {/* Remove button for individual images (optional but helpful) */}
-                                                            <button 
+                                                            <button
                                                                 onClick={() => setImages(images.filter((_, i) => i !== idx))}
                                                                 className="absolute top-1 right-1 p-1 bg-black/50 text-white rounded-none hover:bg-red-600 transition-colors"
                                                             >
@@ -129,7 +129,7 @@ const CreatePost = () => {
                                                 })}
                                             </div>
                                         )}
-                                        
+
                                         {poll && <PollModule poll={poll} onToggle={togglePoll} />}
                                     </div>
 
@@ -148,24 +148,79 @@ const CreatePost = () => {
                             </div>
                         </div>
 
-                        {/* FOOTER TOOLBAR (Fixed) */}
-                        <div className="p-4 border-t border-zinc-300 bg-white flex items-center justify-between shrink-0">
-                            <div className="flex divide-x divide-zinc-200 border border-zinc-200">
-                                <ToolbarButton onClick={addImage} icon={<ImageIcon size={16} />} label="IMG" active={images.length > 0} />
-                                <ToolbarButton onClick={togglePoll} icon={<BarChart3 size={16} />} label="POLL" active={!!poll} />
+                        {/* FOOTER TOOLBAR (Redesigned) */}
+                        <div className="p-4 border-t border-zinc-300 bg-white flex flex-col gap-4 shrink-0">
+
+                            {/* TOP ROW: TELEMETRY & STATUS */}
+                            <div className="flex justify-between items-center">
+                                <div className="flex gap-4">
+                                    <div className="flex flex-col">
+                                        <span className="text-[8px] font-mono font-black text-zinc-400 uppercase leading-none">Payload_Size</span>
+                                        <span className={cn(
+                                            "text-[10px] font-mono font-bold mt-1",
+                                            content.length > 280 ? "text-red-600" : "text-zinc-900"
+                                        )}>
+                                            {content.length.toString().padStart(3, '0')}_CHARS
+                                        </span>
+                                    </div>
+                                    <div className="w-[1px] h-6 bg-zinc-200" />
+                                    <div className="flex flex-col">
+                                        <span className="text-[8px] font-mono font-black text-zinc-400 uppercase leading-none">Attachments</span>
+                                        <span className="text-[10px] font-mono font-bold mt-1 text-zinc-900">
+                                            {images.length.toString().padStart(2, '0')}_IMG / {poll ? "01" : "00"}_POLL
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* LOGO PREVIEW TOGGLE (Optional visual) */}
+                                <div className="flex items-center gap-2 px-2 py-1 bg-zinc-100 border border-zinc-200">
+                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                    <span className="text-[8px] font-mono font-black text-zinc-600 uppercase">Uplink_Ready</span>
+                                </div>
                             </div>
 
-                            <button 
-                                onClick={handleTransmit}
-                                disabled={!content || isTransmitting}
-                                className={cn(
-                                    "h-10 px-6 font-mono font-black text-[10px] uppercase tracking-[0.2em] cursor-pointer transition-all flex items-center gap-3",
-                                    isTransmitting ? "bg-emerald-600 text-white" : "bg-zinc-800 text-white hover:bg-zinc-900 disabled:bg-zinc-100"
-                                )}
-                            >
-                                {isTransmitting ? "SIGNAL_SENT" : "Transmit_Signal"}
-                                {isTransmitting ? <CheckCircle2 size={14} /> : <Send size={14} />}
-                            </button>
+                            {/* BOTTOM ROW: ACTIONS */}
+                            <div className="flex items-center justify-between">
+                                {/* Segmented Toolbar */}
+                                <div className="flex bg-zinc-100 p-1 border border-zinc-300 gap-1">
+                                    <ToolbarButton
+                                        onClick={addImage}
+                                        icon={<ImageIcon size={14} />}
+                                        label="IMG"
+                                        active={images.length > 0}
+                                        className="hover:bg-white transition-colors"
+                                    />
+                                    <ToolbarButton
+                                        onClick={togglePoll}
+                                        icon={<BarChart3 size={14} />}
+                                        label="POLL"
+                                        active={!!poll}
+                                        className="hover:bg-white transition-colors"
+                                    />
+                                </div>
+
+                                {/* Execution Button */}
+                                <button
+                                    onClick={handleTransmit}
+                                    disabled={!content || isTransmitting}
+                                    className={cn(
+                                        "h-11 px-8 font-mono font-black text-[11px] uppercase tracking-[0.3em] cursor-pointer transition-all flex items-center gap-4 relative overflow-hidden group",
+                                        isTransmitting
+                                            ? "bg-emerald-600 text-white"
+                                            : "bg-zinc-900 text-white hover:bg-orange-600 disabled:bg-zinc-100 disabled:text-zinc-400 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px]"
+                                    )}
+                                >
+                                    <div className="flex items-center gap-3 relative z-10">
+                                        {isTransmitting ? "Broadcasting..." : "Execute_Broadcast"}
+                                        {isTransmitting ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />}
+                                    </div>
+
+                                    {/* Subtle Progress Bar (Bottom of button) */}
+                                    {isTransmitting && (
+                                        <div className="absolute bottom-0 left-0 h-1 bg-emerald-400 animate-[progress_2s_ease-in-out]" style={{ width: '100%' }} />
+                                    )}
+                                </button>
+                            </div>
                         </div>
                     </div>
 
