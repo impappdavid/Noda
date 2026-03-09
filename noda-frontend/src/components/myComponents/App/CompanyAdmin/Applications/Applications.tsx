@@ -59,15 +59,14 @@ const ManageApplicants = () => {
                                 </div>
                                 <div className="h-8 w-[1px] bg-zinc-700" />
                                 <div className="flex flex-col items-end">
-                                    <span className="text-[8px] font-mono font-black text-zinc-400 uppercase leading-none">Signals</span>
+                                    <span className="text-[8px] font-mono font-black text-zinc-400 uppercase leading-none">Applies</span>
                                     <span className="text-xs font-black font-mono">{selectedJob.applicants}</span>
                                 </div>
                             </div>
                         </div>
                     ) : (
-                        <div className="p-4 border-b border-zinc-300 bg-zinc-50/30 shrink-0">
-                            <h1 className="text-2xl font-black uppercase tracking-tighter">Applicant_Control</h1>
-                            <p className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest mt-1">Monitor talent uplink nodes</p>
+                        <div className="p-2 border-b border-zinc-300 bg-zinc-800 shrink-0">
+                            <h1 className="text-sm text-white font-semibold uppercase tracking-tighter">Applicant Control</h1>
                         </div>
                     )}
 

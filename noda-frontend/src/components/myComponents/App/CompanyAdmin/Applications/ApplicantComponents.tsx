@@ -211,26 +211,26 @@ const AcceptApplicantDialog = () => (
 export const JobCard = React.memo(({ job, onSelect }: { job: JobNode, onSelect: (j: JobNode) => void }) => (
     <div 
         onClick={() => onSelect(job)}
-        className="p-3 bg-white hover:bg-zinc-100 transition-all cursor-pointer group flex items-center justify-between border-b border-zinc-200"
+        className="p-2 bg-white hover:bg-zinc-100 transition-all cursor-pointer group flex items-center justify-between border-b border-zinc-300"
     >
         <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-zinc-900 text-white flex items-center justify-center border border-zinc-800 shrink-0 uppercase font-black text-xs">
+            <div className="w-8 h-8 bg-zinc-800 text-white flex items-center justify-center border border-zinc-800 shrink-0 uppercase font-black text-xs">
                 {job.role.substring(0,2)}
             </div>
             <div className='flex flex-col'>
-                <h5 className="text-sm font-black uppercase tracking-tight group-hover:text-orange-600 transition-colors">
+                <h5 className="text-sm font-bold uppercase tracking-tight group-hover:text-orange-600 transition-colors">
                     {job.role}
                 </h5>
-                <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase">{job.applicants} Inbound_Nodes</span>
+                <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase">{job.applicants} Applies</span>
             </div>
         </div>
         <div className="flex items-center gap-4">
             {job.new > 0 && (
-                <div className="px-1.5 py-0.5 bg-orange-600 text-white text-[10px] font-mono font-black uppercase animate-pulse">
+                <div className="px-1.5 py-0.5 bg-orange-600 text-white text-[10px] font-mono font-black uppercase">
                     {job.new}_NEW
                 </div>
             )}
-            <ChevronRight size={18} className="text-zinc-200 group-hover:text-zinc-900" />
+            <ChevronRight size={18} className="text-zinc-400 group-hover:text-zinc-900" />
         </div>
     </div>
 ));
