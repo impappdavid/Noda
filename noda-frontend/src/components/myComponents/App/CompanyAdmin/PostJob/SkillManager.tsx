@@ -12,7 +12,7 @@ export const SkillNode = React.memo(({ skill, onRemove }: SkillNodeProps) => (
 ));
 
 export const SkillList = ({ skills, onRemove }: { skills: string[], onRemove: (s: string) => void }) => (
-    <div className="px-4 py-4 border-t border-zinc-100 shrink-0">
+    <div className="p-2 border-t border-zinc-300 shrink-0">
         <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block mb-3 leading-none">Attached_Skill_Nodes</span>
         <div className="flex flex-wrap gap-2">
             {skills.length > 0 ? (
