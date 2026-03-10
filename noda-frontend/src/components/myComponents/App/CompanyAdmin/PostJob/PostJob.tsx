@@ -132,7 +132,6 @@ const PostJob = () => {
                                             <label className="text-[8px] font-mono font-black text-zinc-400 uppercase tracking-[0.2em] block leading-none">Role_Specification_Markdown</label>
                                             <div className="flex gap-4 items-center">
                                                 <DocButton icon={<HelpCircle size={12} />} label="Guide" />
-                                                <DocButton icon={<FileJson size={12} />} label="Template" />
                                             </div>
                                         </div>
                                         <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="### Primary Objectives..." className="w-full flex-1 text-sm font-bold text-zinc-800 resize-none outline-none leading-relaxed font-mono" />
