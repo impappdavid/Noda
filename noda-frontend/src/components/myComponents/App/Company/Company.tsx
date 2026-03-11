@@ -212,7 +212,7 @@ const CompanyPage: React.FC = () => {
 
                                         <div className="col-span-2 md:col-span-1 bg-white relative group/module flex flex-col">
                                             <ModuleHeader title="Protocol_Brief" icon={<Terminal size={12}/>} isConfigMode={isConfigMode} />
-                                            <div className="p-4 flex-1">
+                                            <div className="p-2 flex-1">
                                                 {isConfigMode ? (
                                                     <textarea 
                                                         value={companyData.description} 
@@ -227,7 +227,7 @@ const CompanyPage: React.FC = () => {
 
                                         <div className="col-span-2 md:col-span-1 bg-white relative group/module flex flex-col">
                                             <ModuleHeader title="Core_Stack" icon={<Code2 size={12}/>} isConfigMode={isConfigMode} />
-                                            <div className="p-4 flex-1 flex flex-col gap-3">
+                                            <div className="p-2 flex-1 flex flex-col gap-3">
                                                 <div className="flex flex-wrap gap-1.5">
                                                     {companyData.techStack.map(tech => (
                                                         <div key={tech} className="flex items-center gap-1 border border-zinc-300 bg-zinc-50 px-2 py-1">
@@ -244,7 +244,7 @@ const CompanyPage: React.FC = () => {
 
                                         <div className="col-span-2 bg-white relative group/module">
                                             <ModuleHeader title="Active_Directives" icon={<Target size={12}/>} isConfigMode={isConfigMode} />
-                                            <div className="p-4 space-y-2">
+                                            <div className="p-2 space-y-2">
                                                 {companyData.directives.map((dir, idx) => (
                                                     <div key={idx} className="flex items-start gap-3 p-3 bg-zinc-50 border border-zinc-200 group/dir">
                                                         <span className="text-[10px] font-mono font-black text-orange-500 bg-orange-100 px-1 mt-0.5 shrink-0">0{idx + 1}</span>
