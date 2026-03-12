@@ -69,7 +69,7 @@ const UserProfile: React.FC = () => {
                     </div>
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen shadow-sm flex-row pt-13">
+                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen shadow-sm flex-row pt-12">
                     
                     {/* CENTER CONTENT */}
                     <div className="flex-1 flex flex-col border-r border-zinc-300">
