@@ -178,7 +178,7 @@ const ChangelogProtocol: React.FC = () => {
                     </div>
 
                     {/* REDESIGNED MAX-W-40 SIDEBAR */}
-                    <aside className="w-40 shrink-0 bg-white relative hidden md:block">
+                    <aside className="w-39 shrink-0 bg-white relative hidden md:block">
                         <div className="sticky top-12 flex flex-col h-[calc(100vh-3.5rem)]">
 
                             {/* SIDEBAR HEADER */}
