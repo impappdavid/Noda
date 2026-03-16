@@ -84,7 +84,7 @@ function App() {
 
         <Route path="/app/noda/idea" element={<FounderIdeaPortal />} />
         <Route path="/app/noda/ideas" element={<IdeaResonanceBoard />} />
-        <Route path="/app/noda/roadmap" element={<RoadmapBoard />} />
+        <Route path="/app/noda/changelog" element={<RoadmapBoard />} />
 
         <Route path="/app/noda/admin/reports" element={<AdminReportsPage />} />
         <Route path="/app/noda/admin/notifications" element={<AdminNotificationsPage />} />
