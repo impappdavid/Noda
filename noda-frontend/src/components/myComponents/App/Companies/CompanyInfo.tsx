@@ -100,8 +100,8 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
                             <span className="text-[11px] font-medium text-zinc-900 tracking-tighter">@anonymus</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="text-[9px] font-mono font-black text-orange-600 uppercase bg-orange-50 px-1 border border-orange-100 italic">{"< 24H"}</span>
-                            <span className="text-[8px] text-zinc-500 font-mono font-black uppercase tracking-tighter">2h ago</span>
+                            <span className="text-[9px] font-mono font-black text-orange-600 uppercase bg-orange-50 px-1 border border-orange-300">{"< 24H"}</span>
+                            <span className="text-[9px] text-zinc-500 font-mono font-black uppercase tracking-tighter">2h ago</span>
                         </div>
                     </div>
                     <p className="text-[11px] text-zinc-600 leading-relaxed font-medium tracking-tight group-hover:text-zinc-900 transition-colors text-left">

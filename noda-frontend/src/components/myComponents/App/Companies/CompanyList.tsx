@@ -32,8 +32,8 @@ const CompanyList = ({ companyData, selectedCompany, setSelectedCompany }: ListP
 
                                 {/* 2. SQUARED LOGO NODE */}
                                 <div className={cn(
-                                    "w-14 h-14 flex items-center justify-center font-black text-xs shrink-0 transition-colors border-r border-zinc-200",
-                                    isSelected ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-400 group-hover:text-zinc-900"
+                                    "w-14 h-14 flex items-center justify-center font-black text-xs shrink-0 transition-colors border-r border-b border-zinc-300",
+                                    isSelected ? "bg-zinc-800 text-white" : "bg-zinc-100 text-zinc-400 group-hover:text-zinc-900"
                                 )}>
                                     {company.name[0].toUpperCase()}
                                 </div>
@@ -55,11 +55,11 @@ const CompanyList = ({ companyData, selectedCompany, setSelectedCompany }: ListP
                                     </span>
                                     <div className="flex items-center gap-1.5">
                                         <Zap size={10} className={cn(
-                                            isSelected ? "text-orange-500" : "text-zinc-400"
+                                            isSelected ? "text-orange-500" : "text-zinc-500"
                                         )} />
                                         <span className="text-xs font-black font-mono tracking-tighter">
                                             {/* Assuming company object has a signal count, otherwise fallback */}
-                                            {company.signals || "000"}
+                                            000
                                         </span>
                                     </div>
                                 </div>
