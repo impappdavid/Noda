@@ -8,10 +8,11 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import { cn } from '@/lib/utils';
 
 const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 11;
 
     const totalPages = Math.ceil(jobs.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -130,25 +131,37 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
             </div>
 
             {totalPages > 1 && (
-                <div className="absolute bottom-23 left-0 right-0 p-2 border-t border-zinc-300 backdrop-blur-sm shrink-0 flex items-center justify-center w-full z-10">
-                    <Pagination>
-                        <PaginationContent className="text-[9px] font-bold">
-                            <PaginationItem>
+                <div className="absolute bottom-23 left-0 right-0 backdrop-blur-md shrink-0 flex items-center justify-center w-full z-10">
+                    <Pagination className=''>
+                        <PaginationContent className="flex items-center gap-0 w-full shadow-sm rounded-none h-10">
+
+                            {/* PREVIOUS BUTTON */}
+                            <PaginationItem className='w-full border-t py-2 border-r border-zinc-300'>
                                 <PaginationPrevious
-                                    className={`cursor-pointer w-7 h-7 rounded-none ${currentPage === 1 ? 'pointer-events-none opacity-50' : ''}`}
+                                    className={cn(
+                                        "cursor-pointer h-full px-3 w-full rounded-none bg-white hover:bg-transparent  text-zinc-600 hover:text-zinc-900 transition-colors text-[9px] font-mono font-black uppercase tracking-widest",
+                                        currentPage === 1 ? 'pointer-events-none opacity-30 bg-zinc-50' : ''
+                                    )}
                                     onClick={() => handlePageChange(currentPage - 1)}
                                 />
                             </PaginationItem>
 
-                            {/* Render the calculated items here */}
-                            {renderPaginationItems()}
+                            {/* CURRENT / TOTAL INDICATOR */}
+                            <PaginationItem className="px-5 w-20 border-t border-r border-zinc-300 h-12 flex items-center justify-center text-[12px] font-mono font-black tracking-widest text-zinc-900">
+                                {currentPage} <span className="text-zinc-500 mx-2">/</span> {totalPages}
+                            </PaginationItem>
 
-                            <PaginationItem>
+                            {/* NEXT BUTTON */}
+                            <PaginationItem className='w-full border-t py-2 border-zinc-300'>
                                 <PaginationNext
-                                    className={`cursor-pointer w-7 h-7 rounded-none ${currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}`}
+                                    className={cn(
+                                        "cursor-pointer h-full w-full px-3 rounded-none border-l border-zinc-300 bg-white hover:bg-transparent text-zinc-600 hover:text-zinc-900 transition-colors text-[10px] font-mono font-black uppercase tracking-widest",
+                                        currentPage === totalPages ? 'pointer-events-none opacity-100' : ''
+                                    )}
                                     onClick={() => handlePageChange(currentPage + 1)}
                                 />
                             </PaginationItem>
+
                         </PaginationContent>
                     </Pagination>
                 </div>

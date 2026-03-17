@@ -29,7 +29,7 @@ const ActivityDialog: React.FC<ActivityDialogProps> = ({
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-md rounded-none p-0 overflow-hidden bg-white border-none shadow-2xl">
-                <DialogHeader className="p-4 bg-zinc-900 text-white flex flex-row items-center justify-between space-y-0">
+                <DialogHeader className="p-4 bg-zinc-800 text-white flex flex-row items-center justify-between space-y-0">
                     <div className="flex items-center gap-2">
                         <Activity size={16} className="text-orange-500" />
                         <DialogTitle className="text-[11px] font-mono font-black uppercase tracking-[0.2em]">
@@ -121,7 +121,7 @@ const ActivityDialog: React.FC<ActivityDialogProps> = ({
 
                             <div className="flex gap-2 pt-4">
                                 <button type="button" onClick={() => setShowAddForm(false)} className="flex-1 h-10 border border-zinc-300 text-[10px] font-mono font-black uppercase hover:bg-zinc-50 cursor-pointer">Abort</button>
-                                <button type="submit" className="flex-[2] h-10 bg-zinc-900 text-white text-[10px] font-mono font-black uppercase hover:bg-black cursor-pointer active:shadow-none transition-all">Deploy_Activity</button>
+                                <button type="submit" className="flex-[2] h-10 bg-zinc-800 text-white text-[10px] font-mono font-black uppercase hover:bg-orange-500 cursor-pointer active:shadow-none transition-all">Deploy_Activity</button>
                             </div>
                         </form>
                     )}
