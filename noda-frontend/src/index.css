@@ -123,6 +123,6 @@
 }
 
 @theme {
-  
+  --font-space: "Barlow Condensed", sans-serif;
   --font-kodemono: "Goldman", sans-serif;
 }

@@ -35,7 +35,7 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
         classes.filter(Boolean).join(" ");
 
     return (
-        <div className="flex flex-col h-full bg-white overflow-hidden border-zinc-300 pt-1 font-sans">
+        <div className="flex flex-col h-full bg-white overflow-hidden border-zinc-300  font-sans">
             {/* 1. Header Protocol */}
             <div className="p-2 border-b border-zinc-300 flex items-center justify-between bg-zinc-50/50 h-13 shrink-0">
                 <div className="space-y-0.5">

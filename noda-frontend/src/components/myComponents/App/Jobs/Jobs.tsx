@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { SlidersHorizontal } from 'lucide-react';
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import JobInfo from './JobInfos';
@@ -167,8 +166,6 @@ const AppJobs = () => {
         </div>
     );
 };
-
-// 3. REUSABLE MINIMALIST COMBOBOX
 
 
 export default AppJobs;

@@ -109,7 +109,7 @@ const testPosts = [
 
     author: {
 
-      name: "Anonymous Node",
+      name: "Anonymous",
 
       username: "encrypted",
 
