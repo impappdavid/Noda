@@ -41,6 +41,7 @@ import PremiumPage from './components/myComponents/App/Premium/Premium'
 import UserSearchPage from './components/myComponents/App/UserSearch/User'
 import CompanySearchPage from './components/myComponents/App/CompanySearch/CompanySearch'
 import CreateCompanyPage from './components/myComponents/App/CreateCompany/CreateCompany'
+import VerificationTerminal from './components/myComponents/App/Admin/CompanyReview/CompanyReview'
 
 function App() {
 
@@ -89,6 +90,7 @@ function App() {
         <Route path="/app/noda/admin/reports" element={<AdminReportsPage />} />
         <Route path="/app/noda/admin/notifications" element={<AdminNotificationsPage />} />
         <Route path="/app/noda/admin/review" element={<IdeaReviewPage />} />
+        <Route path="/app/noda/admin/companyreview" element={<VerificationTerminal />} />
 
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/settings" element={<SettingsPage />} />

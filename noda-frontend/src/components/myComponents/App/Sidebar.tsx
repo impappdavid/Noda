@@ -58,6 +58,7 @@ const AppSideBar = () => {
             { name: "Reports", route: "/app/noda/admin/reports" },
             { name: "Notifications", route: "/app/noda/admin/notifications" },
             { name: "Idea Review", route: "/app/noda/admin/review" },
+            { name: "Company Review", route: "/app/noda/admin/companyreview" },
         ];
     };
 
