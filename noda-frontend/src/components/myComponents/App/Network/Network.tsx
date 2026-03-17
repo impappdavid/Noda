@@ -25,16 +25,7 @@ const AppNetwork = () => {
 
                 <main className="flex flex-1 flex-col border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-12.5">
 
-                    {/* 1. MINIMAL SEARCH & ACTION */}
-                    <div className="flex w-full items-center border-b border-zinc-300 bg-white h-10 sticky top-0 z-30 shrink-0">
-                        <div className="flex flex-1 items-center h-full px-4 gap-3">
-                            <Search size={12} className="text-zinc-500" />
-                            <input
-                                placeholder="FILTER_NETWORK_STREAM..."
-                                className="w-full text-[9px] font-mono font-black uppercase outline-none bg-transparent placeholder:text-zinc-500 tracking-widest"
-                            />
-                        </div>
-                    </div>
+                    
 
                     <div className="flex-1 overflow-y-auto scrollbar-hide">
 
@@ -43,7 +34,7 @@ const AppNetwork = () => {
                             <section className="w-full border-b border-zinc-300">
                                 <div className="px-4 py-2 flex items-center justify-between bg-zinc-50/50 border-b border-zinc-300">
                                     <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-zinc-500">
-                                        [Inbound_Protocols]
+                                        [Requests]
                                     </span>
                                     <span className="text-[9px] font-mono font-black text-orange-600 uppercase tracking-tighter animate-pulse">Action_Required</span>
                                 </div>
@@ -56,9 +47,9 @@ const AppNetwork = () => {
                         )}
 
                         {/* 3. NETWORK CLUSTERS */}
-                        <MinimalSection title="Hiring_Nodes" data={networkData.filter(p => p.type === "Hiring")} />
-                        <MinimalSection title="Recent_Pulse" data={networkData.filter(p => p.type === "Activity")} />
-                        <MinimalSection title="Global_Directory" data={networkData.filter(p => p.type === "Popular")} />
+                        <MinimalSection title="Recruiters" data={networkData.filter(p => p.type === "Hiring")} />
+                        <MinimalSection title="Recent Searches" data={networkData.filter(p => p.type === "Activity")} />
+                        <MinimalSection title="Explore" data={networkData.filter(p => p.type === "Popular")} />
 
                     </div>
                 </main>
@@ -97,8 +88,9 @@ const InvitationRow = ({ person }: any) => (
 // --- MINIMAL GRID SECTION ---
 const MinimalSection = ({ title, data }: any) => (
     <section className="w-full">
-        <div className="px-4 py-2 border-b flex items-center border-zinc-300 bg-zinc-50/40">
+        <div className="px-4 py-2 border-b flex items-center border-zinc-300 bg-zinc-50/40 w-full justify-between">
             <span className="text-[9px] font-mono font-black uppercase tracking-widest text-zinc-500">[{title}]</span>
+            <span className="text-[9px] font-mono font-black uppercase tracking-widest text-zinc-500 hover:text-orange-600 hover:underline cursor-pointer">[view all]</span>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 border-b border-zinc-300">
             {data.map((person: any) => (
