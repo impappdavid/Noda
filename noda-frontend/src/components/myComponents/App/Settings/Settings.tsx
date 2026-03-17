@@ -55,19 +55,19 @@ const SettingsPage = () => {
                     {/* ULTRA-SIMPLIFIED HEADER */}
                     <div className="p-2 bg-white shrink-0 flex items-center gap-3 border-b border-zinc-300">
 
-                        <h1 className="text-md font-bold uppercase tracking-tighter text-zinc-900 leading-none mt-1">
+                        <h1 className="text-md font-bold uppercase tracking-tighter text-zinc-900 leading-none ">
                             Settings
                         </h1>
                     </div>
 
                     {/* HORIZONTAL TABS (Bottom Border Active State) */}
-                    <div className="flex w-full border-b border-zinc-300 bg-zinc-50 sticky top-12 z-30 px-2 pt-2 shrink-0 gap-6">
+                    <div className="flex w-full border-b border-zinc-300  bg-zinc-50 sticky top-12 z-30 px-1 pt-2 shrink-0 gap-4">
                         {TABS.map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={cn(
-                                    "pb-2 text-[10px] font-mono uppercase tracking-[0.2em] transition-all cursor-pointer outline-none relative",
+                                    "pb-1 text-[10px] font-mono uppercase tracking-[0.2em] px-1 transition-all cursor-pointer outline-none relative",
                                     activeTab === tab
                                         ? "text-zinc-900 font-black border-b-2 border-orange-500"
                                         : "text-zinc-500 font-bold border-b-2 border-transparent hover:text-zinc-700"
@@ -209,49 +209,49 @@ const SettingsPage = () => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-zinc-300 border-b border-zinc-300">
 
                                     {/* Security Alerts (Col 1) */}
-                                    <div className="bg-white p-2 flex flex-col gap-2">
-                                        <div className="flex flex-col gap-1.5">
+                                    <div className="bg-white  flex flex-col">
+                                        <div className="flex flex-col p-2">
                                             <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
                                                 Security_Alerts
                                             </label>
                                         </div>
-                                        <div className=" pt-1">
+                                        <div className="">
                                             <HardwareToggle defaultActive={true} />
                                         </div>
                                     </div>
 
                                     {/* System Mentions (Col 2) */}
-                                    <div className="bg-white p-2 flex flex-col gap-2">
-                                        <div className="flex flex-col gap-1.5">
+                                    <div className="bg-white  flex flex-col">
+                                        <div className="flex flex-col p-2">
                                             <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
                                                 System_Mentions
                                             </label>
                                         </div>
-                                        <div className="pt-1">
+                                        <div className="">
                                             <HardwareToggle defaultActive={true} />
                                         </div>
                                     </div>
 
                                     {/* Network Activity (Col 1) */}
-                                    <div className="bg-white p-2 flex flex-col gap-2">
-                                        <div className="flex flex-col gap-1.5">
+                                    <div className="bg-white flex flex-col ">
+                                        <div className="flex flex-col p-2 ">
                                             <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
                                                 Network_Activity
                                             </label>
                                         </div>
-                                        <div className=" pt-1">
+                                        <div className="">
                                             <HardwareToggle defaultActive={false} />
                                         </div>
                                     </div>
 
                                     {/* Marketing Protocol (Col 2) */}
-                                    <div className="bg-white p-2 flex flex-col gap-2">
-                                        <div className="flex flex-col gap-1.5">
+                                    <div className="bg-white flex flex-col ">
+                                        <div className="flex flex-col p-2">
                                             <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
                                                 Marketing_Protocol
                                             </label>
                                         </div>
-                                        <div className=" pt-1">
+                                        <div className="w-full">
                                             <HardwareToggle defaultActive={false} />
                                         </div>
                                     </div>
@@ -357,12 +357,12 @@ const HardwareToggle = ({ defaultActive }: { defaultActive: boolean }) => {
     const [isOn, setIsOn] = useState(defaultActive);
 
     return (
-        <div className="flex items-center shadow-sm w-fit">
+        <div className="flex items-center shadow-sm w-full">
             <button
                 onClick={() => setIsOn(true)}
                 className={cn(
-                    "p-2 px-4 text-[10px] font-mono font-black uppercase tracking-widest border border-zinc-300 border-r-0 transition-colors focus:outline-none",
-                    isOn ? "bg-zinc-900 text-white border-zinc-900" : "bg-zinc-50 text-zinc-400 hover:bg-zinc-100"
+                    "py-2 text-[10px] w-1/2 font-mono font-black uppercase tracking-widest border-t border-r cursor-pointer border-zinc-300 border-r-0 transition-colors focus:outline-none",
+                    isOn ? "bg-orange-500 text-white " : "bg-zinc-50 text-zinc-400 hover:bg-zinc-200 "
                 )}
             >
                 ON
@@ -370,8 +370,8 @@ const HardwareToggle = ({ defaultActive }: { defaultActive: boolean }) => {
             <button
                 onClick={() => setIsOn(false)}
                 className={cn(
-                    "p-2 px-4 text-[10px] font-mono font-black uppercase tracking-widest border border-zinc-300 transition-colors focus:outline-none",
-                    !isOn ? "bg-zinc-200 text-zinc-900" : "bg-zinc-50 text-zinc-400 hover:bg-zinc-100"
+                    "py-2 text-[10px] w-1/2 font-mono font-black uppercase tracking-widest border-t cursor-pointer border-zinc-300 transition-colors focus:outline-none",
+                    !isOn ? "bg-zinc-800 text-white" : "bg-zinc-50 text-zinc-400 hover:bg-zinc-200"
                 )}
             >
                 OFF
