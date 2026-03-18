@@ -137,9 +137,9 @@ const ChangelogProtocol: React.FC = () => {
 
                                         {/* Changelog Specific List */}
                                         {post.changes.length > 0 && (
-                                            <div className="flex flex-col gap-2 mb-2 bg-zinc-50/80 border border-zinc-200 p-3">
+                                            <div className="grid grid-cols-2 mb-2 bg-zinc-50/80 border border-zinc-200 p-2">
                                                 {post.changes.map((change, idx) => (
-                                                    <div key={idx} className="flex items-start gap-2">
+                                                    <div key={idx} className="flex flex-col">
                                                         <ChangeTag type={change.type} />
                                                         <span className="text-[10px] font-medium text-zinc-700 ">{change.text}</span>
                                                     </div>
@@ -284,22 +284,22 @@ const ChangeTag = ({ type }: { type: string }) => {
         case "ADDED":
             return (
                 <div className="flex items-center gap-1 text-emerald-600 shrink-0">
-                    <PlusCircle size={10} />
-                    <span className="text-[8px] font-mono font-black uppercase tracking-widest">Added</span>
+                    <PlusCircle size={12} />
+                    <span className="text-[9px] font-mono font-black uppercase tracking-widest">Added</span>
                 </div>
             );
         case "IMPROVED":
             return (
                 <div className="flex items-center gap-1 text-blue-600 shrink-0">
-                    <CheckCircle2 size={10} />
-                    <span className="text-[8px] font-mono font-black uppercase tracking-widest">Improved</span>
+                    <CheckCircle2 size={12} />
+                    <span className="text-[9px] font-mono font-black uppercase tracking-widest">Improved</span>
                 </div>
             );
         case "FIXED":
             return (
                 <div className="flex items-center gap-1 text-orange-600 shrink-0">
-                    <Wrench size={10} />
-                    <span className="text-[8px] font-mono font-black uppercase tracking-widest">Fixed</span>
+                    <Wrench size={12} />
+                    <span className="text-[9px] font-mono font-black uppercase tracking-widest">Fixed</span>
                 </div>
             );
         default:
