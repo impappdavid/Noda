@@ -31,6 +31,13 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Check if passwords match before doing anything else
+        if (password !== repassword) {
+            setError("Passwords do not match.");
+            return; // Exit the function early
+        }
+
         setLoading(true);
         setError(null);
 
@@ -41,7 +48,7 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
             if (onLoginInitiated) {
                 onLoginInitiated({ fullName, userName, email, password, repassword, acceptTerms });
             } else {
-                navigate('/app');
+                navigate('/login');
             }
 
         } catch (err: any) {
@@ -52,7 +59,7 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
     }
 
     return (
-        <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4 md:p-8 font-sans selection:bg-orange-500/30">
+        <div className="min-h-screen bg-zinc-50 flex md:items-center justify-center p-2 md:p-4 font-sans selection:bg-zinc-300">
 
             {/* HARDWARE ENCLOSURE (No Shadows, Sharp Edges) */}
             <div className="w-full max-w-lg flex flex-col">
@@ -80,9 +87,9 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
 
                     {/* Error Console (Spans both columns if active) */}
                     {error && (
-                        <div className="md:col-span-2 bg-red-50 p-2 flex items-center gap-2">
+                        <div className="md:col-span-2 bg-red-500/20 border-b border-zinc-300 p-2 flex items-center gap-2">
                             <CircleAlert className="w-3.5 h-3.5 text-red-600 shrink-0" />
-                            <span className="text-[9px] font-mono font-bold text-red-600 uppercase tracking-widest leading-none mt-0.5">
+                            <span className="text-[10px] font-mono font-semibold text-red-600 uppercase tracking-wider leading-none">
                                 {error}
                             </span>
                         </div>
@@ -255,7 +262,7 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
 
 
                     {/* Cell 7: Navigation Footer (Spans both columns) */}
-                    <div className="md:col-span-2 flex items-center justify-between">
+                    <div className="col-span-2 flex items-center justify-between">
                         <div className="flex ">
                             <Link to={`/privacyPolicy`} className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                                 Privacy Policy
@@ -264,7 +271,7 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
                                 Terms of Service
                             </Link>
                         </div>
-                        <Link to={`/signup`} className="text-[8px] p-2 border-l hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                        <Link to={`/login`} className="text-[8px] p-2 border-l hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                             Already Have An Account?
                         </Link>
                     </div>

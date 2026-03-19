@@ -26,6 +26,14 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
         setLoading(true);
         setError(null);
 
+         if (password.length < 6) {
+            setError("Too short password.");
+            return; // Exit the function early
+        }
+
+        setLoading(true);
+        setError(null);
+
         try {
             // Simulate network request
             await new Promise(resolve => setTimeout(resolve, 800));
@@ -44,7 +52,7 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
     }
 
     return (
-        <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4 md:p-8 font-sans selection:bg-orange-500/30">
+        <div className="min-h-screen bg-zinc-50 flex md:items-center justify-center p-2 md:p-4 font-sans selection:bg-zinc-300">
 
             {/* HARDWARE ENCLOSURE (No Shadows, Sharp Edges) */}
             <div className="w-full max-w-lg flex flex-col">
@@ -72,9 +80,9 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
 
                     {/* Error Console (Spans both columns if active) */}
                     {error && (
-                        <div className="md:col-span-2 bg-red-50 p-2 flex items-center gap-2">
+                        <div className="md:col-span-2 bg-red-500/20 border-b border-zinc-300 p-2 flex items-center gap-2">
                             <CircleAlert className="w-3.5 h-3.5 text-red-600 shrink-0" />
-                            <span className="text-[9px] font-mono font-bold text-red-600 uppercase tracking-widest leading-none mt-0.5">
+                            <span className="text-[10px] font-mono font-semibold text-red-600 uppercase tracking-wider leading-none">
                                 {error}
                             </span>
                         </div>
@@ -165,7 +173,7 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
 
 
                     {/* Cell 5: Session Config */}
-                    <div className="bg-white p-2 flex items-center border-r border-zinc-300">
+                    <div className="bg-white p-2 col-span-2 flex items-center ">
                         <div className="flex items-center gap-2 w-full h-full">
                             <Checkbox id="terms" className="rounded-none border-zinc-400 w-3.5 h-3.5 shadow-none data-[state=checked]:bg-zinc-900 data-[state=checked]:border-zinc-900" />
                             <label htmlFor="terms" className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest cursor-pointer select-none hover:text-zinc-900 transition-colors mt-0.5">
@@ -190,7 +198,7 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
 
 
                     {/* Cell 7: Navigation Footer (Spans both columns) */}
-                    <div className="md:col-span-2 flex items-center justify-between">
+                    <div className="col-span-2 flex items-center justify-between">
                         <div className="flex ">
                             <Link to={`/privacyPolicy`} className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                                 Privacy Policy
