@@ -1,21 +1,21 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Eye, EyeOff, Mail, Lock, CircleAlert, CircleQuestionMark, Github, Chrome } from "lucide-react"
 import { useState } from "react"
-
 import { useNavigate } from "react-router-dom"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Eye, EyeOff, Mail, Lock, CircleAlert, Github, Chrome, KeyRound } from "lucide-react"
+import { cn } from "@/lib/utils"
 
-function LoginForm() {
+// --- TYPES ---
+interface LoginPageProps {
+    onLoginInitiated?: (data: any) => void;
+}
 
+const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
-
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+    const navigate = useNavigate()
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword)
@@ -27,128 +27,188 @@ function LoginForm() {
         setError(null);
 
         try {
-            navigate('/feed')
-            // Clear form
-            setEmail("");
-            setPassword("");
-        } catch (error: any) {
-            setError(error.message || 'An error occurred during signup');
-            setLoading(false);
+            // Simulate network request
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            if (onLoginInitiated) {
+                onLoginInitiated({ email, password });
+            } else {
+                navigate('/feed');
+            }
+
+        } catch (err: any) {
+            setError(err.message || 'AUTH_FAILURE: Protocol violation.');
         } finally {
             setLoading(false);
         }
     }
+
     return (
-        <>
-            <div className="w-full h-screen flex justify-center items-center">
-                <div className="bg-white w-full sm:w-96  mt-3 sm:mt-0 sm:border border-zinc-300 dark:border-zinc-800/70 flex flex-col gap-2 sm:items-center pb-2">
-                    <div className="flex justify-between w-full items-center bg-zinc-800 p-1.5">
-                        <div className="p-1 hover:bg-zinc-700/80 dark:hover:bg-zinc-800/60 transition-all duration-200">
-                            <img src="/noda.png" alt="logo" className="w-6 h-6" />
-                        </div>
-                        <div className="font-semibold uppercase text-xs tracking-widest text-white">
-                            Sign Up
-                        </div>
-                        <div className="p-1 hover:bg-zinc-700/80 w-6 h-6 dark:hover:bg-zinc-800/60 text-zinc-400 dark:text-zinc-400 transition-all duration-200 cursor-pointer">
-                            <CircleQuestionMark className="w-4 h-4 " />
-                        </div>
+        <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4 md:p-8 font-sans selection:bg-orange-500/30">
+
+            {/* HARDWARE ENCLOSURE (No Shadows, Sharp Edges) */}
+            <div className="w-full max-w-lg flex flex-col">
+
+                {/* Header */}
+                <div className="p-2 border border-zinc-300  flex items-center justify-between shrink-0">
+                    <div className="flex items-center gap-2">
+                        <img src="/noda.png" alt="logo.png" className="w-5 h-5" />
+                        <h1 className="text-[12px] font-mono font-black text-zinc-900 uppercase leading-none mt-0.5">
+                            LogIn
+                        </h1>
                     </div>
-
-                    <div className="flex flex-col w-full gap-2 px-1.5">
-                        {/* Social Login Section */}
-
-
-                        <div className="grid grid-cols-2 gap-2">
-                            <Button variant="outline" className="rounded-none border-zinc-800/20 hover:bg-zinc-100 transition-all duration-200 flex gap-2 h-10">
-                                <Chrome className="h-4 w-4" />
-                                Google
-                            </Button>
-                            <Button variant="outline" className="rounded-none border-zinc-800/20 hover:bg-zinc-100 transition-all duration-200 flex gap-2 h-10">
-                                <Github className="h-4 w-4" />
-                                GitHub
-                            </Button>
-                        </div>
-
-                        <div className="relative my-2">
-                            <div className="absolute inset-0 flex items-center">
-                                <span className="w-full border-t border-zinc-300 dark:border-zinc-800/70" />
-                            </div>
-                            <div className="relative flex justify-center text-xs uppercase">
-                                <span className="bg-white px-2 text-zinc-500">Or continue with</span>
-                            </div>
-                        </div>
-                        <form onSubmit={handleSubmit} className="flex flex-col w-full gap-2">
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <Mail className="h-4 w-4 text-zinc-500" />
-                                </div>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    className="pl-10 h-10 rounded-none border-zinc-800/20 hover:border-zinc-400 dark:hover:border-zinc-800  transition-all duration-300"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    required
-                                />
-                            </div>
-                            <div className="relative">
-                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <Lock className="h-4 w-4 text-gray-500" />
-                                </div>
-                                <Input
-                                    id="password"
-                                    type={showPassword ? "text" : "password"}
-                                    placeholder="Enter your password"
-                                    className="pl-10 pr-10 h-10 rounded-none border-zinc-800/20 hover:border-zinc-400 dark:hover:border-zinc-800 transition-all duration-300"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                />
-                                <div className="pr-2">
-                                    <Button
-                                        type="button"
-                                        variant="ghost"
-                                        size="icon"
-                                        className="absolute inset-y-0.5 pr-2 right-0 flex items-center justify-center hover:bg-transparent dark:hover:bg-transparent cursor-pointer text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
-                                        onClick={togglePasswordVisibility}
-                                        aria-label={showPassword ? "Hide password" : "Show password"}
-                                    >
-                                        {showPassword ? <EyeOff className="h-4 w-4 " /> : <Eye className="h-4 w-4 " />}
-                                    </Button>
-                                </div>
-                            </div>
-                            {error && (
-                                <div className="text-red-400 p-2 h-8 text-xs border border-red-500/40 bg-red-500/20 rounded-lg transition-all duration-300 flex items-center gap-1">
-                                    <CircleAlert className="w-4 h-4 text-red-400" />
-                                    <div className="">
-                                        {error}
-                                    </div>
-                                </div>
-                            )}
-                            <div className="flex justify-between my-2 px-1">
-                                <div className="flex items-center space-x-1 ">
-                                    <Checkbox id="terms" className="border-orange-500" />
-                                    <Label htmlFor="terms" className="text-xs text-zinc-500  cursor-pointer">Remember me</Label>
-                                </div>
-                                <a href="" className="text-zinc-400 text-xs text-zinc-500 dark:text-zinc-400 hover:underline">Forgot password?</a>
-                            </div>
-                            <Button
-                                disabled={loading}
-                                className="rounded-none h-10 bg-orange-500 hover:bg-orange-600 transition-all duration-200 cursor-pointer text-white">
-                                {loading ? 'Signing In...' : 'Sign In'}
-                            </Button>
-
-
-
-                            <div className="flex justify-center w-full mt-2">
-                                <div className="text-xs text-zinc-600 dark:text-zinc-400">Don't have an account? <a href="./signup" className="text-orange-600 dark:text-blue-400 hover:underline">Sign Up</a></div>
-                            </div>
-                        </form>
+                    <div className="flex gap-1.5">
+                        <div className="w-1.5 h-1.5 bg-orange-400" />
+                        <div className="w-1.5 h-1.5 bg-orange-500" />
+                        <div className="w-1.5 h-1.5 bg-orange-600" />
                     </div>
                 </div>
+
+                {/* CONTINUOUS DATA GRID FORM */}
+                <form
+                    onSubmit={handleSubmit}
+                    className="grid grid-cols-1 md:grid-cols-2 gap-[1px]  border-x border-b border-zinc-300"
+                >
+
+                    {/* Error Console (Spans both columns if active) */}
+                    {error && (
+                        <div className="md:col-span-2 bg-red-50 p-2 flex items-center gap-2">
+                            <CircleAlert className="w-3.5 h-3.5 text-red-600 shrink-0" />
+                            <span className="text-[9px] font-mono font-bold text-red-600 uppercase tracking-widest leading-none mt-0.5">
+                                {error}
+                            </span>
+                        </div>
+                    )}
+
+
+                    {/* Cell 3: Google SSO (Provider Uplink) */}
+                    <button type="button" className="bg-white p-2 cursor-pointer space-y-1 border-r border-zinc-300 hover:bg-zinc-50 transition-colors outline-none text-left group">
+                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none group-hover:text-orange-500 transition-colors">
+                            Provider 01
+                        </label>
+                        <div className="relative flex items-center flex items-center gap-1.5 ">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 48 48">
+                                <path fill="#ffc107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917" />
+                                <path fill="#ff3d00" d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691" />
+                                <path fill="#4caf50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.9 11.9 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44" />
+                                <path fill="#1976d2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917" />
+                            </svg>
+                            <span className="w-full text-[11px] font-medium text-zinc-900">Continue with Google</span>
+                        </div>
+                    </button>
+
+                    {/* Cell 4: GitHub SSO (Provider Uplink) */}
+                    <button type="button" className="bg-white p-2 space-y-1 hover:bg-zinc-50 transition-colors outline-none text-left group cursor-pointer">
+                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none group-hover:text-zinc-900 transition-colors">
+                            Provider 02
+                        </label>
+                        <div className="relative flex items-center  flex items-center gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                                <path fill="#27272a" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+                            </svg>
+                            <span className="w-full text-[11px] font-medium text-zinc-900">Continue with Github</span>
+                        </div>
+                    </button>
+
+                    <div className="p-2 text-[10px] border-y border-zinc-300 text-zinc-500 flex items-center justify-center w-full col-span-2">OR</div>
+
+                    {/* Cell 1: Email Input */}
+                    <div className="bg-white p-2 space-y-1 border-r border-b border-zinc-300 focus-within:bg-zinc-50 transition-colors">
+                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
+                            Email
+                        </label>
+                        <div className="relative flex items-center h-6">
+                            <Mail className="w-3.5 h-3.5 text-zinc-500 mr-2 shrink-0" />
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="test01@gmail.com"
+                                required
+                                className="w-full text-[11px] outline-none bg-transparent placeholder:text-zinc-500"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Cell 2: Password Input */}
+                    <div className="bg-white p-2 space-y-1 border-b border-zinc-300 focus-within:bg-zinc-50 transition-colors">
+                        <div className="flex justify-between items-center">
+                            <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
+                                Passkey
+                            </label>
+                            <button type="button" className="text-[9px] font-mono font-bold text-zinc-500 hover:text-orange-500 hover:underline cursor-pointer uppercase outline-none transition-colors leading-none">
+                                Forgot?
+                            </button>
+                        </div>
+                        <div className="relative flex items-center h-6">
+                            <Lock className="w-3.5 h-3.5 text-zinc-500 mr-2 shrink-0" />
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="••••••••••••"
+                                required
+                                className="w-full text-[11px] outline-none bg-transparent placeholder:text-zinc-500 "
+                            />
+                            <button
+                                type="button"
+                                onClick={togglePasswordVisibility}
+                                className="text-zinc-400 hover:text-zinc-900 outline-none cursor-pointer shrink-0 ml-2"
+                            >
+                                {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                            </button>
+                        </div>
+                    </div>
+
+
+
+
+
+                    {/* Cell 5: Session Config */}
+                    <div className="bg-white p-2 flex items-center border-r border-zinc-300">
+                        <div className="flex items-center gap-2 w-full h-full">
+                            <Checkbox id="terms" className="rounded-none border-zinc-400 w-3.5 h-3.5 shadow-none data-[state=checked]:bg-zinc-900 data-[state=checked]:border-zinc-900" />
+                            <label htmlFor="terms" className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest cursor-pointer select-none hover:text-zinc-900 transition-colors mt-0.5">
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Cell 6: Execution Button */}
+                    <div className="bg-white col-span-2">
+                        <button
+                            type="submit"
+                            disabled={loading || !email || !password}
+                            className={cn(
+                                "w-full h-full p-3 text-white transition-colors font-mono text-[10px] font-black uppercase tracking-[0.2em] outline-none cursor-pointer",
+                                loading ? "bg-zinc-400 text-zinc-500" : "bg-zinc-800 hover:bg-orange-500 disabled:cursor-not-allowed"
+                            )}
+                        >
+                            {loading ? "Connecting..." : "Login"}
+                        </button>
+                    </div>
+
+
+                    {/* Cell 7: Navigation Footer (Spans both columns) */}
+                    <div className="md:col-span-2 flex items-center justify-between">
+                        <div className="flex ">
+                            <span className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                                Privacy Policy
+                            </span>
+                            <span className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                                Terms of Service
+                            </span>
+                        </div>
+                        <span className="text-[8px] p-2 border-l hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                            Create New Account
+                        </span>
+                    </div>
+
+                </form>
+
             </div>
-        </>
+        </div>
     )
 }
-export default LoginForm
+
+export default LoginPage;
