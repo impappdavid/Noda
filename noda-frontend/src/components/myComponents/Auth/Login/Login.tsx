@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Eye, EyeOff, Mail, Lock, CircleAlert, Github, Chrome, KeyRound } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -33,7 +33,7 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
             if (onLoginInitiated) {
                 onLoginInitiated({ email, password });
             } else {
-                navigate('/feed');
+                navigate('/app');
             }
 
         } catch (err: any) {
@@ -192,16 +192,16 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
                     {/* Cell 7: Navigation Footer (Spans both columns) */}
                     <div className="md:col-span-2 flex items-center justify-between">
                         <div className="flex ">
-                            <span className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                            <Link to={`/privacyPolicy`} className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                                 Privacy Policy
-                            </span>
-                            <span className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                            </Link>
+                            <Link to={`/termsOfService`} className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                                 Terms of Service
-                            </span>
+                            </Link>
                         </div>
-                        <span className="text-[8px] p-2 border-l hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                        <Link to={`/signup`} className="text-[8px] p-2 border-l hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                             Create New Account
-                        </span>
+                        </Link>
                     </div>
 
                 </form>
