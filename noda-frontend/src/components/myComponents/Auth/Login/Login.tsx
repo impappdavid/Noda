@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Eye, EyeOff, Mail, Lock, CircleAlert, Github, Chrome, KeyRound } from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, CircleAlert} from "lucide-react"
 import { cn } from "@/lib/utils"
 
 // --- TYPES ---
