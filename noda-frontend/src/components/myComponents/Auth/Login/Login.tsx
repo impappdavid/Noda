@@ -53,7 +53,7 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
                 <div className="p-2 border border-zinc-300  flex items-center justify-between shrink-0">
                     <div className="flex items-center gap-2">
                         <img src="/noda.png" alt="logo.png" className="w-5 h-5" />
-                        <h1 className="text-[12px] font-mono font-black text-zinc-900 uppercase leading-none mt-0.5">
+                        <h1 className="text-sm font-mono font-black text-zinc-900 uppercase leading-none mt-0.5">
                             LogIn
                         </h1>
                     </div>
@@ -82,8 +82,8 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
 
 
                     {/* Cell 3: Google SSO (Provider Uplink) */}
-                    <button type="button" className="bg-white p-2 cursor-pointer space-y-1 border-r border-zinc-300 hover:bg-zinc-50 transition-colors outline-none text-left group">
-                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none group-hover:text-orange-500 transition-colors">
+                    <button type="button" className="bg-white p-2 space-y-1 border-r border-zinc-300 hover:bg-zinc-200/80 transition-colors outline-none text-left group cursor-pointer">
+                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none  transition-colors cursor-pointer">
                             Provider 01
                         </label>
                         <div className="relative flex items-center flex items-center gap-1.5 ">
@@ -98,7 +98,7 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
                     </button>
 
                     {/* Cell 4: GitHub SSO (Provider Uplink) */}
-                    <button type="button" className="bg-white p-2 space-y-1 hover:bg-zinc-50 transition-colors outline-none text-left group cursor-pointer">
+                    <button type="button" className="bg-white p-2 space-y-1 hover:bg-zinc-200/80 transition-colors outline-none text-left group cursor-pointer">
                         <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none group-hover:text-zinc-900 transition-colors">
                             Provider 02
                         </label>
