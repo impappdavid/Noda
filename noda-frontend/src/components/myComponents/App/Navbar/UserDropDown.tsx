@@ -73,11 +73,12 @@ const UserDropDown = () => {
 
                     <DropdownMenuSeparator className="bg-zinc-50" />
 
-
-                    <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-red-500 focus:bg-red-50 focus:text-red-600 cursor-pointer mt-1">
-                        <LogOut className=" h-4 w-4" />
-                        <span>Logout</span>
-                    </DropdownMenuItem>
+                    <Link to={`/login`}>
+                        <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-red-500 focus:bg-red-50 focus:text-red-600 cursor-pointer mt-1">
+                            <LogOut className=" h-4 w-4" />
+                            <span>Logout</span>
+                        </DropdownMenuItem>
+                    </Link>
                 </DropdownMenuContent>
             </DropdownMenu>
         </>
