@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import {
     ChevronRight, Terminal, Box, Wrench, Globe, Users,
     Activity, Clock, Search, ShieldCheck, Github, Twitter,
-    ArrowUpRight, Building2, CalendarDays, KeyRound, Network, Cpu
+    ArrowUpRight, Building2, CalendarDays, KeyRound, Network, Cpu,
+    VolumeX, Volume2 // Added Volume icons
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
@@ -62,6 +63,7 @@ const SectionHeader = ({ title, id }: { title: string, id?: string }) => (
 export default function LandingPage() {
     const [activeTab, setActiveTab] = useState(TABS[0].id);
     const [countdown, setCountdown] = useState(14 * 24 * 60 * 60);
+    const [isMuted, setIsMuted] = useState(true); // Added mute state
 
     useEffect(() => {
         const timer = setInterval(() => setCountdown(prev => prev - 1), 1000);
@@ -99,7 +101,7 @@ export default function LandingPage() {
                         <a href="/login" className="text-[10px] p-2 px-4 border-l border-zinc-300 h-full flex items-center font-mono font-black text-zinc-600 hover:text-orange-600 uppercase tracking-widest transition-colors outline-none cursor-pointer">
                             Login
                         </a>
-                        <a href="/signup" className="h-full flex items-center px-4 bg-orange-500 text-white items-center justify-center text-[10px] font-mono font-black uppercase tracking-widest hover:bg-orange-600 transition-colors outline-none cursor-pointer">
+                        <a href="/signup" className="h-full flex items-center px-4 bg-orange-500 text-white justify-center text-[10px] font-mono font-black uppercase tracking-widest hover:bg-orange-600 transition-colors outline-none cursor-pointer">
                             SignUp
                         </a>
                     </div>
@@ -116,7 +118,7 @@ export default function LandingPage() {
                                 <div className="flex items-center gap-2 p-2">
                                     <Activity size={12} className="text-orange-500 animate-pulse" />
                                     <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em] mt-0.5">
-                                        sys_preview_feed.mp4
+                                        intro.mp4
                                     </span>
                                 </div>
                                 <div className="flex gap-1.5 px-2">
@@ -127,28 +129,31 @@ export default function LandingPage() {
                             </div>
 
                             {/* Video Container */}
-                            <div className="relative bg-zinc-800 aspect-video w-full overflow-hidden border border-zinc-300">
+                            <div className="relative bg-zinc-800 aspect-video w-full overflow-hidden ">
                                 <video
                                     autoPlay
                                     loop
-                                    muted
-                                    playsInline
+                                    muted={isMuted}
+                                    onClick={() => setIsMuted(!isMuted)}
                                     // Replace src with your actual video path (e.g., "/noda-demo.mp4")
-                                    src="https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
-                                    className="object-cover w-full h-full opacity-90 grayscale contrast-125"
+                                    src="https://storage.googleapis.com/muxdemofiles/mux-video-intro.mp4"
+                                    className="object-cover w-full h-full cursor-pointer"
                                 />
+                               
 
-                                {/* CSS Scanline Overlay for the Terminal Vibe */}
-                                <div
-                                    className="absolute inset-0 pointer-events-none opacity-10"
-                                    style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 4px)' }}
-                                />
-
-                                {/* Live Recording Badge */}
-                                <div className="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 px-2 py-1 border border-zinc-700/50 backdrop-blur-sm">
+                                {/* Live Recording Badge (Top Left) */}
+                                <div className="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 px-2 py-1 border border-zinc-700/50 backdrop-blur-sm pointer-events-none">
                                     <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
                                     <span className="text-[8px] font-mono font-black text-white uppercase tracking-widest mt-0.5">Live_Feed</span>
                                 </div>
+
+                                {/* Mute/Unmute Toggle Button (Top Right) */}
+                                <button
+                                    onClick={() => setIsMuted(!isMuted)}
+                                    className="absolute top-4 right-4 flex items-center justify-center bg-zinc-900/80 p-1.5 border border-zinc-700/50 backdrop-blur-sm text-zinc-300 hover:text-white transition-colors cursor-pointer z-10 outline-none"
+                                >
+                                    {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+                                </button>
                             </div>
 
                     </div>
