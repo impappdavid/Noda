@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     ChevronRight, Terminal, Box, Wrench, Globe, Users,
     Activity, Clock, Search, ShieldCheck, Github, Twitter,
-    ArrowUpRight, Building2, CalendarDays, KeyRound
+    ArrowUpRight, Building2, CalendarDays, KeyRound, Network, Cpu
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
@@ -85,7 +85,7 @@ export default function LandingPage() {
                 {/* --- 0. CUSTOM NAVBAR --- */}
                 <nav className="flex items-center justify-between border-b border-zinc-300 bg-white shrink-0 sticky top-0 z-50">
                     <div className="flex items-center h-full">
-                        <img src="/noda2.png" alt="" className='w-8 h-8'/>
+                        <img src="/noda2.png" alt="" className='w-8 h-8' />
 
                         {/* Center Anchor Links */}
                         <a href="#features" className="text-[10px] p-2 h-full flex items-center border-x border-zinc-300 font-mono font-bold text-zinc-500 hover:text-orange-600 uppercase tracking-[0.2em] transition-colors outline-none">Features</a>
@@ -106,41 +106,51 @@ export default function LandingPage() {
                 </nav>
 
                 {/* --- 1. HERO SECTION --- */}
-                <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-zinc-300">
+                <div className="border-b border-zinc-300 bg-zinc-50 relative overflow-hidden flex flex-col items-center justify-start ">
 
-                    {/* Left: Copy & CTA */}
-                    <div className="p-2 flex flex-col items-start justify-center bg-white relative">
-                        <div className="flex items-center gap-2 px-3 py-1.5 border border-zinc-300 bg-zinc-50 mb-6 shadow-sm">
-                            <Wrench size={10} className="text-orange-600" />
-                            <span className="text-[9px] font-mono font-black text-zinc-600 uppercase tracking-widest">
-                                v2.1.0 <span className="mx-1.5 opacity-30">|</span> Systems Operational
-                            </span>
-                        </div>
+                        {/* --- LOOPED VIDEO PREVIEW --- */}
+                        <div className="w-full  bg-white relative flex flex-col">
 
-                        <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 text-zinc-900 leading-[1.05] uppercase">
-                            Terminal <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-red-600">Intelligence</span>
-                        </h1>
-
-                        <p className="text-xs md:text-sm text-zinc-600 leading-relaxed mb-8 max-w-sm font-medium">
-                            Deploy, track, and manage your distributed career nodes and candidate pipelines through a centralized, high-availability terminal interface.
-                        </p>
-
-                        <a href="/signup" className="h-12 px-6 bg-zinc-900 text-white hover:bg-orange-600 transition-colors flex items-center justify-center gap-2 group outline-none cursor-pointer shadow-[3px_3px_0px_0px_rgba(24,24,27,0.2)] active:shadow-none active:translate-y-[3px] active:translate-x-[3px]">
-                            <ChevronRight size={16} className="text-white group-hover:translate-x-1 transition-transform" />
-                            <span className="text-[10px] font-mono font-black uppercase tracking-[0.2em]">Initialize_Uplink</span>
-                        </a>
-                    </div>
-
-                    {/* Right: Abstract Graphic Representation */}
-                    <div className="p-8 md:p-12 flex items-center justify-center bg-zinc-50 relative overflow-hidden min-h-[300px]">
-                        <div className="absolute inset-0 opacity-30 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #e4e4e7 25%, transparent 25%, transparent 75%, #e4e4e7 75%, #e4e4e7)', backgroundSize: '4px 4px' }} />
-                        <div className="relative grid grid-cols-2 gap-4 rotate-12 scale-110">
-                            {[1, 2, 3, 4].map((i) => (
-                                <div key={i} className={cn("w-24 h-24 border bg-white flex items-center justify-center shadow-[4px_4px_0px_0px_#ea580c]", i === 2 ? "border-orange-500 bg-orange-50" : "border-zinc-300")}>
-                                    <Box size={32} className={i % 2 === 0 ? "text-orange-500" : "text-zinc-800"} />
+                            {/* Video Terminal Bar */}
+                            <div className="flex items-center justify-between border-b border-zinc-300 shrink-0">
+                                <div className="flex items-center gap-2 p-2">
+                                    <Activity size={12} className="text-orange-500 animate-pulse" />
+                                    <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em] mt-0.5">
+                                        sys_preview_feed.mp4
+                                    </span>
                                 </div>
-                            ))}
-                        </div>
+                                <div className="flex gap-1.5 px-2">
+                                    <div className="w-1.5 h-1.5 bg-orange-400" />
+                                    <div className="w-1.5 h-1.5 bg-orange-500" />
+                                    <div className="w-1.5 h-1.5 bg-orange-600" />
+                                </div>
+                            </div>
+
+                            {/* Video Container */}
+                            <div className="relative bg-zinc-800 aspect-video w-full overflow-hidden border border-zinc-300">
+                                <video
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    // Replace src with your actual video path (e.g., "/noda-demo.mp4")
+                                    src="https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+                                    className="object-cover w-full h-full opacity-90 grayscale contrast-125"
+                                />
+
+                                {/* CSS Scanline Overlay for the Terminal Vibe */}
+                                <div
+                                    className="absolute inset-0 pointer-events-none opacity-10"
+                                    style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 4px)' }}
+                                />
+
+                                {/* Live Recording Badge */}
+                                <div className="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 px-2 py-1 border border-zinc-700/50 backdrop-blur-sm">
+                                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
+                                    <span className="text-[8px] font-mono font-black text-white uppercase tracking-widest mt-0.5">Live_Feed</span>
+                                </div>
+                            </div>
+
                     </div>
                 </div>
 
@@ -155,7 +165,7 @@ export default function LandingPage() {
                     ))}
                 </div>
 
-                
+
 
                 {/* --- 4. INTERACTIVE COMPONENT DECK --- */}
                 <SectionHeader title="Core_Protocol_Features" id="features" />
