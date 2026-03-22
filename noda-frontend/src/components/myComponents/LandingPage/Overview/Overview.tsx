@@ -82,15 +82,15 @@ export default function LandingPage() {
         <div className="min-h-screen bg-zinc-50 flex justify-center font-sans selection:bg-zinc-300 scroll-smooth">
 
             {/* MASTER HARDWARE BOUNDING BOX */}
-            <div className="w-full max-w-4xl border border-zinc-300 bg-white flex flex-col  overflow-hidden mb-12">
+            <div className="w-full max-w-4xl border-x border-zinc-300 bg-white flex flex-col  overflow-hidden mb-12">
 
                 {/* --- 0. CUSTOM NAVBAR --- */}
                 <nav className="flex items-center justify-between border-b border-zinc-300 bg-white shrink-0 sticky top-0 z-50">
                     <div className="flex items-center h-full">
-                        <img src="/noda2.png" alt="" className='w-8 h-8' />
+                        <div className="p-2 text-[10px] h-full px-4 font-kodemono bg-orange-500 text-white tracking-[0.2em] font-medium">/NODA</div>
 
                         {/* Center Anchor Links */}
-                        <a href="#features" className="text-[10px] p-2 h-full flex items-center border-x border-zinc-300 font-mono font-bold text-zinc-500 hover:text-orange-600 uppercase tracking-[0.2em] transition-colors outline-none">Features</a>
+                        <a href="#features" className="text-[10px] p-2 h-full flex items-center border-r border-zinc-300 font-mono font-bold text-zinc-500 hover:text-orange-600 uppercase tracking-[0.2em] transition-colors outline-none">Features</a>
                         <a href="#telemetry" className="text-[10px] p-2 h-full flex items-center border-r border-zinc-300 font-mono font-bold text-zinc-500 hover:text-orange-600 uppercase tracking-[0.2em] transition-colors outline-none">Telemetry</a>
                         <a href="#changelog" className="text-[10px] p-2 h-full flex items-center border-r border-zinc-300 font-mono font-bold text-zinc-500 hover:text-orange-600 uppercase tracking-[0.2em] transition-colors outline-none">Changelog</a>
 
