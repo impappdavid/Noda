@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
-    ChevronRight, Terminal, Box, Wrench, Globe, Users,
+     Terminal,  Users,
     Activity, Clock, Search, ShieldCheck, Github, Twitter,
-    ArrowUpRight, Building2, CalendarDays, KeyRound, Network, Cpu, Lock,
+    ArrowUpRight, CalendarDays, Lock,
     VolumeX, Volume2, // Added Volume icons
     ShieldAlert,
     BotOff,
     PlaySquare,
     PanelRight,
     EyeOff,
-    Star,
     Database,
     MessageSquare,
     Play
@@ -42,12 +41,6 @@ const TABS = [
         desc: "Complete strict identity verification to unlock messaging and pipeline interactions.",
         icon: <BotOff size={14} />
     }
-];
-
-const STATS = [
-    { label: "Active_Nodes", value: "14,204" },
-    { label: "Verified_Entities", value: "892" },
-    { label: "Uptime_Telemetry", value: "99.99%" }
 ];
 
 const CHANGELOG = [
@@ -388,7 +381,7 @@ export default function LandingPage() {
                                 <Database size={14} className="text-zinc-900" />
                                 <h3 className="text-[11px] font-black uppercase tracking-widest text-zinc-900 mt-0.5">Data Aggregation</h3>
                             </div>
-                            <p className="text-[10px] font-medium text-zinc-500 leading-relaxed">Automatically ingest and centralize job listings from multiple external ATS and board endpoints.</p>
+                            <p className="text-[10px] font-medium text-zinc-600 leading-relaxed">Automatically ingest and centralize job listings from multiple external ATS and board endpoints.</p>
                         </div>
                     </div>
 
@@ -421,10 +414,10 @@ export default function LandingPage() {
                         {/* Copy */}
                         <div className="p-4 flex flex-col gap-1">
                             <div className="flex items-center gap-2">
-                                <MessageSquare size={14} className="text-orange-500" />
-                                <h3 className="text-[11px] font-black uppercase tracking-widest text-zinc-900 mt-0.5">Pipeline_Feedback</h3>
+                                <MessageSquare size={14} className="text-zinc-900" />
+                                <h3 className="text-[11px] font-black uppercase tracking-widest text-zinc-900 mt-0.5">Company Reviews</h3>
                             </div>
-                            <p className="text-[10px] font-medium text-zinc-500 leading-relaxed">Broadcast public or cloaked feedback on entity operations and optionally log recruiter response latencies.</p>
+                            <p className="text-[10px] font-medium text-zinc-600 leading-relaxed">Broadcast public or cloaked feedback on entity operations and optionally log recruiter response latencies.</p>
                         </div>
                     </div>
 
@@ -502,22 +495,15 @@ export default function LandingPage() {
                                 <PlaySquare size={14} className="text-zinc-900" />
                                 <h3 className="text-[11px] font-black uppercase tracking-widest text-zinc-900 mt-0.5">Company Broadcast</h3>
                             </div>
-                            <p className="text-[10px] font-medium text-zinc-500 leading-relaxed">Integrate high-fidelity video streams allowing companies to showcase internal culture and tech stacks.</p>
+                            <p className="text-[10px] font-medium text-zinc-600 leading-relaxed">Integrate high-fidelity video streams allowing companies to showcase internal culture and tech stacks.</p>
                         </div>
                     </div>
 
                 </div>
 
-                {/* --- 3. STATS STRIP --- */}
-                <SectionHeader title="Statictics" />
-                <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-zinc-700 bg-zinc-900 text-white">
-                    {STATS.map((stat, i) => (
-                        <div key={i} className="p-6 flex flex-col items-center text-center justify-center hover:bg-zinc-800 transition-colors">
-                            <span className="text-2xl font-black tracking-tighter text-orange-500 leading-none mb-2">{stat.value}</span>
-                            <span className="text-[9px] font-mono font-black uppercase tracking-[0.2em] text-zinc-400">{stat.label}</span>
-                        </div>
-                    ))}
-                </div>
+
+                
+                
 
                 {/* --- 6. FOOTER: CHANGELOG & SOCIALS --- */}
                 <SectionHeader title="Changelog_&_Network" id="changelog" />
