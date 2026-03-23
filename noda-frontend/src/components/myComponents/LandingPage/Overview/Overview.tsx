@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
-     Terminal,  Users,
+    Terminal, Users,
     Activity, Clock, Search, ShieldCheck, Github, Twitter,
     ArrowUpRight, CalendarDays, Lock,
     VolumeX, Volume2, // Added Volume icons
@@ -11,7 +11,10 @@ import {
     EyeOff,
     Database,
     MessageSquare,
-    Play
+    Play,
+    Mail,
+    Youtube,
+    Command
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
@@ -83,7 +86,7 @@ export default function LandingPage() {
         <div className="min-h-screen bg-zinc-50 flex justify-center font-sans selection:bg-zinc-300 scroll-smooth">
 
             {/* MASTER HARDWARE BOUNDING BOX */}
-            <div className="w-full max-w-4xl border-x border-zinc-300 bg-white flex flex-col  overflow-hidden mb-12">
+            <div className="w-full max-w-4xl border-x border-zinc-300 bg-white flex flex-col  overflow-hidden">
 
                 {/* --- 0. CUSTOM NAVBAR --- */}
                 <nav className="flex items-center justify-between border-b border-zinc-300 bg-white shrink-0 sticky top-0 z-50">
@@ -502,48 +505,89 @@ export default function LandingPage() {
                 </div>
 
 
-                
-                
 
-                {/* --- 6. FOOTER: CHANGELOG & SOCIALS --- */}
-                <SectionHeader title="Changelog_&_Network" id="changelog" />
-                <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-zinc-300 bg-white">
 
-                    {/* Changelog */}
-                    <div className="md:col-span-2 flex flex-col">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-zinc-300 h-full">
+
+                {/* --- 6. FOOTER: DIAGNOSTICS & SYSTEM LOGS --- */}
+                <SectionHeader title="System Logs & Comms" id="changelog" />
+                <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-zinc-300 bg-white">
+
+                    {/* Left: Terminal Changelog (Col Span 8) */}
+                    <div className="lg:col-span-8 flex flex-col bg-zinc-800 text-white relative overflow-hidden">
+                        {/* Terminal Header */}
+                        <div className="flex items-center justify-between p-2 border-b border-zinc-800 bg-zinc-900 shrink-0">
+                            <div className="flex items-center gap-2">
+                                <Command size={12} className="text-zinc-400" />
+                                <span className="text-[9px] font-mono font-black text-zinc-300 uppercase tracking-widest mt-0.5">
+                                    sys_changelog.log
+                                </span>
+                            </div>
+                            <div className="flex gap-1.5">
+                                <div className="w-1.5 h-1.5 bg-zinc-700" />
+                                <div className="w-1.5 h-1.5 bg-zinc-700" />
+                                <div className="w-1.5 h-1.5 bg-zinc-700" />
+                            </div>
+                        </div>
+
+                        {/* Terminal Output */}
+                        <div className="flex-1 p-2 font-mono text-[10px] sm:text-xs flex flex-col gap-4 overflow-y-auto">
                             {CHANGELOG.map((log, i) => (
-                                <a key={i} href="#" className={cn("p-5 flex flex-col gap-1.5 hover:bg-zinc-50 transition-colors group outline-none", i > 1 && "border-t border-zinc-300")}>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-widest group-hover:text-orange-600 transition-colors">{log.version}</span>
-                                        <ArrowUpRight size={12} className="text-zinc-300 group-hover:text-orange-500 transition-colors" />
+                                <div key={i} className="flex flex-col sm:flex-row sm:items-baseline gap-2 group cursor-default">
+                                    <div className="flex items-center gap-2 shrink-0 sm:w-36">
+                                        <span className="text-zinc-200 font-semibold">{log.date}</span>
+                                        <span className="text-orange-500">[{log.version}]</span>
                                     </div>
-                                    <span className="text-xs font-bold text-zinc-600 uppercase tracking-tight">{log.title}</span>
-                                    <span className="text-[8px] font-mono font-bold text-zinc-400 tracking-[0.2em] mt-auto pt-4">{log.date}</span>
-                                </a>
+                                    <span className="text-zinc-300 group-hover:text-white transition-colors flex items-center gap-2">
+                                        <ArrowUpRight size={12} className="text-zinc-500 group-hover:text-orange-500 transition-colors" />
+                                        Executed protocol: {log.title}
+                                    </span>
+                                </div>
                             ))}
+
+                            {/* Blinking Cursor */}
+                            <div className="flex items-center gap-2 mt-2 text-zinc-400">
+                                <span>root@noda-sys:~#</span>
+                                <div className="w-2 h-3 bg-orange-500 animate-pulse" />
+                            </div>
                         </div>
                     </div>
 
-                    {/* Socials & Legal */}
-                    <div className="flex flex-col bg-zinc-900 text-white">
-                        <div className="flex flex-col divide-y divide-zinc-800 flex-1">
-                            <a href="#" className="p-5 flex items-center gap-3 hover:bg-zinc-800 transition-colors group outline-none">
-                                <Twitter size={14} className="text-zinc-400 group-hover:text-white transition-colors" />
-                                <span className="text-[10px] font-mono font-black tracking-widest uppercase text-zinc-300 group-hover:text-white transition-colors">Twitter / X</span>
+                    {/* Right: Comms & Socials (Col Span 4) */}
+                    <div className="lg:col-span-4 flex flex-col bg-white">
+
+                        {/* Comms Header */}
+                        <div className=" px-2 pb-2 border-b border-zinc-300 ">
+                            <span className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-widest">Links</span>
+                        </div>
+
+                        {/* Links List */}
+                        <div className="flex flex-col divide-y divide-zinc-200 flex-1">
+                            <a href="/contact" className="p-4 flex items-center gap-3 hover:bg-zinc-50 transition-colors group outline-none">
+                                <Mail size={14} className="text-zinc-500 group-hover:text-orange-500 transition-colors" />
+                                <span className="text-[10px] font-mono font-black tracking-widest uppercase text-zinc-600 group-hover:text-zinc-900 transition-colors">Contact</span>
                             </a>
-                            <a href="#" className="p-5 flex items-center gap-3 hover:bg-zinc-800 transition-colors group outline-none">
-                                <Github size={14} className="text-zinc-400 group-hover:text-white transition-colors" />
-                                <span className="text-[10px] font-mono font-black tracking-widest uppercase text-zinc-300 group-hover:text-white transition-colors">GitHub_Repo</span>
+                            <a href="#" className="p-4  flex items-center gap-3 hover:bg-zinc-50 transition-colors group outline-none">
+                                <Youtube size={14} className="text-zinc-500 group-hover:text-orange-500 transition-colors" />
+                                <span className="text-[10px] font-mono font-black tracking-widest uppercase text-zinc-600 group-hover:text-zinc-900 transition-colors">YouTube</span>
                             </a>
-                            <div className="mt-auto p-5 flex flex-col gap-2 bg-zinc-950">
-                                <span className="text-[8px] font-mono font-bold text-zinc-600 uppercase tracking-[0.2em]">© 2026 Noda Network</span>
+                            <a href="#" className="p-4  flex items-center gap-3 hover:bg-zinc-50 transition-colors group outline-none">
+                                <Twitter size={14} className="text-zinc-500 group-hover:text-orange-500 transition-colors" />
+                                <span className="text-[10px] font-mono font-black tracking-widest uppercase text-zinc-600 group-hover:text-zinc-900 transition-colors">Twitter / X</span>
+                            </a>
+                           
+                        </div>
+
+                        {/* Legal */}
+                        <div className="mt-auto p-4 flex flex-col gap-3 border-t border-zinc-300">
+                            <div className="flex items-center justify-between">
+                                <span className="text-[9px] font-mono font-bold text-zinc-900 uppercase ">© 2026 Noda Network</span>
                                 <div className="flex items-center gap-3">
-                                    <a href="#" className="text-[8px] font-mono font-bold text-zinc-500 hover:text-zinc-300 uppercase tracking-widest">Legal</a>
-                                    <a href="#" className="text-[8px] font-mono font-bold text-zinc-500 hover:text-zinc-300 uppercase tracking-widest">Privacy</a>
+                                    <a href="#" className="text-[9px] font-mono font-bold text-zinc-600 hover:text-zinc-900 uppercase tracking-widest">Legal</a>
+                                    <a href="#" className="text-[9px] font-mono font-bold text-zinc-600 hover:text-zinc-900 uppercase tracking-widest">Privacy</a>
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
