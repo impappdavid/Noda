@@ -55,10 +55,10 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
         <div className="min-h-screen bg-zinc-50 flex md:items-center justify-center p-2 md:p-4 font-sans selection:bg-zinc-300">
 
             {/* HARDWARE ENCLOSURE (No Shadows, Sharp Edges) */}
-            <div className="w-full max-w-lg flex flex-col">
+            <div className="w-full max-w-lg flex flex-col ">
 
                 {/* Header */}
-                <div className="p-2 border border-zinc-300  flex items-center justify-between shrink-0">
+                <div className="p-2 border border-zinc-300 rounded-xl flex items-center justify-between shrink-0">
                     <div className="flex items-center gap-2">
                         <img src="/noda.png" alt="logo.png" className="w-5 h-5" />
                         <h1 className="text-sm font-mono font-black text-zinc-900 uppercase leading-none mt-0.5">
