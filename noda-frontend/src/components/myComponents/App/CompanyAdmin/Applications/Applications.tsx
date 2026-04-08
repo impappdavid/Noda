@@ -141,7 +141,7 @@ const ManageApplicants = () => {
                 placeholder={
                   view === "LIST" ? "Filter Roles..." : "SEARCH_APPLICANTS..."
                 }
-                className="w-full h-10 border-b border-zinc-300 pl-10 pr-4 text-[11px] font-mono font-bold outline-none"
+                className="w-full h-10 border-b border-zinc-300 pl-9 pr-4 text-[11px] font-mono font-bold outline-none"
               />
             </div>
           </div>

@@ -306,9 +306,7 @@ const AcceptApplicantDialog = () => (
 // --- EXPORTED CARDS ---
 export const JobCard = React.memo(
   ({ job, onSelect }: { job: JobNode; onSelect: (j: JobNode) => void }) => (
-    <div
-      className="p-2 bg-white hover:bg-zinc-100 transition-all cursor-pointer group flex items-center justify-between border-b border-zinc-300"
-    >
+    <div className="p-2 bg-white hover:bg-zinc-100 transition-all cursor-pointer group flex items-center justify-between border-b border-zinc-300">
       <div className="flex flex-col gap-1 w-full">
         <div className="flex justify-between h-fit">
           <div className="w-8 h-8 bg-zinc-800 text-white flex items-center justify-center border border-zinc-800 shrink-0 uppercase font-bold text-xs">
@@ -316,7 +314,7 @@ export const JobCard = React.memo(
           </div>
           <DropdownMenu modal={false}>
             {/* 1. Trigger using your custom SVG styled container */}
-            <DropdownMenuTrigger asChild onClick={(e)=> e.preventDefault()}>
+            <DropdownMenuTrigger asChild onClick={(e) => e.preventDefault()}>
               <div className="p-1 hover:bg-zinc-300/80 cursor-pointer text-zinc-500 h-fit aspect-square">
                 <EllipsisVertical className="w-3.5 h-3.5" />
               </div>
@@ -324,29 +322,24 @@ export const JobCard = React.memo(
 
             {/* 2. Menu Content styled for Noda */}
             <DropdownMenuContent
-              className="w-42 mt-2 rounded-none border-zinc-300  "
+              className="w-36 p-0  rounded-none border-zinc-300  "
               align="end"
               forceMount
             >
-
-              <DropdownMenuGroup>
-                <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-2 text-[11px] text-zinc-600 focus:bg-zinc-100 focus:text-zinc-900 cursor-pointer">
+              <DropdownMenuGroup className="divide-y divide-zinc-300">
+                <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-1.5 text-[11px] text-zinc-600 focus:bg-zinc-100 focus:text-zinc-900 cursor-pointer">
                   <Pencil className=" h-3.5 w-3.5 text-zinc-400" />
                   <span>Edit</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-2 text-[11px] text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
+                <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-1.5 text-[11px] text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
                   <CalendarPlus className=" h-3.5 w-3.5 text-zinc-400" />
-                  <span>Add Interview Dates</span>
+                  <span>Interview Dates</span>
                 </DropdownMenuItem>
-                
+                <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-1.5 text-[11px] text-red-500 focus:bg-red-50 focus:text-red-600 cursor-pointer ">
+                  <Trash className=" h-3.5 w-3.5" />
+                  <span>Delete</span>
+                </DropdownMenuItem>
               </DropdownMenuGroup>
-
-              <DropdownMenuSeparator className="bg-zinc-50" />
-
-              <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-2 text-[11px] text-red-500 focus:bg-red-50 focus:text-red-600 cursor-pointer mt-1">
-                <Trash className=" h-3.5 w-3.5" />
-                <span>Delete</span>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -366,7 +359,7 @@ export const JobCard = React.memo(
               {job.applicants} Applies
             </span>
             <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase">
-              {job.deadline}
+              {job.deadline} to reply
             </span>
           </div>
         </div>
