@@ -11,8 +11,9 @@ const ManageApplicants = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const activeJobs: JobNode[] = [
-        { id: "NODE_J1", role: "LEAD_SYSTEMS_ARCH", applicants: 124, new: 12, deadline: "4 days" },
-        { id: "NODE_J2", role: "NEURAL_INTERFACE_DESIGN", applicants: 89, new: 3, deadline: "11 days" },
+        { id: "NODE_J1", role: "Full-Stack Developer", applicants: 124, new: 12, deadline: "4 days" },
+        { id: "NODE_J2", role: "UI Designer", applicants: 89, new: 3, deadline: "11 days" },
+        { id: "NODE_J3", role: "Project Manager", applicants: 500, new: 3, deadline: "11 days" },
     ];
 
     const applicants: ApplicantNode[] = [
@@ -89,7 +90,7 @@ const ManageApplicants = () => {
                     {/* DATA TABLE */}
                     <div className="flex-1 overflow-y-auto scrollbar-hide">
                         {view === 'LIST' ? (
-                            <div className="divide-y divide-zinc-300">
+                            <div className="divide-x divide-y  divide-zinc-300 grid grid-cols-3">
                                 {filteredJobs.map((job) => (
                                     <JobCard key={job.id} job={job} onSelect={(j) => { setSelectedJob(j); setView('DRILLDOWN'); }} />
                                 ))}
