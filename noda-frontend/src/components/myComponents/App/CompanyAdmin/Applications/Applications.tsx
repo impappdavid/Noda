@@ -120,7 +120,7 @@ const ManageApplicants = () => {
               </div>
             </div>
           ) : (
-            <div className="flex justify-between w-full border-b border-zinc-300 ">
+            <div className="flex justify-between w-full border-b border-zinc-300 bg-zinc-100">
               <h1 className="text-xs font-bold uppercase p-2">
                 Jobs
               </h1>
