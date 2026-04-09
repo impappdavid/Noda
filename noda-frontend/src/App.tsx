@@ -84,10 +84,11 @@ function App() {
         <Route path="/app/messages" element={<MessagesPage />} />
 
         <Route path="/app/admin/post" element={<CreatePost />} />
-        <Route path="/app/admin/jobs" element={<PostJob />} />
+        <Route path="/app/admin/jobs" element={<ManageApplicants />} />
+        <Route path="/app/admin/jobs/create" element={<PostJob />} />
         <Route path="/app/admin/dashboard" element={<CompanyDashboard />} />
         <Route path="/app/admin/team" element={<TeamNodesManager />} />
-        <Route path="/app/admin/applications" element={<ManageApplicants />} />
+        
 
       </Routes>
     </>
