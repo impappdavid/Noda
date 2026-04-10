@@ -33,7 +33,7 @@ const AppSideBar = () => {
         }
         adminOptions.push({ name: "Create Post", route: "/app/admin/post" });
         if (userSession.role === "CEO" || userSession.role === "RECRUITER") {
-            adminOptions.push({ name: "Applications", route: "/app/admin/jobs" });
+            adminOptions.push({ name: "Jobs", route: "/app/admin/jobs" });
         }
         
         return adminOptions;
