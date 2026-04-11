@@ -130,10 +130,7 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                 align="end"
               >
                 <DropdownMenuGroup className="divide-y divide-zinc-300">
-                  <DropdownMenuItem className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-zinc-600 cursor-pointer gap-2">
-                    <Pencil className="h-3.5 w-3.5 text-zinc-400" />
-                    <span>Edit</span>
-                  </DropdownMenuItem>
+                  
                   <DropdownMenuItem
                     onClick={() => setInterviewDialog(true)}
                     className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-zinc-600 cursor-pointer gap-2"
