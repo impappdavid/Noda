@@ -6,17 +6,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { JobNode } from "@/types/admin/applications";
-import { 
-  Calendar1, 
-  EllipsisVertical, 
-  Pencil, 
-  Trash, 
-  ChevronLeft, 
-  ChevronRight, 
+import {
+  Calendar1,
+  EllipsisVertical,
+  Pencil,
+  Trash,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   X,
   Plus,
-  Check
+  Check,
 } from "lucide-react";
 import React, { useState, useMemo, useEffect } from "react";
 import {
@@ -28,9 +28,9 @@ import {
 
 export const JobCard = React.memo(({ job }: { job: JobNode }) => {
   const [interviewDialog, setInterviewDialog] = useState(false);
-  
+
   // Calendar & Interview States
-  const [viewDate, setViewDate] = useState(new Date()); 
+  const [viewDate, setViewDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [interviews, setInterviews] = useState<Record<string, string[]>>({});
   const [tempTime, setTempTime] = useState("");
@@ -52,33 +52,42 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
   const { paddingDays, monthDays, monthLabel } = useMemo(() => {
     const year = viewDate.getFullYear();
     const month = viewDate.getMonth();
-    const label = viewDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+    const label = viewDate.toLocaleString("default", {
+      month: "long",
+      year: "numeric",
+    });
     const firstDayIndex = new Date(year, month, 1).getDay();
     const startingPadding = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    
-    return { 
-      paddingDays: Array.from({ length: startingPadding }), 
-      monthDays: Array.from({ length: daysInMonth }), 
-      monthLabel: label 
+
+    return {
+      paddingDays: Array.from({ length: startingPadding }),
+      monthDays: Array.from({ length: daysInMonth }),
+      monthLabel: label,
     };
   }, [viewDate]);
 
   // Handlers
   const changeMonth = (offset: number) => {
-    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + offset, 1));
+    setViewDate(
+      new Date(viewDate.getFullYear(), viewDate.getMonth() + offset, 1),
+    );
     setSelectedDay(null);
     setIsAddingTime(false);
   };
 
-  const selectedDateKey = selectedDay ? `${viewDate.getFullYear()}-${viewDate.getMonth()}-${selectedDay}` : null;
-  const activeDayInterviews = selectedDateKey ? interviews[selectedDateKey] || [] : [];
+  const selectedDateKey = selectedDay
+    ? `${viewDate.getFullYear()}-${viewDate.getMonth()}-${selectedDay}`
+    : null;
+  const activeDayInterviews = selectedDateKey
+    ? interviews[selectedDateKey] || []
+    : [];
 
   const handleSaveTime = () => {
     if (selectedDay && tempTime && selectedDateKey) {
-      setInterviews(prev => ({
+      setInterviews((prev) => ({
         ...prev,
-        [selectedDateKey]: [...(prev[selectedDateKey] || []), tempTime].sort()
+        [selectedDateKey]: [...(prev[selectedDateKey] || []), tempTime].sort(),
       }));
       setIsAddingTime(false);
       setTempTime("");
@@ -87,9 +96,11 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
 
   const handleDeleteTime = (timeToDelete: string) => {
     if (!selectedDateKey) return;
-    setInterviews(prev => ({
+    setInterviews((prev) => ({
       ...prev,
-      [selectedDateKey]: prev[selectedDateKey].filter(time => time !== timeToDelete)
+      [selectedDateKey]: prev[selectedDateKey].filter(
+        (time) => time !== timeToDelete,
+      ),
     }));
   };
 
@@ -102,21 +113,24 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
             <div className="w-8 h-8 bg-zinc-800 text-white flex items-center justify-center border border-zinc-800 shrink-0 uppercase font-bold text-xs font-mono">
               {job.role.substring(0, 2)}
             </div>
-            
+
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
                 <div className="p-1 hover:bg-zinc-300/80 cursor-pointer text-zinc-500 h-fit aspect-square">
                   <EllipsisVertical className="w-3.5 h-3.5" />
                 </div>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-36 p-0 rounded-none border-zinc-300 shadow-none" align="end">
+              <DropdownMenuContent
+                className="w-36 p-0 rounded-none border-zinc-300 shadow-none"
+                align="end"
+              >
                 <DropdownMenuGroup className="divide-y divide-zinc-300">
                   <DropdownMenuItem className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-zinc-600 cursor-pointer gap-2">
                     <Pencil className="h-3.5 w-3.5 text-zinc-400" />
                     <span>Edit</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => setInterviewDialog(true)} 
+                  <DropdownMenuItem
+                    onClick={() => setInterviewDialog(true)}
                     className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-zinc-600 cursor-pointer gap-2"
                   >
                     <Calendar1 className="h-3.5 w-3.5 text-zinc-400" />
@@ -130,17 +144,25 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          
+
           <div className="flex flex-col w-full">
-            <h5 className="text-sm font-bold uppercase tracking-tight">{job.role}</h5>
+            <h5 className="text-sm font-bold uppercase tracking-tight">
+              {job.role}
+            </h5>
             <div className="flex items-center gap-1 text-[11px] text-zinc-500">
-              <span>Remote</span><span className="opacity-30">•</span>
-              <span>Full-Time</span><span className="opacity-30">•</span>
+              <span>Remote</span>
+              <span className="opacity-30">•</span>
+              <span>Full-Time</span>
+              <span className="opacity-30">•</span>
               <span>0-1 year</span>
             </div>
             <div className="flex justify-between items-center mt-1">
-              <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase">{job.applicants} Applies</span>
-              <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase">{job.deadline} to reply</span>
+              <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase">
+                {job.applicants} Applies
+              </span>
+              <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase">
+                {job.deadline} to reply
+              </span>
             </div>
           </div>
         </div>
@@ -149,12 +171,17 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
       {/* CALENDAR DIALOG */}
       <Dialog open={interviewDialog} onOpenChange={setInterviewDialog}>
         <DialogContent className="max-w-3xl p-0 rounded-none border-none gap-0 overflow-hidden outline-none shadow-2xl flex flex-col h-fit">
-          
           <DialogHeader className="bg-zinc-100 p-1.5 flex flex-row items-center justify-between space-y-0 border-b border-zinc-300">
             <DialogTitle className="text-[11px] font-bold uppercase tracking-tight flex gap-1 items-center">
-              {job.role} <span className="text-zinc-500 font-normal">| Interview Calendar</span>
+              {job.role}{" "}
+              <span className="text-zinc-500 font-normal">
+                | Interview Calendar
+              </span>
             </DialogTitle>
-            <button onClick={() => setInterviewDialog(false)} className="hover:bg-zinc-300 cursor-pointer p-1 transition-colors">
+            <button
+              onClick={() => setInterviewDialog(false)}
+              className="hover:bg-zinc-300 cursor-pointer p-1 transition-colors"
+            >
               <X className="w-4 h-4 text-zinc-500" />
             </button>
           </DialogHeader>
@@ -163,20 +190,40 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
             {/* LEFT: CALENDAR GRID */}
             <div className="flex-1 flex flex-col bg-white overflow-y-auto">
               <div className="flex items-center justify-between border-b border-zinc-300 sticky top-0 bg-white z-10">
-                <button onClick={() => changeMonth(-1)} className="p-1 hover:bg-zinc-300/80 border-r px-2 border-zinc-300 h-full cursor-pointer"><ChevronLeft className="w-3.5 h-3.5"/></button>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-2">{monthLabel}</span>
-                <button onClick={() => changeMonth(1)} className="p-1 hover:bg-zinc-300/80 border-l px-2 border-zinc-300 h-full cursor-pointer"><ChevronRight className="w-3.5 h-3.5"/></button>
+                <button
+                  onClick={() => changeMonth(-1)}
+                  className="p-1 hover:bg-zinc-300/80 border-r px-2 border-zinc-300 h-full cursor-pointer"
+                >
+                  <ChevronLeft className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-2">
+                  {monthLabel}
+                </span>
+                <button
+                  onClick={() => changeMonth(1)}
+                  className="p-1 hover:bg-zinc-300/80 border-l px-2 border-zinc-300 h-full cursor-pointer"
+                >
+                  <ChevronRight className="w-3.5 h-3.5" />
+                </button>
               </div>
 
               <div className="grid grid-cols-7 bg-zinc-100 border-b border-zinc-300 sticky z-10">
-                {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(d => (
-                  <div key={d} className="p-1.5 text-[9px] font-bold text-center text-zinc-600 border-r border-zinc-300 last:border-r-0">{d}</div>
+                {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map((d) => (
+                  <div
+                    key={d}
+                    className="p-1.5 text-[9px] font-bold text-center text-zinc-600 border-r border-zinc-300 last:border-r-0"
+                  >
+                    {d}
+                  </div>
                 ))}
               </div>
-                
-              <div className="grid grid-cols-7 border-r border-zinc-300">
+
+              <div className="grid grid-cols-7 ">
                 {paddingDays.map((_, i) => (
-                  <div key={`pad-${i}`} className="aspect-square bg-zinc-50/30 border-r border-b border-zinc-300" />
+                  <div
+                    key={`pad-${i}`}
+                    className="aspect-square bg-zinc-50/30 border-r border-b border-zinc-300"
+                  />
                 ))}
 
                 {monthDays.map((_, i) => {
@@ -184,29 +231,37 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                   const dateKey = `${viewDate.getFullYear()}-${viewDate.getMonth()}-${day}`;
                   const dayInterviews = interviews[dateKey] || [];
                   const isSelected = selectedDay === day;
-                  
+
                   // Logic to check if this cell is today
-                  const isToday = 
-                    todayObj.getDate() === day && 
-                    todayObj.getMonth() === viewDate.getMonth() && 
+                  const isToday =
+                    todayObj.getDate() === day &&
+                    todayObj.getMonth() === viewDate.getMonth() &&
                     todayObj.getFullYear() === viewDate.getFullYear();
 
                   return (
-                    <div 
-                      key={day} 
-                      onClick={() => { setSelectedDay(day); setIsAddingTime(false); }}
+                    <div
+                      key={day}
+                      onClick={() => {
+                        setSelectedDay(day);
+                        setIsAddingTime(false);
+                      }}
                       className={`p-2 aspect-square flex flex-col justify-between cursor-pointer transition-all border-r border-b border-zinc-300 
-                        ${isSelected ? 'bg-blue-500 text-white' : isToday ? 'bg-zinc-100' : 'hover:bg-zinc-200'}
+                        ${isSelected ? "bg-blue-500 text-white" : isToday ? "bg-zinc-200" : "hover:bg-zinc-200"}
                       `}
                     >
-                      <span className={`text-[10px] font-mono font-bold 
-                        ${isSelected ? 'text-white' : isToday ? 'text-zinc-500' : 'text-zinc-400'}`}>
-                        {day.toString().padStart(2, '0')}
+                      <span
+                        className={`text-[10px] font-mono font-bold 
+                        ${isSelected ? "text-white" : isToday ? "text-zinc-600" : "text-zinc-500"}`}
+                      >
+                        {day.toString().padStart(2, "0")}
                       </span>
                       {dayInterviews.length > 0 && (
                         <div className="flex justify-end gap-0.5 flex-wrap max-w-full">
                           {dayInterviews.map((_, dotIdx) => (
-                            <div key={dotIdx} className={`w-1 h-1 rounded-full ${isSelected ? 'bg-white' : 'bg-blue-500'}`} />
+                            <div
+                              key={dotIdx}
+                              className={`w-1 h-1 rounded-full ${isSelected ? "bg-white" : "bg-blue-500"}`}
+                            />
                           ))}
                         </div>
                       )}
@@ -220,11 +275,13 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
             <div className="w-64 bg-zinc-50 flex flex-col border-l border-zinc-300">
               <div className=" border-b border-zinc-200 bg-zinc-100/50 flex items-center justify-between ">
                 <h6 className="text-[10px] p-1.5 font-bold uppercase text-zinc-800 flex items-center gap-1">
-                  <Calendar1 className="w-3 h-3"/>
-                  {selectedDay ? `${selectedDay} ${viewDate.toLocaleString('default', { month: 'short' })}` : 'Schedule'}
+                  <Calendar1 className="w-3 h-3" />
+                  {selectedDay
+                    ? `${selectedDay} ${viewDate.toLocaleString("default", { month: "short" })}`
+                    : "Schedule"}
                 </h6>
                 {selectedDay && !isAddingTime && (
-                  <button 
+                  <button
                     onClick={() => setIsAddingTime(true)}
                     className="p-1 h-full px-4 bg-blue-500 text-white text-[10px] hover:bg-blue-600 cursor-pointer transition-colors"
                   >
@@ -237,36 +294,56 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                 {!selectedDay ? (
                   <div className="h-full flex flex-col items-center justify-center text-center opacity-40 py-10">
                     <Calendar1 className="w-6 h-6 mb-2" />
-                    <p className="text-[9px] font-bold uppercase">Select a date</p>
+                    <p className="text-[9px] font-bold uppercase">
+                      Select a date
+                    </p>
                   </div>
                 ) : (
                   <>
                     {isAddingTime && (
                       <div className="p-2 bg-white border-t border-zinc-300 shadow-sm animate-in slide-in-from-top-1 duration-200">
-                        <input 
-                          type="time" 
+                        <input
+                          type="time"
                           className="text-xs w-full border border-zinc-200 p-1.5 outline-none mb-2 font-mono"
                           value={tempTime}
                           onChange={(e) => setTempTime(e.target.value)}
                           autoFocus
                         />
                         <div className="flex gap-1">
-                          <button onClick={handleSaveTime} className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-1 text-[9px] font-bold transition-colors uppercase cursor-pointer">Add</button>
-                          <button onClick={() => setIsAddingTime(false)} className="flex-1 border hover:bg-zinc-200 border-zinc-300 py-1 text-[9px] font-bold transition-colors uppercase cursor-pointer">Cancel</button>
+                          <button
+                            onClick={handleSaveTime}
+                            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-1 text-[9px] font-bold transition-colors uppercase cursor-pointer"
+                          >
+                            Add
+                          </button>
+                          <button
+                            onClick={() => setIsAddingTime(false)}
+                            className="flex-1 border hover:bg-zinc-200 border-zinc-300 py-1 text-[9px] font-bold transition-colors uppercase cursor-pointer"
+                          >
+                            Cancel
+                          </button>
                         </div>
                       </div>
                     )}
 
                     <div className="">
                       {activeDayInterviews.map((time, idx) => (
-                        <div key={idx} className="flex items-center h-full justify-between bg-white  border-y border-zinc-300 group hover:bg-zinc-200/80 transition-colors">
+                        <div
+                          key={idx}
+                          className="flex items-stretch justify-between bg-white border-y border-zinc-300 group hover:bg-zinc-200/80 transition-colors"
+                        >
+                          {/* Left side content: added py-1.5 here to maintain the height/padding */}
                           <div className="flex items-center gap-2 px-2 py-1.5">
                             <Clock className="w-3 h-3 text-blue-600" />
-                            <span className="text-[11px] font-mono font-bold text-zinc-700">{time}</span>
+                            <span className="text-[11px] font-mono font-bold text-zinc-700">
+                              {time}
+                            </span>
                           </div>
-                          <button 
+
+                          {/* The Button: removed p-1 to allow h-full to touch the edges cleanly */}
+                          <button
                             onClick={() => handleDeleteTime(time)}
-                            className="text-zinc-400 hover:text-red-500 px-2 transition-colors p-1 h-full border-l hover:bg-red-500/20 border-zinc-300 cursor-pointer"
+                            className="flex items-center justify-center text-zinc-400 hover:text-red-500 px-2 transition-colors border-l hover:bg-red-500/10 border-zinc-300 cursor-pointer"
                           >
                             <X className="w-3 h-3" />
                           </button>
@@ -277,11 +354,13 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                 )}
               </div>
 
-              <div >
-                <button 
+              <div>
+                <button
                   onClick={() => setInterviewDialog(false)}
-                  className="w-full py-2.5 bg-blue-500 text-white text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 cursor-pointer transition-colors flex items-center justify-center gap-2"
-                > Save Changes
+                  className="w-full py-2.5 bg-zinc-800 text-white text-[10px] font-bold uppercase tracking-widest hover:bg-zinc-900 cursor-pointer transition-colors flex items-center justify-center gap-2"
+                >
+                  {" "}
+                  Save Changes
                 </button>
               </div>
             </div>
