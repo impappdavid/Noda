@@ -48,9 +48,9 @@ const TwoFactorDialog = ({ isOpen, onVerify }: { isOpen: boolean, onVerify: (cod
                             </DialogTitle>
                         </div>
                         <div className="flex gap-1">
-                            <div className="w-1.5 h-1.5 bg-orange-400" />
-                            <div className="w-1.5 h-1.5 bg-orange-500" />
-                            <div className="w-1.5 h-1.5 bg-orange-600 animate-pulse" />
+                            <div className="w-1.5 h-1.5 bg-blue-400" />
+                            <div className="w-1.5 h-1.5 bg-blue-500" />
+                            <div className="w-1.5 h-1.5 bg-blue-600 animate-pulse" />
                         </div>
                     </div>
 
@@ -84,17 +84,17 @@ const TwoFactorDialog = ({ isOpen, onVerify }: { isOpen: boolean, onVerify: (cod
                             >
                                 <div className="flex items-center gap-1.5">
                                     <InputOTPGroup>
-                                        <InputOTPSlot index={0} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors shadow-none" />
-                                        <InputOTPSlot index={1} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors shadow-none" />
-                                        <InputOTPSlot index={2} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors shadow-none" />
+                                        <InputOTPSlot index={0} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
+                                        <InputOTPSlot index={1} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
+                                        <InputOTPSlot index={2} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
                                     </InputOTPGroup>
 
                                     <InputOTPSeparator className="text-zinc-300 font-bold px-0.5" />
 
                                     <InputOTPGroup>
-                                        <InputOTPSlot index={3} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors shadow-none" />
-                                        <InputOTPSlot index={4} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors shadow-none" />
-                                        <InputOTPSlot index={5} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors shadow-none" />
+                                        <InputOTPSlot index={3} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
+                                        <InputOTPSlot index={4} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
+                                        <InputOTPSlot index={5} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
                                     </InputOTPGroup>
                                 </div>
                             </InputOTP>
@@ -109,7 +109,7 @@ const TwoFactorDialog = ({ isOpen, onVerify }: { isOpen: boolean, onVerify: (cod
                                 disabled={isVerifying || code.length < 6}
                                 className={cn(
                                     "w-full h-10 flex items-center justify-center gap-2 text-white transition-colors font-mono text-[9px] font-black uppercase tracking-[0.2em] outline-none cursor-pointer",
-                                    isVerifying ? "bg-orange-500 text-white" : "bg-zinc-900 hover:bg-orange-500 disabled:bg-zinc-100 disabled:text-zinc-300 disabled:cursor-not-allowed"
+                                    isVerifying ? "bg-blue-500 text-white" : "bg-blue-500 hover:bg-blue-600 disabled:bg-zinc-100 disabled:text-zinc-300 disabled:cursor-not-allowed"
                                 )}
                             >
                                 {isVerifying ? "Verifying..." : "Check"}

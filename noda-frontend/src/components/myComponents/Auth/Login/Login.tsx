@@ -66,9 +66,9 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
                         </h1>
                     </div>
                     <div className="flex gap-1.5">
-                        <div className="w-1.5 h-1.5 bg-orange-400" />
-                        <div className="w-1.5 h-1.5 bg-orange-500" />
-                        <div className="w-1.5 h-1.5 bg-orange-600" />
+                        <div className="w-1.5 h-1.5 bg-blue-400" />
+                        <div className="w-1.5 h-1.5 bg-blue-500" />
+                        <div className="w-1.5 h-1.5 bg-blue-600" />
                     </div>
                 </div>
 
@@ -189,7 +189,7 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
                             disabled={loading || !email || !password}
                             className={cn(
                                 "w-full h-full p-3 text-white transition-colors font-mono text-[10px] font-black uppercase tracking-[0.2em] outline-none cursor-pointer",
-                                loading ? "bg-zinc-400 text-zinc-500" : "bg-zinc-800 hover:bg-orange-500 disabled:cursor-not-allowed"
+                                loading ? "bg-zinc-400 text-zinc-500" : "bg-blue-500 hover:bg-blue-600 disabled:cursor-not-allowed"
                             )}
                         >
                             {loading ? "Connecting..." : "Login"}

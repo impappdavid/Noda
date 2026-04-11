@@ -21,7 +21,7 @@ import CreatePost from './components/myComponents/App/CompanyAdmin/CreatePost/Cr
 import PostJob from './components/myComponents/App/CompanyAdmin/PostJob/PostJob'
 import CompanyDashboard from './components/myComponents/App/CompanyAdmin/Dashboard/Dashboard'
 import TeamNodesManager from './components/myComponents/App/CompanyAdmin/Team/Team'
-import ManageApplicants from './components/myComponents/App/CompanyAdmin/Applications/Applications'
+import ManageApplicants from './components/myComponents/App/CompanyAdmin/Jobs/Applications'
 import FounderIdeaPortal from './components/myComponents/App/Noda/Idea/Idea'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
 import RoadmapBoard from './components/myComponents/App/Noda/Roadmap/Roadmap'

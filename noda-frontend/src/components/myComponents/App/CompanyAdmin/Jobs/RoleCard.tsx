@@ -18,6 +18,8 @@ import {
   Plus,
   Check,
   AlertTriangle,
+  Terminal,
+  Bell,
 } from "lucide-react";
 import React, { useState, useMemo, useEffect } from "react";
 import {
@@ -30,6 +32,8 @@ import {
 export const JobCard = React.memo(({ job }: { job: JobNode }) => {
   const [interviewDialog, setInterviewDialog] = useState(false);
   const [deleteDialog, setDeleteDialog] = useState(false);
+  const [confirmRole, setConfirmRole] = useState("");
+  const isMatch = confirmRole === job.role;
 
   // Calendar & Interview States
   const [viewDate, setViewDate] = useState(new Date());
@@ -112,7 +116,7 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
   return (
     <>
       {/* JOB CARD UI */}
-      <div className="p-2 bg-white hover:bg-zinc-100 transition-all cursor-pointer group flex items-center justify-between border-b border-zinc-300">
+      <div className="p-2 bg-white hover:bg-zinc-100 group transition-all cursor-pointer group flex items-center justify-between border-b border-zinc-300">
         <div className="flex flex-col gap-1 w-full">
           <div className="flex justify-between h-fit">
             <div className="w-8 h-8 bg-zinc-800 text-white flex items-center justify-center border border-zinc-800 shrink-0 uppercase font-bold text-xs font-mono">
@@ -130,7 +134,6 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                 align="end"
               >
                 <DropdownMenuGroup className="divide-y divide-zinc-300">
-                  
                   <DropdownMenuItem
                     onClick={() => setInterviewDialog(true)}
                     className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-zinc-600 cursor-pointer gap-2"
@@ -138,7 +141,7 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                     <Calendar1 className="h-3.5 w-3.5 text-zinc-400" />
                     <span>Interview Dates</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={() => setDeleteDialog(true)}
                     className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-red-500 cursor-pointer gap-2"
                   >
@@ -151,10 +154,10 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
           </div>
 
           <div className="flex flex-col w-full">
-            <h5 className="text-sm font-bold uppercase tracking-tight">
+            <h5 className="text-sm font-bold uppercase tracking-tight group-hover:underline">
               {job.role}
             </h5>
-            <div className="flex items-center gap-1 text-[11px] text-zinc-500">
+            <div className="flex items-center gap-1 text-[11px] text-zinc-500 group-hover:text-zinc-700">
               <span>Remote</span>
               <span className="opacity-30">•</span>
               <span>Full-Time</span>
@@ -162,10 +165,10 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
               <span>0-1 year</span>
             </div>
             <div className="flex justify-between items-center mt-1">
-              <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase">
+              <span className="text-[9px] font-mono font-bold text-zinc-400 group-hover:text-zinc-600 uppercase">
                 {job.applicants} Applies
               </span>
-              <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase">
+              <span className="text-[9px] font-mono font-bold text-zinc-400 group-hover:text-zinc-600 uppercase">
                 {job.deadline} to reply
               </span>
             </div>
@@ -175,30 +178,76 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
 
       {/* DELETE CONFIRMATION DIALOG */}
       <Dialog open={deleteDialog} onOpenChange={setDeleteDialog}>
-        <DialogContent className="max-w-[320px] p-0 rounded-none border-none gap-0 outline-none flex flex-col h-fit">
-          <DialogHeader className="bg-zinc-800 p-2 flex flex-row items-center justify-between space-y-0">
-            <DialogTitle className="text-[10px] font-bold uppercase tracking-widest text-white flex gap-2 items-center">
-              <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
-              Delete: {job.role}
+        <DialogContent className="max-w-[360px] p-0 rounded-none border-none gap-0 outline-none flex flex-col h-fit">
+          <DialogHeader className="bg-red-600 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
+            <DialogTitle className="text-[12px] tracking-wider text-white flex gap-1 items-center">
+              <AlertTriangle size={16} className="text-white shrink-0" />
+              Are you sure?
             </DialogTitle>
+            <button
+              onClick={() => setDeleteDialog(false)}
+              className="hover:bg-black/40 cursor-pointer p-1 transition-colors"
+            >
+              <X className="w-4 h-4 text-white" />
+            </button>
           </DialogHeader>
-          
-          <div className="p-3 bg-white">
-            <p className="text-[11px] leading-relaxed text-zinc-800 font-medium uppercase tracking-tight">
-              If you delete this role, all applicants will get a notification that you deleted this role.
-            </p>
+
+          <div className="flex flex-col">
+            <div className="border-b border-zinc-300 p-4 ">
+              <div className="flex items-start gap-3">
+                <AlertTriangle size={18} className="text-black shrink-0" />
+                <div className="space-y-2">
+                  <p className="text-xs tracking-tight text-black leading-tight">
+                    This action <span className="font-bold">CANNOT</span> be undone. This will permanently delete
+                    the
+                    <span className="underline text-black font-bold px-1">
+                      {job.role}
+                    </span>
+                    role.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="border-b border-zinc-300 p-4 ">
+              <div className="flex items-start gap-3">
+                <Bell size={18} className="text-black shrink-0" />
+                <div className="space-y-2">
+                  <p className="text-xs text-black leading-tight">
+                    All applicants will be notified instantly about this role deletion.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col">
+            <div className="bg-white p-2 space-y-1 border-b border-zinc-300">
+              <label className="text-[9px] font-mono font-bold text-zinc-600 uppercase tracking-wider block leading-none">
+                Please type in the role name to confirm.
+              </label>
+              <div className="relative flex items-center h-6">
+                <Terminal className="w-3 h-3 text-zinc-500 mr-2" />
+                <input
+                  value={confirmRole}
+                  onChange={(e) => setConfirmRole(e.target.value)}
+                  placeholder="Role name"
+                  className="w-full text-xs outline-none bg-transparent"
+                />
+              </div>
+            </div>
           </div>
 
           <div className="flex">
             <button
-              onClick={() => setDeleteDialog(false)}
-              className="flex-1 py-2.5 bg-white text-zinc-800 text-[10px] font-bold uppercase tracking-widest hover:bg-zinc-200 cursor-pointer transition-colors border-t border-zinc-400"
-            >
-              Cancel
-            </button>
-            <button
+              disabled={!isMatch}
               onClick={handleDeleteRole}
-              className="flex-1 py-2.5 bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest hover:bg-red-600 cursor-pointer transition-colors"
+              className={`flex-1 py-3 text-[10px] font-mono font-black uppercase tracking-widest transition-all
+            ${
+              isMatch
+                ? "bg-red-500 text-white hover:bg-red-600 cursor-pointer"
+                : "bg-red-500/50 text-white cursor-not-allowed opacity-50"
+            }`}
             >
               Delete Role
             </button>
@@ -307,8 +356,8 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
             </div>
 
             <div className="w-64 bg-zinc-50 flex flex-col border-l border-zinc-300">
-              <div className=" border-b border-zinc-200 bg-zinc-100/50 flex items-center justify-between ">
-                <h6 className="text-[10px] p-1.5 font-bold uppercase text-zinc-800 flex items-center gap-1">
+              <div className=" border-b border-zinc-300 bg-zinc-100/50 flex items-center justify-between ">
+                <h6 className="text-[10px] p-2 font-bold uppercase text-zinc-800 flex items-center gap-1">
                   <Calendar1 className="w-3 h-3" />
                   {selectedDay
                     ? `${selectedDay} ${viewDate.toLocaleString("default", { month: "short" })}`
