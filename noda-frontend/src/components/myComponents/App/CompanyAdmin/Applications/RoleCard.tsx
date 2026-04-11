@@ -17,6 +17,7 @@ import {
   X,
   Plus,
   Check,
+  AlertTriangle,
 } from "lucide-react";
 import React, { useState, useMemo, useEffect } from "react";
 import {
@@ -28,6 +29,7 @@ import {
 
 export const JobCard = React.memo(({ job }: { job: JobNode }) => {
   const [interviewDialog, setInterviewDialog] = useState(false);
+  const [deleteDialog, setDeleteDialog] = useState(false);
 
   // Calendar & Interview States
   const [viewDate, setViewDate] = useState(new Date());
@@ -45,10 +47,8 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
     }
   }, [interviewDialog]);
 
-  // Constant for "Today" comparison
   const todayObj = useMemo(() => new Date(), []);
 
-  // Memoized Calendar Calculations
   const { paddingDays, monthDays, monthLabel } = useMemo(() => {
     const year = viewDate.getFullYear();
     const month = viewDate.getMonth();
@@ -67,7 +67,6 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
     };
   }, [viewDate]);
 
-  // Handlers
   const changeMonth = (offset: number) => {
     setViewDate(
       new Date(viewDate.getFullYear(), viewDate.getMonth() + offset, 1),
@@ -104,6 +103,12 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
     }));
   };
 
+  const handleDeleteRole = () => {
+    // Implement your delete logic here
+    console.log("Deleting role:", job.role);
+    setDeleteDialog(false);
+  };
+
   return (
     <>
       {/* JOB CARD UI */}
@@ -136,7 +141,10 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                     <Calendar1 className="h-3.5 w-3.5 text-zinc-400" />
                     <span>Interview Dates</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-red-500 cursor-pointer gap-2">
+                  <DropdownMenuItem 
+                    onClick={() => setDeleteDialog(true)}
+                    className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-red-500 cursor-pointer gap-2"
+                  >
                     <Trash className="h-3.5 w-3.5" />
                     <span>Delete</span>
                   </DropdownMenuItem>
@@ -168,6 +176,39 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
         </div>
       </div>
 
+      {/* DELETE CONFIRMATION DIALOG */}
+      <Dialog open={deleteDialog} onOpenChange={setDeleteDialog}>
+        <DialogContent className="max-w-[320px] p-0 rounded-none border-none gap-0 outline-none flex flex-col h-fit">
+          <DialogHeader className="bg-zinc-800 p-2 flex flex-row items-center justify-between space-y-0">
+            <DialogTitle className="text-[10px] font-bold uppercase tracking-widest text-white flex gap-2 items-center">
+              <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
+              Delete: {job.role}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="p-3 bg-white">
+            <p className="text-[11px] leading-relaxed text-zinc-800 font-medium uppercase tracking-tight">
+              If you delete this role, all applicants will get a notification that you deleted this role.
+            </p>
+          </div>
+
+          <div className="flex">
+            <button
+              onClick={() => setDeleteDialog(false)}
+              className="flex-1 py-2.5 bg-white text-zinc-800 text-[10px] font-bold uppercase tracking-widest hover:bg-zinc-200 cursor-pointer transition-colors border-t border-zinc-400"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleDeleteRole}
+              className="flex-1 py-2.5 bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest hover:bg-red-600 cursor-pointer transition-colors"
+            >
+              Delete Role
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* CALENDAR DIALOG */}
       <Dialog open={interviewDialog} onOpenChange={setInterviewDialog}>
         <DialogContent className="max-w-3xl p-0 rounded-none border-none gap-0 overflow-hidden outline-none shadow-2xl flex flex-col h-fit">
@@ -187,7 +228,6 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
           </DialogHeader>
 
           <div className="flex flex-row flex-1 overflow-hidden">
-            {/* LEFT: CALENDAR GRID */}
             <div className="flex-1 flex flex-col bg-white overflow-y-auto">
               <div className="flex items-center justify-between border-b border-zinc-300 sticky top-0 bg-white z-10">
                 <button
@@ -231,8 +271,6 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                   const dateKey = `${viewDate.getFullYear()}-${viewDate.getMonth()}-${day}`;
                   const dayInterviews = interviews[dateKey] || [];
                   const isSelected = selectedDay === day;
-
-                  // Logic to check if this cell is today
                   const isToday =
                     todayObj.getDate() === day &&
                     todayObj.getMonth() === viewDate.getMonth() &&
@@ -245,12 +283,12 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                         setSelectedDay(day);
                         setIsAddingTime(false);
                       }}
-                      className={`p-2 aspect-square flex flex-col justify-between cursor-pointer transition-all border-r border-b border-zinc-300 
+                      className={`p-2 aspect-square flex flex-col justify-between cursor-pointer transition-all border-r border-b border-zinc-300
                         ${isSelected ? "bg-blue-500 text-white" : isToday ? "bg-zinc-200" : "hover:bg-zinc-200"}
                       `}
                     >
                       <span
-                        className={`text-[10px] font-mono font-bold 
+                        className={`text-[10px] font-mono font-bold
                         ${isSelected ? "text-white" : isToday ? "text-zinc-600" : "text-zinc-500"}`}
                       >
                         {day.toString().padStart(2, "0")}
@@ -271,7 +309,6 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
               </div>
             </div>
 
-            {/* RIGHT: SIDEBAR */}
             <div className="w-64 bg-zinc-50 flex flex-col border-l border-zinc-300">
               <div className=" border-b border-zinc-200 bg-zinc-100/50 flex items-center justify-between ">
                 <h6 className="text-[10px] p-1.5 font-bold uppercase text-zinc-800 flex items-center gap-1">
@@ -332,7 +369,6 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                           key={idx}
                           className="flex items-stretch justify-between bg-white border-y border-zinc-300 group hover:bg-zinc-200/80 transition-colors"
                         >
-                          {/* Left side content: added py-1.5 here to maintain the height/padding */}
                           <div className="flex items-center gap-2 px-2 py-1.5">
                             <Clock className="w-3 h-3 text-blue-600" />
                             <span className="text-[11px] font-mono font-bold text-zinc-700">
@@ -340,7 +376,6 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                             </span>
                           </div>
 
-                          {/* The Button: removed p-1 to allow h-full to touch the edges cleanly */}
                           <button
                             onClick={() => handleDeleteTime(time)}
                             className="flex items-center justify-center text-zinc-400 hover:text-red-500 px-2 transition-colors border-l hover:bg-red-500/10 border-zinc-300 cursor-pointer"
@@ -359,7 +394,6 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
                   onClick={() => setInterviewDialog(false)}
                   className="w-full py-2.5 bg-zinc-800 text-white text-[10px] font-bold uppercase tracking-widest hover:bg-zinc-900 cursor-pointer transition-colors flex items-center justify-center gap-2"
                 >
-                  {" "}
                   Save Changes
                 </button>
               </div>
