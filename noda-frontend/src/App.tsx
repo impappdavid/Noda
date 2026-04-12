@@ -35,6 +35,7 @@ import UserSearchPage from './components/myComponents/App/UserSearch/User'
 import CompanySearchPage from './components/myComponents/App/CompanySearch/CompanySearch'
 import CreateCompanyPage from './components/myComponents/App/CreateCompany/CreateCompany'
 import VerificationTerminal from './components/myComponents/App/Admin/CompanyReview/CompanyReview'
+import Applicants from './components/myComponents/App/CompanyAdmin/Applicants/Applicants'
 
 function App() {
 
@@ -85,6 +86,7 @@ function App() {
 
         <Route path="/app/admin/post" element={<CreatePost />} />
         <Route path="/app/admin/jobs" element={<ManageApplicants />} />
+        <Route path="/app/admin/jobs/:id" element={<Applicants />} />
         <Route path="/app/admin/jobs/create" element={<PostJob />} />
         <Route path="/app/admin/dashboard" element={<CompanyDashboard />} />
         <Route path="/app/admin/team" element={<TeamNodesManager />} />
