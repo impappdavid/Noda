@@ -28,6 +28,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Link } from "react-router-dom";
 
 export const JobCard = React.memo(({ job }: { job: JobNode }) => {
   const [interviewDialog, setInterviewDialog] = useState(false);
@@ -116,7 +117,7 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
   return (
     <>
       {/* JOB CARD UI */}
-      <div className="p-2 bg-white hover:bg-zinc-100 group transition-all cursor-pointer group flex items-center justify-between border-b border-zinc-300">
+      <Link to={`/app/admin/jobs/${job.id}`} className="p-2 bg-white hover:bg-zinc-100 group transition-all cursor-pointer group flex items-center justify-between border-b border-zinc-300">
         <div className="flex flex-col gap-1 w-full">
           <div className="flex justify-between h-fit">
             <div className="w-8 h-8 bg-zinc-800 text-white flex items-center justify-center border border-zinc-800 shrink-0 uppercase font-bold text-xs font-mono">
@@ -124,7 +125,7 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
             </div>
 
             <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+              <DropdownMenuTrigger asChild onClick={(e) => e.preventDefault()}>
                 <div className="p-1 hover:bg-zinc-300/80 cursor-pointer text-zinc-500 h-fit aspect-square">
                   <EllipsisVertical className="w-3.5 h-3.5" />
                 </div>
@@ -135,14 +136,14 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
               >
                 <DropdownMenuGroup className="divide-y divide-zinc-300">
                   <DropdownMenuItem
-                    onClick={() => setInterviewDialog(true)}
+                    onClick={(e) => {setInterviewDialog(true); e.preventDefault()}}
                     className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-zinc-600 cursor-pointer gap-2"
                   >
                     <Calendar1 className="h-3.5 w-3.5 text-zinc-400" />
                     <span>Interview Dates</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    onClick={() => setDeleteDialog(true)}
+                    onClick={(e) => {setDeleteDialog(true); e.preventDefault()}}
                     className="rounded-none hover:bg-zinc-100 px-2 py-1.5 text-[11px] text-red-500 cursor-pointer gap-2"
                   >
                     <Trash className="h-3.5 w-3.5" />
@@ -174,19 +175,19 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
             </div>
           </div>
         </div>
-      </div>
+      </Link>
 
       {/* DELETE CONFIRMATION DIALOG */}
       <Dialog open={deleteDialog} onOpenChange={setDeleteDialog}>
         <DialogContent className="max-w-[360px] p-0 rounded-none border-none gap-0 outline-none flex flex-col h-fit">
-          <DialogHeader className="bg-red-600 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
+          <DialogHeader className="bg-zinc-800 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
             <DialogTitle className="text-[12px] tracking-wider text-white flex gap-1 items-center">
               <AlertTriangle size={16} className="text-white shrink-0" />
               Are you sure?
             </DialogTitle>
             <button
               onClick={() => setDeleteDialog(false)}
-              className="hover:bg-black/40 cursor-pointer p-1 transition-colors"
+              className="hover:bg-black/40 cursor-pointer p-1 transition-colors outline-none"
             >
               <X className="w-4 h-4 text-white" />
             </button>
@@ -246,7 +247,7 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
             ${
               isMatch
                 ? "bg-red-500 text-white hover:bg-red-600 cursor-pointer"
-                : "bg-red-500/50 text-white cursor-not-allowed opacity-50"
+                : "bg-red-500/50 text-white cursor-not-allowed opacity-100"
             }`}
             >
               Delete Role
