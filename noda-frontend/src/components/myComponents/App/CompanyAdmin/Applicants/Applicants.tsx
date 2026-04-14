@@ -82,14 +82,14 @@ const Applicants = () => {
                 <div
                   key={idx}
                   onClick={() => setSelectedCandidate(candidate)}
-                  className={`flex items-center border-b border-zinc-300 cursor-pointer transition-colors hover:bg-zinc-100 ${
-                    selectedCandidate?.name === candidate.name ? "bg-zinc-200" : ""
+                  className={`flex items-center border-b border-zinc-300 cursor-pointer transition-colors hover:bg-zinc-200 ${
+                    selectedCandidate?.name === candidate.name ? "bg-zinc-300" : ""
                   }`}
                 >
                   <div className={`w-12 h-12 shrink-0 text-white flex items-center justify-center text-xs font-black ${candidate.match < 50 ? "bg-red-500" : candidate.match < 80 ? "bg-amber-500" : "bg-emerald-600"}`}>
                     {candidate.match}%
                   </div>
-                  <div className="flex flex-col pl-3 overflow-hidden">
+                  <div className="flex flex-col pl-2 overflow-hidden">
                     <div className="text-[13px] font-bold font-mono truncate">{candidate.name}</div>
                     <div className="text-[11px] text-zinc-500 truncate font-mono uppercase tracking-tight">{candidate.role}</div>
                   </div>
@@ -129,7 +129,9 @@ const Applicants = () => {
                   <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-blue-500 hover:bg-zinc-50  transition-all"><Globe size={12} /></a>
                   <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50  transition-all"><Github size={12} /></a>
                   <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-sky-400 hover:bg-zinc-50  transition-all"><Twitter size={12} /></a>
-                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-blue-700 hover:bg-zinc-50 transition-all"><Linkedin size={12} /></a>
+                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-blue-700 hover:bg-zinc-50 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><circle cx="4" cy="4" r="2" fill="currentColor" opacity="0"><animate fill="freeze" attributeName="opacity" dur="0.2s" to="1"/></circle><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><g stroke-dasharray="12" stroke-dashoffset="12"><path d="M4 10v10"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.2s" to="0"/></path><path d="M10 10v10"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.2s" to="0"/></path></g><path stroke-dasharray="24" stroke-dashoffset="24" d="M10 15c0 -2.76 2.24 -5 5 -5c2.76 0 5 2.24 5 5v5"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.3s" to="0"/></path></g></svg>
+                  </a>
                 </div>
 
                 {/* TABS CONTROLLER */}
@@ -242,12 +244,12 @@ const Applicants = () => {
                 </div>
 
                 {/* FIXED ACTION FOOTER */}
-                <div className="absolute bottom-0 left-0 right-0 h-12 border-t border-zinc-300 grid grid-cols-2 bg-white z-30 ">
+                <div className="absolute bottom-0 left-0 right-0 h-10 border-t border-zinc-300 grid grid-cols-2 bg-white z-30 ">
                   <button className="flex items-center justify-center gap-3 bg-red-500/20 text-zinc-500 hover:text-white hover:bg-red-500 border-t border-zinc-300 transition-all font-mono font-black text-[12px] uppercase  group cursor-pointer">
                      Reject
                   </button>
                   <button className="flex items-center justify-center gap-3 bg-emerald-600 text-white hover:bg-emerald-700 transition-all font-mono font-black text-[12px] uppercase group cursor-pointer">
-                     Send Message
+                     Accept
                   </button>
                 </div>
 
