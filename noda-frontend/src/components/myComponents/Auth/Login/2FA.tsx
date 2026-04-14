@@ -70,7 +70,7 @@ const TwoFactorDialog = ({ isOpen, onVerify }: { isOpen: boolean, onVerify: (cod
                         </div>
 
                         {/* Cell 2: Tighter OTP Inputs */}
-                        <div className="bg-white flex px-2 flex-col items-center">
+                        <div className="bg-white flex px-2 flex-col items-center mb-2">
                             <InputOTP
                                 maxLength={6}
                                 value={code}
