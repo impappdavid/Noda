@@ -126,11 +126,14 @@ const Applicants = () => {
 
                 {/* SOCIAL LINKS GRID */}
                 <div className="grid grid-cols-4 border-b border-zinc-300 divide-x divide-zinc-300 shrink-0">
-                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-blue-500 hover:bg-zinc-50  transition-all"><Globe size={12} /></a>
-                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50  transition-all"><Github size={12} /></a>
-                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-sky-400 hover:bg-zinc-50  transition-all"><Twitter size={12} /></a>
-                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-blue-700 hover:bg-zinc-50 transition-all">
+                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-blue-500 hover:bg-zinc-50 text-[10px] gap-1.5  transition-all"><Globe size={12} /> Website</a>
+                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-50 text-[10px] gap-1.5 transition-all"><Github size={12} /> GitHub</a>
+                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-black hover:bg-zinc-50 text-[10px] gap-1.5 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 16 16"><path fill="currentColor" d="m9.237 7.004l4.84-5.505H12.93L8.727 6.28L5.371 1.5H1.5l5.075 7.228L1.5 14.499h1.147l4.437-5.047l3.545 5.047H14.5zM7.666 8.791l-.514-.72L3.06 2.344h1.762l3.302 4.622l.514.72l4.292 6.007h-1.761z"/></svg>
+                    X</a>
+                  <a href="#" className="flex items-center justify-center h-8 text-zinc-400 hover:text-blue-700 hover:bg-zinc-50 text-[10px] gap-1.5 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><circle cx="4" cy="4" r="2" fill="currentColor" opacity="0"><animate fill="freeze" attributeName="opacity" dur="0.2s" to="1"/></circle><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><g stroke-dasharray="12" stroke-dashoffset="12"><path d="M4 10v10"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.2s" to="0"/></path><path d="M10 10v10"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.2s" to="0"/></path></g><path stroke-dasharray="24" stroke-dashoffset="24" d="M10 15c0 -2.76 2.24 -5 5 -5c2.76 0 5 2.24 5 5v5"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.7s" dur="0.3s" to="0"/></path></g></svg>
+                    LinkedIn
                   </a>
                 </div>
 
@@ -158,8 +161,8 @@ const Applicants = () => {
                       {/* AI ANALYSIS: 2 COLUMN LIGHT THEME */}
                       <div className="grid grid-cols-2 divide-x divide-zinc-200 border-b border-zinc-200">
                         <div className="p-2 bg-emerald-50/50">
-                          <span className="text-[10px] font-mono font-black text-emerald-700 uppercase tracking-widest mb-3 block flex items-center gap-1.5">
-                            <CheckCircle2 size={14} /> Matching_Skills
+                          <span className="text-[10px] font-mono font-black text-emerald-700 tracking-widest mb-3 block flex items-center gap-1.5">
+                            <CheckCircle2 size={14} /> Matching Skills
                           </span>
                           <ul className="space-y-2">
                             {['Distributed Systems', 'Rust/WASM', 'Memory Safety'].map((item) => (
@@ -170,8 +173,8 @@ const Applicants = () => {
                           </ul>
                         </div>
                         <div className="p-2 bg-red-50/50">
-                          <span className="text-[10px] font-mono font-black text-red-700 uppercase tracking-widest mb-3 block flex items-center gap-1.5">
-                            <AlertCircle size={14} /> Missing_Logic
+                          <span className="text-[10px] font-mono font-black text-red-700 tracking-widest mb-3 block flex items-center gap-1.5">
+                            <AlertCircle size={14} /> Missing Logic
                           </span>
                           <ul className="space-y-2">
                             {['K8s Security (CKS)', 'AWS Nitro'].map((item) => (
@@ -186,11 +189,11 @@ const Applicants = () => {
                       {/* STATS SECTION */}
                       <div className=" grid grid-cols-2  bg-zinc-50/20">
                          <div className="space-y-1 p-2 py-1 border-r border-zinc-300">
-                            <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-tighter">Network_Address</span>
+                            <span className="text-[10px] font-mono font-black text-zinc-500 tracking-tighter">Network Address</span>
                             <p className="text-xs font-mono text-zinc-800 truncate  pb-1">{selectedCandidate.email}</p>
                          </div>
                          <div className="space-y-1 p-2 py-1">
-                            <span className="text-[10px] font-mono font-black text-zinc-400 uppercase tracking-tighter">Education_History</span>
+                            <span className="text-[10px] font-mono font-black text-zinc-400 tracking-tighter">Education History</span>
                             <p className="text-xs font-bold text-zinc-800  pb-1">{selectedCandidate.education}</p>
                          </div>
                       </div>
@@ -205,7 +208,7 @@ const Applicants = () => {
 
                       {/* WORK HISTORY / EXPERIENCE */}
                       <div className="p-2">
-                        <span className="text-[10px] font-mono font-black text-zinc-500 uppercase mb-2 block tracking-[0.2em]">Deployment_History</span>
+                        <span className="text-[10px] font-mono font-black text-zinc-500 uppercase mb-2 block tracking-[0.2em]">Deployment History</span>
                         <div className="space-y-6">
                           {[1, 2].map((_, i) => (
                             <div key={i} className="relative pl-5 border-l-2 border-zinc-300">
@@ -214,7 +217,7 @@ const Applicants = () => {
                                 <h4 className="text-xs font-bold uppercase text-zinc-900 tracking-tight">Lead Systems Architect</h4>
                                 <span className="text-[10px] font-mono font-bold text-zinc-500 bg-zinc-100 px-1.5 rounded">2021 — 2024</span>
                               </div>
-                              <p className="text-[10px] font-mono font-black text-blue-600 mb-2">SYSTEM_NODE_0{i+1} • FULL_TIME</p>
+                              <p className="text-[10px] font-mono font-black text-zinc-700 mb-2">Full-Time</p>
                               <p className="text-[12px] text-zinc-600 leading-snug">
                                 Scaled core processing engine to handle 1.2M concurrent connections. Implemented zero-copy memory protocols and optimized garbage collection overhead by 35%.
                               </p>
@@ -225,7 +228,7 @@ const Applicants = () => {
 
                       {/* SKILLS CHIPS */}
                       <div className="p-2">
-                        <span className="text-[10px] font-mono font-black text-zinc-500 uppercase mb-2 block tracking-widest">Skill_Stack_Manifest</span>
+                        <span className="text-[10px] font-mono font-black text-zinc-500 uppercase mb-2 block tracking-widest">Skill Stack Manifest</span>
                         <div className="flex flex-wrap gap-1">
                           {selectedCandidate.skills.map(s => (
                             <span key={s} className="px-2.5 py-1 border border-zinc-300 text-[11px] font-mono font-black uppercase text-zinc-600 bg-zinc-50 hover:bg-zinc-100 transition-colors cursor-default">
@@ -245,7 +248,7 @@ const Applicants = () => {
 
                 {/* FIXED ACTION FOOTER */}
                 <div className="absolute bottom-0 left-0 right-0 h-10 border-t border-zinc-300 grid grid-cols-2 bg-white z-30 ">
-                  <button className="flex items-center justify-center gap-3 bg-red-500/20 text-zinc-500 hover:text-white hover:bg-red-500 border-t border-zinc-300 transition-all font-mono font-black text-[12px] uppercase  group cursor-pointer">
+                  <button className="flex items-center justify-center gap-3 bg-red-500/30 text-red-500 hover:text-white hover:bg-red-500 border-t border-zinc-300 transition-all font-mono font-black text-[12px] uppercase  group cursor-pointer">
                      Reject
                   </button>
                   <button className="flex items-center justify-center gap-3 bg-emerald-600 text-white hover:bg-emerald-700 transition-all font-mono font-black text-[12px] uppercase group cursor-pointer">
