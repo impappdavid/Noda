@@ -142,7 +142,7 @@ const Applicants = () => {
                       onClick={() => setActiveTab(tab)}
                       className={cn(
                         "flex-1 text-[11px] font-mono font-black  transition-all uppercase",
-                        activeTab === tab ? "bg-white text-zinc-900 shadow-[inset_0_-2px_0_0_#f97316]" : "text-zinc-400 hover:bg-zinc-200 cursor-pointer"
+                        activeTab === tab ? "bg-white text-zinc-900 shadow-[inset_0_-2px_0_0_#3b82f6]" : "text-zinc-400 hover:bg-zinc-200 cursor-pointer"
                       )}
                     >
                       {tab}
