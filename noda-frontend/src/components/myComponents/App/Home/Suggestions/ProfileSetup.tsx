@@ -25,7 +25,7 @@ const ProfileSetup = () => {
             <Collapsible open={isOpen} onOpenChange={setIsOpen}>
                 {/* YOUR ORIGINAL TRIGGER DESIGN */}
                 <CollapsibleTrigger className="w-full">
-                    <div className="flex items-center justify-between p-2 bg-gradient-to-br from-orange-600 to-orange-800 cursor-pointer">
+                    <div className="flex items-center justify-between p-2 bg-gradient-to-br from-blue-600 to-blue-800 cursor-pointer">
                         <div className="flex gap-1 items-center">
                             <motion.div
                                 animate={{ rotate: isOpen ? 180 : 0 }}
@@ -37,10 +37,10 @@ const ProfileSetup = () => {
                         </div>
                         <div className="flex gap-1 items-center">
                             <div className="flex gap-0.5 items-center">
-                                <div className="h-[13px] w-[2px] bg-orange-400"></div>
-                                <div className="h-[13px] w-[2px] bg-orange-400"></div>
-                                <div className="h-[13px] w-[2px] bg-orange-400"></div>
-                                <div className="h-[13px] w-[2px] bg-orange-400"></div>
+                                <div className="h-[13px] w-[2px] bg-blue-400"></div>
+                                <div className="h-[13px] w-[2px] bg-blue-400"></div>
+                                <div className="h-[13px] w-[2px] bg-blue-400"></div>
+                                <div className="h-[13px] w-[2px] bg-blue-400"></div>
                                 <div className="h-[13px] w-[2px] bg-zinc-300 opacity-30"></div>
                                 <div className="h-[13px] w-[2px] bg-zinc-300 opacity-30"></div>
                             </div>
@@ -69,7 +69,7 @@ const ProfileSetup = () => {
                                                 className="flex items-center gap-1.5 group"
                                             >
                                                 {step.status === "finished" ? (
-                                                    <CircleCheck className="w-3 h-3 text-orange-500" />
+                                                    <CircleCheck className="w-3 h-3 text-blue-500" />
                                                 ) : (
                                                     <Circle className="w-3 h-3 text-zinc-700" />
                                                 )}

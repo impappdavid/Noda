@@ -32,10 +32,10 @@ const ProfileActivity = () => {
                                     className={cn(
                                         "w-full aspect-square border transition-all duration-300",
                                         level === 0 && "bg-zinc-50 border-zinc-200",
-                                        level === 1 && "bg-orange-500/20 border-orange-500/10",
-                                        level === 2 && "bg-orange-500/40 border-orange-500/20",
-                                        level === 3 && "bg-orange-500/70 border-orange-500/30",
-                                        level === 4 && "bg-orange-600 border-orange-700 shadow-[inset_0_0_4px_rgba(0,0,0,0.1)]"
+                                        level === 1 && "bg-blue-500/20 border-blue-500/10",
+                                        level === 2 && "bg-blue-500/40 border-blue-500/20",
+                                        level === 3 && "bg-blue-500/70 border-blue-500/30",
+                                        level === 4 && "bg-blue-600 border-blue-700 shadow-[inset_0_0_4px_rgba(0,0,0,0.1)]"
                                     )}
                                 />
                                 <span className="text-[8px] font-black text-zinc-400 uppercase">
@@ -57,7 +57,7 @@ const ProfileActivity = () => {
                                 key={l}
                                 className={cn(
                                     "w-2 h-2 border",
-                                    l === 0 ? "bg-zinc-50 border-zinc-200" : "bg-orange-500",
+                                    l === 0 ? "bg-zinc-50 border-zinc-200" : "bg-blue-500",
                                     l === 1 && "opacity-20",
                                     l === 2 && "opacity-40",
                                     l === 3 && "opacity-70",
