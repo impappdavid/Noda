@@ -139,7 +139,7 @@ const AppSideBar = () => {
                 {/* SECTION 4: COMPANY ADMIN */}
                 {userSession.hasCompany && (
                     <div className="flex flex-col animate-in fade-in slide-in-from-left-2 duration-500">
-                        <div className="text-[10px] font-mono text-orange-600 uppercase mb-3 tracking-widest leading-none font-bold">
+                        <div className="text-[10px] font-mono text-blue-600 uppercase mb-3 tracking-widest leading-none font-bold">
                             [{userSession.companyName}_Admin]
                         </div>
                         <nav className="flex flex-col gap-2">
