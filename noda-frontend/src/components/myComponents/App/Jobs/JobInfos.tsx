@@ -43,9 +43,9 @@ const MatchNode = ({ targetValue }: { targetValue: number }) => {
         <div className="flex flex-col items-center justify-center px-1 py-2">
             <div className="flex items-center font-bold text-[10px] uppercase tracking-tight h-4">
                 {isLoading ? (
-                    <Loader2 size={10} className="animate-spin text-orange-500" />
+                    <Loader2 size={10} className="animate-spin text-blue-500" />
                 ) : (
-                    <span className="text-orange-600 flex items-center gap-0.5">
+                    <span className="text-blue-600 flex items-center gap-0.5">
                         <Zap size={10} className="fill-current" />
                         <motion.span>{rounded}</motion.span>%
                     </span>
@@ -203,7 +203,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
                             <button className="px-2 py-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-300/60 aspect-square cursor-pointer transition-colors"><Share size={14} /></button>
                             <button
                                 onClick={() => setIsBookmarked(!isBookmarked)}
-                                className={cn("px-2 py-2 cursor-pointer hover:bg-zinc-300/60 transition-all", isBookmarked ? "text-zinc-900 bg-orange-50/50" : "text-zinc-400 hover:text-zinc-900")}
+                                className={cn("px-2 py-2 cursor-pointer hover:bg-zinc-300/60 transition-all", isBookmarked ? "text-zinc-900 bg-blue-50/50" : "text-zinc-400 hover:text-zinc-900")}
                             >
                                 <Bookmark size={14} className={cn(isBookmarked && "fill-current")} />
                             </button>
@@ -287,7 +287,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
 
             {/* FIXED FOOTER ACTION */}
             <div className="shrink-0 border-t border-zinc-300 bg-white">
-                <button className="w-full bg-zinc-900 h-12 flex items-center justify-center gap-3 hover:bg-orange-600 transition-all text-white uppercase text-[11px] font-bold tracking-[0.3em] cursor-pointer active:scale-[0.98]">
+                <button className="w-full bg-zinc-900 h-12 flex items-center justify-center gap-3 hover:bg-blue-600 transition-all text-white uppercase text-[11px] font-bold tracking-[0.3em] cursor-pointer active:scale-[0.98]">
                     Apply NOW <ArrowUpRight size={14} />
                 </button>
             </div>
