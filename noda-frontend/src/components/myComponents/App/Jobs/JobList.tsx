@@ -103,8 +103,8 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                                     {job.company}
                                 </span>
                                 <span className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border ${isSelected
-                                    ? (job.match > 90 ? 'bg-orange-500/20 border-orange-500/50 text-orange-700' : 'border-zinc-800/30 bg-zinc-500/20 text-zinc-800')
-                                    : (job.match > 90 ? 'bg-orange-500/20 border-transparent text-orange-700' : 'bg-zinc-200 border-transparent text-zinc-500')
+                                    ? (job.match > 90 ? 'bg-blue-500/20 border-blue-500/50 text-blue-700' : 'border-zinc-800/30 bg-zinc-500/20 text-zinc-800')
+                                    : (job.match > 90 ? 'bg-blue-500/20 border-transparent text-blue-700' : 'bg-zinc-200 border-transparent text-zinc-500')
                                     }`}>
                                     {job.match}%
                                 </span>
