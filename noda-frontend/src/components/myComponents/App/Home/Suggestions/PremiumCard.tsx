@@ -6,7 +6,7 @@ const PremiumCard = () => {
         <>
             <Link
                 to={`/app/premium`}
-                className="w-37 bg-zinc-300 p-2 block transition-all duration-300 cursor-pointer group shadow-2xl relative overflow-hidden no-underline"
+                className="w-37 bg-zinc-100 border border-zinc-300 p-2 block transition-all duration-300 cursor-pointer group  relative overflow-hidden no-underline"
             >
                 {/* HOVER GLOW EFFECT */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/0 via-blue-500/0 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

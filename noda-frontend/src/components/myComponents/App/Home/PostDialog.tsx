@@ -8,13 +8,10 @@ import {
   MoreHorizontal,
   Link2,
   Flag,
+  Send,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,73 +20,47 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// --- SHADCN CAROUSEL ---
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi, // Added type for API
+  type CarouselApi,
 } from "@/components/ui/carousel";
 
 const cn = (...classes: (string | boolean | undefined | null)[]): string =>
   classes.filter(Boolean).join(" ");
 
 // --- Sub-components ---
-const LikeButton = ({ post, isLiked, onToggle }: { post: any, isLiked: boolean, onToggle: (e: React.MouseEvent) => void }) => (
+const LikeButton = ({ post, isLiked, onToggle }: { post: any; isLiked: boolean; onToggle: (e: React.MouseEvent) => void }) => (
   <button
     onClick={onToggle}
     className={cn(
-      "relative flex items-center gap-2 text-xs font-mono transition-colors cursor-pointer outline-none group",
-      isLiked ? "text-pink-600" : "text-zinc-500 hover:text-pink-600"
+      "flex items-center gap-2 text-[11px] font-mono transition-all px-2 py-1 border border-transparent hover:border-zinc-200 active:scale-95",
+      isLiked ? "text-pink-600" : "text-zinc-500 hover:text-zinc-900"
     )}
   >
-    <AnimatePresence>
-      {isLiked && (
-        <motion.span
-          initial={{ scale: 0, opacity: 1 }}
-          animate={{ scale: 2.5, opacity: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          className="absolute left-1 inset-0 w-4 h-4 border border-pink-500 rounded-full z-0"
-        />
-      )}
-    </AnimatePresence>
-    <motion.div
-      animate={isLiked ? { scale: [1, 1.4, 1], rotate: [0, 15, -15, 0] } : { scale: 1 }}
-      transition={{ duration: 0.3 }}
-      className="relative z-10"
-    >
-      <Heart size={16} className={cn("transition-all duration-300", isLiked ? "fill-pink-600 stroke-pink-600" : "fill-transparent stroke-current")} />
-    </motion.div>
-    <div className="overflow-hidden h-4">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={isLiked ? "liked" : "unliked"}
-          initial={{ y: 10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -10, opacity: 0 }}
-          className="font-black block"
-        >
-          {post.likes + (isLiked ? 1 : 0)}
-        </motion.span>
-      </AnimatePresence>
-    </div>
+    <Heart size={15} className={cn("transition-all", isLiked ? "fill-pink-600 stroke-pink-600" : "fill-transparent stroke-current")} />
+    <span className="font-bold">{post.likes + (isLiked ? 1 : 0)}</span>
   </button>
 );
 
 const PostOptions = () => (
   <DropdownMenu modal={false}>
     <DropdownMenuTrigger asChild>
-      <button className="text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors" onClick={(e) => e.preventDefault()}>
-        <MoreHorizontal size={16} />
+      <button className="text-zinc-400 hover:text-zinc-900 p-1 hover:bg-zinc-100 transition-colors border border-transparent hover:border-zinc-200">
+        <MoreHorizontal size={18} />
       </button>
     </DropdownMenuTrigger>
-    <DropdownMenuContent align="end" className="w-24 rounded-none border-zinc-300 p-1 shadow-2xl bg-white" onClick={(e) => e.stopPropagation()}>
-      <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-200/80"><Link2 size={12} /> Copy_URL</DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem className="gap-1.5 text-xs font-mono text-red-600 cursor-pointer py-2 hover:bg-red-50"><Flag size={12} /> Report</DropdownMenuItem>
+    <DropdownMenuContent align="end" className="w-32 rounded-none border-2 border-zinc-900 p-0 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-white">
+      <DropdownMenuItem className="gap-2 text-[10px] font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-900 hover:text-white uppercase font-bold">
+        <Link2 size={12} /> Copy_Link
+      </DropdownMenuItem>
+      <DropdownMenuSeparator className="m-0 bg-zinc-900 h-[1px]" />
+      <DropdownMenuItem className="gap-2 text-[10px] font-mono text-red-600 cursor-pointer py-2 rounded-none hover:bg-red-600 hover:text-white uppercase font-bold">
+        <Flag size={12} /> Report_Abuse
+      </DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu>
 );
@@ -109,10 +80,8 @@ export default function PostViewDialog({
   selectedImg,
   selectedPost,
   likedPosts,
-  toggleLike
+  toggleLike,
 }: PostViewDialogProps) {
-  
-  // Carousel State Logic
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -121,10 +90,8 @@ export default function PostViewDialog({
 
   useEffect(() => {
     if (!api) return;
-
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
-
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1);
     });
@@ -132,118 +99,140 @@ export default function PostViewDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="w-full flex rounded-none bg-transparent border-none shadow-none p-0 max-w-none h-screen">
-        <div 
-          className="absolute top-4 left-4 text-white bg-zinc-800/70 p-1.5 cursor-pointer hover:bg-zinc-800 transition-colors z-50" 
+      <DialogContent className="max-w-[95vw] w-full h-[90vh] flex rounded-none bg-zinc-50 border-2 border-zinc-900 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-0 overflow-hidden">
+        
+        {/* Close Button - Floats above image */}
+        <button 
+          className="absolute top-4 left-4 z-50 bg-white border-2 border-zinc-900 p-1.5 hover:bg-zinc-900 hover:text-white transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-0.5 active:shadow-none"
           onClick={() => onOpenChange(false)}
         >
-          <X className="w-4.5 h-4.5" />
-        </div>
+          <X className="w-4 h-4" />
+        </button>
 
-        <div className="w-3/4 h-screen flex flex-col items-center justify-center relative bg-black/5">
+        {/* Left: Image Canvas */}
+        <div className="flex-1 h-full bg-zinc-200 relative flex items-center justify-center overflow-hidden border-r-2 border-zinc-900">
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+          
           {selectedPost?.images && selectedPost.images.length > 0 ? (
             <>
               <Carousel 
-                setApi={setApi} // Set the API to track index
-                className="w-full h-full flex items-center justify-center"
-                opts={{
-                  startIndex: initialIndex,
-                }}
+                setApi={setApi} 
+                className="w-full h-full"
+                opts={{ startIndex: initialIndex }}
               >
-                <CarouselContent className="h-full items-center">
+                <CarouselContent className="h-full ml-0">
                   {selectedPost.images.map((img: string, index: number) => (
-                    <CarouselItem key={index} className="flex items-center justify-center h-full">
+                    <CarouselItem key={index} className="flex items-center justify-center h-[90vh] p-0 pl-0">
                       <img 
                         src={img} 
-                        className="max-w-full max-h-full object-contain" 
-                        onClick={(e) => e.stopPropagation()} 
+                        className="max-w-[95%] max-h-[95%] object-contain bg-white p-2 border border-zinc-300 shadow-xl" 
+                        alt={`Slide ${index}`}
                       />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
                 {selectedPost.images.length > 1 && (
-                  <>
-                    <CarouselPrevious className="left-8 bg-zinc-800/50 border-none text-white hover:bg-zinc-800 hover:text-white rounded-none" />
-                    <CarouselNext className="right-8 bg-zinc-800/50 border-none text-white hover:bg-zinc-800 hover:text-white rounded-none" />
-                  </>
+                  <div className="absolute bottom-8 left-0 right-0 flex justify-between px-8 pointer-events-none">
+                    <CarouselPrevious className="static pointer-events-auto h-12 w-12 rounded-none border-2 border-zinc-900 bg-white translate-x-0 hover:bg-zinc-900 hover:text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all" />
+                    <CarouselNext className="static pointer-events-auto h-12 w-12 rounded-none border-2 border-zinc-900 bg-white translate-x-0 hover:bg-zinc-900 hover:text-white shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all" />
+                  </div>
                 )}
               </Carousel>
 
-              {/* IMAGE COUNTER */}
               {count > 1 && (
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-zinc-800/80 px-3 py-1.5 text-white font-mono text-[11px] font-bold tracking-widest pointer-events-none">
-                  {current} / {count}
+                <div className="absolute top-6 right-6 bg-zinc-900 text-white px-3 py-1 font-mono text-[10px] font-bold tracking-[0.2em]">
+                  IMAGE_{current}/{count}
                 </div>
               )}
             </>
           ) : (
-            selectedImg && (
-              <img src={selectedImg} className="max-w-full max-h-full object-contain" onClick={(e) => e.stopPropagation()} />
-            )
+             selectedImg && <img src={selectedImg} className="max-w-[90%] max-h-[90%] object-contain bg-white p-2 shadow-2xl" />
           )}
         </div>
 
-        <div className="w-1/4 bg-white h-screen border-l border-zinc-300 flex flex-col ">
+        {/* Right: Sidebar */}
+        <div className="w-[380px] h-full flex flex-col bg-white">
           {selectedPost && (
             <>
-              <div className="flex justify-between items-start mb-1 p-3">
-                <div className="flex gap-3">
-                  <div className="w-10 h-10 border border-zinc-200 overflow-hidden shrink-0">
-                    <img src={selectedPost.author.avatar} alt="av" className="w-full h-full object-cover" />
-                  </div>
-                  <div className="flex flex-col">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-zinc-900 hover:underline">{selectedPost.author.name}</span>
-                      <span className="text-xs font-mono text-zinc-500">@{selectedPost.author.username}</span>
-                    </div>
-                    <span className="text-[10px] font-mono font-black text-zinc-500 uppercase">{selectedPost.author.role} • {selectedPost.postedAgo}</span>
-                  </div>
-                </div>
-                <PostOptions />
-              </div>
-
-              <div className="pl-13 md:pl-[64px] pb-4">
-                <p className="text-sm text-zinc-800 leading-relaxed mb-3">{selectedPost.content}</p>
-
-                <div className="flex items-center justify-between px-1">
-                  <div className="flex items-center gap-8">
-                    <LikeButton post={selectedPost} isLiked={!!likedPosts[selectedPost.id]} onToggle={(e) => toggleLike(e, selectedPost.id)} />
-                    <button className="flex items-center gap-2 text-xs font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer"><MessageSquare size={16} /> {selectedPost.comments}</button>
-                    <div className="flex items-center gap-2 text-xs font-mono text-zinc-500"><BarChart3 size={16} /> {selectedPost.views}</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full h-10 flex border-y border-zinc-300">
-                <div className="flex gap-1 w-full">
-                  <img src={selectedPost.author.avatar} alt="" className="w-10 h-10 object-cover" />
-                  <input type="text" placeholder="Post your reply" className="rounded-none outline-none w-full px-2 text-xs" />
-                </div>
-                <button className="bg-zinc-800 hover:bg-zinc-900 transition-colors px-3 pl-4 text-white text-xs cursor-pointer uppercase font-mono">Post</button>
-              </div>
-
-              <div className="flex-1 overflow-y-auto scrollbar-hide">
-                <div key={12} className="py-4 border-b border-zinc-300 px-3">
+              {/* Sidebar Header */}
+              <div className="p-4 border-b-2 border-zinc-900">
+                <div className="flex justify-between items-start">
                   <div className="flex gap-3">
-                    <div className="w-8 h-8 border border-zinc-300 overflow-hidden shrink-0"><img src={selectedPost.author.avatar} className="w-full h-full object-cover" /></div>
+                    <div className="w-12 h-12 border-2 border-zinc-900 overflow-hidden shrink-0 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                      <img src={selectedPost.author.avatar} alt="avatar" className="w-full h-full object-cover" />
+                    </div>
                     <div className="flex flex-col">
-                      <div className="flex items-start justify-between ">
-                        <div className="flex flex-col gap-0.5 mb-1">
-                          <div className="flex gap-2 items-center">
-                            <span className="text-[12px] font-bold text-zinc-900">Béla Iván</span>
-                            <span className="text-[12px] text-zinc-500">@belaivan</span>
-                          </div>
-                          <span className="text-[10px] font-mono text-zinc-500 uppercase font-semibold">Vector Engineer</span>
-                        </div>
-                        <span className="text-[10px] font-mono text-zinc-600">2h</span>
+                      <div className="flex flex-col">
+                        <span className="text-[13px] font-black uppercase tracking-tight text-zinc-900">{selectedPost.author.name}</span>
+                        <span className="text-[11px] font-mono text-zinc-500">@{selectedPost.author.username}</span>
                       </div>
-                      <p className="text-[11px] text-zinc-600 leading-snug">Signal received. Node verification remains stable under current latency benchmarks.</p>
-                      <div className="flex gap-4 mt-2">
-                        <button className="text-[11px] font-mono text-zinc-500 hover:text-pink-600 cursor-pointer transition-colors flex items-center gap-1"><Heart size={14} /> 320</button>
-                        <button className="text-[11px] font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer transition-colors flex items-center gap-1"><CornerDownRight size={14} /> REPLY</button>
+                      <div className="flex items-center gap-1.5 mt-1">
+                         <span className="bg-zinc-900 text-white text-[9px] px-1.5 py-0.5 font-mono font-bold uppercase">{selectedPost.author.role}</span>
+                         <span className="text-[9px] font-mono text-zinc-400 uppercase">{selectedPost.postedAgo}</span>
                       </div>
                     </div>
                   </div>
+                  <PostOptions />
+                </div>
+                <div className="mt-4">
+                  <p className="text-[13px] text-zinc-800 leading-relaxed font-medium">
+                    {selectedPost.content}
+                  </p>
+                </div>
+              </div>
+
+              {/* Stats Bar */}
+              <div className="flex divide-x-2 divide-zinc-900 border-b-2 border-zinc-900">
+                <div className="flex-1 py-2 px-4">
+                  <LikeButton post={selectedPost} isLiked={!!likedPosts[selectedPost.id]} onToggle={(e) => toggleLike(e, selectedPost.id)} />
+                </div>
+                <div className="flex-1 py-2 px-4 flex items-center gap-2 text-zinc-500 font-mono text-[11px]">
+                  <MessageSquare size={14} /> <span className="font-bold">{selectedPost.comments}</span>
+                </div>
+                <div className="flex-1 py-2 px-4 flex items-center gap-2 text-zinc-500 font-mono text-[11px]">
+                  <BarChart3 size={14} /> <span className="font-bold">{selectedPost.views}</span>
+                </div>
+              </div>
+
+              {/* Comment Feed */}
+              <div className="flex-1 overflow-y-auto bg-zinc-50/50">
+                <div className="p-4 space-y-4">
+                  {/* Sample Comment */}
+                  <div className="flex gap-3">
+                    <div className="w-8 h-8 border border-zinc-900 overflow-hidden shrink-0">
+                      <img src={selectedPost.author.avatar} className="w-full h-full object-cover grayscale" />
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[11px] font-black uppercase">Béla Iván</span>
+                        <span className="text-[9px] font-mono text-zinc-400">2h_ago</span>
+                      </div>
+                      <p className="text-[12px] text-zinc-600 mt-0.5 border-l-2 border-zinc-200 pl-2 py-1 italic">
+                        "Signal received. Node verification remains stable."
+                      </p>
+                      <div className="flex gap-3 mt-1.5">
+                        <button className="text-[9px] font-mono font-bold text-zinc-400 hover:text-pink-600 uppercase">Like</button>
+                        <button className="text-[9px] font-mono font-bold text-zinc-400 hover:text-zinc-900 uppercase">Reply</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sticky Input Field */}
+              <div className="p-3 bg-white border-t-2 border-zinc-900">
+                <div className="flex items-center border-2 border-zinc-900 focus-within:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] transition-shadow">
+                  <div className="w-10 h-10 border-r-2 border-zinc-900 overflow-hidden shrink-0 hidden sm:block">
+                    <img src={selectedPost.author.avatar} alt="me" className="w-full h-full object-cover grayscale" />
+                  </div>
+                  <input 
+                    type="text" 
+                    placeholder="TYPE_YOUR_REPLY..." 
+                    className="flex-1 px-3 text-[11px] font-mono outline-none uppercase placeholder:text-zinc-300" 
+                  />
+                  <button className="h-10 px-4 bg-zinc-900 text-white hover:bg-zinc-700 transition-colors flex items-center justify-center">
+                    <Send size={14} />
+                  </button>
                 </div>
               </div>
             </>
