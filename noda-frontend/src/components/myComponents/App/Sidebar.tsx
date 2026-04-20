@@ -149,7 +149,7 @@ const AppSideBar = () => {
                                     to={item.route}
                                     className={({ isActive }) =>
                                         cn("text-xs font-medium transition-colors w-fit",
-                                            isActive ? "text-black " : "text-zinc-500/80 hover:text-orange-600")
+                                            isActive ? "text-black " : "text-zinc-500/80 hover:text-blue-500")
                                     }
                                 >
                                     {item.name}
