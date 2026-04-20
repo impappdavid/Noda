@@ -80,14 +80,14 @@ export default function PostForm() {
 
         <DialogContent className="sm:max-w-xl rounded-none p-0 overflow-hidden bg-white border-zinc-300 max-h-[90vh] flex flex-col border-none shadow-none">
           {/* SQUARE HEADER */}
-          <DialogHeader className="bg-zinc-200 text-black flex flex-row items-center justify-between space-y-0 shrink-0">
-            <div className="flex items-center gap-2 p-1.5 pl-3">
-              <DialogTitle className="text-[11px] font-mono font-black uppercase tracking-widest">
+          <DialogHeader className="bg-zinc-200 p-2 text-black flex flex-row items-center justify-between space-y-0 shrink-0">
+            <div className="flex items-center gap-2 ">
+              <DialogTitle className="text-[11px] font-mono font-black uppercase tracking-wider">
                 What's happening today?
               </DialogTitle>
             </div>
             <DialogClose asChild>
-              <button className="bg-transparent py-2.5 px-3 hover:bg-red-500/20 cursor-pointer text-zinc-500 hover:text-black transition-colors">
+              <button className="bg-transparent p-1 hover:bg-zinc-300 cursor-pointer text-zinc-500 hover:text-black transition-colors">
                 <X className="w-3.5 h-3.5" />
               </button>
             </DialogClose>
@@ -112,20 +112,31 @@ export default function PostForm() {
                     <img
                       src="https://marszalstudio.pl/wp-content/uploads/2024/01/fajne-zdjecia-profilowe-19.webp"
                       alt="User"
-                      className="w-full h-full object-cover grayscale"
+                      className="w-full h-full object-cover"
                     />
                   )}
                 </div>
 
                 <div className="flex flex-col text-left">
-                  <span
-                    className={cn(
-                      "text-xs font-black tracking-tight uppercase font-mono transition-colors",
-                      isAnonymous ? "text-blue-500" : "text-zinc-900",
-                    )}
-                  >
-                    {isAnonymous ? "Anonymous" : "Alex Rivers"}
-                  </span>
+                  <div className="flex gap-2 items-end">
+                    <span
+                      className={cn(
+                        "text-xs font-black tracking-tight uppercase font-mono transition-colors",
+                        isAnonymous ? "text-blue-500" : "text-zinc-900",
+                      )}
+                    >
+                      {isAnonymous ? "Anonymous" : "Alex Rivers"}
+                    </span>
+                    <span
+                      className={cn(
+                        "text-[10px] tracking-tight font-mono transition-colors",
+                        isAnonymous ? "text-zinc-500" : "text-zinc-500",
+                      )}
+                    >
+                      {isAnonymous ? "@enrcypted" : "@alexrivers"}
+                    </span>
+                  </div>
+
                   <span className="text-[9px] text-zinc-400 font-mono uppercase font-black tracking-widest">
                     {isAnonymous ? "Encrypted" : "Vector Engineer"}
                   </span>
@@ -139,8 +150,8 @@ export default function PostForm() {
                 className={cn(
                   "p-2 flex items-center justify-center border transition-all duration-150 active:scale-90 cursor-pointer",
                   isAnonymous
-                    ? "bg-blue-500 border-blue-600 text-white"
-                    : "bg-white border-zinc-200 text-zinc-400 hover:border-zinc-900 hover:text-zinc-900",
+                    ? "bg-blue-500 border-blue-500 text-white"
+                    : "bg-white border-zinc-200 text-zinc-400 hover:border-zinc-500 hover:text-zinc-900",
                 )}
                 title={
                   isAnonymous
@@ -203,7 +214,7 @@ export default function PostForm() {
                 {/* HEADER */}
                 <div className="flex justify-between items-center px-2 py-1 border-b border-zinc-300 bg-zinc-50/80">
                   <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-orange-500 rounded-none" />
+                    <div className="w-2 h-2 bg-blue-500 rounded-none" />
                     <span className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-[0.2em]">
                       Poll Config
                     </span>
@@ -227,12 +238,12 @@ export default function PostForm() {
                         value={opt}
                         onChange={(e) => updateOption(i, e.target.value)}
                         placeholder={`Option_Entry_${i + 1}`}
-                        className="flex-1 h-10 px-4 text-[11px] uppercase outline-none bg-white placeholder:text-zinc-400 transition-colors"
+                        className="flex-1 h-8 px-4 text-[11px] uppercase outline-none bg-white placeholder:text-zinc-400 transition-colors"
                       />
                       {pollOptions.length > 2 && (
                         <button
                           onClick={() => removeOption(i)}
-                          className="w-10 flex items-center justify-center border-l border-zinc-300 text-zinc-500 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer"
+                          className="w-8 flex items-center justify-center border-l border-zinc-300 text-zinc-500 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer"
                           title="Remove Option"
                         >
                           <Trash2 size={14} />
@@ -246,9 +257,9 @@ export default function PostForm() {
                 {pollOptions.length < 4 && (
                   <button
                     onClick={addOption}
-                    className="w-full h-10 border-t border-zinc-300 bg-white text-[9px] font-mono font-black text-zinc-500 uppercase flex items-center justify-center gap-2 hover:bg-zinc-900 hover:text-white transition-all cursor-pointer"
+                    className="w-full h-8 border-t border-zinc-300 bg-white text-[9px] font-mono font-black text-zinc-500 uppercase flex items-center justify-center gap-2 hover:bg-blue-500 hover:text-white transition-all cursor-pointer"
                   >
-                    <span>+</span> Inject_New_Option_Field
+                    <span>+</span> Add New Option
                   </button>
                 )}
 
@@ -276,7 +287,7 @@ export default function PostForm() {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 className={cn(
-                  "p-2 transition-colors",
+                  "p-2 transition-colors flex gap-1 text-sm cursor-pointer hover:bg-zinc-300",
                   images.length >= 4
                     ? "text-zinc-200"
                     : "text-zinc-500 hover:text-zinc-900",
@@ -284,21 +295,23 @@ export default function PostForm() {
                 disabled={images.length >= 4}
               >
                 <ImageIcon size={18} />
+                Image
               </button>
               <button
                 type="button"
                 onClick={() => setShowPoll(!showPoll)}
                 className={cn(
-                  "p-2 transition-colors",
+                  "p-2 transition-colors flex gap-1 text-sm cursor-pointer hover:bg-zinc-300",
                   showPoll
-                    ? "text-orange-500"
+                    ? "text-blue-500"
                     : "text-zinc-500 hover:text-zinc-900",
                 )}
               >
                 <BarChart2 size={18} />
+                Poll
               </button>
-              <Button className="ml-auto bg-zinc-900 hover:bg-black text-white text-[10px] rounded-none h-10 px-8 font-mono font-black uppercase tracking-widest transition-colors shadow-none">
-                Transmit_Signal
+              <Button className="ml-auto bg-blue-500 hover:bg-blue-600 text-white text-[10px] rounded-none h-10 px-8 font-mono font-black uppercase tracking-widest transition-colors shadow-none">
+                Post
               </Button>
             </div>
           </div>
