@@ -59,7 +59,7 @@ const CompanyDashboard: React.FC = () => {
                             <SectionHeader icon={<Target size={12} />} title="Resonance_Uplink" />
                             <div className="flex gap-4">
                                 <ChartLegend color="stroke-zinc-900" label="Views" />
-                                <ChartLegend color="stroke-orange-500" label="Likes" />
+                                <ChartLegend color="stroke-blue-500" label="Likes" />
                                 <ChartLegend color="stroke-emerald-500" label="Followers" />
                             </div>
                         </div>
@@ -210,7 +210,7 @@ const ChartLegend = ({ color, label }: { color: string, label: string }) => (
 const RegistryRow = ({ title, col2, col3, isPost }: any) => (
     <tr className="hover:bg-zinc-50 transition-colors cursor-pointer group divide-x divide-zinc-100">
         <td className="p-2 pl-3">
-            <span className="text-[10px] font-bold uppercase tracking-tight group-hover:text-orange-600 transition-colors flex items-center gap-2">
+            <span className="text-[10px] font-bold uppercase tracking-tight group-hover:text-blue-600 transition-colors flex items-center gap-2">
                 {isPost ? <Link2 size={12} className="text-zinc-500" /> : <Hash size={12} className="text-zinc-500" />}
                 {title}
             </span>

@@ -4,7 +4,7 @@ import type { PerformanceRowProps } from '@/types/admin/dashboard';
 
 const PerformanceRow: React.FC<PerformanceRowProps> = ({ title, views, likes, comments }) => (
     <div className="flex items-center justify-between p-3 hover:bg-zinc-50 transition-all cursor-pointer group">
-        <span className="text-xs font-bold uppercase tracking-tight group-hover:text-orange-600 transition-colors">
+        <span className="text-xs font-bold uppercase tracking-tight group-hover:text-blue-600 transition-colors">
             {title}
         </span>
         <div className="flex gap-6 items-center">
