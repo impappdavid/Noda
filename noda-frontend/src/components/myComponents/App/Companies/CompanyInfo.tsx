@@ -100,7 +100,7 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
                             <span className="text-[11px] font-medium text-zinc-900 tracking-tighter">@anonymus</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="text-[9px] font-mono font-black text-orange-600 uppercase bg-orange-50 px-1 border border-orange-300">{"< 24H"}</span>
+                            <span className="text-[9px] font-mono font-black text-blue-600 uppercase bg-blue-50 px-1 border border-blue-300">{"< 24H"}</span>
                             <span className="text-[9px] text-zinc-500 font-mono font-black uppercase tracking-tighter">2h ago</span>
                         </div>
                     </div>
@@ -113,7 +113,7 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
             {/* 4. FEEDBACK DIALOG */}
             <Dialog open={isFeedbackOpen} onOpenChange={setIsFeedbackOpen}>
                 <DialogTrigger asChild>
-                    <button className="w-full h-12 bg-zinc-900 flex items-center justify-center gap-3 hover:bg-orange-600 transition-all active:scale-[0.99] shrink-0 cursor-pointer border-none outline-none group">
+                    <button className="w-full h-12 bg-zinc-900 flex items-center justify-center gap-3 hover:bg-blue-600 transition-all active:scale-[0.99] shrink-0 cursor-pointer border-none outline-none group">
                         <MessageSquarePlus size={14} className="text-white transition-all" />
                         <span className="text-[10px] font-mono font-black text-white uppercase tracking-[0.2em]">Comment</span>
                     </button>
@@ -133,7 +133,7 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
                                 {LATENCY_NODES.map((node) => (
                                     <button key={node} onClick={() => setLatency(node)}
                                         className={cn("flex-1 py-2.5 text-[10px] font-mono font-black transition-all cursor-pointer",
-                                            latency === node ? "bg-orange-500 text-white" : "text-zinc-500 hover:bg-zinc-200")}>
+                                            latency === node ? "bg-blue-500 text-white" : "text-zinc-500 hover:bg-zinc-200")}>
                                         {node}
                                     </button>
                                 ))}
@@ -152,7 +152,7 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
                         {/* RESTORED ANONYMOUS UPLINK SECTION */}
                         <div className="flex items-center justify-between p-2 bg-zinc-50/50 border border-dashed border-zinc-200 px-3 py-3">
                             <div className="flex items-center gap-3 text-left">
-                                {isAnonymous ? <EyeOff size={16} className="text-orange-600" /> : <Eye size={16} className="text-zinc-400" />}
+                                {isAnonymous ? <EyeOff size={16} className="text-blue-600" /> : <Eye size={16} className="text-zinc-400" />}
                                 <div>
                                     <p className="text-[11px] font-mono font-black text-zinc-900 uppercase leading-none mb-1">Anonymous Comment</p>
                                     <p className="text-[10px] font-mono text-zinc-600 uppercase leading-none ">You will be not connected to this comment</p>
@@ -161,7 +161,7 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
                             <Switch 
                                 checked={isAnonymous} 
                                 onCheckedChange={setIsAnonymous} 
-                                className="scale-75 data-[state=checked]:bg-orange-500 cursor-pointer" 
+                                className="scale-75 data-[state=checked]:bg-blue-500 cursor-pointer" 
                             />
                         </div>
 
@@ -169,7 +169,7 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
                         <div className="flex gap-2">
                             <button onClick={() => setIsFeedbackOpen(false)} className="flex-1 h-10 border border-zinc-300 text-[11px] font-mono font-black text-white uppercase hover:bg-red-500 cursor-pointer bg-red-600 transition-colors">Abort</button>
                             <button onClick={handleSubmitFeedback} disabled={ comment.length < 10}
-                                className="flex-[2] h-10 bg-zinc-800 text-white text-[11px] font-mono font-black uppercase hover:bg-orange-600 disabled:bg-zinc-200 disabled:text-zinc-500 flex items-center justify-center gap-2 cursor-pointer border-none transition-all">
+                                className="flex-[2] h-10 bg-zinc-800 text-white text-[11px] font-mono font-black uppercase hover:bg-blue-600 disabled:bg-zinc-200 disabled:text-zinc-500 flex items-center justify-center gap-2 cursor-pointer border-none transition-all">
                                 <Send size={12} /> Send Comment
                             </button>
                         </div>

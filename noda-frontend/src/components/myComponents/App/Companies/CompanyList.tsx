@@ -55,7 +55,7 @@ const CompanyList = ({ companyData, selectedCompany, setSelectedCompany }: ListP
                                     </span>
                                     <div className="flex items-center gap-1.5">
                                         <Zap size={10} className={cn(
-                                            isSelected ? "text-orange-500" : "text-zinc-500"
+                                            isSelected ? "text-blue-500" : "text-zinc-500"
                                         )} />
                                         <span className="text-xs font-black font-mono tracking-tighter">
                                             {/* Assuming company object has a signal count, otherwise fallback */}
@@ -70,7 +70,7 @@ const CompanyList = ({ companyData, selectedCompany, setSelectedCompany }: ListP
             ) : (
                 <div className="p-12 text-center border-b border-zinc-200">
                     <span className="text-[10px] font-mono font-black text-zinc-400 uppercase tracking-[0.3em]">
-                        No_Entity_Found
+                        No Company Found
                     </span>
                 </div>
             )}
