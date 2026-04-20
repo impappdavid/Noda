@@ -36,7 +36,7 @@ const AppNetwork = () => {
                                     <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-zinc-500">
                                         [Requests]
                                     </span>
-                                    <span className="text-[9px] font-mono font-black text-orange-600 uppercase tracking-tighter animate-pulse">Action_Required</span>
+                                    <span className="text-[9px] font-mono font-black text-blue-600 uppercase tracking-tighter animate-pulse">Action_Required</span>
                                 </div>
                                 <div className="divide-y divide-zinc-300">
                                     {invitations.map(person => (
@@ -90,7 +90,7 @@ const MinimalSection = ({ title, data }: any) => (
     <section className="w-full">
         <div className="px-4 py-2 border-b flex items-center border-zinc-300 bg-zinc-50/40 w-full justify-between">
             <span className="text-[9px] font-mono font-black uppercase tracking-widest text-zinc-500">[{title}]</span>
-            <span className="text-[9px] font-mono font-black uppercase tracking-widest text-zinc-500 hover:text-orange-600 hover:underline cursor-pointer">[view all]</span>
+            <span className="text-[9px] font-mono font-black uppercase tracking-widest text-zinc-500 hover:text-blue-600 hover:underline cursor-pointer">[view all]</span>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 border-b border-zinc-300">
             {data.map((person: any) => (
@@ -120,7 +120,7 @@ const MinimalNodeCard = ({ person }: any) => (
                     <span className="text-zinc-900 font-black">@{person.company}</span>
                 </p>
             </div>
-            <button onClick={(e) => e.preventDefault()} className="w-6 h-6 bg-orange-500 flex justify-center items-center text-white cursor-pointer hover:bg-orange-600 transition-colors">
+            <button onClick={(e) => e.preventDefault()} className="w-6 h-6 bg-blue-500 flex justify-center items-center text-white cursor-pointer hover:bg-blue-600 transition-colors">
                 <Plus className='w-3.5 h-3.5'/>
             </button>
         </div>
