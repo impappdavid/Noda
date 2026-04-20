@@ -6,6 +6,9 @@ import {
   BarChart2,
   X,
   Trash2,
+  Unlock,
+  Lock,
+  Eye,
 } from "lucide-react";
 import {
   Dialog,
@@ -93,20 +96,23 @@ export default function PostForm() {
           {/* Scrollable Content */}
           <div className="px-2 space-y-2 mt-2 overflow-y-auto scrollbar-hide flex-1">
             <div className="flex items-center justify-between">
+              {/* Profile Info */}
               <div className="flex items-center gap-2">
                 <div
                   className={cn(
-                    "w-10 h-10 flex items-center justify-center transition-colors overflow-hidden",
-                    isAnonymous ? "bg-zinc-800 " : "bg-zinc-100"
+                    "w-10 h-10 flex items-center justify-center transition-all duration-200 overflow-hidden border",
+                    isAnonymous
+                      ? "bg-zinc-300 border-none"
+                      : "bg-zinc-100 border-none",
                   )}
                 >
                   {isAnonymous ? (
-                    <EyeOff size={18} className="text-orange-600" />
+                    <EyeOff size={18} className="text-blue-500" />
                   ) : (
                     <img
                       src="https://marszalstudio.pl/wp-content/uploads/2024/01/fajne-zdjecia-profilowe-19.webp"
-                      alt="Alex Rivers"
-                      className="w-full h-full object-cover"
+                      alt="User"
+                      className="w-full h-full object-cover grayscale"
                     />
                   )}
                 </div>
@@ -114,28 +120,43 @@ export default function PostForm() {
                 <div className="flex flex-col text-left">
                   <span
                     className={cn(
-                      "text-xs font-bold tracking-tight uppercase font-mono",
-                      isAnonymous ? "text-orange-600" : "text-zinc-900"
+                      "text-xs font-black tracking-tight uppercase font-mono transition-colors",
+                      isAnonymous ? "text-blue-500" : "text-zinc-900",
                     )}
                   >
-                    {isAnonymous ? "Anonymous_Node" : "Alex Rivers"}
+                    {isAnonymous ? "Anonymous" : "Alex Rivers"}
                   </span>
-                  <span className="text-[10px] text-zinc-500 font-mono uppercase font-black tracking-widest">
-                    {isAnonymous ? "Encrypted Signal" : "Vector Engineer"}
+                  <span className="text-[9px] text-zinc-400 font-mono uppercase font-black tracking-widest">
+                    {isAnonymous ? "Encrypted" : "Vector Engineer"}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 bg-zinc-50 p-1.5 border border-zinc-200">
-                <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-tight">
-                  Anonymous Mode
-                </span>
-                <Switch
-                  checked={isAnonymous}
-                  onCheckedChange={setIsAnonymous}
-                  className="cursor-pointer scale-75"
-                />
-              </div>
+              {/* ICON ONLY TOGGLE */}
+              <button
+                type="button"
+                onClick={() => setIsAnonymous(!isAnonymous)}
+                className={cn(
+                  "p-2 flex items-center justify-center border transition-all duration-150 active:scale-90 cursor-pointer",
+                  isAnonymous
+                    ? "bg-blue-500 border-blue-600 text-white"
+                    : "bg-white border-zinc-200 text-zinc-400 hover:border-zinc-900 hover:text-zinc-900",
+                )}
+                title={
+                  isAnonymous
+                    ? "Disable Anonymous Mode"
+                    : "Enable Anonymous Mode"
+                }
+              >
+                {isAnonymous ? (
+                  <div className="relative">
+                    <EyeOff size={14} strokeWidth={2.5} />
+                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-white rounded-full animate-ping" />
+                  </div>
+                ) : (
+                  <Eye size={14} strokeWidth={2.5} />
+                )}
+              </button>
             </div>
 
             <textarea
@@ -152,12 +173,16 @@ export default function PostForm() {
               <div
                 className={cn(
                   "grid gap-1 border border-zinc-200 overflow-hidden mb-4",
-                  images.length === 1 ? "grid-cols-1" : "grid-cols-2"
+                  images.length === 1 ? "grid-cols-1" : "grid-cols-2",
                 )}
               >
                 {images.map((src, idx) => (
                   <div key={idx} className="relative aspect-auto bg-zinc-100">
-                    <img src={src} alt="" className="w-full h-full object-cover" />
+                    <img
+                      src={src}
+                      alt=""
+                      className="w-full h-full object-cover"
+                    />
                     <button
                       type="button"
                       onClick={() =>
@@ -254,7 +279,7 @@ export default function PostForm() {
                   "p-2 transition-colors",
                   images.length >= 4
                     ? "text-zinc-200"
-                    : "text-zinc-500 hover:text-zinc-900"
+                    : "text-zinc-500 hover:text-zinc-900",
                 )}
                 disabled={images.length >= 4}
               >
@@ -265,7 +290,9 @@ export default function PostForm() {
                 onClick={() => setShowPoll(!showPoll)}
                 className={cn(
                   "p-2 transition-colors",
-                  showPoll ? "text-orange-500" : "text-zinc-500 hover:text-zinc-900"
+                  showPoll
+                    ? "text-orange-500"
+                    : "text-zinc-500 hover:text-zinc-900",
                 )}
               >
                 <BarChart2 size={18} />
