@@ -247,10 +247,10 @@ const TeamNodesManager = () => {
 const TabButton = ({ active, onClick, label, count, icon, isOrange }: any) => (
     <button onClick={onClick} className={cn(
         "flex-1 h-10 flex items-center justify-center gap-2 text-[9px] font-mono font-black uppercase tracking-[0.2em] transition-all relative cursor-pointer border-none",
-        active ? (isOrange ? "text-orange-600 bg-orange-50/30" : "text-zinc-900 bg-zinc-50") : "text-zinc-500 hover:text-zinc-600 bg-white"
+        active ? (isOrange ? "text-blue-500 bg-orange-50/30" : "text-zinc-900 bg-zinc-50") : "text-zinc-500 hover:text-zinc-600 bg-white"
     )}>
         {icon} {label} ({count})
-        {active && <div className={cn("absolute bottom-0 left-0 right-0 h-0.5", isOrange ? "bg-orange-600" : "bg-zinc-900")} />}
+        {active && <div className={cn("absolute bottom-0 left-0 right-0 h-0.5", isOrange ? "bg-blue-600" : "bg-zinc-900")} />}
     </button>
 );
 
