@@ -48,55 +48,64 @@ const NodeInjectionHeader = React.memo(({ value, onChange, onTransmit }: any) =>
 ));
 
 // --- COMPONENT: TEAM REGISTRY TABLE (WITH DIVIDE-X) ---
-const TeamRegistryTable = ({ nodes, onRemove }: { nodes: TeamNode[], onRemove: (id: string) => void }) => (
-    <div className="w-full border-b border-zinc-300 bg-white">
-        <Table className="border-collapse">
-            <TableHeader className="bg-zinc-50/50 border-b border-zinc-300">
-                <TableRow className="border-none divide-x divide-zinc-300 bg-zinc-200">
-                    <TableHead className="w-[200px] text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest pl-2">Full_Name</TableHead>
-                    <TableHead className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest pl-2">@_Email</TableHead>
-                    <TableHead className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest pl-2">Role</TableHead>
-                    <TableHead className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest pl-2">Joined_Date</TableHead>
-                    <TableHead className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest w-[50px] text-center">Action</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {nodes.map((node) => (
-                    <TableRow key={node.id} className="group border-b border-zinc-300 hover:bg-zinc-200/60 transition-colors h-10 divide-x divide-zinc-200 cursor-pointer">
-                        <TableCell className="pl-2">
-                            <div className="flex items-center gap-2">
-                                <div className="w-6 h-6 bg-zinc-800 flex items-center justify-center font-bold text-white text-[10px] shrink-0 border border-zinc-800">
-                                    {node.name.split(' ').map(n => n[0]).join('')}
-                                </div>
-                                <span className="text-xs font-semibold tracking-tight text-zinc-900 truncate">{node.name}</span>
-                            </div>
-                        </TableCell>
-                        <TableCell className="pl-2">
-                            <span className="text-[11px] font-mono font-bold text-zinc-600">{node.name.toLowerCase().replace(' ', '.')}@noda.network</span>
-                        </TableCell>
-                        <TableCell className="pl-2">
-                            <div className="text-[10px] font-semibold uppercase tracking-tighter text-zinc-900 bg-orange-500/20 w-fit px-2 py-0.5 border border-orange-500/50">
-                                {node.role || "CEO"}
-                            </div>
-                        </TableCell>
-                        <TableCell className="pl-2">
-                            <div className="flex items-center gap-2 text-[9px] font-mono font-black text-zinc-500 uppercase">
-                                <Clock size={12} className="text-zinc-400" /> {node.joinedDate || "14_FEB_2026"}
-                            </div>
-                        </TableCell>
-                        <TableCell className="p-0 text-center hover:bg-red-500/20 text-red-500 hover:text-red-600 transition-colors">
-                            <button
-                                onClick={(e) => { e.stopPropagation(); onRemove(node.id); }}
-                                className="w-full h-full flex items-center justify-center cursor-pointer "
-                            >
-                                <Trash2 size={14} />
-                            </button>
-                        </TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-    </div>
+const TeamRegistryTable = ({ nodes, onRemove, onEdit }: { nodes: TeamNode[], onRemove: (id: string) => void, onEdit: (node: TeamNode) => void }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+    {nodes.map((node) => (
+      <div 
+        key={node.id} 
+        onClick={() => onEdit(node)}
+        className="group border-r border-b border-zinc-300 bg-white hover:bg-zinc-200 transition-all cursor-pointer flex flex-col"
+      >
+        {/* Top Section: Identity */}
+        <div className="p-1.5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-zinc-900 flex items-center justify-center font-bold text-white text-[10px] border border-zinc-900 shrink-0">
+               {node.name.split(' ').map(n => n[0]).join('')}
+            </div>
+            <div className="flex flex-col min-w-0">
+              <span className="text-[11px] font-black uppercase tracking-tight text-zinc-900 truncate">
+                {node.name}
+              </span>
+              <span className="text-[10px] font-mono font-bold text-zinc-500 truncate">
+                {node.name.toLowerCase().replace(' ', '.')}@noda.network
+              </span>
+            </div>
+          </div>
+
+          <button
+            onClick={(e) => { e.stopPropagation(); onRemove(node.id); }}
+            className="p-1.5 text-zinc-500 hover:text-red-500 transition-colors cursor-pointer hover:bg-red-500/20"
+          >
+            <Trash2 size={14} />
+          </button>
+        </div>
+
+        {/* Bottom Section: High-Visibility Data Strip */}
+        <div className="flex border-t border-zinc-300 divide-x divide-zinc-300 bg-zinc-50">
+          {/* Role Block */}
+          <div className="flex-1 px-2 py-1.5 flex flex-col justify-center">
+            <span className="text-[9px] font-mono font-black text-zinc-500 uppercase leading-none mb-0.5">
+              Position
+            </span>
+            <span className="text-[10px] font-black uppercase text-blue-600 tracking-tighter">
+              {node.role || "CEO"}
+            </span>
+          </div>
+
+          {/* Date Block */}
+          <div className="flex-1 px-2 py-1.5 flex flex-col justify-center">
+            <span className="text-[9px] font-mono font-black text-zinc-500 uppercase leading-none mb-0.5">
+              Joined at
+            </span>
+            <div className="flex items-center gap-1 text-[9px] font-mono font-bold text-zinc-700 uppercase">
+              <Clock size={10} className="text-zinc-400" />
+              {node.joinedDate || "14_FEB_2026"}
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
 );
 
 // --- MAIN MANAGER PAGE ---
