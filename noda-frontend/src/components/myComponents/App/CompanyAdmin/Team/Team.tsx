@@ -253,7 +253,7 @@ const TeamNodesManager = () => {
             {activeTab === "TEAM" ? (
               <TeamRegistryTable nodes={filteredTeam} onRemove={handleRemove} />
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2">
                 {requests.map((node) => (
                   <div
                     key={node.id}
