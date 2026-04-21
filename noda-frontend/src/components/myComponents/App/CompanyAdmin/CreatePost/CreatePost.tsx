@@ -84,17 +84,11 @@ const CreatePost = () => {
 
                 <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-row pt-12.5 divide-x divide-zinc-300">
                     <div className="flex-1 flex flex-col bg-white overflow-hidden relative">
-                        <div className="p-2 bg-zinc-800 flex justify-between items-center shrink-0">
-                            <div className="flex items-center gap-2">
-                                <Terminal size={14} className="text-orange-500" />
-                                <span className="text-[10px] font-mono font-black uppercase tracking-widest text-zinc-200">{author.name}: Post</span>
-                            </div>
-                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                        </div>
+                        
 
                         <div className="flex-1 overflow-y-auto scrollbar-hide flex flex-col">
                             <div className="p-2 bg-white flex-1 flex flex-col">
-                                <div className="flex justify-between items-start mb-3 shrink-0">
+                                <div className="flex justify-between items-start mb-2 shrink-0">
                                     <div className="flex gap-3">
                                         <div className="w-10 h-10 border border-zinc-300 overflow-hidden shrink-0">
                                             <img src={author.avatar} alt="av" className="w-full h-full object-cover" />
@@ -113,7 +107,7 @@ const CreatePost = () => {
                                         value={content}
                                         onChange={(e) => setContent(e.target.value)}
                                         placeholder="Type transmission content here..."
-                                        className="w-full text-sm text-zinc-800 placeholder:text-zinc-300 resize-none outline-none leading-relaxed bg-transparent overflow-hidden"
+                                        className="w-full text-sm text-zinc-800 placeholder:text-zinc-500 resize-none outline-none leading-relaxed bg-transparent overflow-hidden"
                                     />
 
                                     <div className="mt-4">
