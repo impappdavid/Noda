@@ -21,27 +21,27 @@ interface RequestNode { id: string; name: string; username: string; note: string
 
 // --- REDESIGNED COMPONENT: NODE INJECTION HEADER ---
 const NodeInjectionHeader = React.memo(({ value, onChange, onTransmit }: any) => (
-    <div className="bg-zinc-800 ">
-        <div className="flex items-center bg-zinc-800 h-11">
+    <div className="bg-zinc-200 ">
+        <div className="flex items-center bg-zinc-200 h-10">
 
 
             {/* Input Field */}
             <div className="flex-1 h-full relative group">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 font-mono text-zinc-400 text-[11px]">@</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 font-mono text-zinc-500 text-[11px]">@</span>
                 <input
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
                     placeholder="Add members by @username"
-                    className="w-full h-full bg-transparent pl-8 pr-4 text-[11px] font-mono font-bold text-white outline-none placeholder:text-zinc-400 focus:bg-zinc-900/30 transition-all"
+                    className="w-full h-full bg-transparent pl-8 pr-4 text-[11px] font-mono font-bold text-black outline-none placeholder:text-zinc-500  transition-all"
                 />
             </div>
 
             {/* Action Trigger */}
             <button
                 onClick={onTransmit}
-                className="h-full px-6 bg-orange-500 text-white font-mono font-bold text-[10px] uppercase tracking-[0.2em] flex items-center gap-2 hover:bg-orange-600 active:bg-orange-700 transition-all cursor-pointer"
+                className="h-full px-4 bg-blue-500 text-white font-mono font-bold text-[10px] uppercase tracking-[0.1em] flex items-center gap-2 hover:bg-blue-600 active:bg-blue-500 transition-all cursor-pointer"
             >
-                Transmit_Invite <Send size={12} />
+                Send Invite 
             </button>
         </div>
     </div>
@@ -139,7 +139,7 @@ const TeamNodesManager = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
+                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12">
                     <NodeInjectionHeader value={usernameInput} onChange={setUsernameInput} onTransmit={handleInvite} />
 
                     <div className="flex border-b border-zinc-300 bg-white shrink-0">
