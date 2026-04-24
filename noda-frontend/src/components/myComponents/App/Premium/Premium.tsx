@@ -18,6 +18,7 @@ const tablePlans = [
   {
     id: "free",
     name: "Basic",
+    prices: { monthly: 0, yearly: 0, save: 0 },
     features: ["Standard AI Match %", "Limited Tracker Logs", "Verified Anonymity"],
   },
   {
@@ -84,6 +85,10 @@ const PremiumPage = () => {
   const [selected, setSelected] = useState("premium");
   const [billing, setBilling] = useState("monthly");
 
+  // Helper to get active price for the button
+  const activePlan = tablePlans.find((p) => p.id === selected);
+  const activePrice = billing === "monthly" ? activePlan?.prices.monthly : activePlan?.prices.yearly;
+
   return (
     <div className="min-h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
       <Navbar />
@@ -148,27 +153,27 @@ const PremiumPage = () => {
                     </span>
                     
                     <div className="flex flex-col items-center">
-                        <div className="flex items-baseline gap-1">
+                      <div className="flex items-baseline gap-1">
                         {billing === "yearly" && (
-                            <span className="text-[10px] line-through opacity-50 font-bold">
-                                {(plan.prices.monthly * 12).toFixed(2)}
-                            </span>
+                          <span className="text-[10px] line-through opacity-50 font-bold">
+                            ${(plan.prices.monthly * 12).toFixed(2)}
+                          </span>
                         )}
                         <span className="text-lg font-bold">
-                            {billing === "monthly"
+                          ${billing === "monthly"
                             ? plan.prices.monthly
                             : plan.prices.yearly}
                         </span>
                         <span className="text-[10px] opacity-100">
-                            /{billing === "monthly" ? "mo" : "yr"}
+                          /{billing === "monthly" ? "mo" : "yr"}
                         </span>
-                        </div>
-                        
-                        {billing === "yearly" && (
-                            <span className="text-[9px] font-black text-orange-500 uppercase mt-0.5">
-                                Save {plan.prices.save}
-                            </span>
-                        )}
+                      </div>
+                      
+                      {billing === "yearly" && (
+                        <span className="text-[9px] font-black text-orange-500 uppercase mt-0.5">
+                          Save ${plan.prices.save}
+                        </span>
+                      )}
                     </div>
                   </div>
                 );
@@ -186,11 +191,12 @@ const PremiumPage = () => {
                     {tablePlans.map((plan) => (
                       <th
                         key={plan.id}
+                        onClick={() => setSelected(plan.id)}
                         className={cn(
-                          "p-2 text-[10px] font-bold uppercase text-center border-r border-zinc-300",
+                          "p-2 text-[10px] font-bold uppercase text-center border-r border-zinc-300 cursor-pointer",
                           selected === plan.id
                             ? "bg-blue-500 text-white"
-                            : "text-zinc-500",
+                            : "text-zinc-500 hover:bg-zinc-100",
                         )}
                       >
                         {plan.name}
@@ -242,20 +248,20 @@ const PremiumPage = () => {
           </div>
 
           {/* MINIMALIST ACTION BAR */}
-          <div className="mt-auto border-t border-zinc-300  flex items-center justify-between bg-white sticky bottom-0">
-            <div className="flex items-center gap-3 p-4">
+          <div className="mt-auto border-t border-zinc-300 flex items-center justify-between bg-white sticky bottom-0">
+            <div className="flex items-center gap-3 p-1">
               <ShieldCheck className="w-5 h-5 text-zinc-900" />
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-zinc-900 uppercase">
-                  Status: Awaiting
+                  Status: Ready
                 </span>
                 <span className="text-[10px] text-zinc-700 font-semibold uppercase">
-                  Current: {selected} ({billing})
+                  {selected} Plan Selected
                 </span>
               </div>
             </div>
-            <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-none h-10 px-8 pl-10 text-[10px] font-black flex items-center uppercase tracking-[0.2em] border-none transition-all">
-              Continue <ChevronRight className="w-3 h-3" />
+            <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-none h-10 px-8 text-[12px] font-bold flex items-center uppercase tracking-[0.1em] border-none transition-all">
+              ${activePrice?.toFixed(2)} PAY 
             </Button>
           </div>
         </main>
