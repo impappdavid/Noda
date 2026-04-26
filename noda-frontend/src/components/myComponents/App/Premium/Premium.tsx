@@ -170,7 +170,7 @@ const PremiumPage = () => {
                       </div>
                       
                       {billing === "yearly" && (
-                        <span className="text-[9px] font-black text-orange-500 uppercase mt-0.5">
+                        <span className="text-[9px] font-black text-blue-400 uppercase mt-0.5">
                           Save ${plan.prices.save}
                         </span>
                       )}
