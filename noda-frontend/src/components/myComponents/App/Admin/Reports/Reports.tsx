@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/dialog";
 import Navbar from "../../AppNavbar";
 import AppSideBar from "../../Sidebar";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 const AdminReportsPage = () => {
   const [reports] = useState([
@@ -159,11 +160,11 @@ const AdminReportsPage = () => {
                       />
                       Report
                     </DialogTitle>
-                    <button
-                      className="hover:bg-black/40 cursor-pointer p-1 transition-colors outline-none"
-                    >
-                      <X className="w-4 h-4 text-white" />
-                    </button>
+                    <DialogClose>
+                      <button className="hover:bg-black/40 cursor-pointer p-1 transition-colors outline-none">
+                        <X className="w-4 h-4 text-white" />
+                      </button>
+                    </DialogClose>
                   </DialogHeader>
 
                   <div className="max-h-[70vh] overflow-y-auto scrollbar-hide">
@@ -181,32 +182,40 @@ const AdminReportsPage = () => {
                           <>
                             <div className="grid grid-cols-2 border-b border-zinc-300  divide-x divide-zinc-300">
                               <span className="text-[10px] font-bold p-2 flex flex-col gap-1 uppercase tracking-tighter text-zinc-900 leading-none">
-                                <div className="font-normal text-zinc-500">Title</div>
+                                <div className="font-normal text-zinc-500">
+                                  Title
+                                </div>
                                 {report.target.title}
                               </span>
                               <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2  text-zinc-800 leading-none">
-                                <div className="font-normal text-zinc-500">Company</div>
-                                {report.target.company}
+                                <div className="font-normal text-zinc-500">
+                                  Company
+                                </div>
+
+                                <div className="hover:underline cursor-pointer">
+                                  {report.target.company}
+                                </div>
                               </span>
                             </div>
                             <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2  text-zinc-800 leading-none">
-                                <div className="font-normal text-zinc-500">Description</div>
-                                {report.target.desc}
-                                
-                              </span>
+                              <div className="font-normal text-zinc-500">
+                                Description
+                              </div>
+                              {report.target.desc}
+                            </span>
                           </>
                         ) : (
                           <>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 p-2">
                               <div className="w-5 h-5 bg-zinc-900 flex items-center justify-center text-white text-[8px] font-black uppercase tracking-tighter">
                                 {report.target.author.charAt(1)}
                               </div>
-                              <span className="text-[10px] font-black uppercase">
+                              <span className="text-[10px] font-black uppercase ">
                                 {report.target.author}
                               </span>
                             </div>
-                            <p className="text-[10px] font-mono text-zinc-700 leading-relaxed uppercase bg-white p-2 border border-zinc-100 italic">
-                              "{report.target.content}"
+                            <p className="text-[11px] font-mono pl-9 text-zinc-900 leading-relaxed uppercase bg-white pb-2 border border-zinc-100">
+                              {report.target.content}
                             </p>
                           </>
                         )}
@@ -219,7 +228,7 @@ const AdminReportsPage = () => {
                         <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
                           Reporter
                         </span>
-                        <div className="text-[10px] font-mono font-bold bg-zinc-100 flex items-center gap-1.5">
+                        <div className="text-[10px] font-mono font-bold bg-zinc-100 flex items-center gap-1.5 hover:underline cursor-pointer">
                           <User size={10} /> {report.reporter}
                         </div>
                       </div>
@@ -236,7 +245,7 @@ const AdminReportsPage = () => {
                     {/* ACTIONS */}
                     <div className="grid grid-cols-2  ">
                       <button className="h-9 border-t border-zinc-300 bg-white hover:bg-zinc-200 font-mono font-black text-[10px] uppercase cursor-pointer transition-colors flex items-center justify-center gap-2">
-                         Reject
+                        Reject
                       </button>
                       <button className="h-9 bg-red-600 text-white font-mono font-black text-[10px] uppercase cursor-pointer hover:bg-red-700 transition-colors flex items-center justify-center gap-2 border-t border-red-600">
                         Terminate {report.type}
