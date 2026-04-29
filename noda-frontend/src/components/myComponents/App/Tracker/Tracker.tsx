@@ -117,7 +117,7 @@ const AppTracker = () => {
                                         key={item.id}
                                         onClick={() => setSelectedNode(item)}
                                         className={cn(
-                                            "p-3 flex flex-col justify-center min-h-[72px] transition-colors cursor-pointer group relative",
+                                            "p-2 flex flex-col justify-center min-h-[72px] transition-colors cursor-pointer group relative",
                                             borderClasses,
                                             isUnscheduled ? "bg-zinc-200 hover:bg-zinc-200/80" : "bg-white hover:bg-zinc-200/60"
                                         )}
@@ -126,7 +126,7 @@ const AppTracker = () => {
                                             <div className="flex flex-col min-w-0">
                                                 <span className={cn(
                                                     "text-[9px] font-mono font-black uppercase tracking-widest",
-                                                    isUnscheduled ? "text-orange-600" : "text-zinc-500"
+                                                    isUnscheduled ? "text-blue-600" : "text-zinc-500"
                                                 )}>
                                                     {isUnscheduled ? "INTELLIGENCE REQUIRED" : `APPLIED ${item.applied}`}
                                                     <span className="mx-1 opacity-30">•</span> {item.match}%

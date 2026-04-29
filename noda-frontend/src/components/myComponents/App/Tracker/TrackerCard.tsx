@@ -16,7 +16,7 @@ const NodeCard: React.FC<NodeCardProps> = ({ item, index, onClick }) => {
         <div
             onClick={onClick}
             className={cn(
-                "p-3 flex flex-col justify-center min-h-[72px] transition-colors cursor-pointer group relative",
+                "p-2 flex flex-col justify-center min-h-[72px] transition-colors cursor-pointer group relative",
                 borderClasses,
                 isUnscheduled ? "bg-zinc-200 hover:bg-zinc-200/80" : "bg-white hover:bg-zinc-200/60"
             )}
