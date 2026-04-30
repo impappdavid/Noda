@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const MOCK_DATA = {
     jobs: ["Frontend Developer", "Product Designer", "React Engineer", "UI Architect"],
-    users: ["alex_dev", "sarah_codes", "mike_builds", "tech_lead"],
+    users: ["alex_dev", "alekv", "sarah_codes", "mike_builds", "tech_lead"],
     companies: ["Google", "Meta", "Stripe", "Vercel", "Apple", "Amazon"],
     communities: ["reactjs", "typescript_help", "rust_lang", "career_growth"]
 };
