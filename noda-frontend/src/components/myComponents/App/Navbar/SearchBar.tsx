@@ -378,37 +378,39 @@ const SearchBar = () => {
           {/* MATCHES FOUND */}
           {suggestions.length > 0 && (
             <div className="flex flex-col">
-              <div className="px-3 py-1.5 bg-zinc-50 border-b border-zinc-100 text-[8px] font-black text-zinc-400 uppercase tracking-widest">
-                {query === "/" ? "Available_Commands" : "Match_Results"}
-              </div>
-              {suggestions.map((item: any, i) => (
-                <div
-                  key={i}
-                  onMouseEnter={() => setSelectionIndex(i)}
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    handleSelection(item);
-                  }}
-                  className={`px-3 py-2.5 cursor-pointer flex justify-between items-center group transition-colors ${selectionIndex === i ? "bg-zinc-900 text-white" : "hover:bg-zinc-50 text-zinc-900"}`}
-                >
-                  <div className="flex items-center gap-2">
-                    {activeCommand === "/job" ? (
-                      <MapPin size={10} />
-                    ) : (
-                      item.icon || <Search size={10} />
-                    )}
-                    <span className="text-[11px] font-bold uppercase">
-                      {typeof item === "string" ? item : item.name || item.id}
-                    </span>
-                  </div>
-                  <ChevronRight
-                    size={12}
-                    className={
-                      selectionIndex === i ? "opacity-100" : "opacity-0"
-                    }
-                  />
+              <div className="flex justify-between items-center border-b border-zinc-300">
+                <div className="px-2 py-1.5 bg-zinc-50  text-[9px] font-black text-zinc-500 uppercase tracking-widest">
+                  {query === "/" ? "Commands" : "Match_Results"}
                 </div>
-              ))}
+                <div className="px-2 py-1.5 bg-zinc-50  text-[9px] font-black text-zinc-500 uppercase tracking-wider">
+                  Press ENTER to select
+                </div>
+              </div>
+              <div className="grid grid-cols-4 divide-x divide-zinc-300">
+                {suggestions.map((item: any, i) => (
+                  <div
+                    key={i}
+                    onMouseEnter={() => setSelectionIndex(i)}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      handleSelection(item);
+                    }}
+                    className={`p-2 cursor-pointer flex justify-between items-center group transition-colors ${selectionIndex === i ? "bg-zinc-200 text-black" : "hover:bg-zinc-50 text-zinc-900"}`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-bold ">
+                        {typeof item === "string" ? item : item.name || item.id}
+                      </span>
+                    </div>
+                    <ChevronRight
+                      size={12}
+                      className={
+                        selectionIndex === i ? "opacity-100" : "opacity-0"
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
