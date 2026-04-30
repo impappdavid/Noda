@@ -1,155 +1,230 @@
-import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Search, X, Briefcase, Users, Building2, Hash, ArrowRight, Search as SearchIcon } from "lucide-react";
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect, useMemo } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Search, X, User, Building2, Briefcase, MapPin, Hash, ChevronRight, History } from "lucide-react";
 
+// --- MOCK DATABASE ---
 const MOCK_DATA = {
-    jobs: ["Frontend Developer", "Product Designer", "React Engineer", "UI Architect"],
-    users: ["alex_dev", "alekv", "sarah_codes", "mike_builds", "tech_lead"],
-    companies: ["Google", "Meta", "Stripe", "Vercel", "Apple", "Amazon"],
-    communities: ["reactjs", "typescript_help", "rust_lang", "career_growth"]
+    users: [
+        { name: "Alex Rivera", handle: "arivera", type: "user" },
+        { name: "Sarah Chen", handle: "schen_dev", type: "user" },
+        { name: "Marcus Wright", handle: "mwright", type: "user" },
+    ],
+    companies: [
+        { name: "Google", domain: "google.com", type: "company" },
+        { name: "Vercel", domain: "vercel.com", type: "company" },
+        { name: "Tesla", domain: "tesla.com", type: "company" },
+    ],
+    communities: [
+        { name: "React Developers", members: "12k", type: "comm" },
+        { name: "Design Ethics", members: "5k", type: "comm" },
+    ],
+    locations: ["Europe", "America", "Asia", "London, UK", "New York, US", "Berlin, DE", "Tokyo, JP"]
 };
+
+const COMMANDS = [
+    { id: "/user", label: "User", icon: <User size={12} />, path: 'user', data: MOCK_DATA.users },
+    { id: "/job", label: "Jobs", icon: <Briefcase size={12} />, path: 'jobs', data: [] },
+    { id: "/company", label: "Company", icon: <Building2 size={12} />, path: 'company', data: MOCK_DATA.companies },
+    { id: "/comm", label: "Comm", icon: <Hash size={12} />, path: 'communities', data: MOCK_DATA.communities },
+];
 
 const SearchBar = () => {
     const navigate = useNavigate();
-    const [searchValue, setSearchValue] = useState("");
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const location = useLocation();
+    
     const containerRef = useRef<HTMLDivElement>(null);
+    const roleInputRef = useRef<HTMLInputElement>(null);
+    const locInputRef = useRef<HTMLInputElement>(null);
+    const mainInputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-                setIsPopupOpen(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
+    const [activeCommand, setActiveCommand] = useState<string | null>(null);
+    const [query, setQuery] = useState(""); 
+    const [locValue, setLocValue] = useState(""); 
+    const [activeParam, setActiveParam] = useState<"role" | "loc">("role");
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectionIndex, setSelectionIndex] = useState(0);
 
-    const getResults = (category: keyof typeof MOCK_DATA) => {
-        const items = MOCK_DATA[category];
-        if (!searchValue) return items.slice(0, 3);
-        return items.filter(item => item.toLowerCase().startsWith(searchValue.toLowerCase())).slice(0, 3);
-    };
-
-    const handleNavigation = (category: string, value: string, isDirect: boolean) => {
-        setIsPopupOpen(false);
-        const paths: Record<string, string> = {
-            "Jobs": `/app/jobs?role=${value}`,
-            "Users": isDirect ? `/app/user/${value.toLowerCase()}` : `/app/user?username=${value}`,
-            "Companies": isDirect ? `/app/company/${value.toLowerCase()}` : `/app/company?company=${value}`,
-            "Communities": isDirect ? `/app/community/${value.toLowerCase()}` : `/app/community?slug=${value}`
-        };
-        navigate(paths[category] || `/app/search?q=${value}`);
-    };
-
-    const allCategories = [
-        { label: "Jobs", icon: <Briefcase size={10} />, data: getResults('jobs') },
-        { label: "Users", icon: <Users size={10} />, data: getResults('users') },
-        { label: "Companies", icon: <Building2 size={10} />, data: getResults('companies') },
-        { label: "Communities", icon: <Hash size={10} />, data: getResults('communities') },
+    const history = [
+        { text: "Google", type: "company", path: "/app/company/google" },
+        { text: "React Developer", type: "jobs", path: "/app/jobs?role=React+Developer&location=Europe" }
     ];
 
-    const activeCategories = allCategories.filter(cat => cat.data.length > 0);
-    const hasAnyResults = activeCategories.length > 0;
+    // --- 1. SYNC STATE WITH URL (PERSIST SEARCH) ---
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const path = location.pathname;
+
+        if (path.includes('/jobs')) {
+            setActiveCommand("/job");
+            setQuery(params.get('role') || "");
+            setLocValue(params.get('location') || "");
+        } else if (path.includes('/user')) {
+            setActiveCommand("/user");
+            setQuery(params.get('q') || "");
+        } else if (path.includes('/company')) {
+            setActiveCommand("/company");
+            setQuery(params.get('q') || "");
+        } else if (path.includes('/communities')) {
+            setActiveCommand("/comm");
+            setQuery(params.get('q') || "");
+        } else {
+            setActiveCommand(null);
+            setQuery("");
+        }
+    }, [location.pathname]); // Removed location.search from here to prevent loops while typing
+
+    // --- 2. FOCUS MANAGEMENT ---
+    useEffect(() => {
+        if (isOpen && activeCommand) {
+            if (activeCommand === "/job") (activeParam === "role" ? roleInputRef.current : locInputRef.current)?.focus();
+            else roleInputRef.current?.focus();
+        }
+    }, [activeCommand, activeParam, isOpen]);
+
+    // --- 3. SUGGESTION ENGINE (THE MATCH POPUP) ---
+    const suggestions = useMemo(() => {
+        // If the user just typed "/" show commands
+        if (query === "/") return COMMANDS;
+
+        const currentVal = activeParam === "role" ? query : locValue;
+        
+        // Show matches if there is an active command and a value
+        if (activeCommand && currentVal.length > 0) {
+            // Location matching for Jobs
+            if (activeCommand === "/job" && activeParam === "loc") {
+                return MOCK_DATA.locations.filter(l => l.toLowerCase().includes(currentVal.toLowerCase())).slice(0, 5);
+            }
+
+            // Data matching for User/Company/Comm
+            const cmdObj = COMMANDS.find(c => c.id === activeCommand);
+            if (cmdObj?.data && cmdObj.data.length > 0) {
+                return cmdObj.data.filter((item: any) => 
+                    item.name.toLowerCase().includes(currentVal.toLowerCase()) || 
+                    (item.handle && item.handle.toLowerCase().includes(currentVal.toLowerCase()))
+                ).slice(0, 5);
+            }
+        }
+        
+        return [];
+    }, [activeCommand, activeParam, query, locValue]);
+
+    useEffect(() => { setSelectionIndex(0); }, [suggestions]);
+
+    // --- 4. HANDLERS ---
+    const handleSelection = (item: any) => {
+        if (query === "/") {
+            setActiveCommand(item.id);
+            setQuery("");
+        } else if (activeCommand === "/job" && activeParam === "loc") {
+            setLocValue(item);
+        } else if (typeof item === 'object') {
+            setQuery(item.name);
+        }
+        setIsOpen(false);
+    };
+
+    const executeSearch = () => {
+        const path = COMMANDS.find(c => c.id === activeCommand)?.path || 'search';
+        if (activeCommand === "/job") {
+            navigate(`/app/jobs?role=${encodeURIComponent(query)}&location=${encodeURIComponent(locValue)}`);
+        } else {
+            navigate(`/app/${path}?q=${encodeURIComponent(query)}`);
+        }
+        setIsOpen(false);
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (isOpen && suggestions.length > 0) {
+            if (e.key === 'ArrowDown') { e.preventDefault(); setSelectionIndex(prev => (prev + 1) % suggestions.length); return; }
+            if (e.key === 'ArrowUp') { e.preventDefault(); setSelectionIndex(prev => (prev - 1 + suggestions.length) % suggestions.length); return; }
+            if (e.key === 'Enter') { e.preventDefault(); handleSelection(suggestions[selectionIndex]); return; }
+        }
+        if (e.key === 'Tab' && activeCommand === "/job") {
+            e.preventDefault();
+            setActiveParam(prev => prev === "role" ? "loc" : "role");
+            return;
+        }
+        if (e.key === 'Enter') { e.preventDefault(); executeSearch(); }
+        if (e.key === 'Backspace' && !query && activeCommand && activeParam === "role") {
+            setActiveCommand(null);
+            setTimeout(() => mainInputRef.current?.focus(), 0);
+        }
+    };
+
+    useEffect(() => {
+        const out = (e: MouseEvent) => { if (containerRef.current && !containerRef.current.contains(e.target as Node)) setIsOpen(false); };
+        document.addEventListener("mousedown", out);
+        return () => document.removeEventListener("mousedown", out);
+    }, []);
 
     return (
-        <div ref={containerRef} className="flex-1 max-w-xl relative z-50">
-            {/* Input Bar */}
-            <div className={`relative flex items-center bg-zinc-50 border ${isPopupOpen ? 'border-blue-500' : 'border-zinc-300'} transition-all px-2 h-7 gap-1.5`}>
-                <Search className={`w-3 h-3 ${isPopupOpen ? 'text-zinc-900' : 'text-zinc-400'}`} />
-                <input
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    onFocus={() => setIsPopupOpen(true)}
-                    placeholder="Search..."
-                    className="flex-1 bg-transparent border-none outline-none text-[10px] font-mono placeholder:text-zinc-400 h-full uppercase font-bold"
-                />
-                {searchValue && (
-                    <button onClick={() => setSearchValue("")} className="hover:text-zinc-900 text-zinc-400 p-0.5 cursor-pointer">
-                        <X size={10} />
-                    </button>
+        <div ref={containerRef} className="flex-1 max-w-xl relative z-50 font-mono">
+            <div className={`flex items-center bg-zinc-50 border h-9 px-2 gap-2 transition-all ${isOpen ? 'border-zinc-900 bg-white shadow-sm' : 'border-zinc-300'}`}>
+                {!activeCommand && <Search size={14} className="text-zinc-400" />}
+                {activeCommand && <div className="bg-zinc-900 text-white px-1.5 py-0.5 text-[10px] font-black uppercase shrink-0">{activeCommand.replace("/", "")}</div>}
+
+                {activeCommand === "/job" ? (
+                    <div className="flex items-center gap-1 flex-1">
+                        <div className={`flex items-center px-1.5 h-6 border ${activeParam === 'role' ? 'border-zinc-900 bg-white' : 'border-transparent text-zinc-400'}`}>
+                            <span className="text-[8px] mr-1 uppercase font-black">Role</span>
+                            <input ref={roleInputRef} value={query} onFocus={() => {setActiveParam("role"); setIsOpen(true);}} onChange={(e) => setQuery(e.target.value)} onKeyDown={handleKeyDown} className="bg-transparent border-none outline-none text-[10px] w-28 uppercase font-bold" />
+                        </div>
+                        <div className={`flex items-center px-1.5 h-6 border ${activeParam === 'loc' ? 'border-zinc-900 bg-white' : 'border-transparent text-zinc-400'}`}>
+                            <span className="text-[8px] mr-1 uppercase font-black">Loc</span>
+                            <input ref={locInputRef} value={locValue} onFocus={() => {setActiveParam("loc"); setIsOpen(true);}} onChange={(e) => setLocValue(e.target.value)} onKeyDown={handleKeyDown} className="bg-transparent border-none outline-none text-[10px] w-28 uppercase font-bold" />
+                        </div>
+                    </div>
+                ) : activeCommand ? (
+                    <div className="flex items-center bg-white border border-zinc-200 px-1.5 h-6 flex-1">
+                         <span className="text-[8px] mr-2 uppercase font-black text-zinc-400">Match</span>
+                         <input ref={roleInputRef} value={query} onFocus={() => setIsOpen(true)} onChange={(e) => setQuery(e.target.value)} onKeyDown={handleKeyDown} className="bg-transparent border-none outline-none text-[10px] w-full uppercase font-bold" />
+                    </div>
+                ) : (
+                    <input ref={mainInputRef} value={query} onChange={(e) => {
+                        setQuery(e.target.value); 
+                        if (e.target.value === "/") setIsOpen(true);
+                        const cmd = COMMANDS.find(c => e.target.value.toLowerCase().startsWith(c.id)); 
+                        if (cmd) { setActiveCommand(cmd.id); setQuery(""); }
+                    }} onFocus={() => setIsOpen(true)} onKeyDown={handleKeyDown} placeholder="/USER, /JOB..." className="flex-1 bg-transparent border-none outline-none text-[11px] placeholder:text-zinc-400 uppercase font-bold" />
                 )}
+
+                {(query || activeCommand) && <X size={14} className="text-zinc-400 cursor-pointer hover:text-red-500" onClick={() => { setActiveCommand(null); setQuery(""); setLocValue(""); setIsOpen(false); }} />}
             </div>
 
-            <AnimatePresence>
-                {isPopupOpen && searchValue && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -2 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -2 }}
-                        className="absolute top-full mt-1 left-0 w-full bg-white border border-blue-500 overflow-hidden"
-                    >
-                        {!hasAnyResults ? (
-                            /* FALLBACK SEARCH OPTIONS */
-                            <div className="p-1.5 grid grid-cols-2 gap-1 bg-zinc-50">
-                                {allCategories.map(cat => (
-                                    <button 
-                                        key={cat.label}
-                                        onClick={() => handleNavigation(cat.label, searchValue, false)}
-                                        className="flex items-center justify-between p-1.5 border border-zinc-200 bg-white hover:border-blue-500 transition-all group"
-                                    >
-                                        <span className="text-[9px] font-bold font-mono uppercase text-zinc-600">{cat.label}</span>
-                                        <span className="text-[6px] font-black bg-zinc-100 px-1 py-0.5 text-zinc-400 group-hover:text-blue-600">SEARCH</span>
-                                    </button>
-                                ))}
+            {isOpen && (
+                <div className="absolute top-[calc(100%+4px)] left-0 w-full bg-white border border-zinc-900 shadow-2xl overflow-hidden">
+                    {/* IDLE: HISTORY */}
+                    {!query && !activeCommand && (
+                        <div className="flex flex-col">
+                            <div className="px-3 py-1.5 bg-zinc-50 border-b border-zinc-100 text-[8px] font-black text-zinc-400 uppercase flex items-center gap-2"><History size={10}/> Registry_Scanning</div>
+                            {history.map((h, i) => (
+                                <div key={i} onMouseDown={(e) => { e.preventDefault(); navigate(h.path); }} className="px-3 py-2.5 hover:bg-zinc-50 cursor-pointer flex justify-between items-center group">
+                                    <span className="text-[11px] text-zinc-600 font-bold uppercase">{h.text}</span>
+                                    <span className="text-[9px] text-zinc-300 font-black uppercase">in {h.type}</span>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+
+                    {/* MATCHES FOUND */}
+                    {suggestions.length > 0 && (
+                        <div className="flex flex-col">
+                            <div className="px-3 py-1.5 bg-zinc-50 border-b border-zinc-100 text-[8px] font-black text-zinc-400 uppercase tracking-widest">
+                                {query === "/" ? "Available_Commands" : "Match_Results"}
                             </div>
-                        ) : (
-                            /* 2-COL GRID RESULTS */
-                            <div className="grid grid-cols-1 sm:grid-cols-2 divide-x divide-zinc-200">
-                                {activeCategories.map((cat) => (
-                                    <div key={cat.label} className={`p-1.5 border-b border-zinc-100 last:border-b-0 ${activeCategories.length === 1 ? 'sm:col-span-2' : ''}`}>
-                                        <div className="flex items-center gap-1.5 px-1 mb-1">
-                                            <span className="text-[7px] font-black uppercase text-zinc-400 tracking-widest">{cat.label}</span>
-                                        </div>
-
-                                        <div className="flex flex-col gap-1">
-                                            {cat.data.map((item, idx) => {
-                                                // Predict direct link for the FIRST result in a category
-                                                const isDirectMatch = idx === 0 && cat.label !== "Jobs";
-                                                
-                                                let tagLabel = "SEARCH";
-                                                if (isDirectMatch) {
-                                                    if (cat.label === "Users") tagLabel = "USER";
-                                                    if (cat.label === "Companies") tagLabel = "COMPANY";
-                                                    if (cat.label === "Communities") tagLabel = "COMMUNITY";
-                                                }
-
-                                                return (
-                                                    <button
-                                                        key={item}
-                                                        onClick={() => handleNavigation(cat.label, item, isDirectMatch)}
-                                                        className={`group w-full flex items-center justify-between p-1.5 cursor-pointer border transition-all
-                                                            ${isDirectMatch 
-                                                                ? 'bg-blue-600 border-blue-600 text-white' 
-                                                                : 'bg-zinc-50 border-zinc-200 text-zinc-600 hover:border-blue-300 hover:bg-white'}
-                                                        `}
-                                                    >
-                                                        <div className="flex items-center gap-1.5 min-w-0">
-                                                            {isDirectMatch && (
-                                                                <div className="w-3.5 h-3.5 bg-white flex items-center justify-center shrink-0 border border-blue-400">
-                                                                    <span className="text-[8px] text-blue-600 font-black">{item[0]}</span>
-                                                                </div>
-                                                            )}
-                                                            <span className="text-[10px] font-mono font-bold uppercase truncate">{item}</span>
-                                                        </div>
-
-                                                        <span className={`text-[6px] font-black tracking-widest px-1 py-0.5 border shrink-0
-                                                            ${isDirectMatch ? 'border-white/40 bg-white/10 text-white' : 'border-zinc-300 bg-zinc-100 text-zinc-400'}
-                                                        `}>
-                                                            {tagLabel}
-                                                        </span>
-                                                    </button>
-                                                );
-                                            })}
-                                        </div>
+                            {suggestions.map((item: any, i) => (
+                                <div key={i} onMouseEnter={() => setSelectionIndex(i)} onMouseDown={(e) => { e.preventDefault(); handleSelection(item); }} className={`px-3 py-2.5 cursor-pointer flex justify-between items-center group transition-colors ${selectionIndex === i ? 'bg-zinc-900 text-white' : 'hover:bg-zinc-50 text-zinc-900'}`}>
+                                    <div className="flex items-center gap-2">
+                                        {activeCommand === "/job" ? <MapPin size={10}/> : (item.icon || <Search size={10}/>)}
+                                        <span className="text-[11px] font-bold uppercase">{typeof item === 'string' ? item : (item.name || item.id)}</span>
                                     </div>
-                                ))}
-                            </div>
-                        )}
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                                    <ChevronRight size={12} className={selectionIndex === i ? 'opacity-100' : 'opacity-0'} />
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

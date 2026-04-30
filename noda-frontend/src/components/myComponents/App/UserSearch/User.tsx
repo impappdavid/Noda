@@ -8,9 +8,9 @@ import Suggestions from '../Home/Suggestions';
 // --- MOCK_DATA_RESOURCES ---
 const USER_DATA = Array.from({ length: 51 }, (_, i) => ({
     id: `u${i + 1}`,
-    name: `Node Specialist ${i + 1}`,
+    name: `Alex Specialist ${i + 1}`,
     username: `user_${i + 1}`,
-    role: i % 3 === 0 ? "Systems Architect" : "Frontend Lead",
+    role: i % 3 === 0 ? "Alex Architect" : "Alex Lead",
     company: i % 2 === 0 ? "OpenAI" : "Vercel",
     level: `L${(i % 7) + 1}`,
     followers: `${(Math.random() * 10).toFixed(1)}K`
@@ -70,13 +70,13 @@ const UserSearchPage = () => {
         <div className="min-h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-x-hidden">
             <Navbar />
 
-            <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4">
-                <aside className="w-25 ">
+            <div className="max-w-4xl w-full mx-auto px-6 flex gap-4">
+                <aside className="w-25 flex-none">
                     <AppSideBar />
                 </aside>
 
                 <main className="flex flex-1 gap-2 bg-white relative min-h-screen">
-                    <div className="flex-1 flex flex-col pt-12.5 border-x border-zinc-300">
+                    <div className="flex-1 flex flex-col pt-12 border-x border-zinc-300">
 
                         {/* SEARCH HEADER */}
                         <div className="p-2 border-b border-zinc-300 bg-white/80 backdrop-blur-md flex items-center justify-between sticky top-0 z-20">
