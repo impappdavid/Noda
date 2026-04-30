@@ -1,196 +1,115 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { Search, X, Terminal } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
+import { Search, X, Briefcase, Users, Building2, Hash } from "lucide-react";
+import { motion, AnimatePresence } from 'framer-motion'; // Added Framer Motion
+
+const MOCK_DATA = {
+    jobs: ["Frontend Developer", "Product Designer", "React Engineer", "UI Architect"],
+    users: ["alex_dev", "sarah_codes", "mike_builds", "tech_lead"],
+    companies: ["Google", "Meta", "Stripe", "Vercel"],
+    communities: ["reactjs", "typescript_help", "rust_lang", "career_growth"]
+};
 
 const SearchBar = () => {
     const navigate = useNavigate();
-    const location = useLocation(); // Listen to URL changes
+    const [searchValue, setSearchValue] = useState("");
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Input Refs
-    const roleInputRef = useRef<HTMLInputElement>(null);
-    const locInputRef = useRef<HTMLInputElement>(null);
-    const mainInputRef = useRef<HTMLInputElement>(null);
-
-    // Command Logic States
-    const [activeCommand, setActiveCommand] = useState<string | null>(null);
-    const [roleValue, setRoleValue] = useState("");
-    const [locValue, setLocValue] = useState("");
-    const [activeParam, setActiveParam] = useState<"role" | "loc">("role");
-
-    // 1. SYNC WITH URL: This shows the search info IN the searchbar when the page loads
     useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const role = params.get("role");
-        const loc = params.get("location");
-
-        if (location.pathname.includes("/jobs") && (role || loc)) {
-            setActiveCommand("/job");
-            setRoleValue(role || "");
-            setLocValue(loc || "");
-            // Keep focus in the last empty box or role by default
-            setActiveParam(role && !loc ? "loc" : "role");
-        }
-    }, [location]);
-
-    // 2. FORCED FOCUS PROTOCOL
-    useEffect(() => {
-        if (activeCommand) {
-            if (activeParam === "role") {
-                roleInputRef.current?.focus();
-            } else {
-                locInputRef.current?.focus();
+        const handleClickOutside = (event: MouseEvent) => {
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+                setIsPopupOpen(false);
             }
-        }
-    }, [activeCommand, activeParam]);
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = e.target.value;
-
-        if (!activeCommand) {
-            const cmd = ["/user", "/job", "/company"].find(c => val.toLowerCase().startsWith(c));
-            if (cmd) {
-                setActiveCommand(cmd);
-                setRoleValue("");
-                setActiveParam("role");
-            } else {
-                setRoleValue(val);
-            }
-            return;
-        }
-
-        if (activeParam === "role") setRoleValue(val);
-        else setLocValue(val);
+    const getResults = (category: keyof typeof MOCK_DATA) => {
+        const items = MOCK_DATA[category];
+        if (!searchValue) return items.slice(0, 3);
+        return items
+            .filter(item => item.toLowerCase().includes(searchValue.toLowerCase()))
+            .slice(0, 3);
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Tab' && activeCommand === "/job") {
-            e.preventDefault();
-            setActiveParam(prev => prev === "role" ? "loc" : "role");
-        }
-
-        if (e.key === 'Backspace') {
-            if (activeCommand === "/job" && activeParam === "loc" && !locValue) {
-                setActiveParam("role");
-                e.preventDefault();
-            } else if (!roleValue && activeCommand && activeParam === "role") {
-                setActiveCommand(null);
-                setRoleValue("");
-                e.preventDefault();
-                setTimeout(() => mainInputRef.current?.focus(), 0);
-            }
-        }
-
-        if (e.key === 'Enter') {
-            executeSearch();
-        }
+    const handleNavigation = (category: string, value: string) => {
+        setIsPopupOpen(false);
+        setSearchValue(value);
+        const paths: Record<string, string> = {
+            "Jobs": `/app/jobs?role=${value}`,
+            "Users": `/app/user?username=${value}`,
+            "Companies": `/app/company?company=${value}`,
+            "Communities": `/app/community?slug=${value}`
+        };
+        navigate(paths[category] || `/app/search?q=${value}`);
     };
 
-    const executeSearch = () => {
-        if (!roleValue && !activeCommand) return;
+    const allCategories = [
+        { label: "Jobs", icon: <Briefcase size={10} />, data: getResults('jobs') },
+        { label: "Users", icon: <Users size={10} />, data: getResults('users') },
+        { label: "Companies", icon: <Building2 size={10} />, data: getResults('companies') },
+        { label: "Communities", icon: <Hash size={10} />, data: getResults('communities') },
+    ];
 
-        let path = "search";
-        const params = new URLSearchParams();
-
-        if (activeCommand === "/job") {
-            path = "jobs";
-            if (roleValue) params.append("role", roleValue);
-            if (locValue) params.append("location", locValue);
-        } else if (activeCommand === "/user") {
-            path = "user";
-            params.append("username", roleValue);
-        } else if (activeCommand === "/company"){
-            path = "company";
-            params.append("company", roleValue);
-        }
-
-        navigate(`/app/${path}?${params.toString()}`);
-
-        // We don't reset here anymore because the useEffect handles the state 
-        // based on the URL we just navigated to.
-    };
-
-    const clearAll = () => {
-        setActiveCommand(null);
-        setRoleValue("");
-        setLocValue("");
-        setActiveParam("role");
-        navigate(location.pathname); // Clear URL params
-    };
+    const activeCategories = allCategories.filter(cat => cat.data.length > 0);
 
     return (
-        <div ref={containerRef} className="flex-1 max-w-xl relative group z-50">
-            <div className="relative flex items-center bg-zinc-50 border border-zinc-300 focus-within:border-orange-500 transition-all px-2 h-8 gap-2 overflow-hidden ">
-
-                {!activeCommand && <Search className="w-3.5 h-3.5 text-zinc-400 ml-1" />}
-
-                {/* STYLED COMMAND NODE */}
-                {activeCommand && (
-
-                    <span className="text-xs font-mono font-black text-zinc-900 shrink-0">
-
-                        {activeCommand}
-
-                    </span>
-
-                )}
-
-                {/* DUAL PARAMETER INTERFACE (/job) */}
-                {activeCommand === "/job" ? (
-                    <div className="flex items-center gap-1.5 flex-1 min-w-0">
-                        <div className="flex items-center border border-zinc-400 bg-zinc-200/60 px-1.5 h-[24px] gap-1.5">
-                            <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-tighter border-r border-zinc-300 pr-1.5 h-full flex items-center">role</span>
-                            <input
-                                ref={roleInputRef}
-                                value={roleValue}
-                                onChange={handleInputChange}
-                                onKeyDown={handleKeyDown}
-                                className="bg-transparent border-none outline-none text-[10px] font-mono font-bold uppercase w-fit min-w-[40px]"
-                                style={{ width: `${Math.max(roleValue.length * 7, 40)}px` }}
-                            />
-                        </div>
-
-                        <div className="flex items-center border border-zinc-400 bg-zinc-200/60 px-1.5 h-[24px] gap-1.5">
-                            <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-tighter border-r border-zinc-300 pr-1.5 h-full flex items-center">location</span>
-                            <input
-                                ref={locInputRef}
-                                value={locValue}
-                                onChange={handleInputChange}
-                                onKeyDown={handleKeyDown}
-                                className="bg-transparent border-none outline-none text-[10px] font-mono font-bold uppercase w-fit min-w-[40px]"
-                                style={{ width: `${Math.max(locValue.length * 7, 60)}px` }}
-                            />
-                        </div>
-                    </div>
-                ) : activeCommand ? (
-                    <div className="flex items-center bg-zinc-200/60 border border-zinc-400 px-1.5 h-[24px] gap-1.5">
-                        <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-tighter border-r border-zinc-300 pr-1.5 h-full flex items-center uppercase">query</span>
-                        <input
-                            ref={roleInputRef}
-                            value={roleValue}
-                            onChange={handleInputChange}
-                            onKeyDown={handleKeyDown}
-                            className="bg-transparent border-none outline-none text-[10px] font-mono font-bold uppercase w-fit min-w-[40px]"
-                            style={{ width: `${Math.max(roleValue.length * 8, 40)}px` }}
-                        />
-                    </div>
-                ) : (
-                    <input
-                        ref={mainInputRef}
-                        value={roleValue}
-                        onChange={handleInputChange}
-                        onKeyDown={handleKeyDown}
-                        placeholder="/user, /job, /company..."
-                        className="flex-1 bg-transparent border-none outline-none text-xs font-mono placeholder:text-zinc-400 h-full"
-                    />
-                )}
-
-                {(roleValue || activeCommand) && (
-                    <button onClick={clearAll} className="hover:text-red-500 text-zinc-400 ml-auto shrink-0 transition-colors cursor-pointer p-1">
+        <div ref={containerRef} className="flex-1 max-w-xl relative z-50">
+            {/* Input Bar */}
+            <div className={`relative flex items-center bg-zinc-50 border ${isPopupOpen ? 'border-blue-500' : 'border-zinc-300'} transition-all px-2 h-8 gap-2`}>
+                <Search className={`w-3.5 h-3.5 ${isPopupOpen ? 'text-zinc-900' : 'text-zinc-400'}`} />
+                <input
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    onFocus={() => setIsPopupOpen(true)}
+                    placeholder="Search..."
+                    className="flex-1 bg-transparent border-none outline-none text-[11px] font-mono placeholder:text-zinc-500 h-full"
+                />
+                {searchValue && (
+                    <button onClick={() => setSearchValue("")} className="hover:text-zinc-900 text-zinc-400 p-1 cursor-pointer">
                         <X size={12} />
                     </button>
                 )}
             </div>
+
+            {/* Animated Popup */}
+            <AnimatePresence>
+                {isPopupOpen && activeCategories.length > 0 && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.15, ease: "easeOut" }}
+                        className="absolute top-full mt-2 left-0 w-full bg-white border border-blue-500 overflow-hidden"
+                    >
+                        <div className="grid grid-cols-1 sm:grid-cols-2 divide-x divide-y divide-zinc-300">
+                            {activeCategories.map((cat) => (
+                                <div key={cat.label} className="p-2 space-y-1">
+                                    <div className="flex items-center gap-2 text-zinc-500">
+                                        <span className="text-[8px] font-bold uppercase tracking-widest">
+                                            {cat.label}
+                                        </span>
+                                    </div>
+
+                                    <div className="flex flex-col">
+                                        {cat.data.map((item) => (
+                                            <button
+                                                key={item}
+                                                onClick={() => handleNavigation(cat.label, item)}
+                                                className="text-left text-[11px] font-mono font-bold text-zinc-600 hover:text-blue-600 p-0.5 hover:bg-blue-500/20 hover:translate-x-1 cursor-pointer transition-all"
+                                            >
+                                                {item}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 };
