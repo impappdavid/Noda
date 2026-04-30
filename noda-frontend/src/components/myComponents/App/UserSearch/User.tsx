@@ -79,7 +79,7 @@ const UserSearchPage = () => {
                     <div className="flex-1 flex flex-col pt-12 border-x border-zinc-300">
 
                         {/* SEARCH HEADER */}
-                        <div className="p-2 border-b border-zinc-300 bg-white/80 backdrop-blur-md flex items-center justify-between sticky top-0 z-20">
+                        <div className="p-2 pt-3.5 border-b border-zinc-300 bg-white/80 backdrop-blur-md flex items-center justify-between sticky top-0 z-20">
                             <h1 className="text-[10px] font-bold uppercase tracking-widest text-zinc-500">
                                 Users
                             </h1>
