@@ -1,34 +1,39 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { X, ArrowUpRight, Loader2 } from "lucide-react";
+import { X, Loader2, Users2, Star, Plus, Check } from "lucide-react";
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import Suggestions from '../Home/Suggestions';
 
-// Mock Data
 const COMPANY_DATA = [
-    { id: "c1", name: "OpenAI", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" },
-    { id: "c2", name: "Vercel", logo: "https://www.vectorlogo.zone/logos/vercel/vercel-icon.svg" },
-    { id: "c3", name: "Anthropic", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Anthropic_logo.svg" },
-    { id: "c4", name: "Google Cloud", logo: "https://www.vectorlogo.zone/logos/google_cloud/google_cloud-icon.svg" },
-    { id: "c5", name: "Meta", logo: "https://www.vectorlogo.zone/logos/facebook/facebook-official.svg" },
-    { id: "c6", name: "Stripe", logo: "https://www.vectorlogo.zone/logos/stripe/stripe-icon.svg" },
-    { id: "c7", name: "GitHub", logo: "https://www.vectorlogo.zone/logos/github/github-icon.svg" },
-    { id: "c8", name: "Tesla", logo: "https://www.vectorlogo.zone/logos/tesla/tesla-icon.svg" },
-    { id: "c9", name: "Amazon AWS", logo: "https://www.vectorlogo.zone/logos/amazon_aws/amazon_aws-icon.svg" },
-    { id: "c10", name: "Microsoft", logo: "https://www.vectorlogo.zone/logos/microsoft/microsoft-icon.svg" },
-    { id: "c11", name: "Netflix", logo: "https://www.vectorlogo.zone/logos/netflix/netflix-icon.svg" },
-    { id: "c12", name: "Airbnb", logo: "https://www.vectorlogo.zone/logos/airbnb/airbnb-icon.svg" },
-    { id: "c13", name: "Slack", logo: "https://www.vectorlogo.zone/logos/slack/slack-icon.svg" },
-    { id: "c14", name: "Spotify", logo: "https://www.vectorlogo.zone/logos/spotify/spotify-icon.svg" },
-    { id: "c15", name: "Docker", logo: "https://www.vectorlogo.zone/logos/docker/docker-icon.svg" },
-    { id: "c16", name: "NVIDIA", logo: "https://www.vectorlogo.zone/logos/nvidia/nvidia-icon.svg" },
-    { id: "c17", name: "DigitalOcean", logo: "https://www.vectorlogo.zone/logos/digitalocean/digitalocean-icon.svg" },
-    { id: "c18", name: "Cloudflare", logo: "https://www.vectorlogo.zone/logos/cloudflare/cloudflare-icon.svg" },
-    { id: "c19", name: "Notion", logo: "https://www.vectorlogo.zone/logos/notion/notion-icon.svg" },
-    { id: "c20", name: "Discord", logo: "https://www.vectorlogo.zone/logos/discordapp/discordapp-icon.svg" },
-    // You can repeat these or add more unique ones to reach 51+
-].map((item, i) => ({ ...item, id: `c${i + 1}` })); // Ensures unique IDs if you duplicate the list
+    { 
+        id: "c1", 
+        name: "OpenAI", 
+        sector: "AI/ML", 
+        logo: "https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg",
+        followers: "1.2M",
+        teamSize: "500+",
+        desc: "Developing safe and beneficial artificial general intelligence."
+    },
+    { 
+        id: "c2", 
+        name: "Vercel", 
+        sector: "Cloud", 
+        logo: "https://www.vectorlogo.zone/logos/vercel/vercel-icon.svg",
+        followers: "450K",
+        teamSize: "250+",
+        desc: "The platform for frontend developers, providing speed and reliability."
+    },
+    { 
+        id: "c3", 
+        name: "Stripe", 
+        sector: "Payments", 
+        logo: "https://www.vectorlogo.zone/logos/stripe/stripe-icon.svg",
+        followers: "800K",
+        teamSize: "7000+",
+        desc: "Financial infrastructure for the internet."
+    }
+].map((item, i) => ({ ...item, id: `c${i + 1}` }));
 
 const CompanySearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -37,7 +42,15 @@ const CompanySearchPage = () => {
 
     const [displayLimit, setDisplayLimit] = useState(12);
     const [isSyncing, setIsSyncing] = useState(false);
+    const [followedIds, setFollowedIds] = useState<string[]>([]);
     const observerTarget = useRef(null);
+
+    const toggleFollow = (e: React.MouseEvent, id: string) => {
+        e.stopPropagation();
+        setFollowedIds(prev => 
+            prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+        );
+    };
 
     const filteredCompanies = useMemo(() => {
         return COMPANY_DATA.filter(company =>
@@ -51,7 +64,7 @@ const CompanySearchPage = () => {
     const loadMoreNodes = useCallback(() => {
         setIsSyncing(true);
         setTimeout(() => {
-            setDisplayLimit(prev => prev + 9);
+            setDisplayLimit(prev => prev + 8);
             setIsSyncing(false);
         }, 600);
     }, []);
@@ -65,9 +78,8 @@ const CompanySearchPage = () => {
             },
             { threshold: 0.1 }
         );
-        const currentTarget = observerTarget.current;
-        if (currentTarget) observer.observe(currentTarget);
-        return () => { if (currentTarget) observer.unobserve(currentTarget); };
+        if (observerTarget.current) observer.observe(observerTarget.current);
+        return () => observer.disconnect();
     }, [hasMore, isSyncing, loadMoreNodes]);
 
     return (
@@ -82,59 +94,91 @@ const CompanySearchPage = () => {
                 <main className="flex flex-1 gap-2 bg-white relative min-h-screen">
                     <div className="flex-1 flex flex-col pt-12.5 border-x border-zinc-300">
 
-                        {/* HEADER */}
-                        <div className="px-4 py-3 border-b border-zinc-300 bg-white/80 backdrop-blur-md flex items-center justify-between sticky top-0 z-20">
-                            <span className="text-[8px] font-mono font-black text-zinc-400 uppercase tracking-[0.2em]">Entity_Visual_Registry</span>
-                            <div className="flex items-center gap-2">
-                                <div className="px-2 py-1 bg-zinc-900 text-white text-[10px] font-mono font-bold uppercase tracking-wider">
-                                    {query || "ALL_company"}
-                                </div>
-                                {query && <X size={14} className="cursor-pointer hover:text-red-500" onClick={() => setSearchParams({})} />}
+                        <div className="px-2 py-2 border-b border-zinc-300  backdrop-blur-md flex items-center justify-between sticky top-0 z-20">
+                            <h1 className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
+                                Companies
+                            </h1>
+                            <div className="text-[9px] font-mono font-bold text-zinc-500">
+                                {filteredCompanies.length} FOUND
                             </div>
                         </div>
 
-                        {/* GLASS LOGO GRID */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 bg-zinc-100 divide-x divide-zinc-300 divide-y">
-                            {currentCompanies.map((company) => (
-                                <div
-                                    key={company.id}
-                                    onClick={() => navigate(`/app/company/${company.id}`)}
-                                    className="relative aspect-square bg-white flex items-center justify-center p-8 group overflow-hidden cursor-pointer"
-                                >
-
-
-                                    {/* The Logo (Centered) */}
-                                    <img
-                                        src={company.logo}
-                                        alt={company.name}
-                                        className="w-16 h-16 object-contain group-hover:scale-110  transition-all duration-500"
-                                    />
-
-                                    {/* GLASS HOVER OVERLAY */}
-                                    <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 bg-zinc-800/60 backdrop-blur-sm transition-all duration-300 flex items-center justify-center p-4">
-                                        {/* Dark Blurred Glass Background */}
-
-                                        {/* Center Text UI */}
-                                        <div className="relative z-20 flex flex-col items-center gap-2 scale-0 group-hover:scale-100 transition-transform duration-300">
-                                            <h3 className="text-white text-xs font-bold uppercase tracking-[0.3em] text-center drop-shadow-md">
-                                                {company.name}
-                                            </h3>
-                                            <div className="w-8 h-[1px] bg-white" />
-                                            <ArrowUpRight size={14} className="text-white mt-1 animate-pulse" />
+                        <div className="flex flex-col bg-zinc-200 gap-[1px]">
+                            {currentCompanies.map((company) => {
+                                const isFollowed = followedIds.includes(company.id);
+                                return (
+                                    <div
+                                        key={company.id}
+                                        onClick={() => navigate(`/app/company/${company.name.toLowerCase()}`)}
+                                        className="relative bg-white flex group cursor-pointer hover:bg-zinc-50 transition-colors p-2 gap-3 items-center"
+                                    >
+                                        {/* Logo */}
+                                        <div className="w-14 h-14 bg-white  p-2 flex items-center justify-center shrink-0">
+                                            <img src={company.logo} alt="" className="w-full h-full object-contain transition-all duration-300" />
                                         </div>
+
+                                        {/* Info */}
+                                        <div className="flex-1 flex flex-col min-w-0">
+                                            <div className="flex items-center gap-2">
+                                                <h3 className="text-[11px] font-bold tracking-tight text-zinc-900 leading-none group-hover:underline underline-offset-2">
+                                                    {company.name}
+                                                </h3>
+                                                <span className="text-[8px] font-mono bg-zinc-200 px-1.5 py-0.5 border border-zinc-300 text-zinc-700 uppercase tracking-tighter">
+                                                    {company.sector}
+                                                </span>
+                                            </div>
+                                            <p className="text-[10px] text-zinc-600 line-clamp-1 mt-1 group-hover:text-zinc-800 transition-colors">
+                                                {company.desc}
+                                            </p>
+
+                                            <div className="flex items-center gap-3 mt-1">
+                                                <div className="flex items-center gap-1.5">
+                                                    <Star size={10} className="text-zinc-500 group-hover:text-orange-500 transition-colors" />
+                                                    <span className="text-[9px] font-mono font-bold text-zinc-500">{company.followers}</span>
+                                                </div>
+                                                <div className="flex items-center gap-1.5">
+                                                    <Users2 size={10} className="text-zinc-500 group-hover:text-blue-500 transition-colors" />
+                                                    <span className="text-[9px] font-mono font-bold text-zinc-500">{company.teamSize}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Squared Follow Button */}
+                                        <button
+                                            onClick={(e) => toggleFollow(e, company.id)}
+                                            className={`
+                                                relative flex items-center justify-center gap-2 min-w-[90px] h-7 
+                                                transition-all duration-300 ease-out shrink-0 border-0 rounded-none cursor-pointer
+                                                active:scale-95
+                                                ${isFollowed 
+                                                    ? 'bg-zinc-300 text-black hover:bg-zinc-400/60' 
+                                                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                                                }
+                                            `}
+                                        >
+                                            <div className={`flex items-center gap-1 ${isFollowed ? 'animate-in fade-in zoom-in-90' : ''}`}>
+                                                {isFollowed ? (
+                                                    <>
+                                                        <span className="text-[9px] font-bold uppercase tracking-tight">Following</span>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Plus size={12} strokeWidth={3} />
+                                                        <span className="text-[9px] font-bold uppercase tracking-tight">Follow</span>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </button>
                                     </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
 
-                        {/* INFINITE SCROLL LOADER */}
-                        <div ref={observerTarget} className="p-16 flex flex-col items-center justify-center bg-white border-t border-zinc-300">
+                        <div ref={observerTarget} className="p-10 flex flex-col items-center justify-center bg-white border-t border-zinc-300">
                             {isSyncing ? (
-                                <Loader2 size={20} className="animate-spin text-orange-500" />
-                            ) : hasMore ? (
-                                <span className="text-[8px] font-mono text-zinc-500 uppercase tracking-widest animate-pulse">Syncing_Nodes...</span>
+                                <Loader2 size={16} className="animate-spin text-blue-600" />
                             ) : (
-                                <span className="text-[8px] font-mono font-black text-zinc-500 uppercase tracking-widest">End_Of_Directory</span>
+                                <span className="text-[8px] font-mono text-zinc-300 uppercase tracking-[0.6em]">End_Of_Transmission</span>
                             )}
                         </div>
                     </div>
