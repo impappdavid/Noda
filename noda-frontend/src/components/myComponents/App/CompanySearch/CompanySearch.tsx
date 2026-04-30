@@ -94,7 +94,7 @@ const CompanySearchPage = () => {
                 <main className="flex flex-1 gap-2 bg-white relative min-h-screen">
                     <div className="flex-1 flex flex-col pt-12.5 border-x border-zinc-300">
 
-                        <div className="px-2 py-2 border-b border-zinc-300  backdrop-blur-md flex items-center justify-between sticky top-0 z-20">
+                        <div className="p-2 pt-3 border-b border-zinc-300  backdrop-blur-md flex items-center justify-between sticky top-0 z-20">
                             <h1 className="text-[10px] font-black uppercase tracking-widest text-zinc-500">
                                 Companies
                             </h1>
