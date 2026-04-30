@@ -250,9 +250,9 @@ const SearchBar = () => {
       <div
         className={`flex items-center bg-zinc-50 border h-9 px-2 gap-2 transition-all ${isOpen ? "border-zinc-400 bg-white shadow-sm" : "border-zinc-300"}`}
       >
-        {!activeCommand && <Search size={14} className="text-zinc-400" />}
+        {!activeCommand && <Search size={14} className="text-zinc-500" />}
         {activeCommand && (
-          <div className="bg-zinc-900 text-white px-1.5 py-0.5 text-[10px] font-black uppercase shrink-0">
+          <div className="bg-blue-500 text-white px-2 py-1 text-[10px] font-bold uppercase shrink-0">
             {activeCommand.replace("/", "")}
           </div>
         )}
@@ -260,9 +260,9 @@ const SearchBar = () => {
         {activeCommand === "/job" ? (
           <div className="flex items-center gap-1 flex-1">
             <div
-              className={`flex items-center px-1.5 h-6 border ${activeParam === "role" ? "border-zinc-900 bg-white" : "border-transparent text-zinc-400"}`}
+              className={`flex items-center  h-7 border ${activeParam === "role" ? "border-zinc-900 bg-white" : "border-zinc-300 text-zinc-500"}`}
             >
-              <span className="text-[8px] mr-1 uppercase font-black">Role</span>
+              <span className="text-[9px] mr-1 uppercase font-black px-1.5 border-r border-zinc-300 h-full flex items-center">Role</span>
               <input
                 ref={roleInputRef}
                 value={query}
@@ -276,9 +276,9 @@ const SearchBar = () => {
               />
             </div>
             <div
-              className={`flex items-center px-1.5 h-6 border ${activeParam === "loc" ? "border-zinc-900 bg-white" : "border-transparent text-zinc-400"}`}
+              className={`flex items-center h-7 border ${activeParam === "loc" ? "border-zinc-900 bg-white" : "border-zinc-300 text-zinc-500"}`}
             >
-              <span className="text-[8px] mr-1 uppercase font-black">Loc</span>
+              <span className="text-[9px] mr-1 uppercase font-black border-r border-zinc-300 px-1.5 h-full flex items-center">Location</span>
               <input
                 ref={locInputRef}
                 value={locValue}
@@ -293,9 +293,9 @@ const SearchBar = () => {
             </div>
           </div>
         ) : activeCommand ? (
-          <div className="flex items-center bg-white border border-zinc-200 px-1.5 h-6 flex-1">
-            <span className="text-[8px] mr-2 uppercase font-black text-zinc-400">
-              Match
+          <div className="flex items-center bg-zinc-100 border border-zinc-300  h-7 flex-1">
+            <span className="text-[9px] mr-2 uppercase font-black h-full flex items-center text-zinc-500 border-r border-zinc-300 px-1.5">
+              Value
             </span>
             <input
               ref={roleInputRef}
@@ -386,7 +386,6 @@ const SearchBar = () => {
                   Press ENTER to select
                 </div>
               </div>
-              <div className="grid grid-cols-4 divide-x divide-zinc-300">
                 {suggestions.map((item: any, i) => (
                   <div
                     key={i}
@@ -411,7 +410,6 @@ const SearchBar = () => {
                   </div>
                 ))}
               </div>
-            </div>
           )}
         </div>
       )}
