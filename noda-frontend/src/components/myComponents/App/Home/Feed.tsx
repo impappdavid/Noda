@@ -43,28 +43,45 @@ const PollModule = ({ poll }: { poll: any }) => {
           const percent = opt.votes
             ? Math.round((opt.votes / poll.totalVotes) * 100)
             : 33;
+          
+          const isYourVote = voted === i;
+
           return (
             <button
               key={i}
               onClick={() => voted === null && setVoted(i)}
-              className="w-full relative flex items-center h-10 group overflow-hidden bg-white hover:bg-zinc-200 transition-colors cursor-pointer"
+              className="w-full relative flex items-center h-10 group overflow-hidden bg-white hover:bg-zinc-50 transition-colors cursor-pointer"
             >
+              {/* Result Bar */}
               {voted !== null && (
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${percent}%` }}
-                  className="absolute inset-0 bg-blue-500/30 border-r border-zinc-300"
+                  className={cn(
+                    "absolute inset-0 border-r border-zinc-300/50",
+                    isYourVote ? "bg-blue-500/40" : "bg-zinc-100"
+                  )}
                 />
               )}
+              
               <div className="relative z-10 flex w-full justify-between px-4 items-center">
                 <div className="flex items-center gap-3">
-                  
-                  <span className="text-[11px] font-bold uppercase text-zinc-900">
+                  <span className={cn(
+                    "text-[11px] font-bold uppercase transition-colors",
+                    isYourVote ? "text-blue-700" : "text-zinc-900"
+                  )}>
                     {typeof opt === "string" ? opt : opt.label}
                   </span>
+                  
+                  {/* Your Vote Badge */}
+                  
                 </div>
+
                 {voted !== null && (
-                  <span className="text-[10px] font-mono font-black text-zinc-500">
+                  <span className={cn(
+                    "text-[10px] font-mono font-black",
+                    isYourVote ? "text-blue-700" : "text-zinc-500"
+                  )}>
                     {percent}%
                   </span>
                 )}
