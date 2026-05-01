@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  Pagination,
-  PaginationContent,
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 
@@ -142,19 +138,19 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
       </div>
 
       {totalPages > 1 && (
-        <div className="absolute bottom-23 left-0 right-0 flex flex-col w-full items-center gap-2 z-10">
+        <div className="absolute bottom-22.5 left-0 right-0 flex flex-col w-full items-center gap-2 z-10 px-0">
           {/* MAIN CONTROL UNIT */}
-          <div className="flex items-stretch border border-zinc-300 bg-white w-full">
-            {/* PREV UNIT */}
+          <div className="flex items-stretch border-t border-zinc-300 bg-white w-full h-9">
+            {/* PREV UNIT - Fixed Width */}
             <button
               disabled={currentPage === 1}
               onClick={() => handlePageChange(currentPage - 1)}
-              className="px-3 border-r border-zinc-300 flex items-center justify-center hover:bg-zinc-100 disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
+              className="w-12 border-r border-zinc-300 flex items-center justify-center hover:bg-zinc-100 disabled:opacity-70 disabled:hover:bg-transparent disabled:cursor-auto transition-colors cursor-pointer"
             >
               <span className="text-[10px] font-mono font-black">{"<"}</span>
             </button>
 
-            {/* DYNAMIC PAGE NODES (Max 5) */}
+            {/* DYNAMIC PAGE NODES */}
             <div className="flex items-stretch divide-x divide-zinc-300">
               {[...Array(Math.min(5, totalPages))].map((_, i) => {
                 const pageNum = i + 1;
@@ -163,7 +159,7 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                     key={pageNum}
                     onClick={() => handlePageChange(pageNum)}
                     className={cn(
-                      "w-9 h-9 flex items-center justify-center text-[10px] font-mono font-black transition-all cursor-pointer",
+                      "w-9 flex items-center justify-center text-[10px] font-mono font-black transition-all cursor-pointer",
                       currentPage === pageNum
                         ? "bg-blue-500 text-white"
                         : "bg-white text-zinc-900 hover:bg-zinc-100",
@@ -174,19 +170,18 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                 );
               })}
 
-              {/* ELLIPSIS BOX (Non-clickable Segment) */}
+              {/* ELLIPSIS & LAST PAGE */}
               {totalPages > 6 && (
-                <div className="w-9 h-9 flex items-center justify-center bg-zinc-50 text-zinc-400 border-x-0">
+                <div className="w-9 flex items-center justify-center bg-zinc-50 text-zinc-400">
                   <span className="text-[10px] font-black">...</span>
                 </div>
               )}
 
-              {/* LAST PAGE BOX */}
               {totalPages > 5 && (
                 <button
                   onClick={() => handlePageChange(totalPages)}
                   className={cn(
-                    "w-9 h-9 flex items-center justify-center text-[10px] font-mono font-black transition-all cursor-pointer",
+                    "w-9 flex items-center justify-center text-[10px] font-mono font-black transition-all cursor-pointer border-r border-zinc-300",
                     currentPage === totalPages
                       ? "bg-blue-500 text-white"
                       : "bg-white text-zinc-900 hover:bg-zinc-100",
@@ -197,17 +192,18 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
               )}
             </div>
 
-            {/* NEXT UNIT */}
+            {/* SPACER - This fills the middle white space */}
+            <div className="flex-1 bg-white" />
+
+            {/* NEXT UNIT - Fixed Width (Same as Prev) */}
             <button
               disabled={currentPage === totalPages}
               onClick={() => handlePageChange(currentPage + 1)}
-              className="px-3 border-l border-zinc-300 flex items-center justify-center hover:bg-zinc-100 disabled:opacity-30 disabled:hover:bg-transparent transition-colors cursor-pointer"
+              className="w-12 border-l border-zinc-300 flex items-center justify-center hover:bg-zinc-200 disabled:opacity-70 disabled:hover:bg-transparent disabled:cursor-auto transition-colors cursor-pointer"
             >
               <span className="text-[10px] font-mono font-black">{">"}</span>
             </button>
           </div>
-
-          
         </div>
       )}
     </div>
