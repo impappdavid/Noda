@@ -70,11 +70,11 @@ export default function PostForm() {
     <div className="bg-white">
       <Dialog>
         <DialogTrigger asChild>
-          <button className="w-full flex items-center justify-between bg-zinc-800 px-4 py-3 text-sm text-zinc-300 hover:bg-zinc-900 transition-all text-left group cursor-pointer">
+          <button className="w-full flex items-center justify-between bg-zinc-800 px-3 py-3 text-sm text-zinc-300 hover:bg-zinc-900 transition-all text-left group cursor-pointer">
             <span className="text-[11px] font-mono font-black uppercase tracking-widest">
               What's happening?
             </span>
-            <Plus size={18} />
+            <Plus size={16} />
           </button>
         </DialogTrigger>
 
