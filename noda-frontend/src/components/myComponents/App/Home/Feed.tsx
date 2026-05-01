@@ -8,6 +8,7 @@ import {
   Link2,
   Flag,
   Heart,
+  Check,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -20,120 +21,66 @@ import {
 } from "@/components/ui/dropdown-menu";
 import PostViewDialog from "./PostDialog";
 
-// --- 1. DATA SCHEMA ---
-const testPosts = [
-  {
-    id: "p1",
+// --- 1. FUNCTIONAL POLL MODULE (VOTING UI) ---
+const PollModule = ({ poll }: { poll: any }) => {
+  const [voted, setVoted] = useState<number | null>(null);
 
-    author: {
-      name: "Alex Rivers",
-      username: "arivers",
-      role: "Vector Engineer",
-      avatar:
-        "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?fm=jpg&q=60&w=100&auto=format&fit=crop",
-    },
-    postedAgo: "2h",
-    content:
-      "Applying the 14-day anti-ghosting protocol has significantly improved our response velocity. Recruiters are now forced into active engagement or delisting.",
-    likes: 24,
-    comments: 12,
-    views: "1.2k",
-    images: [
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800",
-    ],
-  },
+  return (
+    <div
+      className="mt-2 border border-zinc-300 bg-white overflow-hidden"
+      onClick={(e) => e.preventDefault()}
+    >
+      <div className="flex justify-between items-center px-2 py-1 border-b border-zinc-300 bg-zinc-50/80">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 bg-blue-500 rounded-none" />
+          <span className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-[0.2em]">
+            Active Poll
+          </span>
+        </div>
+      </div>
+      <div className="divide-y divide-zinc-300">
+        {poll.options.map((opt: any, i: number) => {
+          const percent = opt.votes
+            ? Math.round((opt.votes / poll.totalVotes) * 100)
+            : 33;
+          return (
+            <button
+              key={i}
+              onClick={() => voted === null && setVoted(i)}
+              className="w-full relative flex items-center h-10 group overflow-hidden bg-white hover:bg-zinc-200 transition-colors cursor-pointer"
+            >
+              {voted !== null && (
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${percent}%` }}
+                  className="absolute inset-0 bg-blue-500/30 border-r border-zinc-300"
+                />
+              )}
+              <div className="relative z-10 flex w-full justify-between px-4 items-center">
+                <div className="flex items-center gap-3">
+                  
+                  <span className="text-[11px] font-bold uppercase text-zinc-900">
+                    {typeof opt === "string" ? opt : opt.label}
+                  </span>
+                </div>
+                {voted !== null && (
+                  <span className="text-[10px] font-mono font-black text-zinc-500">
+                    {percent}%
+                  </span>
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
-  {
-    id: "p_poll_1",
-    author: {
-      name: "Marcus Vane",
-      username: "mv_arch",
-      role: "Systems Architect",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
-    },
-    postedAgo: "1h",
-    content:
-      "Which serialization protocol are you prioritizing for low-latency node clusters in 2026?",
-    likes: 89,
-    comments: 34,
-    views: "5.6k",
-    images: [],
+// --- 2. UTILITIES & ANIMATED SUB-COMPONENTS ---
+const cn = (...classes: any[]) => classes.filter(Boolean).join(" ");
 
-    poll: {
-      options: [
-        { label: "Protocol Buffers", votes: 450 },
-
-        { label: "Cap'n Proto", votes: 120 },
-
-        { label: "FlatBuffers", votes: 310 },
-
-        { label: "MessagePack", votes: 85 },
-      ],
-
-      totalVotes: 965,
-
-      hasVoted: false,
-    },
-  },
-
-  {
-    id: "p4",
-
-    author: {
-      name: "Anonymous",
-
-      username: "encrypted",
-
-      role: "Senior Lead",
-
-      avatar:
-        "https://api.dicebear.com/7.x/initials/svg?seed=A&backgroundColor=18181b",
-    },
-
-    postedAgo: "8h",
-
-    content:
-      "Anonymous Insight: Company X has a 3-stage interview process that focuses heavily on distributed systems. Look at these architecture patterns.",
-
-    likes: 342,
-
-    comments: 45,
-
-    views: "12.1k",
-
-    images: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800",
-
-      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800",
-
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800",
-
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800",
-
-      "https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800",
-
-      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800",
-
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800",
-    ],
-  },
-];
-
-// --- 2. UTILITIES ---
-const cn = (...classes: (string | boolean | undefined | null)[]): string =>
-  classes.filter(Boolean).join(" ");
-
-// --- 3. SUB-COMPONENTS ---
-const LikeButton = ({
-  post,
-  isLiked,
-  onToggle,
-}: {
-  post: any;
-  isLiked: boolean;
-  onToggle: (e: React.MouseEvent) => void;
-}) => (
+const LikeButton = ({ post, isLiked, onToggle }: any) => (
   <button
     onClick={onToggle}
     className={cn(
@@ -185,33 +132,7 @@ const LikeButton = ({
   </button>
 );
 
-const PostOptions = () => (
-  <DropdownMenu modal={false}>
-    <DropdownMenuTrigger asChild>
-      <button
-        className="text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors"
-        onClick={(e) => e.preventDefault()}
-      >
-        <MoreHorizontal size={16} />
-      </button>
-    </DropdownMenuTrigger>
-    <DropdownMenuContent
-      align="end"
-      className="w-24 rounded-none border-zinc-300 p-1 shadow-2xl bg-white"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <DropdownMenuItem className="gap-1.5 text-xs font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-200/80">
-        <Link2 size={12} /> Copy_URL
-      </DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem className="gap-1.5 text-xs font-mono text-red-600 cursor-pointer py-2 hover:bg-red-50">
-        <Flag size={12} /> Report
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
-
-// --- 4. MAIN COMPONENT ---
+// --- 3. MAIN COMPONENT ---
 export default function Feed() {
   const navigate = useNavigate();
   const [likedPosts, setLikedPosts] = useState<Record<string, boolean>>({});
@@ -228,17 +149,87 @@ export default function Feed() {
     setLikedPosts((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const handleUserClick = (e: React.MouseEvent, username: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(`/app/user/${username}`);
+  };
+
+  const testPosts = [
+    {
+      id: "p_text",
+      author: {
+        name: "Alex Rivers",
+        username: "arivers",
+        role: "Vector Engineer",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+      },
+      postedAgo: "2h",
+      content:
+        "Applying the 14-day anti-ghosting protocol has significantly improved our response velocity. Recruiters are now forced into active engagement.",
+      likes: 24,
+      comments: 12,
+      views: "1.2k",
+      images: [],
+    },
+    {
+      id: "p_poll",
+      author: {
+        name: "Marcus Vane",
+        username: "mv_arch",
+        role: "Systems Architect",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
+      },
+      postedAgo: "1h",
+      content:
+        "Which serialization protocol are you prioritizing for low-latency node clusters in 2026?",
+      likes: 89,
+      comments: 34,
+      views: "5.6k",
+      poll: {
+        options: [
+          { label: "Protocol Buffers", votes: 450 },
+          { label: "Cap'n Proto", votes: 120 },
+          { label: "FlatBuffers", votes: 310 },
+        ],
+        totalVotes: 880,
+      },
+    },
+    {
+      id: "p_multi",
+      author: {
+        name: "Visual Studio",
+        username: "vis_studio",
+        role: "UI Lead",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Studio",
+      },
+      postedAgo: "5h",
+      content:
+        "Design system dump. All images strict square grid. +5 more overlay applied.",
+      likes: 342,
+      comments: 45,
+      views: "12.1k",
+      images: Array(9).fill(
+        "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=800",
+      ),
+    },
+  ];
+
   return (
     <div className="max-w-2xl mx-auto flex flex-col relative bg-white min-h-screen">
       {testPosts.map((post) => (
         <Link
           to={`/app/post/${post.id}`}
           key={post.id}
-          className="p-3 border-b border-zinc-300 hover:bg-zinc-200/60 transition-colors group block"
+          className="p-3 border-b border-zinc-300 hover:bg-zinc-200/40 transition-colors group block"
         >
+          {/* HEADER: RESTORED USER LINKS */}
           <div className="flex justify-between items-start mb-1">
             <div className="flex gap-3">
-              <div className="w-10 h-10 border border-zinc-200 overflow-hidden shrink-0">
+              <div
+                className="w-10 h-10 border border-zinc-200 overflow-hidden shrink-0 cursor-pointer"
+                onClick={(e) => handleUserClick(e, post.author.username)}
+              >
                 <img
                   src={post.author.avatar}
                   alt="av"
@@ -248,11 +239,8 @@ export default function Feed() {
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
                   <span
-                    className="text-sm font-bold text-zinc-900 hover:underline"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate(`/app/user/${post.author.username}`);
-                    }}
+                    className="text-sm font-bold text-zinc-900 hover:underline cursor-pointer"
+                    onClick={(e) => handleUserClick(e, post.author.username)}
                   >
                     {post.author.name}
                   </span>
@@ -265,7 +253,31 @@ export default function Feed() {
                 </span>
               </div>
             </div>
-            <PostOptions />
+
+            {/* RESTORED DROPDOWN */}
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className="text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <MoreHorizontal size={16} />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-32 rounded-none border-zinc-300 p-1 shadow-2xl bg-white"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <DropdownMenuItem className="gap-1.5 text-[10px] font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-100">
+                  <Link2 size={12} /> COPY_URL
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="gap-1.5 text-[10px] font-mono text-red-600 cursor-pointer py-2 hover:bg-red-50">
+                  <Flag size={12} /> REPORT
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           <div className="pl-13 md:pl-[52px]">
@@ -273,66 +285,60 @@ export default function Feed() {
               {post.content}
             </p>
 
-            {post.images && post.images.length > 0 && (
-              <div
-                className={cn(
-                  "overflow-hidden border border-zinc-100 grid gap-1 mb-4",
-                  post.images.length === 1 ? "grid-cols-1" : "grid-cols-2",
-                  post.images.length >= 3 ? "aspect-square" : "aspect-video",
-                )}
-              >
-                {post.images.slice(0, 4).map((img, idx) => {
-                  const isFourthImage = idx === 3;
-                  const hasMoreImages = post.images.length > 4;
-
-                  return (
-                    <div
-                      key={idx}
-                      className={cn(
-                        "relative bg-zinc-100 overflow-hidden cursor-pointer group",
-                        post.images.length === 3 && idx === 0
-                          ? "row-span-2"
-                          : "",
-                      )}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        setSelectedImg(img);
-                        setSelectedPost(post);
-                        setDialogOpen(true);
-                      }}
-                    >
-                      <img
-                        src={img}
-                        className="w-full h-full object-cover hover:opacity-90 transition-opacity"
-                        alt={`Post media ${idx + 1}`}
-                      />
-
-                      {/* OVERLAY FOR +N MORE IMAGES */}
-                      {isFourthImage && hasMoreImages && (
-                        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center transition-colors group-hover:bg-black/60">
-                          <span className="text-white text-sm font-mono font-black tracking-widest uppercase">
-                            +{post.images.length - 3} more
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+            {post.poll && (
+              <div className="pb-3">
+                <PollModule poll={post.poll} />
               </div>
             )}
 
+            {/* RESTORED SQUARE IMAGE GRID */}
+            {post.images && post.images.length > 0 && (
+              <div
+                className={cn(
+                  "overflow-hidden border border-zinc-300 grid gap-1 mb-4 mt-3 aspect-square",
+                  post.images.length === 1
+                    ? "grid-cols-1 aspect-video"
+                    : "grid-cols-2",
+                )}
+              >
+                {post.images.slice(0, 4).map((img, idx) => (
+                  <div
+                    key={idx}
+                    className="relative bg-zinc-100 overflow-hidden cursor-pointer group"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setSelectedImg(img);
+                      setSelectedPost(post);
+                      setDialogOpen(true);
+                    }}
+                  >
+                    <img
+                      src={img}
+                      className="w-full h-full object-cover hover:opacity-90 transition-opacity"
+                      alt="media"
+                    />
+                    {idx === 3 && post.images.length > 4 && (
+                      <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center transition-colors group-hover:bg-black/70">
+                        <span className="text-white text-sm font-mono font-black tracking-widest uppercase">
+                          +{post.images.length - 3} more
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* RESTORED INTERACTIONS */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-8">
                 <LikeButton
                   post={post}
                   isLiked={!!likedPosts[post.id]}
-                  onToggle={(e) => toggleLike(e, post.id)}
+                  onToggle={(e: any) => toggleLike(e, post.id)}
                 />
-                <button
-                  className="flex items-center gap-2 text-xs font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer"
-                  onClick={(e) => e.stopPropagation()}
-                >
+                <button className="flex items-center gap-2 text-xs font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer">
                   <MessageSquare size={16} /> {post.comments}
                 </button>
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
@@ -340,30 +346,30 @@ export default function Feed() {
                 </div>
               </div>
               <div className="flex items-center gap-4 text-zinc-500">
-                <button
+                <Bookmark
+                  size={16}
+                  className={cn(
+                    "cursor-pointer",
+                    bookmarkedPosts[post.id]
+                      ? "fill-zinc-900 text-zinc-900"
+                      : "hover:text-zinc-900",
+                  )}
                   onClick={(e) => {
-                    e.stopPropagation();
                     e.preventDefault();
+                    e.stopPropagation();
                     setBookmarkedPosts((p) => ({
                       ...p,
                       [post.id]: !p[post.id],
                     }));
                   }}
-                  className={
-                    bookmarkedPosts[post.id]
-                      ? "text-zinc-900 cursor-pointer"
-                      : "hover:text-zinc-900 cursor-pointer"
-                  }
-                >
-                  <Bookmark
-                    size={16}
-                    className={bookmarkedPosts[post.id] ? "fill-zinc-900" : ""}
-                  />
-                </button>
+                />
                 <Share
                   size={16}
                   className="hover:text-zinc-900 cursor-pointer"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
                 />
               </div>
             </div>
@@ -371,7 +377,7 @@ export default function Feed() {
         </Link>
       ))}
 
-      {/* New separated component */}
+      {/* RESTORED DIALOG */}
       <PostViewDialog
         open={dialogOpen}
         onOpenChange={setDialogOpen}
