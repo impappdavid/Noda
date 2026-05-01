@@ -100,24 +100,58 @@ const SearchBar = () => {
     const params = new URLSearchParams(location.search);
     const path = location.pathname;
 
+    // Helper to get param or empty string
+    const getParam = (key: string) => params.get(key) || "";
+
     if (path.includes("/jobs")) {
-      setActiveCommand("/job");
-      setQuery(params.get("role") || "");
-      setLocValue(params.get("location") || "");
+      const role = getParam("role");
+      const loc = getParam("location");
+      
+      // Only activate command if there's actual data in the URL
+      // Otherwise, keep it clean for a fresh search
+      if (role || loc) {
+        setActiveCommand("/job");
+        setQuery(role);
+        setLocValue(loc);
+      } else {
+        setActiveCommand(null);
+        setQuery("");
+        setLocValue("");
+      }
     } else if (path.includes("/user")) {
-      setActiveCommand("/user");
-      setQuery(params.get("q") || "");
+      const q = getParam("q");
+      if (q) {
+        setActiveCommand("/user");
+        setQuery(q);
+      } else {
+        setActiveCommand(null);
+        setQuery("");
+      }
     } else if (path.includes("/company")) {
-      setActiveCommand("/company");
-      setQuery(params.get("q") || "");
+      const q = getParam("q");
+      if (q) {
+        setActiveCommand("/company");
+        setQuery(q);
+      } else {
+        setActiveCommand(null);
+        setQuery("");
+      }
     } else if (path.includes("/communities")) {
-      setActiveCommand("/comm");
-      setQuery(params.get("q") || "");
+      const q = getParam("q");
+      if (q) {
+        setActiveCommand("/comm");
+        setQuery(q);
+      } else {
+        setActiveCommand(null);
+        setQuery("");
+      }
     } else {
+      // If we are on a general page (like /home or /feed), clear everything
       setActiveCommand(null);
       setQuery("");
+      setLocValue("");
     }
-  }, [location.pathname]); // Removed location.search from here to prevent loops while typing
+  }, [location.pathname, location.search]);
 
   // --- 2. FOCUS MANAGEMENT ---
   useEffect(() => {
