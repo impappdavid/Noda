@@ -42,9 +42,7 @@ const AppSideBar = () => {
     // 2. Platform Level (Noda)
     const getNodaRoutes = () => {
         const nodaOptions = [];
-        if (userSession.isFounder) {
-            nodaOptions.push({ name: "Create Idea", route: "/app/noda/idea" });
-        }
+        
         nodaOptions.push({ name: "Ideas", route: "/app/noda/ideas" });
         nodaOptions.push({ name: "Changelog", route: "/app/noda/changelog" });
         return nodaOptions;

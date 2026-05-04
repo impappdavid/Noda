@@ -22,7 +22,6 @@ import PostJob from './components/myComponents/App/CompanyAdmin/PostJob/PostJob'
 import CompanyDashboard from './components/myComponents/App/CompanyAdmin/Dashboard/Dashboard'
 import TeamNodesManager from './components/myComponents/App/CompanyAdmin/Team/Team'
 import ManageApplicants from './components/myComponents/App/CompanyAdmin/Jobs/Applications'
-import FounderIdeaPortal from './components/myComponents/App/Noda/Idea/Idea'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
 import RoadmapBoard from './components/myComponents/App/Noda/Roadmap/Roadmap'
 import AdminReportsPage from './components/myComponents/App/Admin/Reports/Reports'
@@ -71,7 +70,6 @@ function App() {
         <Route path="/app/bookmarks" element={<AppBookmarks />} />
         <Route path="/app/premium" element={<PremiumPage />} />
 
-        <Route path="/app/noda/idea" element={<FounderIdeaPortal />} />
         <Route path="/app/noda/ideas" element={<IdeaResonanceBoard />} />
         <Route path="/app/noda/changelog" element={<RoadmapBoard />} />
 
