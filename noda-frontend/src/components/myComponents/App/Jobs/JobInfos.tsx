@@ -48,8 +48,20 @@ const QuestionnaireModal = ({
   onComplete: () => void;
   role: string;
 }) => {
+  const [step, setStep] = useState(1);
+  const totalSteps = 2;
   const [answers, setAnswers] = useState({ years: "", reason: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Reset state when modal closes/opens
+  useEffect(() => {
+    if (!isOpen) {
+      setStep(1);
+    }
+  }, [isOpen]);
+
+  const handleNext = () => setStep((prev) => prev + 1);
+  const handleBack = () => setStep((prev) => prev - 1);
 
   const handleFinish = () => {
     setIsSubmitting(true);
@@ -67,68 +79,114 @@ const QuestionnaireModal = ({
             <ClipboardList size={14} className="text-blue-500" />
             Application Questions
           </DialogTitle>
-          <DialogClose>
-            <button className="hover:bg-zinc-500/20 cursor-pointer p-1 transition-colors outline-none">
-              <X className="w-4 h-4 text-zinc-600" />
-            </button>
-          </DialogClose>
+          <div className="flex items-center gap-3">
+            {/* STEP INDICATOR */}
+            <div className="flex gap-1 items-center bg-zinc-400/30 px-2 py-0.5 ">
+              <span className="text-[9px] font-mono font-bold">STEP</span>
+              <span className="text-[10px] font-black text-blue-600 font-mono">
+                0{step}/0{totalSteps}
+              </span>
+            </div>
+            <DialogClose>
+              <button className="hover:bg-zinc-500/20 cursor-pointer p-1 transition-colors outline-none">
+                <X className="w-4 h-4 text-zinc-600" />
+              </button>
+            </DialogClose>
+          </div>
         </DialogHeader>
 
         <div className="flex flex-col">
           {/* HEADER DATA */}
-          <div className="border-b border-zinc-300  flex divide-x divide-zinc-300">
+          <div className="border-b border-zinc-300 flex divide-x divide-zinc-300">
             <div className="p-2 flex-1">
               <div className="text-[9px] font-mono text-zinc-400 uppercase font-bold">Role</div>
               <div className="text-[10px] font-bold uppercase truncate">{role}</div>
             </div>
             <div className="p-2 w-24">
-              <div className="text-[9px] font-mono text-zinc-400 uppercase font-bold">Priority</div>
-              <div className="text-[10px] font-black uppercase text-blue-600">Level_01</div>
+              <div className="text-[9px] font-mono text-zinc-400 uppercase font-bold">Company</div>
+              <div className="text-[10px] font-bold uppercase text-blue-600 hover:underline cursor-pointer">
+                Noda
+              </div>
             </div>
           </div>
 
-          {/* QUESTIONS */}
-          <div className="divide-y divide-zinc-300">
-            <div className="p-2 flex flex-col gap-2">
-              <label className="text-[10px] font-bold uppercase tracking-tight flex justify-between">
-                01. Years of relevant experience?
-                <span className="text-zinc-500 font-mono">[INT]</span>
-              </label>
-              <input 
-                type="number"
-                value={answers.years}
-                onChange={(e) => setAnswers({...answers, years: e.target.value})}
-                placeholder="0"
-                className="w-full bg-zinc-50 border border-zinc-300 p-2 text-[11px] font-mono outline-none focus:bg-white transition-colors"
-              />
-            </div>
-
-            <div className="p-2 flex flex-col gap-2">
-              <label className="text-[10px] font-bold uppercase tracking-tight flex justify-between">
-                02. Why this node? 
-                <span className="text-zinc-500 font-mono">[STR]</span>
-              </label>
-              <textarea 
-                value={answers.reason}
-                onChange={(e) => setAnswers({...answers, reason: e.target.value})}
-                placeholder="MOTIVATION Letter..."
-                className="w-full h-24 bg-zinc-50 border border-zinc-300 p-2 text-[11px] font-mono outline-none resize-none focus:bg-white transition-colors"
-              />
-            </div>
-          </div>
-
-          {/* ACTION */}
-          <button
-            onClick={handleFinish}
-            disabled={!answers.years || answers.reason.length < 10 || isSubmitting}
-            className="w-full h-10 bg-zinc-900 text-white font-bold text-[11px] uppercase tracking-[0.3em] hover:bg-blue-600 disabled:bg-zinc-500 disabled:text-zinc-400 transition-all flex items-center justify-center gap-2"
-          >
-            {isSubmitting ? (
-              <Loader2 size={14} className="animate-spin" />
-            ) : (
-              <>Submit_Final_Data <ArrowUpRight size={14} /></>
+          {/* PAGINATED CONTENT */}
+          <div className="min-h-[140px]">
+            {step === 1 && (
+              <motion.div 
+                initial={{ opacity: 0, x: -10 }} 
+                animate={{ opacity: 1, x: 0 }}
+                className="p-2 flex flex-col gap-2"
+              >
+                <label className="text-[10px] font-bold uppercase tracking-tight flex justify-between">
+                  01. Years of relevant experience?
+                  <span className="text-zinc-500 font-mono">[INT]</span>
+                </label>
+                <input 
+                  type="number"
+                  autoFocus
+                  value={answers.years}
+                  onChange={(e) => setAnswers({...answers, years: e.target.value})}
+                  placeholder="0"
+                  className="w-full bg-zinc-50 border border-zinc-300 p-2 text-[11px] font-mono outline-none focus:bg-white transition-colors"
+                />
+              </motion.div>
             )}
-          </button>
+
+            {step === 2 && (
+              <motion.div 
+                initial={{ opacity: 0, x: 10 }} 
+                animate={{ opacity: 1, x: 0 }}
+                className="p-2 flex flex-col gap-2"
+              >
+                <label className="text-[10px] font-bold uppercase tracking-tight flex justify-between">
+                  02. Why this node? 
+                  <span className="text-zinc-500 font-mono">[STR]</span>
+                </label>
+                <textarea 
+                  autoFocus
+                  value={answers.reason}
+                  onChange={(e) => setAnswers({...answers, reason: e.target.value})}
+                  placeholder="MOTIVATION Letter..."
+                  className="w-full h-24 bg-zinc-50 border border-zinc-300 p-2 text-[11px] font-mono outline-none resize-none focus:bg-white transition-colors"
+                />
+              </motion.div>
+            )}
+          </div>
+
+          {/* ACTION BUTTONS */}
+          <div className="flex border-t border-zinc-300">
+            {step > 1 && (
+              <button
+                onClick={handleBack}
+                className="flex-1 h-10 bg-white border-r border-zinc-300 text-zinc-500 font-bold text-[10px] uppercase tracking-widest hover:bg-zinc-300 cursor-pointer transition-all"
+              >
+                Previous
+              </button>
+            )}
+            
+            {step < totalSteps ? (
+              <button
+                onClick={handleNext}
+                disabled={!answers.years}
+                className="flex-[2] h-10 bg-zinc-800 text-white cursor-pointer font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-blue-600 disabled:bg-zinc-300 disabled:text-zinc-500 transition-all flex items-center justify-center gap-2"
+              >
+                Next Question 
+              </button>
+            ) : (
+              <button
+                onClick={handleFinish}
+                disabled={answers.reason.length < 10 || isSubmitting}
+                className="flex-[2] h-10 bg-blue-500 cursor-pointer text-white font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-blue-600 disabled:bg-zinc-200 disabled:text-zinc-400 transition-all flex items-center justify-center gap-2"
+              >
+                {isSubmitting ? (
+                  <Loader2 size={14} className="animate-spin" />
+                ) : (
+                  <>Send Application </>
+                )}
+              </button>
+            )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
