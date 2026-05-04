@@ -33,7 +33,7 @@ const VoteCounter = ({ id }: { id: string }) => {
         onClick={() => handleVote(1)}
         className={cn("p-1 transition-colors hover:bg-zinc-200 cursor-pointer", userVote === 1 ? "text-blue-600" : "text-zinc-400 hover:text-blue-500")}
       >
-        <ChevronUp size={24} strokeWidth={3} />
+        <ChevronUp size={20} strokeWidth={3} />
       </button>
       <span className={cn("text-xs font-mono font-black", userVote === 1 ? "text-blue-600" : userVote === -1 ? "text-red-600" : "text-zinc-900")}>
         {score}
@@ -42,7 +42,7 @@ const VoteCounter = ({ id }: { id: string }) => {
         onClick={() => handleVote(-1)}
         className={cn("p-1 transition-colors hover:bg-zinc-200 cursor-pointer", userVote === -1 ? "text-red-600" : "text-zinc-400 hover:text-red-500")}
       >
-        <ChevronDown size={24} strokeWidth={3} />
+        <ChevronDown size={20} strokeWidth={3} />
       </button>
     </div>
   );

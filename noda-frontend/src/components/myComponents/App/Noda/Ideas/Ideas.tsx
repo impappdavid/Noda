@@ -3,6 +3,7 @@ import PostForm from "../../Home/PostForm";
 import Suggestions from "../../Home/Suggestions";
 import AppSideBar from "../../Sidebar";
 import IdeaFeed from "./IdeaFeed";
+import IdeaForm from "./IdeaFormDialog";
 
 
 const AppHome = () => {
@@ -17,7 +18,7 @@ const AppHome = () => {
 
         <div className="flex-1 flex gap-2">
           <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen pt-13">
-            <PostForm />
+            <IdeaForm />
             <IdeaFeed />
           </main>
 
