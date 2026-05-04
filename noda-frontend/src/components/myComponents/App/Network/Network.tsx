@@ -23,7 +23,7 @@ const AppNetwork = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 flex-col border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-12.5">
+                <main className="flex flex-1 flex-col border-x border-zinc-300 ml-4 h-full bg-white overflow-hidden pt-13">
 
                     
 
@@ -66,7 +66,7 @@ const InvitationRow = ({ person }: any) => (
                 {person.name[0]}
             </div>
             <div className="flex flex-col">
-                <span className="text-sm font-black uppercase tracking-tight leading-none">{person.name}</span>
+                <span className="text-sm font-bold uppercase tracking-tight leading-none">{person.name}</span>
                 <span className="text-[9px] font-mono text-zinc-500 uppercase mt-1 tracking-tighter">
                     {person.role} // <span className="text-zinc-900 font-bold">{person.company}</span>
                 </span>
@@ -110,7 +110,7 @@ const MinimalNodeCard = ({ person }: any) => (
         <div className="mt-2 w-full flex justify-between">
             <div className="space-y-1">
                 <div className="flex items-center gap-1">
-                    <h3 className="text-[11px] font-bold uppercase tracking-tight leading-none">{person.name}</h3>
+                    <h3 className="text-[11px] font-bold tracking-tight leading-none">{person.name}</h3>
                     <div className=" opacity-0 group-hover:opacity-100 transition-all translate-x-1 group-hover:translate-x-0">
                         <ArrowUpRight size={12} className="text-zinc-800" />
                     </div>
