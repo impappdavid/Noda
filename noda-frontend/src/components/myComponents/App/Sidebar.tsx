@@ -44,7 +44,6 @@ const AppSideBar = () => {
         const nodaOptions = [];
         
         nodaOptions.push({ name: "Ideas", route: "/app/noda/ideas" });
-        nodaOptions.push({ name: "Changelog", route: "/app/noda/changelog" });
         return nodaOptions;
     };
 
