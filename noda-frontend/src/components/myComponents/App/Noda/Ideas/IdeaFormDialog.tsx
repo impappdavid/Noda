@@ -68,7 +68,7 @@ export default function IdeaForm() {
     <div className="bg-white">
       <Dialog>
         <DialogTrigger asChild>
-          <button className="w-full flex items-center justify-between bg-blue-500 px-3 py-3 text-sm text-white hover:bg-blue-600 transition-all text-left group cursor-pointer border border-zinc-800">
+          <button className="w-full flex items-center justify-between bg-blue-500 px-3 py-3 text-sm text-white hover:bg-blue-600 transition-all text-left group cursor-pointer ">
             <span className="text-[11px] font-mono font-black uppercase tracking-widest">
               Submit New Proposal
             </span>
