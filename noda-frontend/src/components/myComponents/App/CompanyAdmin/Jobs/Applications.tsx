@@ -50,7 +50,7 @@ const ManageApplicants = () => {
           <AppSideBar />
         </aside>
 
-        <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12">
+        <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
           <div className="flex justify-between w-full border-b border-zinc-300 bg-zinc-100">
             <h1 className="text-xs font-bold uppercase p-2">Jobs</h1>
             <Link to={`/app/admin/jobs/create`} className="text-[11px] flex items-center bg-blue-500 hover:bg-blue-600 transition-colors px-3 text-white font-semibold cursor-pointer">
