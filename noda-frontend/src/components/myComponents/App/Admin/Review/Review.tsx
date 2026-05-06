@@ -17,7 +17,7 @@ import AppSideBar from '../../Sidebar';
 const IdeaReviewPage = () => {
     const [pendingIdeas] = useState([
         {
-            id: "NEW_101",
+            id: "101",
             title: "QUANTUM_STAKING_V1",
             founder: "@berlin_dev",
             category: "FINANCE",
@@ -26,9 +26,18 @@ const IdeaReviewPage = () => {
             timestamp: "2026.02.13"
         },
         {
-            id: "NEW_105",
+            id: "105",
             title: "ZKP_ID_PROTOCOL",
             founder: "@cipher_null",
+            category: "SECURITY",
+            abstract: "ZERO-KNOWLEDGE PROOF FOR ANONYMOUS FOUNDER VERIFICATION.",
+            full_intel: "IMPLEMENTING CIRCOM CIRCUITS TO ALLOW FOUNDERS TO PROVE LIQUIDITY WITHOUT REVEALING WALLET ADDRESSES TO THE PUBLIC RESONANCE BOARD.",
+            timestamp: "2026.02.12"
+        },
+        {
+            id: "106",
+            title: "DATA Breach",
+            founder: "@cipher",
             category: "SECURITY",
             abstract: "ZERO-KNOWLEDGE PROOF FOR ANONYMOUS FOUNDER VERIFICATION.",
             full_intel: "IMPLEMENTING CIRCOM CIRCUITS TO ALLOW FOUNDERS TO PROVE LIQUIDITY WITHOUT REVEALING WALLET ADDRESSES TO THE PUBLIC RESONANCE BOARD.",
@@ -44,28 +53,28 @@ const IdeaReviewPage = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12.5">
+                <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
                     
                     {/* 1. ADMIN HEADER */}
-                    <div className="px-4 h-9 border-b border-zinc-800 bg-zinc-800 flex justify-between items-center shrink-0">
+                    <div className="px-2 h-8 border-b border-zinc-300 bg-zinc-300 flex justify-between items-center shrink-0">
                         <div className="flex items-center gap-2">
-                            <ShieldCheck size={12} className="text-emerald-500" />
-                            <span className="text-[10px] font-mono font-black text-white uppercase tracking-[0.3em]">Manifest_Review_Queue</span>
+                            <ShieldCheck size={14} className="text-black" />
+                            <span className="text-[10px] font-bold text-black uppercase tracking-[0.2em]">Idea Review Queue</span>
                         </div>
-                        <span className="text-[9px] font-mono text-zinc-400 uppercase font-black">Pending_Review: {pendingIdeas.length}</span>
+                        <span className="text-[10px] font-mono text-zinc-600 uppercase font-black">Pending Review: {pendingIdeas.length}</span>
                     </div>
 
                     {/* 2. COMPACT REVIEW LIST */}
-                    <div className="flex-1 overflow-y-auto divide-x divide-zinc-300 scrollbar-hide gap-px grid grid-cols-2 border-b border-zinc-300">
+                    <div className="flex-1 overflow-y-auto divide-x divide-zinc-300 scrollbar-hide gap-px grid grid-cols-3 border-b border-zinc-300">
                         {pendingIdeas.map((idea) => (
                             <Dialog key={idea.id}>
                                 <DialogTrigger asChild>
-                                    <div className="p-3 bg-white flex flex-col group h-fit border-b border-zinc-300 cursor-pointer hover:bg-zinc-50 transition-all">
+                                    <div className="p-2 bg-white flex flex-col group h-fit border-b border-zinc-300 cursor-pointer hover:bg-zinc-200 transition-all">
                                         
                                         <div className="flex justify-between items-start mb-2">
-                                            <div className="flex items-center gap-1.5">
-                                                <span className="text-[9px] font-mono font-black text-white bg-zinc-900 px-1 py-0.5">#{idea.id}</span>
-                                                <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-tighter">{idea.category}</span>
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-[9px] font-mono font-black text-white bg-zinc-800 px-1 py-0.5">ID: {idea.id}</span>
+                                                <span className="text-[9px] font-mono font-bold text-white bg-blue-500 px-1 py-0.5 tracking-tight">{idea.category}</span>
                                             </div>
                                             <span className="text-[10px] font-mono font-black text-zinc-500 uppercase">{idea.timestamp}</span>
                                         </div>
@@ -79,10 +88,7 @@ const IdeaReviewPage = () => {
                                             </p>
                                         </div>
 
-                                        <div className="flex items-center justify-between ">
-                                            <span className="text-[9px] font-mono font-black uppercase text-zinc-500 tracking-widest">Awaiting_Approval</span>
-                                            <ArrowUpRight size={10} className="text-zinc-200 group-hover:text-zinc-900" />
-                                        </div>
+                                        
                                     </div>
                                 </DialogTrigger>
 
