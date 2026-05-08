@@ -10,6 +10,8 @@ import {
   Layout,
   X,
   BadgeQuestionMark,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import {
   Dialog,
@@ -22,14 +24,78 @@ import {
 import Navbar from "../../AppNavbar";
 import AppSideBar from "../../Sidebar";
 
+// --- NEW CAROUSEL COMPONENT ---
+const ImageCarousel = ({ images }: { images: string[] }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  if (!images || images.length === 0) {
+    return (
+      <div className="relative aspect-video bg-zinc-100 border-b border-zinc-300 flex items-center justify-center">
+        <span className="text-[10px] font-mono text-zinc-400 uppercase">No_Visual_Data</span>
+      </div>
+    );
+  }
+
+  const next = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  return (
+    <div className="relative aspect-video bg-zinc-200 border-b border-zinc-300 overflow-hidden group">
+      <img
+        src={images[currentIndex]}
+        alt={`Intel attachment ${currentIndex + 1}`}
+        className="w-full h-full object-cover"
+      />
+      
+      {/* Navigation Overlays */}
+      {images.length > 1 && (
+        <>
+          <button 
+            onClick={prev}
+            className="absolute left-0 top-0 bottom-0 px-2 bg-black/30 hover:bg-black/50 cursor-pointer text-white transition-all flex items-center"
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <button 
+            onClick={next}
+            className="absolute right-0 top-0 bottom-0 px-2 bg-black/30 hover:bg-black/50 cursor-pointer text-white  transition-all flex items-center"
+          >
+            <ChevronRight size={20} />
+          </button>
+          
+          {/* Index Counter */}
+          <div className="absolute bottom-2 right-2 bg-black/60 text-white text-[8px] px-1.5 py-0.5 font-mono uppercase tracking-widest backdrop-blur-sm border border-white/20">
+            {currentIndex + 1} / {images.length}
+          </div>
+        </>
+      )}
+
+      <div className="absolute top-2 left-2 bg-black/60 text-white text-[8px] px-1.5 py-0.5 font-mono uppercase tracking-widest backdrop-blur-sm border border-white/20">
+        Images
+      </div>
+    </div>
+  );
+};
+
 const IdeaReviewPage = () => {
   const [pendingIdeas] = useState([
     {
       id: "101",
       title: "QUANTUM_STAKING_V1",
-      founder: "@berlin_dev",
+      founder: "berlin_dev",
       category: "FINANCE",
-      image: "https://developer.apple.com/design/resources/images/thumbnails/Thumbnail-UIKit-iOS26_2x.png",
+      // Changed to array
+      images: [
+        "https://developer.apple.com/design/resources/images/thumbnails/Thumbnail-UIKit-iOS26_2x.png",
+        "https://img.magnific.com/free-vector/gradient-ui-kit-collection_23-2149203257.jpg?semt=ais_hybrid&w=740&q=80"
+      ],
       abstract: "A PROBABILISTIC STAKING MODEL BASED ON NODE UPTIME VARIANCE.",
       full_intel:
         "THIS PROTOCOL USES SHANNON ENTROPY TO CALCULATE RISK REWARDS FOR LONG-TERM STAKERS. IT REDUCES VOLATILITY BY 12% IN TESTNET SIMULATIONS.",
@@ -38,8 +104,9 @@ const IdeaReviewPage = () => {
     {
       id: "105",
       title: "ZKP_ID_PROTOCOL",
-      founder: "@cipher_null",
+      founder: "cipher_null",
       category: "SECURITY",
+      images: ["https://developer.apple.com/design/resources/images/thumbnails/Thumbnail-SwiftUI-iOS26_2x.png"],
       abstract: "ZERO-KNOWLEDGE PROOF FOR ANONYMOUS FOUNDER VERIFICATION.",
       full_intel:
         "IMPLEMENTING CIRCOM CIRCUITS TO ALLOW FOUNDERS TO PROVE LIQUIDITY WITHOUT REVEALING WALLET ADDRESSES TO THE PUBLIC RESONANCE BOARD.",
@@ -48,8 +115,9 @@ const IdeaReviewPage = () => {
     {
       id: "106",
       title: "DATA Breach",
-      founder: "@cipher",
+      founder: "cipher",
       category: "SECURITY",
+      images: [],
       abstract: "ZERO-KNOWLEDGE PROOF FOR ANONYMOUS FOUNDER VERIFICATION.",
       full_intel:
         "IMPLEMENTING CIRCOM CIRCUITS TO ALLOW FOUNDERS TO PROVE LIQUIDITY WITHOUT REVEALING WALLET ADDRESSES TO THE PUBLIC RESONANCE BOARD.",
@@ -66,7 +134,6 @@ const IdeaReviewPage = () => {
         </aside>
 
         <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
-          {/* 1. ADMIN HEADER */}
           <div className="px-2 h-8 border-b border-zinc-300 bg-zinc-300 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-2">
               <ShieldCheck size={14} className="text-black" />
@@ -79,7 +146,6 @@ const IdeaReviewPage = () => {
             </span>
           </div>
 
-          {/* 2. COMPACT REVIEW LIST */}
           <div className="flex-1 overflow-y-auto divide-x divide-zinc-300 scrollbar-hide gap-px grid grid-cols-3 border-b border-zinc-300">
             {pendingIdeas.map((idea) => (
               <Dialog key={idea.id}>
@@ -110,9 +176,7 @@ const IdeaReviewPage = () => {
                   </div>
                 </DialogTrigger>
 
-                {/* --- REVIEW DIALOG --- */}
-                <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
-                  {/* HEADER */}
+                <DialogContent className="sm:max-w-[500px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
                   <DialogHeader className="bg-blue-500 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
                     <DialogTitle className="text-[12px] tracking-wide uppercase text-white flex gap-1 items-center">
                       <BadgeQuestionMark size={16} className="text-white shrink-0" />
@@ -131,27 +195,16 @@ const IdeaReviewPage = () => {
                   </DialogHeader>
 
                   <div className="max-h-[75vh] overflow-y-auto scrollbar-hide">
-                    {/* SECTION 1: IMAGE PREVIEW (NEW) */}
-                    <div className="relative aspect-video bg-zinc-200 border-b border-zinc-300 overflow-hidden">
-                      <img
-                        src={idea.image || "/placeholder-intel.jpg"}
-                        alt="Intel attachment"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-2 left-2 bg-black/60 text-white text-[8px] px-1.5 py-0.5 font-mono uppercase tracking-widest backdrop-blur-sm border border-white/20">
-                        Images
-                      </div>
-                    </div>
+                    {/* SECTION 1: CAROUSEL REPLACING SINGLE IMAGE */}
+                    <ImageCarousel images={idea.images} />
 
-                    {/* SECTION 2: SYSTEM LABEL (NON-LINK) */}
-                    <div className="flex items-center justify-between p-2 pb-1 bg-zinc-50 border-b border-zinc-200">
+                    <div className="flex items-center justify-between p-2 pb-1  border-b border-zinc-300">
                       <span className="text-[9px] font-black text-zinc-600 uppercase tracking-widest flex items-center gap-1">
                         {idea.category}
                       </span>
                       <div className="h-1.5 w-1.5 bg-green-500 animate-pulse" />
                     </div>
 
-                    {/* SECTION 3: TITLE WITH LABEL */}
                     <div className="border-b border-zinc-300">
                       <span className="text-[10px] font-bold flex flex-col gap-1 p-2 text-zinc-900 leading-none">
                         <div className="font-normal text-zinc-500 uppercase text-[9px] tracking-tighter">
@@ -163,7 +216,6 @@ const IdeaReviewPage = () => {
                       </span>
                     </div>
 
-                    {/* SECTION 4: TECHNICAL ABSTRACT */}
                     <div className=" border-b border-zinc-300">
                       <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2 text-zinc-800 leading-none">
                         <div className="font-normal text-zinc-500 flex items-center gap-1 uppercase text-[9px]">
@@ -175,18 +227,14 @@ const IdeaReviewPage = () => {
                       </span>
                     </div>
 
-                    {/* SECTION 5: METADATA GRID (FOUNDER AS LINK) */}
                     <div className="grid grid-cols-2 divide-x divide-zinc-300 border-b border-zinc-300">
                       <div className="px-2 pb-1.5 bg-white">
                         <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-wide">
                           Founder
                         </span>
-                        <a
-                          href={`/user/${idea.founder_id}`}
-                          className="text-[10px] font-mono font-bold text-zinc-900 flex items-center gap-1.5 hover:underline  cursor-pointer"
-                        >
+                        <div className="text-[10px] font-mono font-bold text-zinc-900 flex items-center gap-1.5 hover:underline cursor-pointer">
                           <User size={10} /> @{idea.founder}
-                        </a>
+                        </div>
                       </div>
                       <div className="px-2 pb-1.5 bg-white">
                         <span className="text-[9px] font-bold text-zinc-500 uppercase tracking-wide">
@@ -198,7 +246,6 @@ const IdeaReviewPage = () => {
                       </div>
                     </div>
 
-                    {/* ACTIONS */}
                     <div className="grid grid-cols-2">
                       <button className="h-11 border-t border-zinc-300 bg-white hover:bg-red-500 hover:text-white font-mono font-black text-[10px] uppercase cursor-pointer transition-colors flex items-center justify-center gap-2 text-zinc-600">
                         <XCircle size={14} /> Reject
@@ -213,7 +260,6 @@ const IdeaReviewPage = () => {
             ))}
           </div>
 
-          {/* 3. SYSTEM FOOTER */}
           <div className="h-6 bg-white border-t border-zinc-100 flex items-center px-4 shrink-0">
             <span className="text-[7px] font-mono text-zinc-300 uppercase tracking-[0.4em]">
               Auth_Protocol: Platform_Operator_01
