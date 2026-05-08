@@ -9,6 +9,7 @@ import {
   Calendar,
   Layout,
   X,
+  BadgeQuestionMark,
 } from "lucide-react";
 import {
   Dialog,
@@ -112,17 +113,17 @@ const IdeaReviewPage = () => {
                 {/* --- REVIEW DIALOG --- */}
                 <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
                   {/* HEADER */}
-                  <DialogHeader className="bg-zinc-300 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
-                    <DialogTitle className="text-[12px] tracking-wide uppercase text-black flex gap-2 items-center">
-                      <Layout size={16} className="text-black shrink-0" />
+                  <DialogHeader className="bg-blue-500 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
+                    <DialogTitle className="text-[12px] tracking-wide uppercase text-white flex gap-1 items-center">
+                      <BadgeQuestionMark size={16} className="text-white shrink-0" />
                       Review
                     </DialogTitle>
-                    <div className="flex items-center gap-4">
-                      <span className="text-[9px] font-mono font-black uppercase text-zinc-500">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[9px] font-mono font-bold uppercase text-zinc-300">
                         Idea_{idea.id}
                       </span>
                       <DialogClose>
-                        <button className="hover:bg-black/40 text-zinc-600 hover:text-zinc-100 cursor-pointer p-1 transition-colors outline-none border-none bg-transparent">
+                        <button className="hover:bg-black/40 text-zinc-200 hover:text-zinc-100 cursor-pointer p-1 transition-colors outline-none border-none bg-transparent">
                           <X className="w-4 h-4 " />
                         </button>
                       </DialogClose>
