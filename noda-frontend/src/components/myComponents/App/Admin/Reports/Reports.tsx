@@ -15,6 +15,7 @@ import {
   Trash2,
   X,
   ShieldCheck,
+  Flag,
 } from "lucide-react";
 import {
   Dialog,
@@ -97,9 +98,9 @@ const AdminReportsPage = () => {
           {/* INDUSTRIAL LIGHT HEADER */}
           <div className="px-2 h-8 border-b border-zinc-300 bg-zinc-200 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-2">
-              <ShieldCheck size={14} className="text-black" />
+              <Flag size={14} className="text-black" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.1em]">
-                Idea Review Queue
+                Report Queue
               </span>
             </div>
             <span className="text-[10px] font-mono text-zinc-600 uppercase font-black">
@@ -122,7 +123,7 @@ const AdminReportsPage = () => {
                         <span
                           className={
                             report.severity === "HIGH"
-                              ? "text-red-500"
+                              ? "text-red-600"
                               : "text-zinc-400"
                           }
                         >
@@ -134,7 +135,7 @@ const AdminReportsPage = () => {
                       </div>
                     </div>
 
-                    <h3 className="text-[10px] font-black uppercase tracking-tight text-zinc-900 transition-transform truncate mb-2">
+                    <h3 className="text-[10px] font-black uppercase tracking-tight text-zinc-900 transition-transform truncate ">
                       {report.reason.replace("_", " ")}
                     </h3>
 
