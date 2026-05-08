@@ -14,6 +14,7 @@ import {
   EyeOff,
   Trash2,
   X,
+  ShieldCheck,
 } from "lucide-react";
 import {
   Dialog,
@@ -92,21 +93,20 @@ const AdminReportsPage = () => {
           <AppSideBar />
         </aside>
 
-        <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-12">
+        <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
           {/* INDUSTRIAL LIGHT HEADER */}
-          <div className="px-3 py-2 bg-zinc-200 flex justify-between items-center shrink-0 border-b border-zinc-300">
+          <div className="px-2 h-8 border-b border-zinc-300 bg-zinc-200 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-2">
-              <Terminal size={14} className="text-zinc-600" />
-              <span className="text-[10px] font-mono font-black uppercase tracking-[0.2em]">
-                Safety_Log
+              <ShieldCheck size={14} className="text-black" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.1em]">
+                Idea Review Queue
               </span>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="text-[9px] font-mono font-black bg-zinc-800 text-white px-1.5 py-0.5">
-                TOTAL:{reports.length}
-              </span>
-            </div>
+            <span className="text-[10px] font-mono text-zinc-600 uppercase font-black">
+              Pending Report: {reports.length}
+            </span>
           </div>
+
 
           {/* MINI-CARD GRID WITH BORDER DIVIDE */}
           <div className="flex-1 overflow-y-auto  gap-px grid grid-cols-3 divide-x divide-y divide-zinc-300 content-start border-b border-zinc-300 scrollbar-hide">
@@ -152,7 +152,7 @@ const AdminReportsPage = () => {
 
                 {/* ENHANCED MODAL CONTENT */}
                 <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
-                  <DialogHeader className="bg-zinc-800 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
+                  <DialogHeader className="bg-blue-500 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
                     <DialogTitle className="text-[12px] tracking-wide uppercase text-white flex gap-1 items-center">
                       <AlertTriangle
                         size={16}

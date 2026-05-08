@@ -134,10 +134,10 @@ const IdeaReviewPage = () => {
         </aside>
 
         <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
-          <div className="px-2 h-8 border-b border-zinc-300 bg-zinc-300 flex justify-between items-center shrink-0">
+          <div className="px-2 h-8 border-b border-zinc-300 bg-zinc-200 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-2">
               <ShieldCheck size={14} className="text-black" />
-              <span className="text-[10px] font-bold text-black uppercase tracking-[0.2em]">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.1em]">
                 Idea Review Queue
               </span>
             </div>
