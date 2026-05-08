@@ -165,7 +165,7 @@ const IdeaReviewPage = () => {
                       </span>
                     </div>
 
-                    <div className="flex-1 mb-1">
+                    <div className="flex-1 ">
                       <h3 className="text-xs font-bold uppercase tracking-tight leading-none mb-1 group-hover:text-zinc-900 transition-colors">
                         {idea.title}
                       </h3>
