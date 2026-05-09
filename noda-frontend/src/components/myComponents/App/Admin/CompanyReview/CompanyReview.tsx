@@ -119,7 +119,7 @@ const VerificationTerminal = () => {
                     <AppSideBar />
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-[calc(100vh-3.5rem)] mt-12 shadow-sm flex-row relative">
+                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-[calc(100vh-3.5rem)] mt-13 shadow-sm flex-row relative">
 
                     {/* CENTER: INSPECTION DECK */}
                     <div className="flex-1 flex flex-col relative border-r border-zinc-300">
