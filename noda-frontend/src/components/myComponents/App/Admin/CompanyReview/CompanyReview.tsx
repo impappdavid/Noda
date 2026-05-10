@@ -100,11 +100,11 @@ const CompanyVerification = () => {
             <div className="flex items-center gap-2">
               <Flag size={14} className="text-black" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.1em]">
-                Report Queue
+                Company Review
               </span>
             </div>
             <span className="text-[10px] font-mono text-zinc-600 uppercase font-black">
-              Pending Report: {reports.length}
+              Pending Requests: {reports.length}
             </span>
           </div>
 
