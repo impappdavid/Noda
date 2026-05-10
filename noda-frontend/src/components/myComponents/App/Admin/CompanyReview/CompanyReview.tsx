@@ -1,338 +1,240 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
-    Building2, Globe, Mail, CheckCircle2, Send,
-    XOctagon, ExternalLink, Activity, Terminal, Filter, User, Briefcase
-} from 'lucide-react';
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+  FileText,
+  Briefcase,
+  ChevronRight,
+  Activity,
+  User,
+  ShieldAlert,
+  Clock,
+  Info,
+  Terminal,
+  AlertTriangle,
+  ExternalLink,
+  EyeOff,
+  Trash2,
+  X,
+  ShieldCheck,
+  Flag,
+} from "lucide-react";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import Navbar from '../../AppNavbar';
-import AppSideBar from '../../Sidebar';
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import Navbar from "../../AppNavbar";
+import AppSideBar from "../../Sidebar";
+import { DialogClose } from "@radix-ui/react-dialog";
 
-// --- TYPES & MOCK DATA ---
-type VerificationStatus = 'PENDING' | 'SENT' | 'ACCEPTED';
-
-interface CompanyNode {
-    id: string;
-    name: string;
-    domain: string;
-    type: string;
-    email: string;
-    logoUrl: string;
-    status: VerificationStatus;
-    submittedAt: string;
-    submitter: {
-        name: string;
-        role: string;
-        email: string;
-    };
-}
-
-const INITIAL_QUEUE: CompanyNode[] = [
+const CompanyVerification = () => {
+  const [reports] = useState([
     {
-        id: "NODE_092A",
-        name: "Vercel",
-        domain: "vercel.com",
-        type: "Cloud Infrastructure",
-        email: "admin@vercel.com",
-        logoUrl: "https://api.dicebear.com/7.x/initials/svg?seed=VE&backgroundColor=18181b",
-        status: 'PENDING',
-        submittedAt: "10 MIN AGO",
-        submitter: {
-            name: "Alex Rivers",
-            role: "Head of Talent",
-            email: "arivers@vercel.com"
-        }
+      id: "901",
+      type: "JOB",
+      reason: "SCAM_INJECTION",
+      reporter: "@user_04",
+      date: "2026.02.13",
+      severity: "HIGH",
+      target: {
+        title: "SR_BLOCKCHAIN_DEV",
+        company: "NEURAL_NET_INC",
+        salary: "$180K - $240K",
+        desc: "WE REQUIRE IMMEDIATE ACCESS TO YOUR COLD STORAGE TO VERIFY YOUR CRYPTO KNOWLEDGE. CLICK THE LINK TO SYNC WALLET.",
+      },
     },
     {
-        id: "NODE_092B",
-        name: "Anthropic",
-        domain: "anthropic.com",
-        type: "Artificial Intelligence",
-        email: "security@anthropic.com",
-        logoUrl: "https://api.dicebear.com/7.x/initials/svg?seed=AN&backgroundColor=18181b",
-        status: 'SENT',
-        submittedAt: "2 HOURS AGO",
-        submitter: {
-            name: "Sarah Chen",
-            role: "Security Engineer",
-            email: "schen@anthropic.com"
-        }
+      id: "904",
+      type: "POST",
+      reason: "HARASSMENT",
+      reporter: "@dev_alpha",
+      date: "2026.02.13",
+      severity: "MED",
+      target: {
+        author: "@troll_node",
+        content:
+          "JUNIOR DEVELOPERS ARE THE WEAKEST LINK IN THE CHAIN. THEY SHOULD NOT BE ALLOWED TO PUSH TO PROD WITHOUT PAYING A FEE.",
+        likes: 12,
+        comments: 45,
+      },
     },
     {
-        id: "NODE_092C",
-        name: "Supabase",
-        domain: "supabase.com",
-        type: "Database / Backend",
-        email: "founders@supabase.com",
-        logoUrl: "https://api.dicebear.com/7.x/initials/svg?seed=SU&backgroundColor=18181b",
-        status: 'ACCEPTED',
-        submittedAt: "1 DAY AGO",
-        submitter: {
-            name: "Marcus Vane",
-            role: "Co-Founder",
-            email: "marcus@supabase.com"
-        }
-    }
-];
+      id: "905",
+      type: "JOB",
+      reason: "SPAM",
+      reporter: "@bot_hunter",
+      date: "2026.02.13",
+      severity: "LOW",
+      target: {
+        title: "EASY $5000/DAY",
+        company: "WEB3_DREAMS",
+        desc: "Click link now to start earning without work.",
+      },
+    },
+    {
+      id: "906",
+      type: "POST",
+      reason: "NSFW_CONTENT",
+      reporter: "@mod_prime",
+      date: "2026.02.13",
+      severity: "HIGH",
+      target: {
+        author: "@user_99",
+        content: "Invalid media detected in the main thread gallery.",
+      },
+    },
+  ]);
 
-const VerificationTerminal = () => {
-    const [queue, setQueue] = useState<CompanyNode[]>(INITIAL_QUEUE);
-    const [selectedId, setSelectedId] = useState<string | null>("NODE_092A");
-    const [filterStatus, setFilterStatus] = useState<string>("ALL");
+  return (
+    <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
+      <Navbar />
+      <div className="flex flex-1 w-full max-w-4xl mx-auto px-6 overflow-hidden">
+        <aside className="w-25 shrink-0">
+          <AppSideBar />
+        </aside>
 
-    // Filter logic
-    const filteredQueue = queue.filter(node =>
-        filterStatus === "ALL" ? true : node.status === filterStatus
-    );
+        <main className="flex flex-1 border-x border-zinc-300 ml-4 bg-white overflow-hidden flex-col pt-13">
+          {/* INDUSTRIAL LIGHT HEADER */}
+          <div className="px-2 h-8 border-b border-zinc-300 bg-zinc-200 flex justify-between items-center shrink-0">
+            <div className="flex items-center gap-2">
+              <Flag size={14} className="text-black" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.1em]">
+                Report Queue
+              </span>
+            </div>
+            <span className="text-[10px] font-mono text-zinc-600 uppercase font-black">
+              Pending Report: {reports.length}
+            </span>
+          </div>
 
-    const activeNode = queue.find(q => q.id === selectedId);
 
-    // --- ACTIONS ---
-    const updateStatus = (id: string, newStatus: VerificationStatus) => {
-        setQueue(prev => prev.map(node => node.id === id ? { ...node, status: newStatus } : node));
-    };
+          {/* MINI-CARD GRID WITH BORDER DIVIDE */}
+          <div className="flex-1 overflow-y-auto gap-px grid grid-cols-4  content-start border-b border-zinc-300 scrollbar-hide">
+            {reports.map((report) => (
+              <Dialog key={report.id}>
+                <DialogTrigger asChild>
+                  <div className="p-2 bg-white flex border-b border-zinc-300 [&:not(:nth-child(4n))]:border-r h-fit gap-2 items-center cursor-pointer hover:bg-zinc-200/80 transition-colors group">
+                    <div className="border border-zinc-300 p-1">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png" alt="" className="w-6 h-6"/>
+                    </div>
+                    <div className="flex flex-col">
+                        <div className="text-xs font-semibold">Google</div>
+                        <div className="text-[10px] font-semibold">AI/ML</div>
+                    </div>
+                  </div>
+                </DialogTrigger>
 
-    const handleSendVerification = () => {
-        if (activeNode) updateStatus(activeNode.id, 'SENT');
-    };
+                {/* ENHANCED MODAL CONTENT */}
+                <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
+                  <DialogHeader className="bg-blue-500 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
+                    <DialogTitle className="text-[12px] tracking-wide uppercase text-white flex gap-1 items-center">
+                      <AlertTriangle
+                        size={16}
+                        className="text-white shrink-0"
+                      />
+                      Report
+                    </DialogTitle>
+                    <DialogClose>
+                      <button className="hover:bg-black/40 cursor-pointer p-1 transition-colors outline-none">
+                        <X className="w-4 h-4 text-white" />
+                      </button>
+                    </DialogClose>
+                  </DialogHeader>
 
-    const handleSimulateUserClick = () => {
-        if (activeNode) updateStatus(activeNode.id, 'ACCEPTED');
-    };
+                  <div className="max-h-[70vh] overflow-y-auto scrollbar-hide">
+                    {/* SECTION 1: TARGET DATA */}
+                    <div className="">
+                      <div className="flex items-center justify-between p-2  pb-1 cursor-pointer hover:bg-zinc-200 transition-colors">
+                        <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-1">
+                          {report.type} ID: {report.id}
+                        </span>
+                        <ExternalLink size={12} className="text-zinc-500" />
+                      </div>
 
-    return (
-        <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans flex flex-col relative overflow-hidden">
-            <Navbar />
-
-            {/* ENFORCED MAX-W-4XL CONTAINER */}
-            <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4 relative">
-
-                {/* LEFT NAVIGATION */}
-                <aside className="w-25 shrink-0 relative hidden sm:block">
-                    <AppSideBar />
-                </aside>
-
-                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-[calc(100vh-3.5rem)] mt-13 shadow-sm flex-row relative">
-
-                    {/* CENTER: INSPECTION DECK */}
-                    <div className="flex-1 flex flex-col relative border-r border-zinc-300">
-
-                        {/* CONTENT AREA */}
-                        {activeNode ? (
-                            <div className="flex-1 flex flex-col gap-[1px] overflow-y-auto scrollbar-hide pb-24">
-
-                                {/* Status Banner */}
-                                <div className={cn(
-                                    "p-2 flex items-center justify-between sticky top-0 z-10",
-                                    activeNode.status === 'PENDING' ? "bg-orange-500 text-white" :
-                                        activeNode.status === 'SENT' ? "bg-blue-500 text-white" : "bg-emerald-500 text-white"
-                                )}>
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-[9px] font-mono font-black uppercase tracking-[0.2em] mt-0.5">
-                                            Status: {activeNode.status}
-                                        </span>
-                                    </div>
-                                    <span className="text-[9px] font-mono font-bold tracking-widest uppercase">
-                                        ID: {activeNode.id}
-                                    </span>
+                      <div className="bg-zinc-50 border border-zinc-300 ">
+                        {report.type === "JOB" ? (
+                          <>
+                            <div className="grid grid-cols-2 border-b border-zinc-300  divide-x divide-zinc-300">
+                              <span className="text-[10px] font-bold p-2 flex flex-col gap-1 uppercase tracking-tighter text-zinc-900 leading-none">
+                                <div className="font-normal text-zinc-500">
+                                  Title
+                                </div>
+                                {report.target.title}
+                              </span>
+                              <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2  text-zinc-800 leading-none">
+                                <div className="font-normal text-zinc-500">
+                                  Company
                                 </div>
 
-                                {/* Primary Identifier Block */}
-                                <div className="bg-white p-2 flex items-center gap-5 border-b border-zinc-300">
-                                    <div className="w-14">
-                                        <img src={activeNode.logoUrl} alt="Logo" className="w-full h-full object-cover" />
-                                    </div>
-                                    <div className="flex flex-col gap-1.5">
-                                        <h2 className="text-xl font-black uppercase tracking-tight text-zinc-900 leading-none">
-                                            {activeNode.name}
-                                        </h2>
-                                    </div>
+                                <div className="hover:underline cursor-pointer">
+                                  {report.target.company}
                                 </div>
-
-                                {/* SECTION: COMPANY DATA */}
-                                <div className=" p-2 border-b border-zinc-300 flex items-center">
-                                    <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em]">Company Data</span>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-zinc-300 border-b border-zinc-300">
-
-                                    <div className="bg-white p-2 flex flex-col gap-2 hover:bg-zinc-50 transition-colors group">
-                                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-1.5">
-                                            Sector Tag
-                                        </label>
-                                        <span className="text-xs font-bold text-zinc-900 uppercase">{activeNode.type}</span>
-                                    </div>
-
-                                    <div className="bg-white p-2 flex flex-col gap-2 hover:bg-zinc-50 transition-colors group">
-                                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-1.5">
-                                            Domain Registry
-                                        </label>
-                                        <a href={`https://${activeNode.domain}`} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-xs font-bold text-zinc-900 uppercase hover:text-orange-600 transition-colors outline-none w-fit">
-                                            {activeNode.domain} <ExternalLink size={10} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                                        </a>
-                                    </div>
-
-                                    <div className="bg-white p-2 flex flex-col gap-2 hover:bg-zinc-50 transition-colors group md:col-span-2">
-                                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-1.5">
-                                             Email
-                                        </label>
-                                        <a href={`mailto:${activeNode.email}`} className="flex items-center gap-1.5 text-xs font-bold text-zinc-900 uppercase hover:text-orange-600 transition-colors outline-none w-fit truncate">
-                                            {activeNode.email} <ExternalLink size={10} className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                                        </a>
-                                    </div>
-                                </div>
-
-                                {/* SECTION: SUBMITTER DATA */}
-                                <div className=" p-2 border-b border-zinc-300 flex items-center">
-                                    <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em]">Creator Infos</span>
-                                </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-[1px] bg-zinc-300 border-b border-zinc-300">
-
-                                    <div className="bg-white p-2 flex flex-col gap-2 hover:bg-zinc-50 transition-colors">
-                                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-1.5">
-                                            Full Name
-                                        </label>
-                                        <span className="text-xs font-bold text-zinc-900 uppercase">{activeNode.submitter.name}</span>
-                                    </div>
-
-                                    <div className="bg-white p-2 flex flex-col gap-2 hover:bg-zinc-50 transition-colors">
-                                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-1.5">
-                                            Role
-                                        </label>
-                                        <span className="text-xs font-bold text-zinc-900 uppercase">{activeNode.submitter.role}</span>
-                                    </div>
-
-                                    <div className="bg-white p-2 flex flex-col gap-2 hover:bg-zinc-50 transition-colors group md:col-span-2">
-                                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-[0.2em] flex items-center gap-1.5">
-                                            Personal Email
-                                        </label>
-                                        <a href={`mailto:${activeNode.submitter.email}`} className="flex items-center gap-1.5 text-xs font-bold text-zinc-900 uppercase hover:text-orange-600 transition-colors outline-none w-fit truncate">
-                                            {activeNode.submitter.email} <ExternalLink size={10} className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-                                        </a>
-                                    </div>
-                                </div>
-
+                              </span>
                             </div>
+                            <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2  text-zinc-800 leading-none">
+                              <div className="font-normal text-zinc-500">
+                                Description
+                              </div>
+                              {report.target.desc}
+                            </span>
+                          </>
                         ) : (
-                            <div className="flex-1 flex flex-col items-center justify-center p-12 text-zinc-400 gap-4 bg-white">
-                                <Terminal size={24} className="opacity-20" />
-                                <span className="text-[9px] font-mono font-black uppercase tracking-widest text-center">
-                                    NO_NODE_SELECTED <br /> Select a company from the queue
-                                </span>
+                          <>
+                            <div className="flex items-center gap-2 p-2">
+                              <div className="w-5 h-5 bg-zinc-900 flex items-center justify-center text-white text-[8px] font-black uppercase tracking-tighter">
+                                {report.target.author.charAt(1)}
+                              </div>
+                              <span className="text-[10px] font-black uppercase ">
+                                {report.target.author}
+                              </span>
                             </div>
+                            <p className="text-[11px] font-mono pl-9 text-zinc-900 leading-relaxed uppercase bg-white pb-2 border border-zinc-100">
+                              {report.target.content}
+                            </p>
+                          </>
                         )}
-
-                        {/* STICKY ACTION FOOTER */}
-                        {activeNode && (
-                            <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-zinc-300 z-30 shadow-[0_-10px_30px_rgba(0,0,0,0.02)] flex flex-col sm:flex-row items-center justify-between ">
-
-                                {activeNode.status === 'PENDING' && (
-                                    <>
-                                        <Button variant="outline" className="w-full sm:w-auto h-10 bg-red-500 text-white rounded-none border-none hover:bg-red-600 hover:text-white font-mono text-[9px] font-black uppercase tracking-widest shadow-none px-12">
-                                            <XOctagon size={12} className="mr-1" /> Reject
-                                        </Button>
-                                        <Button onClick={handleSendVerification} className="w-full sm:flex-1 h-10 rounded-none bg-zinc-800 text-white hover:bg-orange-500 transition-colors font-mono text-[9px] font-black uppercase tracking-[0.2em] shadow-[3px_3px_0px_0px_rgba(24,24,27,0.2)] active:shadow-none active:translate-y-[3px] active:translate-x-[3px]">
-                                            <Send size={12} className="mr-2" /> Email Sent
-                                        </Button>
-                                    </>
-                                )}
-
-                                {activeNode.status === 'SENT' && (
-                                    <>
-                                        <div className="w-full sm:flex-1 flex items-center gap-2 text-[9px] font-mono font-black text-blue-600 uppercase tracking-widest px-2">
-                                            <Activity size={12} className="animate-pulse" /> Awaiting Confirmation
-                                        </div>
-                                        <Button onClick={handleSimulateUserClick} variant="outline" className="w-full sm:w-auto h-10 rounded-none border-zinc-400 text-zinc-900 hover:text-emerald-700 font-mono text-[9px] font-black uppercase tracking-widest shadow-none">
-                                            [DEV] Simulate Link Open
-                                        </Button>
-                                    </>
-                                )}
-
-                                {activeNode.status === 'ACCEPTED' && (
-                                    <div className="w-full flex items-center justify-center gap-2 h-10 bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono text-[10px] font-black uppercase tracking-widest">
-                                        <CheckCircle2 size={14} /> Node_Created
-                                    </div>
-                                )}
-
-                            </div>
-                        )}
+                      </div>
                     </div>
 
-                    {/* RIGHT SIDEBAR: QUEUE & FILTER (w-56 to fit max-w-4xl comfortably) */}
-                    <aside className="w-39 shrink-0 bg-zinc-50 relative hidden md:flex flex-col">
-
-                        
-
-                        {/* Dropdown Filter */}
-                        <div className="p-0.5 border-b border-zinc-300 bg-zinc-100 shrink-0">
-                            
-                            <Select value={filterStatus} onValueChange={setFilterStatus}>
-                                <SelectTrigger className="w-full h-12 rounded-none bg-white text-zinc-900 font-mono text-[10px] font-bold uppercase tracking-widest shadow-none cursor-pointer outline-none">
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent position="popper" sideOffset={4} className="rounded-none border-zinc-300 font-mono text-[9px] font-bold uppercase tracking-widest bg-white">
-                                    <SelectItem value="ALL" className="text-xs cursor-pointer focus:bg-zinc-100">All_Nodes</SelectItem>
-                                    <SelectItem value="PENDING" className="text-xs cursor-pointer focus:bg-zinc-100 text-orange-600 focus:text-orange-700">Pending</SelectItem>
-                                    <SelectItem value="SENT" className="text-xs cursor-pointer focus:bg-zinc-100 text-blue-600 focus:text-blue-700">Email_Sent</SelectItem>
-                                    <SelectItem value="ACCEPTED" className="text-xs cursor-pointer focus:bg-zinc-100 text-emerald-600 focus:text-emerald-700">Accepted</SelectItem>
-                                </SelectContent>
-                            </Select>
+                    {/* SECTION 2: MODERATION INTEL */}
+                    <div className="grid grid-cols-2 divide-x divide-zinc-300">
+                      <div className=" px-2 pb-1">
+                        <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
+                          Reporter
+                        </span>
+                        <div className="text-[10px] font-mono font-bold bg-zinc-100 flex items-center gap-1.5 hover:underline cursor-pointer">
+                          <User size={10} /> {report.reporter}
                         </div>
-
-                        {/* Scrollable List */}
-                        <div className="flex-1 flex flex-col divide-y divide-zinc-200 overflow-y-auto scrollbar-hide">
-                            {filteredQueue.length === 0 ? (
-                                <div className="p-2 text-center text-[9px] font-mono font-bold text-zinc-400 uppercase tracking-widest">
-                                    Queue Empty
-                                </div>
-                            ) : (
-                                filteredQueue.map((node) => (
-                                    <button
-                                        key={node.id}
-                                        onClick={() => setSelectedId(node.id)}
-                                        className={cn(
-                                            "flex flex-col p-2 transition-colors cursor-pointer border-b border-zinc-300 group outline-none text-left relative",
-                                            selectedId === node.id
-                                                ? "bg-white shadow-[inset_2px_0_0_0_#f97316]"
-                                                : "hover:bg-zinc-100"
-                                        )}
-                                    >
-                                        <div className="flex items-start justify-between">
-                                            <span className={cn(
-                                                "text-[11px] font-bold uppercase tracking-tight truncate pr-2",
-                                                selectedId === node.id ? "text-zinc-900" : "text-zinc-600 group-hover:text-zinc-900"
-                                            )}>
-                                                {node.name}
-                                            </span>
-
-                                            {/* Status Indicator Dot */}
-                                            <div className={cn(
-                                                "w-1.5 h-1.5  mt-1 shrink-0",
-                                                node.status === 'PENDING' ? "bg-orange-500" :
-                                                    node.status === 'SENT' ? "bg-blue-500" : "bg-emerald-500"
-                                            )} />
-                                        </div>
-
-                                        <span className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest truncate w-full">
-                                            {node.domain}
-                                        </span>
-                                    </button>
-                                ))
-                            )}
+                      </div>
+                      <div className=" px-2 pb-1">
+                        <span className="text-[8px] font-black text-zinc-400 uppercase tracking-wide">
+                          Violation
+                        </span>
+                        <div className="text-[10px] font-mono font-bold text-red-600 bg-red-50 border border-red-100">
+                          {report.reason}
                         </div>
+                      </div>
+                    </div>
 
-                    </aside>
-
-                </main>
-            </div>
-        </div>
-    );
+                    {/* ACTIONS */}
+                    <div className="grid grid-cols-2  ">
+                      <button className="h-9 border-t border-zinc-300 bg-white hover:bg-zinc-200 font-mono font-black text-[10px] uppercase cursor-pointer transition-colors flex items-center justify-center gap-2">
+                        Reject
+                      </button>
+                      <button className="h-9 bg-red-600 text-white font-mono font-black text-[10px] uppercase cursor-pointer hover:bg-red-700 transition-colors flex items-center justify-center gap-2 border-t border-red-600">
+                        Terminate {report.type}
+                      </button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+            ))}
+          </div>
+        </main>
+      </div>
+    </div>
+  );
 };
 
-export default VerificationTerminal;
+export default CompanyVerification;
