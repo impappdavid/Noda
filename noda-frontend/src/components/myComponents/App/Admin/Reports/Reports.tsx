@@ -110,11 +110,11 @@ const AdminReportsPage = () => {
 
 
           {/* MINI-CARD GRID WITH BORDER DIVIDE */}
-          <div className="flex-1 overflow-y-auto  gap-px grid grid-cols-3 divide-x divide-y divide-zinc-300 content-start border-b border-zinc-300 scrollbar-hide">
+          <div className="flex-1 overflow-y-auto  gap-px grid grid-cols-3 content-start border-b border-zinc-300 scrollbar-hide">
             {reports.map((report) => (
               <Dialog key={report.id}>
                 <DialogTrigger asChild>
-                  <div className="p-2 bg-white flex flex-col h-fit cursor-pointer hover:bg-zinc-200/80 transition-colors group">
+                  <div className="p-2 bg-white flex flex-col border-b border-zinc-300 [&:not(:nth-child(3n))]:border-r h-fit cursor-pointer hover:bg-zinc-200/80 transition-colors group">
                     <div className="flex items-center justify-between mb-1.5">
                       <div className="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase">
                         <span className="text-zinc-900 bg-zinc-100 px-1 border border-zinc-200 shadow-sm">
