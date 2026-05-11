@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   Flag,
   BadgeQuestionMark,
+  Search,
 } from "lucide-react";
 import {
   Dialog,
@@ -28,6 +29,7 @@ import {
 import Navbar from "../../AppNavbar";
 import AppSideBar from "../../Sidebar";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { FilterCombobox } from "./CompanyReviewFilter";
 
 const CompanyVerification = () => {
   const [reports] = useState([
@@ -87,6 +89,8 @@ const CompanyVerification = () => {
     },
   ]);
 
+   const [filter, setFilter] = useState("All");
+
   return (
     <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
       <Navbar />
@@ -107,6 +111,27 @@ const CompanyVerification = () => {
             <span className="text-[10px] font-mono text-zinc-600 uppercase font-black">
               Pending Requests: {reports.length}
             </span>
+          </div>
+
+          <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-10 divide-x divide-zinc-300">
+            <div className="relative flex-[2] flex items-center bg-white px-3 h-full">
+              <Search size={14} className="text-zinc-400 mr-2" />
+              <input
+                placeholder="SEARCH COMPANIES..."
+                className="w-full text-[10px] font-mono font-black uppercase outline-none bg-transparent"
+              />
+            </div>
+            <div className="flex-1 h-full">
+              <FilterCombobox
+                label="STATUS"
+                current={filter}
+                options={["All", "Waiting", "Pending", "Approved"].map(
+                  (s) => ({ label: s, value: s }),
+                )}
+                onSelect={setFilter}
+              />
+            </div>
+            
           </div>
 
           {/* MINI-CARD GRID WITH BORDER DIVIDE */}
