@@ -32,64 +32,33 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { FilterCombobox } from "./CompanyReviewFilter";
 
 const CompanyVerification = () => {
-  const [reports] = useState([
+  const [companies] = useState([
     {
       id: "901",
-      type: "JOB",
-      reason: "SCAM_INJECTION",
-      reporter: "@user_04",
-      date: "2026.02.13",
-      severity: "HIGH",
-      target: {
-        title: "SR_BLOCKCHAIN_DEV",
-        company: "NEURAL_NET_INC",
-        salary: "$180K - $240K",
-        desc: "WE REQUIRE IMMEDIATE ACCESS TO YOUR COLD STORAGE TO VERIFY YOUR CRYPTO KNOWLEDGE. CLICK THE LINK TO SYNC WALLET.",
-      },
+      name: "Google",
+      type: "AI/ML",
+      companyLogo:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/3840px-Google_%22G%22_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail",
+      domain: "www.google.com",
+      companyEmail: "info@google.com",
+      status: "waiting",
+      submittedUser: "@alexriver",
     },
     {
       id: "904",
-      type: "POST",
-      reason: "HARASSMENT",
-      reporter: "@dev_alpha",
-      date: "2026.02.13",
-      severity: "MED",
-      target: {
-        author: "@troll_node",
-        content:
-          "JUNIOR DEVELOPERS ARE THE WEAKEST LINK IN THE CHAIN. THEY SHOULD NOT BE ALLOWED TO PUSH TO PROD WITHOUT PAYING A FEE.",
-        likes: 12,
-        comments: 45,
-      },
+      name: "Vercel",
+      type: "Hosting",
+      companyLogo:
+        "https://encore.cloud/assets/resources/vercel_cover.jpg",
+      domain: "www.vercel.com",
+      companyEmail: "info@vercel.com",
+      status: "approved",
+      submittedUser: "@testelek01",
     },
-    {
-      id: "905",
-      type: "JOB",
-      reason: "SPAM",
-      reporter: "@bot_hunter",
-      date: "2026.02.13",
-      severity: "LOW",
-      target: {
-        title: "EASY $5000/DAY",
-        company: "WEB3_DREAMS",
-        desc: "Click link now to start earning without work.",
-      },
-    },
-    {
-      id: "906",
-      type: "POST",
-      reason: "NSFW_CONTENT",
-      reporter: "@mod_prime",
-      date: "2026.02.13",
-      severity: "HIGH",
-      target: {
-        author: "@user_99",
-        content: "Invalid media detected in the main thread gallery.",
-      },
-    },
+   
   ]);
 
-   const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState("All");
 
   return (
     <div className="h-screen bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
@@ -109,7 +78,7 @@ const CompanyVerification = () => {
               </span>
             </div>
             <span className="text-[10px] font-mono text-zinc-600 uppercase font-black">
-              Pending Requests: {reports.length}
+              Pending Requests: {companies.length}
             </span>
           </div>
 
@@ -125,31 +94,31 @@ const CompanyVerification = () => {
               <FilterCombobox
                 label="STATUS"
                 current={filter}
-                options={["All", "Waiting", "Pending", "Approved"].map(
-                  (s) => ({ label: s, value: s }),
-                )}
+                options={["All", "Waiting", "Pending", "Approved"].map((s) => ({
+                  label: s,
+                  value: s,
+                }))}
                 onSelect={setFilter}
               />
             </div>
-            
           </div>
 
           {/* MINI-CARD GRID WITH BORDER DIVIDE */}
           <div className="flex-1 overflow-y-auto gap-px grid grid-cols-4  content-start border-b border-zinc-300 scrollbar-hide">
-            {reports.map((report) => (
-              <Dialog key={report.id}>
+            {companies.map((company) => (
+              <Dialog key={company.id}>
                 <DialogTrigger asChild>
                   <div className="p-2 bg-white flex border-b border-zinc-300 [&:not(:nth-child(4n))]:border-r h-fit gap-2 items-center cursor-pointer hover:bg-zinc-200/80 transition-colors group">
                     <div className="border border-zinc-300 p-1">
                       <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png"
+                        src={company.companyLogo}
                         alt=""
                         className="w-6 h-6"
                       />
                     </div>
                     <div className="flex flex-col">
-                      <div className="text-xs font-semibold">Google</div>
-                      <div className="text-[10px] font-semibold">AI/ML</div>
+                      <div className="text-xs font-semibold">{company.name}</div>
+                      <div className="text-[10px] font-semibold">{company.type}</div>
                     </div>
                   </div>
                 </DialogTrigger>
@@ -175,46 +144,28 @@ const CompanyVerification = () => {
                     {/* SECTION 1: TARGET DATA */}
                     <div className="">
                       <div className="  ">
-                        {report.type === "JOB" ? (
-                          <>
-                            <div className="flex border-b border-zinc-300  divide-x divide-zinc-300">
-                              <div className="p-1 ">
-                                <img
-                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJg75LWB1zIJt1VTZO7O68yKciaDSkk3KMdw&s"
-                                  alt=""
-                                  className="w-10 h-10"
-                                />
+                        <div className="flex border-b border-zinc-300  divide-x divide-zinc-300">
+                          <div className="p-1 ">
+                            <img
+                              src={company.companyLogo}
+                              alt=""
+                              className="w-10 h-10"
+                            />
+                          </div>
+                          <div className="w-full flex justify-between pr-1 ">
+                            <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2  text-zinc-800 leading-none">
+                              <div className="font-normal text-zinc-500">
+                                Company Name
                               </div>
-                              <div className="w-full flex justify-between pr-1 ">
-                                <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2  text-zinc-800 leading-none">
-                                  <div className="font-normal text-zinc-500">
-                                    Company Name
-                                  </div>
 
-                                  <div className="text-sm">Google</div>
-                                </span>
+                              <div className="text-sm">{company.name}</div>
+                            </span>
 
-                                <div className="p-1 px-3 text-[10px] bg-orange-500 h-fit text-white font-semibold">
-                                  Waiting
-                                </div>
-                              </div>
+                            <div className={`p-1 px-3 text-[10px] uppercase ${company.status === "approved" ? "bg-emerald-500" : company.status === "waiting" ? "bg-orange-500" : "bg-zinc-800"} h-fit text-white font-semibold`}>
+                              {company.status}
                             </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="flex items-center gap-2 p-2">
-                              <div className="w-5 h-5 bg-zinc-900 flex items-center justify-center text-white text-[8px] font-black uppercase tracking-tighter">
-                                {report.target.author.charAt(1)}
-                              </div>
-                              <span className="text-[10px] font-black uppercase ">
-                                {report.target.author}
-                              </span>
-                            </div>
-                            <p className="text-[11px] font-mono pl-9 text-zinc-900 leading-relaxed uppercase bg-white pb-2 border border-zinc-100">
-                              {report.target.content}
-                            </p>
-                          </>
-                        )}
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -225,7 +176,7 @@ const CompanyVerification = () => {
                           Domain
                         </span>
                         <div className="text-[11px] font-mono font-bold bg-zinc-100 flex items-center gap-1.5 hover:underline cursor-pointer">
-                          www.google.com
+                          {company.domain}
                         </div>
                       </div>
                       <div className=" px-2 pb-1">
@@ -233,7 +184,7 @@ const CompanyVerification = () => {
                           Email
                         </span>
                         <div className="text-[11px] font-mono font-bold text-black cursor-pointer hover:underline ">
-                          info@google.com
+                          {company.companyEmail}
                         </div>
                       </div>
                     </div>
@@ -245,24 +196,39 @@ const CompanyVerification = () => {
                           Type
                         </span>
                         <div className="text-[11px] font-mono font-bold bg-zinc-100 text-blue-600 flex items-center gap-1.5 ">
-                          AI/ML
+                          {company.type}
                         </div>
                       </div>
                       <div className=" px-2 pb-1">
                         <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
-                          Submitted
+                          Submitted By
                         </span>
                         <div className="text-[11px] flex items-center gap-1 font-mono font-bold text-black cursor-pointer hover:underline ">
                           <User className="w-3 h-3" />
                           <span className="hover:underline cursor-pointer">
-                            @alexriver
+                            {company.submittedUser}
                           </span>
                         </div>
                       </div>
                     </div>
 
                     {/* ACTIONS */}
-                    <div className="grid grid-cols-2  ">
+                    {company.status === "approved" ? (
+                      
+                    
+                    <div className="grid grid-cols-3">
+                      <button className="h-9 border-t border-zinc-300 bg-white hover:bg-zinc-200 font-mono font-black text-[10px] uppercase cursor-pointer transition-colors flex items-center justify-center gap-2">
+                        Close
+                      </button>
+                      <button className="h-9 bg-zinc-800 text-white font-mono font-black text-[10px] uppercase cursor-pointer hover:bg-zinc-900 transition-colors flex items-center justify-center gap-2">
+                        Ban for
+                      </button>
+                      <button className="h-9 bg-red-500 text-white font-mono font-black text-[10px] uppercase cursor-pointer hover:bg-red-600 transition-colors flex items-center justify-center gap-2">
+                        Delete
+                      </button>
+                    </div>
+                    ) : (
+                      <div className="grid grid-cols-2  ">
                       <button className="h-9 border-t border-zinc-300 bg-white hover:bg-zinc-200 font-mono font-black text-[10px] uppercase cursor-pointer transition-colors flex items-center justify-center gap-2">
                         Reject
                       </button>
@@ -270,6 +236,7 @@ const CompanyVerification = () => {
                         Email Sent
                       </button>
                     </div>
+                    )}
                   </div>
                 </DialogContent>
               </Dialog>
