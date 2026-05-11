@@ -108,7 +108,6 @@ const CompanyVerification = () => {
             </span>
           </div>
 
-
           {/* MINI-CARD GRID WITH BORDER DIVIDE */}
           <div className="flex-1 overflow-y-auto gap-px grid grid-cols-4  content-start border-b border-zinc-300 scrollbar-hide">
             {reports.map((report) => (
@@ -116,11 +115,15 @@ const CompanyVerification = () => {
                 <DialogTrigger asChild>
                   <div className="p-2 bg-white flex border-b border-zinc-300 [&:not(:nth-child(4n))]:border-r h-fit gap-2 items-center cursor-pointer hover:bg-zinc-200/80 transition-colors group">
                     <div className="border border-zinc-300 p-1">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png" alt="" className="w-6 h-6"/>
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Google_Favicon_2025.svg/250px-Google_Favicon_2025.svg.png"
+                        alt=""
+                        className="w-6 h-6"
+                      />
                     </div>
                     <div className="flex flex-col">
-                        <div className="text-xs font-semibold">Google</div>
-                        <div className="text-[10px] font-semibold">AI/ML</div>
+                      <div className="text-xs font-semibold">Google</div>
+                      <div className="text-[10px] font-semibold">AI/ML</div>
                     </div>
                   </div>
                 </DialogTrigger>
@@ -145,39 +148,31 @@ const CompanyVerification = () => {
                   <div className="max-h-[70vh] overflow-y-auto scrollbar-hide">
                     {/* SECTION 1: TARGET DATA */}
                     <div className="">
-                      <div className="flex items-center justify-between p-2  pb-1 cursor-pointer hover:bg-zinc-200 transition-colors">
-                        <span className="text-[9px] font-black text-zinc-500 uppercase tracking-widest flex items-center gap-1">
-                          {report.type} ID: {report.id}
-                        </span>
-                        <ExternalLink size={12} className="text-zinc-500" />
-                      </div>
-
-                      <div className="bg-zinc-50 border border-zinc-300 ">
+                      <div className="  ">
                         {report.type === "JOB" ? (
                           <>
-                            <div className="grid grid-cols-2 border-b border-zinc-300  divide-x divide-zinc-300">
-                              <span className="text-[10px] font-bold p-2 flex flex-col gap-1 uppercase tracking-tighter text-zinc-900 leading-none">
-                                <div className="font-normal text-zinc-500">
-                                  Title
-                                </div>
-                                {report.target.title}
-                              </span>
-                              <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2  text-zinc-800 leading-none">
-                                <div className="font-normal text-zinc-500">
-                                  Company
-                                </div>
-
-                                <div className="hover:underline cursor-pointer">
-                                  {report.target.company}
-                                </div>
-                              </span>
-                            </div>
-                            <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2  text-zinc-800 leading-none">
-                              <div className="font-normal text-zinc-500">
-                                Description
+                            <div className="flex border-b border-zinc-300  divide-x divide-zinc-300">
+                              <div className="p-1 ">
+                                <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJg75LWB1zIJt1VTZO7O68yKciaDSkk3KMdw&s"
+                                  alt=""
+                                  className="w-10 h-10"
+                                />
                               </div>
-                              {report.target.desc}
-                            </span>
+                              <div className="w-full flex justify-between pr-1 ">
+                                <span className="text-[10px] font-bold flex flex-col gap-1 font-mono p-2  text-zinc-800 leading-none">
+                                  <div className="font-normal text-zinc-500">
+                                    Company Name
+                                  </div>
+
+                                  <div className="text-sm">Google</div>
+                                </span>
+
+                                <div className="p-1 px-3 text-[10px] bg-orange-500 h-fit text-white font-semibold">
+                                  Waiting
+                                </div>
+                              </div>
+                            </div>
                           </>
                         ) : (
                           <>
@@ -198,21 +193,44 @@ const CompanyVerification = () => {
                     </div>
 
                     {/* SECTION 2: MODERATION INTEL */}
-                    <div className="grid grid-cols-2 divide-x divide-zinc-300">
+                    <div className="grid grid-cols-2 divide-x  divide-zinc-300">
                       <div className=" px-2 pb-1">
                         <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
-                          Reporter
+                          Domain
                         </span>
-                        <div className="text-[10px] font-mono font-bold bg-zinc-100 flex items-center gap-1.5 hover:underline cursor-pointer">
-                          <User size={10} /> {report.reporter}
+                        <div className="text-[11px] font-mono font-bold bg-zinc-100 flex items-center gap-1.5 hover:underline cursor-pointer">
+                          www.google.com
                         </div>
                       </div>
                       <div className=" px-2 pb-1">
-                        <span className="text-[8px] font-black text-zinc-400 uppercase tracking-wide">
-                          Violation
+                        <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
+                          Email
                         </span>
-                        <div className="text-[10px] font-mono font-bold text-red-600 bg-red-50 border border-red-100">
-                          {report.reason}
+                        <div className="text-[11px] font-mono font-bold text-black cursor-pointer hover:underline bg-red-50 border border-red-100">
+                          info@google.com
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* SECTION 3: */}
+                    <div className="grid grid-cols-2 divide-x border-t border-zinc-300 divide-zinc-300">
+                      <div className=" px-2 pb-1">
+                        <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
+                          Type
+                        </span>
+                        <div className="text-[11px] font-mono font-bold bg-zinc-100 text-blue-600 flex items-center gap-1.5 ">
+                          AI/ML
+                        </div>
+                      </div>
+                      <div className=" px-2 pb-1">
+                        <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
+                          Submitted
+                        </span>
+                        <div className="text-[11px] flex items-center gap-1 font-mono font-bold text-black cursor-pointer hover:underline ">
+                          <User className="w-3 h-3" />
+                          <span className="hover:underline cursor-pointer">
+                            @alexriver
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -222,8 +240,8 @@ const CompanyVerification = () => {
                       <button className="h-9 border-t border-zinc-300 bg-white hover:bg-zinc-200 font-mono font-black text-[10px] uppercase cursor-pointer transition-colors flex items-center justify-center gap-2">
                         Reject
                       </button>
-                      <button className="h-9 bg-red-600 text-white font-mono font-black text-[10px] uppercase cursor-pointer hover:bg-red-700 transition-colors flex items-center justify-center gap-2 border-t border-red-600">
-                        Terminate {report.type}
+                      <button className="h-9 bg-blue-500 text-white font-mono font-black text-[10px] uppercase cursor-pointer hover:bg-blue-600 transition-colors flex items-center justify-center gap-2">
+                        Email Sent
                       </button>
                     </div>
                   </div>
