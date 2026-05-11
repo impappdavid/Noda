@@ -16,6 +16,7 @@ import {
   X,
   ShieldCheck,
   Flag,
+  BadgeQuestionMark,
 } from "lucide-react";
 import {
   Dialog,
@@ -132,11 +133,11 @@ const CompanyVerification = () => {
                 <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
                   <DialogHeader className="bg-blue-500 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
                     <DialogTitle className="text-[12px] tracking-wide uppercase text-white flex gap-1 items-center">
-                      <AlertTriangle
+                      <BadgeQuestionMark
                         size={16}
                         className="text-white shrink-0"
                       />
-                      Report
+                      Verify
                     </DialogTitle>
                     <DialogClose>
                       <button className="hover:bg-black/40 cursor-pointer p-1 transition-colors outline-none">
@@ -206,7 +207,7 @@ const CompanyVerification = () => {
                         <span className="text-[8px] font-bold text-zinc-500 uppercase tracking-wide">
                           Email
                         </span>
-                        <div className="text-[11px] font-mono font-bold text-black cursor-pointer hover:underline bg-red-50 border border-red-100">
+                        <div className="text-[11px] font-mono font-bold text-black cursor-pointer hover:underline ">
                           info@google.com
                         </div>
                       </div>
