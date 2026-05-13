@@ -68,7 +68,7 @@ const UserProfile: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen text-zinc-900 font-sans flex flex-col relative bg-zinc-100">
+        <div className="min-h-screen text-zinc-900 font-sans flex flex-col relative ">
             <Navbar />
 
             <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4 relative">
@@ -79,12 +79,12 @@ const UserProfile: React.FC = () => {
                     </div>
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen shadow-xl flex-row pt-13">
+                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen flex-row pt-13">
                     
-                    <div className="flex-1 flex flex-col border-r border-zinc-300">
+                    <div className="flex-1 flex flex-col   mb-64">
                         
                         {/* IDENTITY PLATE */}
-                        <section className="relative shrink-0 bg-white border-b border-zinc-300 flex flex-col">
+                        <section className="relative shrink-0 bg-white border-b border-zinc-300 flex flex-col ">
                             <div className="h-32 bg-zinc-900 relative">
                                 <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800" className="w-full h-full object-cover opacity-60" alt="Banner" />
                             </div>
@@ -144,7 +144,7 @@ const UserProfile: React.FC = () => {
                                     </div>
 
                                     <div ref={sectionRefs.experience} className="bg-white border-b border-zinc-300">
-                                        <ModuleHeader title="Career_Logs" icon={<Briefcase size={12}/>} />
+                                        <ModuleHeader title="Experience" icon={<Briefcase size={12}/>} />
                                         {userData.experience.map((exp, idx) => (
                                             <div key={idx} className="flex border-b border-zinc-100 last:border-0 hover:bg-zinc-50">
                                                 <div className="w-14 flex items-center justify-center bg-zinc-50 border-r border-zinc-200 py-3 text-[10px] font-black text-zinc-400">{exp.logo}</div>
@@ -160,7 +160,7 @@ const UserProfile: React.FC = () => {
                                     </div>
 
                                     <div ref={sectionRefs.projects} className="bg-white border-b border-zinc-300">
-                                        <ModuleHeader title="Build_Deployments" icon={<Code2 size={12}/>} />
+                                        <ModuleHeader title="Projects" icon={<Code2 size={12}/>} />
                                         <div className="grid grid-cols-2 gap-[1px] bg-zinc-300">
                                             {userData.projects.map((proj, idx) => (
                                                 <div key={idx} className="bg-white p-3 group">
@@ -175,7 +175,7 @@ const UserProfile: React.FC = () => {
                                     </div>
 
                                     <div ref={sectionRefs.skills} className="bg-white border-b border-zinc-300">
-                                        <ModuleHeader title="Core_Dependencies" icon={<Zap size={12}/>} />
+                                        <ModuleHeader title="Skills" icon={<Zap size={12}/>} />
                                         <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-3">
                                             {userData.skills.map(s => (
                                                 <div key={s} className="flex items-center justify-between border-b border-zinc-100 pb-1.5 group">
@@ -190,7 +190,7 @@ const UserProfile: React.FC = () => {
                                     </div>
 
                                     <div ref={sectionRefs.education} className="bg-white border-b border-zinc-300">
-                                        <ModuleHeader title="Training_Archive" icon={<GraduationCap size={12}/>} />
+                                        <ModuleHeader title="Education" icon={<GraduationCap size={12}/>} />
                                         {userData.education.map((edu, idx) => (
                                             <div key={idx} className="flex border-b border-zinc-100 last:border-0">
                                                 <div className="w-14 flex items-center justify-center bg-zinc-50 border-r border-zinc-200 py-3 text-[10px] font-black text-zinc-400">{edu.logo}</div>
@@ -203,7 +203,7 @@ const UserProfile: React.FC = () => {
                                     </div>
 
                                     <div ref={sectionRefs.recs} className="bg-white border-b border-zinc-300">
-                                        <ModuleHeader title="Peer_Validation" icon={<Quote size={12}/>} />
+                                        <ModuleHeader title="Reccomendations" icon={<Quote size={12}/>} />
                                         <div className="p-4 space-y-4">
                                             {userData.recommendations.map((r, i) => (
                                                 <div key={i} className="border-l-2 border-zinc-900 pl-4 py-1">
@@ -216,11 +216,11 @@ const UserProfile: React.FC = () => {
 
                                     <div ref={sectionRefs.misc} className="bg-white p-4 border-b border-zinc-300 grid grid-cols-2 divide-x divide-zinc-200">
                                         <div>
-                                            <h4 className="text-[8px] font-mono font-black text-zinc-400 uppercase tracking-widest mb-2">Localization</h4>
+                                            <h4 className="text-[9px] font-mono font-black text-zinc-600 uppercase tracking-widest mb-2">Languages</h4>
                                             {userData.languages.map(l => <p key={l} className="text-[10px] font-bold uppercase text-zinc-800">{l}</p>)}
                                         </div>
                                         <div className="pl-4">
-                                            <h4 className="text-[8px] font-mono font-black text-zinc-400 uppercase tracking-widest mb-2">Recognition</h4>
+                                            <h4 className="text-[9px] font-mono font-black text-zinc-600 uppercase tracking-widest mb-2">Recognition</h4>
                                             {userData.honors.map(h => <p key={h} className="text-[10px] font-bold uppercase text-blue-600">{h}</p>)}
                                         </div>
                                     </div>
@@ -230,17 +230,17 @@ const UserProfile: React.FC = () => {
                     </div>
 
                     {/* NAVIGATION SIDEBAR */}
-                    <aside className="w-44 shrink-0 bg-white hidden md:flex flex-col">
-                        <div className="sticky top-14 flex flex-col h-[calc(100vh-3.5rem)]">
-                            <div className="p-3 bg-zinc-900 text-white shrink-0 shadow-md">
-                                <span className="text-[8px] font-mono font-black uppercase tracking-[0.3em]">System_Map</span>
+                    <aside className="w-39 shrink-0 bg-white hidden md:flex flex-col border-l border-zinc-300">
+                        <div className="sticky top-13 flex flex-col h-[calc(100vh-3.5rem)]">
+                            <div className="pb-2 px-2 bg-zinc-300 text-black shrink-0 ">
+                                <span className="text-[9px] font-mono font-black uppercase tracking-[0.2em]">On This Page</span>
                             </div>
                             
-                            <nav className="p-2 flex-1 space-y-0.5 overflow-y-auto border-b border-zinc-200">
+                            <nav className=" flex-1  overflow-y-auto border-b border-zinc-200">
                                 <NavBtn label="Analytics" onClick={() => scrollTo(sectionRefs.analytics)} />
                                 <NavBtn label="Summary" onClick={() => scrollTo(sectionRefs.about)} />
                                 <NavBtn label="Career" onClick={() => scrollTo(sectionRefs.experience)} />
-                                <NavBtn label="Deployments" onClick={() => scrollTo(sectionRefs.projects)} />
+                                <NavBtn label="Projects" onClick={() => scrollTo(sectionRefs.projects)} />
                                 <NavBtn label="Stack" onClick={() => scrollTo(sectionRefs.skills)} />
                                 <NavBtn label="Training" onClick={() => scrollTo(sectionRefs.education)} />
                                 <NavBtn label="Validation" onClick={() => scrollTo(sectionRefs.recs)} />
@@ -267,7 +267,7 @@ const UserProfile: React.FC = () => {
 // --- SUBCOMPONENTS ---
 
 const ModuleHeader = ({ title, icon }: any) => (
-    <div className="px-2 py-1.5 bg-blue-500/20 border-b border-zinc-300 flex items-center gap-2 shadow-sm">
+    <div className="px-2 py-1.5 bg-zinc-300 border-b border-zinc-300 flex items-center gap-2 shadow-sm">
         <span className="text-zinc-600">{icon}</span>
         <h3 className="text-[9px] font-mono font-black text-black uppercase tracking-[0.3em]">{title}</h3>
     </div>
@@ -284,7 +284,7 @@ const AnalyticsItem = ({ icon, label, val, sub }: any) => (
 );
 
 const NavBtn = ({ label, onClick }: any) => (
-    <button onClick={onClick} className="w-full text-left px-2 py-2 text-[9px] font-mono font-bold text-zinc-500 uppercase hover:text-orange-600 hover:bg-zinc-50 transition-all truncate border-l-2 border-transparent hover:border-orange-600">
+    <button onClick={onClick} className="w-full text-left px-2 py-2 border-b border-zinc-300 text-[9px] font-mono font-bold text-zinc-500 uppercase hover:text-blue-600 cursor-pointer hover:bg-zinc-200 transition-all truncate ">
         {label}
     </button>
 );
