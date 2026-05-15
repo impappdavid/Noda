@@ -117,7 +117,7 @@ const UserProfile: React.FC = () => {
 
                         {/* ANALYTICS SECTION */}
                         <section ref={sectionRefs.analytics} className="bg-white border-b border-zinc-300">
-                            <ModuleHeader title="Network_Traffic" icon={<BarChart3 size={12}/>} />
+                            <ModuleHeader title="Statistics" icon={<BarChart3 size={12}/>} />
                             <div className="grid grid-cols-3 divide-x divide-zinc-300">
                                 <AnalyticsItem icon={<TrendingUp size={14}/>} label="Views" val="1.2k" sub="+12%" />
                                 <AnalyticsItem icon={<Users size={14}/>} label="Nodes" val="482" sub="Verified" />
@@ -126,7 +126,7 @@ const UserProfile: React.FC = () => {
                         </section>
 
                         {/* TABS */}
-                        <div className="flex w-full border-b border-zinc-300 bg-zinc-100 h-10 divide-x divide-zinc-300">
+                        <div className="flex w-full border-b border-zinc-300 bg-zinc-100 h-9 divide-x divide-zinc-300">
                             {(['ABOUT', 'POSTS'] as TabType[]).map((tab) => (
                                 <button key={tab} onClick={() => setActiveTab(tab)} className={cn("flex-1 text-[9px] font-mono font-black uppercase tracking-[0.2em] transition-all", activeTab === tab ? "bg-white text-zinc-900 shadow-[inset_0_-2px_0_0_#18181b]" : "text-zinc-400")}>
                                     {tab}
@@ -138,8 +138,8 @@ const UserProfile: React.FC = () => {
                         <div className="flex-1 bg-zinc-300 gap-[1px] flex flex-col">
                             {activeTab === 'ABOUT' && (
                                 <>
-                                    <div ref={sectionRefs.about} className="bg-white p-4 border-b border-zinc-300">
-                                        <h3 className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-widest mb-2 flex items-center gap-2"> <Terminal size={11}/> Bio_Process</h3>
+                                    <div ref={sectionRefs.about} className="bg-white p-2 border-b border-zinc-300">
+                                        <h3 className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-widest mb-1 flex items-center gap-2"> <Terminal size={11}/> Bio_Process</h3>
                                         <p className="text-xs font-medium text-zinc-900 leading-relaxed">{userData.description}</p>
                                     </div>
 
@@ -163,7 +163,7 @@ const UserProfile: React.FC = () => {
                                         <ModuleHeader title="Projects" icon={<Code2 size={12}/>} />
                                         <div className="grid grid-cols-2 gap-[1px] bg-zinc-300">
                                             {userData.projects.map((proj, idx) => (
-                                                <div key={idx} className="bg-white p-3 group">
+                                                <div key={idx} className="bg-white p-2 group cursor-pointer">
                                                     <div className="aspect-video bg-zinc-100 mb-2 overflow-hidden border border-zinc-200 shadow-inner">
                                                         <img src={proj.img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
                                                     </div>
@@ -176,7 +176,7 @@ const UserProfile: React.FC = () => {
 
                                     <div ref={sectionRefs.skills} className="bg-white border-b border-zinc-300">
                                         <ModuleHeader title="Skills" icon={<Zap size={12}/>} />
-                                        <div className="p-4 grid grid-cols-2 gap-x-8 gap-y-3">
+                                        <div className="p-2 grid grid-cols-2 gap-x-8 gap-y-3">
                                             {userData.skills.map(s => (
                                                 <div key={s} className="flex items-center justify-between border-b border-zinc-100 pb-1.5 group">
                                                     <div className="flex items-center gap-2">
@@ -274,7 +274,7 @@ const ModuleHeader = ({ title, icon }: any) => (
 );
 
 const AnalyticsItem = ({ icon, label, val, sub }: any) => (
-    <div className="p-4 flex flex-col gap-0.5 hover:bg-zinc-50 transition-colors">
+    <div className="p-2 flex flex-col gap-0.5 hover:bg-zinc-50 transition-colors">
         <div className="flex items-center gap-1.5 text-zinc-400">
             {icon} <span className="text-[7px] font-mono font-bold uppercase">{label}</span>
         </div>

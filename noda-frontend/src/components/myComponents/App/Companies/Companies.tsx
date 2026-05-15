@@ -34,7 +34,7 @@ const AppCompanies = () => {
 
                 <main className="flex flex-1 max-w-3xl border-x border-zinc-300 h-full overflow-hidden bg-white">
                     {/* LEFT PANE */}
-                    <div className="w-1/2 h-full flex flex-col border-r border-zinc-300 pt-12">
+                    <div className="w-1/2 h-full flex flex-col border-r border-zinc-300 pt-13">
                         <SearchCompany searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                         <CompanyList 
                             companyData={filteredCompanies} 
@@ -44,7 +44,7 @@ const AppCompanies = () => {
                     </div>
 
                     {/* RIGHT PANE */}
-                    <div className="w-1/2 h-full flex flex-col bg-white overflow-hidden pt-12">
+                    <div className="w-1/2 h-full flex flex-col bg-white overflow-hidden pt-13">
                         <CompanyInfo selectedCompany={selectedCompany}/>
                     </div>
                 </main>
