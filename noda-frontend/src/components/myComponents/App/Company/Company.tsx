@@ -76,7 +76,7 @@ const CompanyProfile: React.FC = () => {
             <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4 relative">
                 
                 {/* Left App Navigation Sidebar */}
-                <aside className="w-[100px] shrink-0 relative">
+                <aside className="w-25 shrink-0 relative">
                     <div className="sticky top-14 h-fit py-4">
                         <AppSideBar />
                     </div>
@@ -104,9 +104,9 @@ const CompanyProfile: React.FC = () => {
                                             className={cn("h-7 px-3 border text-[9px] font-mono font-black uppercase tracking-widest transition-colors", 
                                             isConfigMode ? "bg-blue-600 border-blue-600 text-white" : "border-zinc-300 text-zinc-500 hover:bg-zinc-50")}
                                         >
-                                            <Settings2 size={10} className="inline mr-1.5"/> {isConfigMode ? "Save" : "Manage"}
+                                             {isConfigMode ? "Save" : "Manage"}
                                         </button>
-                                        <button className="h-7 px-4 bg-zinc-900 text-white text-[9px] font-mono font-black uppercase tracking-widest hover:bg-orange-600 transition-all">
+                                        <button className="h-7 px-4 bg-zinc-900 text-white text-[9px] font-mono font-black uppercase tracking-widest hover:bg-blue-500 transition-all">
                                             Follow
                                         </button>
                                     </div>
@@ -153,9 +153,9 @@ const CompanyProfile: React.FC = () => {
 
                                     {/* SECTION: Intro Video */}
                                     <div className="bg-white border-b border-zinc-300">
-                                        <ModuleHeader title="Featured Briefing Video" icon={<Video size={12}/>} />
-                                        <div className="p-4">
-                                            <div className="relative aspect-video w-full bg-zinc-950 border border-zinc-300 overflow-hidden shadow-inner group">
+                                        <ModuleHeader title="Introduction Video" icon={<Video size={12}/>} />
+                                        <div className="">
+                                            <div className="relative aspect-video w-full bg-zinc-800  overflow-hidden shadow-inner group">
                                                 <video ref={videoRef} src={companyData.videoUrl} className="w-full h-full object-cover" loop muted playsInline />
                                                 <div className="absolute inset-0 bg-black/20 flex flex-col justify-between p-3">
                                                     <div className="flex justify-between items-start">
@@ -175,10 +175,10 @@ const CompanyProfile: React.FC = () => {
 
                                     {/* SECTION: Products */}
                                     <div className="bg-white border-b border-zinc-300">
-                                        <ModuleHeader title="Products & Technologies" icon={<Code2 size={12}/>} />
+                                        <ModuleHeader title="Updates & News" icon={<Code2 size={12}/>} />
                                         <div className="grid grid-cols-2 gap-[1px] bg-zinc-300">
                                             {companyData.products.map((prod, idx) => (
-                                                <div key={idx} className="bg-white p-4 group cursor-pointer">
+                                                <div key={idx} className="bg-white p-2 group cursor-pointer">
                                                     <div className="aspect-video bg-zinc-100 mb-2 overflow-hidden border border-zinc-200 shadow-inner">
                                                         <img src={prod.img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" alt={prod.name} />
                                                     </div>
@@ -189,33 +189,19 @@ const CompanyProfile: React.FC = () => {
                                         </div>
                                     </div>
 
-                                    {/* SECTION: Press & Insights */}
-                                    <div className="bg-white border-b border-zinc-300">
-                                        <ModuleHeader title="Press Coverage & Dispatches" icon={<Newspaper size={12}/>} />
-                                        <div className="divide-y divide-zinc-100">
-                                            {companyData.press.map((item, idx) => (
-                                                <div key={idx} className="p-4 hover:bg-zinc-50 transition-colors flex justify-between items-start gap-4">
-                                                    <div className="space-y-1">
-                                                        <span className="text-[8px] font-mono font-black uppercase bg-zinc-100 text-zinc-600 px-1 py-0.5">{item.source}</span>
-                                                        <h4 className="text-[11px] font-bold text-zinc-900 tracking-tight leading-tight uppercase">{item.title}</h4>
-                                                    </div>
-                                                    <span className="text-[8px] font-mono font-black text-zinc-400 mt-1">{item.date}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    
 
                                     {/* SECTION: Timeline */}
                                     <div className="bg-white border-b border-zinc-300">
-                                        <ModuleHeader title="Protocol Evolutionary Log" icon={<Flame size={12}/>} />
-                                        <div className="p-4 space-y-4">
+                                        <ModuleHeader title="Timeline" icon={<Flame size={12}/>} />
+                                        <div className="p-2 space-y-2">
                                             {companyData.milestones.map((ms, idx) => (
                                                 <div key={idx} className="flex gap-4 relative before:absolute before:left-2 before:top-3 before:bottom-[-20px] before:w-[1px] before:bg-zinc-200 last:before:hidden">
-                                                    <div className="w-4 h-4 rounded-full bg-zinc-900 flex items-center justify-center text-white shrink-0 z-10 mt-0.5 shadow-sm">
-                                                        <div className="w-1 h-1 bg-white rounded-full"/>
+                                                    <div className="w-4 h-4  bg-blue-500 flex items-center justify-center text-white shrink-0 z-10 mt-0.5 shadow-sm">
+                                                        <div className="w-1 h-1 bg-white "/>
                                                     </div>
                                                     <div>
-                                                        <span className="text-[10px] font-mono font-black text-orange-600 tracking-tighter">{ms.year} // SYSTEM_MARK</span>
+                                                        <span className="text-[10px] font-mono font-black text-blue-600 tracking-tighter">{ms.year} // SYSTEM_MARK</span>
                                                         <h4 className="text-[11px] font-black uppercase text-zinc-900 tracking-tight">{ms.title}</h4>
                                                         <p className="text-[10px] text-zinc-500 leading-snug">{ms.desc}</p>
                                                     </div>
@@ -225,27 +211,18 @@ const CompanyProfile: React.FC = () => {
                                     </div>
 
                                     {/* SECTION: Backed By */}
-                                    <div className="bg-white border-b border-zinc-300">
+                                    <div className="bg-white ">
                                         <ModuleHeader title="Backed By" icon={<Award size={12}/>} />
-                                        <div className="p-4 flex flex-wrap gap-1.5">
+                                        <div className=" flex flex-wrap divide-x divide-zinc-300">
                                             {companyData.investors.map((inv, idx) => (
-                                                <span key={idx} className="text-[9px] font-mono font-bold bg-zinc-100 text-zinc-700 px-2 py-1 border border-zinc-200 uppercase tracking-tighter">
+                                                <span key={idx} className="text-[9px] font-mono font-bold bg-zinc-100 text-zinc-700 p-2  uppercase tracking-tighter">
                                                     {inv}
                                                 </span>
                                             ))}
                                         </div>
                                     </div>
 
-                                    {/* SECTION: Metadata Reference Container */}
-                                    <div className="bg-white p-4 border-b border-zinc-300">
-                                        <h4 className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-widest mb-2 flex items-center gap-1.5"><Terminal size={11}/> System_Info</h4>
-                                        <div className="bg-zinc-50 border border-zinc-200 p-3 font-mono text-[10px] space-y-1 text-zinc-600">
-                                            <p>SYSTEM_STATUS: ONLINE</p>
-                                            <p>CONCURRENT_NODES: {companyData.stats.teamCount}</p>
-                                            <p>GATEWAY_DOMAIN: {companyData.stats.domain}</p>
-                                            <p>LATENCY_THRESHOLD: {companyData.stats.responseTime}</p>
-                                        </div>
-                                    </div>
+                                    
                                 </>
                             )}
 
