@@ -3,7 +3,8 @@ import {
     ArrowLeft, ShieldCheck, Zap, ChevronRight, 
     Info, Terminal, Globe, MoreHorizontal, Heart, 
     MessageSquare, Eye, Lock, Users, Activity,
-    Image as ImageIcon, BarChart3, Send, AlertTriangle
+    Image as ImageIcon, BarChart3, Send, AlertTriangle,
+    TrendingUp, Clock, Image, UserCheck
 } from 'lucide-react';
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
@@ -29,252 +30,334 @@ const MOCK_POSTS = [
         role: "admin",
         time: "10M_AGO",
         title: "SYSTEM UPDATE: Core Matrix Migration",
-        content: "All nodes must verify their local binaries against the new checksums provided in the #announcements channel before 00:00 UTC. Failure to comply will result in an automated disconnect."
+        content: "All nodes must verify their local binaries against the new checksums provided in the #announcements channel before 00:00 UTC. Failure to comply will result in an automated disconnect.",
+        likes: 542,
+        comments: 42,
+        views: "3.4k"
     },
     {
         id: 2,
         author: "@sys_eng_04",
         role: "member",
         time: "1H_AGO",
-        content: "Has anyone successfully bypassed the GIL lock on the new Python wrapper? I'm seeing a 20% latency spike when handling concurrent async requests across the cluster."
+        content: "Has anyone successfully bypassed the GIL lock on the new Python wrapper? I'm seeing a 20% latency spike when handling concurrent async requests across the cluster.",
+        likes: 124,
+        comments: 18,
+        views: "1.1k"
     },
     {
         id: 3,
         author: "@kernel_panic",
         role: "member",
         time: "3H_AGO",
-        content: "Just deployed the new eBPF tracing script to production. The memory safety overhead is basically zero. Highly recommend moving off standard user-space agents if you need raw throughput."
+        content: "Just deployed the new eBPF tracing script to production. The memory safety overhead is basically zero. Highly recommend moving off standard user-space agents if you need raw throughput.",
+        likes: 289,
+        comments: 24,
+        views: "2.1k"
     }
 ];
 
-type TabType = 'ALL_SIGNALS' | 'ADMIN_LOGS' | 'MEDIA_ASSETS';
+// Added custom span properties to replicate the visual layout behavior
+const MOCK_MEDIA = [
+    { id: 'm1', url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600', label: 'Matrix Control', span: 'col-span-2 row-span-2' },
+    { id: 'm2', url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=400', label: 'Architecture Diagram', span: 'col-span-1 row-span-1' },
+    { id: 'm3', url: 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=400', label: 'Kernel Benchmarks', span: 'col-span-1 row-span-2' },
+    { id: 'm4', url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=400', label: 'Cluster Matrix Map', span: 'col-span-1 row-span-1' },
+    { id: 'm5', url: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=600', label: 'Memory Overheads', span: 'col-span-2 row-span-1' },
+    { id: 'm6', url: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=400', label: 'Telemetry Link', span: 'col-span-1 row-span-1' }
+];
 
-const CommunityDetail = () => {
-    const [activeTab, setActiveTab] = useState<TabType>('ALL_SIGNALS');
+type TabType = 'TOP' | 'LATEST' | 'MEDIA' | 'ABOUT';
+
+const CommunityDetail: React.FC = () => {
+    const [activeTab, setActiveTab] = useState<TabType>('TOP');
     const [composerText, setComposerText] = useState("");
+    const [posts, setPosts] = useState(MOCK_POSTS);
 
-    const tabs: TabType[] = ['ALL_SIGNALS', 'ADMIN_LOGS', 'MEDIA_ASSETS'];
+    const handleTransmit = () => {
+        if (!composerText.trim()) return;
+        
+        const newPost = {
+            id: Date.now(),
+            author: "@me_operator",
+            role: "member",
+            time: "JUST_NOW",
+            content: composerText,
+            likes: 0,
+            comments: 0,
+            views: "1"
+        };
+
+        setPosts([newPost, ...posts]);
+        setComposerText("");
+    };
+
+    const getFilteredPosts = () => {
+        if (activeTab === 'TOP') {
+            return [...posts].sort((a, b) => b.likes - a.likes);
+        }
+        if (activeTab === 'LATEST') {
+            return [...posts].sort((a, b) => b.id - a.id);
+        }
+        return posts;
+    };
 
     return (
-        <div className="min-h-screen text-zinc-900 font-sans flex flex-col relative">
+        <div className="min-h-screen text-zinc-900 font-sans flex flex-col relative bg-zinc-50">
             <Navbar />
-            
+
             <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4 relative">
                 
-                {/* 1. LEFT NAVIGATION */}
-                <aside className="w-25 shrink-0 relative">
+                {/* Left App Navigation Sidebar */}
+                <aside className="w-[100px] shrink-0 relative">
                     <div className="sticky top-14 h-fit py-4">
                         <AppSideBar />
                     </div>
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen shadow-sm flex-row pt-12">
+                {/* Core main workspace layout */}
+                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen flex-row pt-13">
                     
-                    {/* CENTER CONTENT - FEED & COMPOSER */}
-                    <div className="flex-1 flex flex-col border-r border-zinc-300 bg-zinc-100">
+                    <div className="flex-1 flex flex-col mb-32">
                         
-                        {/* COMPACT TOP BAR */}
-                        <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-12 z-40 h-9 divide-x divide-zinc-300">
-                            <button className="px-3 h-full hover:bg-zinc-200 transition-colors flex items-center gap-2 cursor-pointer border-none bg-transparent group">
-                                <ArrowLeft size={12} className="group-hover:-translate-x-0.5 transition-transform" />
-                                <span className="text-[9px] font-mono font-black uppercase tracking-widest">Return</span>
-                            </button>
-                            <div className="flex-1 px-3 flex items-center justify-between bg-zinc-50/50 h-full">
-                                <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest flex items-center gap-2">
-                                    <Globe size={10} /> CLUSTER: {MOCK_COMMUNITY.id}
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* CLUSTER HEADER (Condensed for Feed Focus) */}
-                        <section className="relative shrink-0 bg-white border-b border-zinc-300 flex flex-col">
-                            <div className="h-32 bg-zinc-800 overflow-hidden relative group">
-                                <img 
-                                    src={MOCK_COMMUNITY.bannerImage} 
-                                    className="w-full h-full object-cover" 
-                                    alt="Banner" 
-                                />
+                        {/* IDENTITY HEADER PLATE */}
+                        <section className="relative shrink-0 bg-white border-b border-zinc-300 flex flex-col ">
+                            <div className="h-32 bg-zinc-900 relative">
+                                <img src={MOCK_COMMUNITY.bannerImage} className="w-full h-full object-cover opacity-40" alt="Community Banner" />
                             </div>
 
-                            <div className="px-3 relative pb-5 bg-white z-10">
-                                <div className="flex items-end justify-between -mt-9 mb-2">
-                                    <div className="w-20 h-20 bg-zinc-900 border-4 border-white flex items-center justify-center shrink-0 ">
-                                        <span className="text-white font-mono font-black text-3xl uppercase">{MOCK_COMMUNITY.initial}</span>
+                            <div className="px-4 relative pb-4 bg-white z-10">
+                                <div className="flex items-end justify-between -mt-10 mb-4">
+                                    <div className="w-20 h-20 bg-zinc-950 border-4 border-white flex items-center justify-center shrink-0 shadow-lg">
+                                        <span className="text-white font-mono font-black text-3xl uppercase tracking-tighter">{MOCK_COMMUNITY.initial}</span>
                                     </div>
-                                    <div className="shrink-0 pb-1 flex gap-2">
-                                        
-                                        <button className="h-7 px-4 cursor-pointer bg-orange-500 text-white text-[10px] font-mono font-black uppercase tracking-[0.2em] hover:bg-orange-500 transition-all active:translate-y-0.5 active:translate-x-0.5 active:shadow-none flex items-center gap-2">
+                                    <div className="flex gap-2">
+                                        <button className="h-7 px-4 bg-zinc-900 text-white text-[9px] font-mono font-black uppercase tracking-widest hover:bg-orange-600 transition-all">
                                             Joined
                                         </button>
                                     </div>
                                 </div>
-
-                                <div>
-                                    <h1 className="text-2xl font-bold uppercase tracking-tighter text-zinc-900 leading-none mb-1">{MOCK_COMMUNITY.title}</h1>
-                                    <p className="text-[11px] font-semibold text-zinc-600 uppercase tracking-tight mt-2 leading-relaxed max-w-xl">
-                                        {MOCK_COMMUNITY.description}
-                                    </p>
+                                <div className="flex items-center gap-2">
+                                    <h1 className="text-xl font-bold uppercase tracking-tighter text-zinc-900 leading-none">{MOCK_COMMUNITY.title}</h1>
+                                    <ShieldCheck size={16} className="text-orange-500" />
                                 </div>
+                                <p className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-tight mt-1">CLUSTER // {MOCK_COMMUNITY.id}</p>
+                                <p className="text-xs font-medium text-zinc-700 mt-2 leading-snug">{MOCK_COMMUNITY.description}</p>
                             </div>
                         </section>
 
-                        {/* TABS CONTROLLER */}
-                        <nav className="flex w-full border-b border-zinc-300 bg-zinc-50 sticky top-[88px] z-30 h-10 divide-x divide-zinc-300 shrink-0">
-                            {tabs.map((tab) => (
+                        {/* TAB LIST */}
+                        <div className="flex w-full border-b border-zinc-300 bg-zinc-100 h-9 divide-x divide-zinc-300 sticky top-13 z-20">
+                            {(['TOP', 'LATEST', 'MEDIA', 'ABOUT'] as TabType[]).map((tab) => (
                                 <button 
                                     key={tab} 
                                     onClick={() => setActiveTab(tab)} 
                                     className={cn(
-                                        "flex-1 text-[9px] font-mono font-black uppercase tracking-[0.2em] transition-all border-none cursor-pointer flex items-center justify-center", 
-                                        activeTab === tab ? "bg-white text-zinc-900 shadow-[inset_0_2px_0_0_#f97316]" : "text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900"
+                                        "flex-1 text-[9px] font-mono font-black uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-1.5", 
+                                        activeTab === tab ? "bg-white text-zinc-900 shadow-[inset_0_-2px_0_0_#18181b]" : "text-zinc-400 hover:text-zinc-600"
                                     )}
                                 >
+                                    {tab === 'TOP' && <TrendingUp size={10} />}
+                                    {tab === 'LATEST' && <Clock size={10} />}
+                                    {tab === 'MEDIA' && <Image size={10} />}
+                                    {tab === 'ABOUT' && <Info size={10} />}
                                     {tab}
                                 </button>
                             ))}
-                        </nav>
+                        </div>
 
-                        {/* SIGNAL COMPOSER (The "Tweet Box") */}
-                        {activeTab === 'ALL_SIGNALS' && (
-                            <div className="bg-white p-3 border-b border-zinc-300 shrink-0">
-                                <div className="flex gap-3">
-                                    <div className="w-8 h-8 bg-zinc-800 border border-zinc-800 flex items-center justify-center shrink-0">
-                                        <span className="text-white text-[10px] uppercase font-bold">ME</span>
-                                    </div>
-                                    <div className="flex-1 flex flex-col">
-                                        <textarea 
-                                            value={composerText}
-                                            onChange={e => setComposerText(e.target.value)}
-                                            placeholder="Transmit signal to cluster..."
-                                            className="w-full text-sm font-bold text-zinc-800 placeholder:text-zinc-400 bg-transparent outline-none resize-none min-h-[30px]"
-                                        />
-                                        <div className="flex items-center justify-between pt-3 border-t border-zinc-100 mt-2">
-                                            <div className="flex items-center gap-2">
-                                                <button className="p-1.5 text-zinc-400 hover:text-orange-500 transition-colors"><ImageIcon size={14} /></button>
-                                                <button className="p-1.5 text-zinc-400 hover:text-orange-500 transition-colors"><BarChart3 size={14} /></button>
+                        {/* TAB CONTENT PANELS */}
+                        <div className="flex-1 bg-zinc-300 flex flex-col">
+                            
+                            {/* SIGNAL COMPOSER */}
+                            {(activeTab === 'TOP' || activeTab === 'LATEST') && (
+                                <div className="bg-white p-4 border-b border-zinc-300 shrink-0">
+                                    <div className="flex gap-3">
+                                        <div className="w-8 h-8 bg-zinc-950 flex items-center justify-center shrink-0">
+                                            <span className="text-white font-mono text-[10px] uppercase font-black">ME</span>
+                                        </div>
+                                        <div className="flex-1 flex flex-col">
+                                            <textarea 
+                                                value={composerText}
+                                                onChange={e => setComposerText(e.target.value)}
+                                                placeholder="Transmit data packet to cluster..."
+                                                className="w-full text-xs font-bold text-zinc-800 placeholder:text-zinc-400 bg-transparent outline-none resize-none min-h-[32px]"
+                                            />
+                                            <div className="flex items-center justify-between pt-3 border-t border-zinc-100 mt-2">
+                                                <div className="flex items-center gap-1">
+                                                    <button className="p-1.5 text-zinc-400 hover:text-orange-500 transition-colors"><ImageIcon size={13} /></button>
+                                                    <button className="p-1.5 text-zinc-400 hover:text-orange-500 transition-colors"><BarChart3 size={13} /></button>
+                                                </div>
+                                                <button 
+                                                    onClick={handleTransmit}
+                                                    disabled={!composerText.trim()}
+                                                    className="h-7 px-4 bg-zinc-900 text-white text-[9px] font-mono font-black uppercase tracking-widest hover:bg-orange-600 disabled:opacity-30 disabled:hover:bg-zinc-900 transition-colors flex items-center gap-1.5"
+                                                >
+                                                    Transmit <Send size={9} />
+                                                </button>
                                             </div>
-                                            <button 
-                                                disabled={!composerText}
-                                                className="h-8 px-5 bg-zinc-900 text-white text-[9px] font-mono font-black uppercase tracking-widest hover:bg-orange-500 disabled:opacity-50 disabled:hover:bg-zinc-900 transition-colors flex items-center gap-2"
-                                            >
-                                                Transmit <Send size={10} />
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
 
-                        {/* FEED CHANNEL */}
-                        <div className="flex-1 flex flex-col gap-[1px]">
-                            {MOCK_POSTS.filter(p => activeTab === 'ADMIN_LOGS' ? p.role === 'admin' : true).map(post => (
-                                <FeedItem key={post.id} post={post} />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* 2. PERSISTENT CLUSTER SIDEBAR (w-40) */}
-                    <aside className="w-40 shrink-0 relative bg-white hidden md:block">
-                        <div className="sticky top-12 flex flex-col h-[calc(100vh-3.5rem)]">
-                            
-                            {/* CLUSTER IDENTIFIER */}
-                            <div className="p-2 bg-zinc-800 border-b border-zinc-700 shrink-0">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-white">Informations</span>
+                            {/* FEED RENDER PATHWAYS */}
+                            {(activeTab === 'TOP' || activeTab === 'LATEST') && (
+                                <div className="flex flex-col gap-[1px]">
+                                    {getFilteredPosts().map(post => (
+                                        <FeedItem key={post.id} post={post} />
+                                    ))}
                                 </div>
-                            </div>
+                            )}
 
-                            {/* CORE METRICS */}
-                            <div className="p-2 border-b border-zinc-300 bg-white space-y-2 shrink-0">
-                                <SidebarStat label="Total_Nodes" value={MOCK_COMMUNITY.memberCount} />
-                                <SidebarStat label="Active_Ping" value={MOCK_COMMUNITY.activeCount} />
-                                <SidebarStat label="Security" value="Public" />
-                            </div>
-
-                            {/* PROTOCOL CONSTRAINTS (Rules) */}
-                            <div className=" bg-zinc-50 flex-1 flex flex-col overflow-hidden">
-                                <div className="flex p-2 items-center gap-1.5 pb-2 border-b border-zinc-300 ">
-                                    <AlertTriangle size={12} className="text-orange-500" />
-                                    <span className="text-[8px] font-bold uppercase tracking-[0.2em] text-zinc-500">Rules</span>
-                                </div>
-                                <div className="overflow-y-auto scrollbar-hide">
-                                    {MOCK_COMMUNITY.rules.map((rule, i) => (
-                                        <div key={i} className="flex items-start gap-2 bg-white border-b border-zinc-300 p-2">
-                                            <span className="text-[8px] font-mono font-black text-orange-500 shrink-0 leading-tight">0{i+1}</span>
-                                            <span className="text-[8px] font-bold uppercase text-zinc-700 leading-tight">{rule}</span>
+                            {/* NO PADDING MOODBOARD STYLE MEDIA GRID */}
+                            {activeTab === 'MEDIA' && (
+                                <div className="grid grid-cols-3 auto-rows-[140px] gap-1 bg-white p-0">
+                                    {MOCK_MEDIA.map((media) => (
+                                        <div 
+                                            key={media.id} 
+                                            className={cn(
+                                                "relative group overflow-hidden bg-zinc-900 cursor-pointer w-full h-full", 
+                                                media.span
+                                            )}
+                                        >
+                                            <img 
+                                                src={media.url} 
+                                                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105" 
+                                                alt={media.label} 
+                                            />
+                                            {/* Minimal clean identifier overlay on hover */}
+                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity p-2 flex flex-col justify-end">
+                                                <p className="text-[10px] font-mono font-black text-white uppercase tracking-tight">{media.label}</p>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
-                            </div>
+                            )}
 
+                            {/* ABOUT BREAKDOWN VIEW */}
+                            {activeTab === 'ABOUT' && (
+                                <div className="bg-white p-6 space-y-6 min-h-[400px]">
+                                    <div>
+                                        <h3 className="text-[10px] font-mono font-black uppercase tracking-wider text-zinc-400 mb-2">Core Manifesto</h3>
+                                        <p className="text-xs text-zinc-700 leading-relaxed font-medium">
+                                            {MOCK_COMMUNITY.description} Extended cluster environment dedicated to testing high-throughput systems, safety diagnostics, and concurrent communication architectures.
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <h3 className="text-[10px] font-mono font-black uppercase tracking-wider text-zinc-400 mb-2">Cluster Overseers</h3>
+                                        <div className="flex flex-col gap-1.5">
+                                            {MOCK_COMMUNITY.admins.map((admin, idx) => (
+                                                <div key={idx} className="flex items-center gap-2 text-xs font-bold text-zinc-900 bg-zinc-50 p-2 border border-zinc-200 rounded-sm">
+                                                    <UserCheck size={12} className="text-orange-500" />
+                                                    <span>{admin}</span>
+                                                    <span className="text-[7px] font-mono bg-orange-100 text-orange-600 px-1 font-black uppercase tracking-wide ml-auto">Level 0 Root</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* RIGHT SIDEBAR: BALANCED GEOMETRY SPEC */}
+                    <aside className="w-39 shrink-0 bg-white hidden md:flex flex-col border-l border-zinc-300">
+                        <div className="sticky top-13 flex flex-col h-[calc(100vh-3.5rem)]">
                             
+                            {/* METRIC READOUT TELEMETRY LAYER */}
+                            <div className="p-3 bg-zinc-50 flex-1 space-y-3">
+                                <div>
+                                    <span className="text-[8px] font-mono font-black text-zinc-400 uppercase block tracking-wider mb-2">Cluster Matrix</span>
+                                    <div className="border border-zinc-300 bg-white flex flex-col divide-y divide-zinc-200 text-[9px] font-mono p-2 rounded-sm shadow-sm">
+                                        <div className="py-1.5">
+                                            <span className="text-zinc-400 block text-[6px] uppercase tracking-wider">Total Nodes</span>
+                                            <span className="font-black text-zinc-900 block">{MOCK_COMMUNITY.memberCount}</span>
+                                        </div>
+                                        <div className="py-1.5">
+                                            <span className="text-zinc-400 block text-[6px] uppercase tracking-wider">Active Pings</span>
+                                            <span className="font-black text-orange-600 block">{MOCK_COMMUNITY.activeCount}</span>
+                                        </div>
+                                        <div className="py-1.5">
+                                            <span className="text-zinc-400 block text-[6px] uppercase tracking-wider">Uplink Gateway</span>
+                                            <span className="font-black text-blue-600 block">PUBLIC // ENCRYPTED</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* PROTOCOL RESTRAINTS LIST */}
+                                <div>
+                                    <span className="text-[8px] font-mono font-black text-zinc-400 uppercase block tracking-wider mb-1.5 flex items-center gap-1"><AlertTriangle size={10} className="text-orange-500" /> Operational Rules</span>
+                                    <div className="space-y-1">
+                                        {MOCK_COMMUNITY.rules.map((rule, idx) => (
+                                            <div key={idx} className="bg-white border border-zinc-200 p-1.5 rounded-sm flex items-start gap-1.5">
+                                                <span className="text-[7px] font-mono font-black text-zinc-400 mt-0.5">0{idx + 1}</span>
+                                                <p className="text-[8px] font-bold text-zinc-600 uppercase leading-tight tracking-tight">{rule}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </aside>
+
                 </main>
             </div>
         </div>
     );
 };
 
-// --- SUB-COMPONENTS ---
+// --- SUBSYSTEM COMPONENT ATOMS ---
 
 const FeedItem = React.memo(({ post }: any) => {
     const isAdmin = post.role === 'admin';
 
     return (
         <div className={cn(
-            "p-3 bg-white cursor-pointer group flex items-start gap-3 transition-colors relative",
+            "p-4 bg-white border-b border-zinc-200 group flex items-start gap-3 transition-colors relative hover:bg-zinc-50/50",
             isAdmin ? "border-l-2 border-l-orange-500" : ""
         )}>
-            <div className={cn(
-                "w-10 h-10 flex items-center justify-center shrink-0 bg-zinc-800  text-white"
-            )}>
-                <span className=" font-bold text-[12px] uppercase">
+            <div className="w-9 h-9 flex items-center justify-center shrink-0 bg-zinc-950 text-white font-mono">
+                <span className="font-black text-[11px] uppercase">
                     {post.author.charAt(1)}
                 </span>
             </div>
             
             <div className="flex-1 min-w-0">
-                <div className="flex justify-between items-start mb-1">
-                    <div className="flex items-center gap-2 flex-wrap">
+                <div className="flex justify-between items-start mb-0.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
                         <span className="text-[11px] font-bold tracking-tight text-zinc-900 truncate">{post.author}</span>
                         {isAdmin && (
-                            <span className="px-1.5 py-0.5 bg-orange-500 text-white text-[8px] font-mono font-black uppercase tracking-widest border border-orange-200">SYS_ADMIN</span>
+                            <span className="px-1 py-0.5 bg-orange-500 text-white text-[6px] font-mono font-black uppercase tracking-widest">SYS_ADMIN</span>
                         )}
-                        <span className="text-[8px] font-mono font-bold text-zinc-500 uppercase tracking-widest ml-1">{post.time}</span>
+                        <span className="text-[8px] font-mono font-bold text-zinc-400 uppercase tracking-widest ml-1">{post.time}</span>
                     </div>
-                    <MoreHorizontal size={14} className="text-zinc-300 group-hover:text-zinc-600 shrink-0" />
+                    <MoreHorizontal size={12} className="text-zinc-300 group-hover:text-zinc-600 shrink-0 cursor-pointer" />
                 </div>
                 
                 {post.title && (
-                    <h3 className="text-xs font-bold uppercase mt-1 mb-1.5 text-zinc-900 tracking-tight leading-snug">{post.title}</h3>
+                    <h3 className="text-xs font-black uppercase mt-1 mb-1 text-zinc-900 tracking-tight leading-snug">{post.title}</h3>
                 )}
                 
-                <p className="text-[11px] text-zinc-700 font-semibold tracking-tight leading-relaxed mb-3">
+                <p className="text-[11px] text-zinc-600 font-medium tracking-tight leading-relaxed mb-3">
                     {post.content}
                 </p>
                 
-                <div className="flex items-center gap-6 pt-1">
-                    <PostStat icon={<Heart size={16} />} count="244" />
-                    <PostStat icon={<MessageSquare size={16} />} count="12" />
-                    <PostStat icon={<Eye size={16} />} count="1.2k" />
+                <div className="flex items-center gap-5 pt-0.5">
+                    <PostStat icon={<Heart size={13} />} count={post.likes} />
+                    <PostStat icon={<MessageSquare size={13} />} count={post.comments} />
+                    <PostStat icon={<Eye size={13} />} count={post.views} />
                 </div>
             </div>
         </div>
     );
 });
 
-const SidebarStat = ({ label, value }: { label: string; value: string }) => (
-    <div className="flex items-center justify-between">
-        <span className="text-[8px] font-mono font-black text-zinc-500 uppercase tracking-widest">{label}</span>
-        <span className="text-[9px] font-bold uppercase text-zinc-900">{value}</span>
-    </div>
-);
-
 const PostStat = ({ icon, count }: any) => (
-    <div className="flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 transition-colors">
-        {icon} <span className="text-[9px] font-mono font-black uppercase">{count}</span>
+    <div className="flex items-center gap-1 text-zinc-400 hover:text-zinc-900 transition-colors cursor-pointer">
+        {icon} <span className="text-[8px] font-mono font-black uppercase">{count}</span>
     </div>
 );
 
