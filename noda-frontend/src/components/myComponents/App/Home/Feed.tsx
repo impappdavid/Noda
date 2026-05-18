@@ -31,9 +31,8 @@ const PollModule = ({ poll }: { poll: any }) => {
       className="mt-2 border border-zinc-300 bg-white overflow-hidden"
       onClick={(e) => e.preventDefault()}
     >
-      <div className="flex justify-between items-center px-2 py-1 border-b border-zinc-300 bg-zinc-50/80">
+      <div className="flex justify-between items-center px-2 py-1 h-8 border-b border-zinc-300 bg-zinc-300/80">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-blue-500 rounded-none" />
           <span className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-[0.2em]">
             Active Poll
           </span>
@@ -51,7 +50,7 @@ const PollModule = ({ poll }: { poll: any }) => {
             <button
               key={i}
               onClick={() => voted === null && setVoted(i)}
-              className="w-full relative flex items-center h-10 group overflow-hidden bg-white hover:bg-zinc-50 transition-colors cursor-pointer"
+              className="w-full relative flex items-center h-9 group overflow-hidden bg-white hover:bg-blue-500/20 transition-colors cursor-pointer"
             >
               {/* Result Bar */}
               {voted !== null && (
@@ -59,16 +58,16 @@ const PollModule = ({ poll }: { poll: any }) => {
                   initial={{ width: 0 }}
                   animate={{ width: `${percent}%` }}
                   className={cn(
-                    "absolute inset-0 border-r border-zinc-300/50",
-                    isYourVote ? "bg-blue-500/40" : "bg-zinc-100"
+                    "absolute inset-0 border-r border-zinc-300",
+                    isYourVote ? "bg-blue-500/40" : "bg-blue-500/20"
                   )}
                 />
               )}
               
-              <div className="relative z-10 flex w-full justify-between px-4 items-center">
+              <div className="relative z-10 flex w-full justify-between px-2 items-center">
                 <div className="flex items-center gap-3">
                   <span className={cn(
-                    "text-[11px] font-bold uppercase transition-colors",
+                    "text-[10px] font-bold uppercase transition-colors",
                     isYourVote ? "text-blue-700" : "text-zinc-900"
                   )}>
                     {typeof opt === "string" ? opt : opt.label}
