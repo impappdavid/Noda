@@ -9,6 +9,7 @@ import {
   Flag,
   Heart,
   Check,
+  ChartNoAxesColumn,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -124,7 +125,7 @@ const LikeButton = ({ post, isLiked, onToggle }: any) => (
       className="relative z-10"
     >
       <Heart
-        size={16}
+        size={14}
         className={cn(
           "transition-all duration-300",
           isLiked
@@ -349,22 +350,22 @@ export default function Feed() {
 
             {/* RESTORED INTERACTIONS */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-8">
+              <div className="flex items-center gap-6">
                 <LikeButton
                   post={post}
                   isLiked={!!likedPosts[post.id]}
                   onToggle={(e: any) => toggleLike(e, post.id)}
                 />
                 <button className="flex items-center gap-2 text-xs font-mono text-zinc-500 hover:text-zinc-900 cursor-pointer">
-                  <MessageSquare size={16} /> {post.comments}
+                  <MessageSquare size={14} /> {post.comments}
                 </button>
                 <div className="flex items-center gap-2 text-xs font-mono text-zinc-500">
-                  <BarChart3 size={16} /> {post.views}
+                  <ChartNoAxesColumn size={14} /> {post.views}
                 </div>
               </div>
               <div className="flex items-center gap-4 text-zinc-500">
                 <Bookmark
-                  size={16}
+                  size={14}
                   className={cn(
                     "cursor-pointer",
                     bookmarkedPosts[post.id]
@@ -381,7 +382,7 @@ export default function Feed() {
                   }}
                 />
                 <Share
-                  size={16}
+                  size={14}
                   className="hover:text-zinc-900 cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
