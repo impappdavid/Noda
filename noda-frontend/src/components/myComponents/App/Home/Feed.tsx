@@ -32,9 +32,12 @@ const PollModule = ({ poll }: { poll: any }) => {
       onClick={(e) => e.preventDefault()}
     >
       <div className="flex justify-between items-center px-2 py-1 h-8 border-b border-zinc-300 bg-zinc-300/80">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-2 w-full">
           <span className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-[0.2em]">
             Active Poll
+          </span>
+          <span className="text-[10px] font-mono font-black text-zinc-600 uppercase tracking-[0.1em]">
+            00:24:39
           </span>
         </div>
       </div>
@@ -259,7 +262,7 @@ export default function Feed() {
  
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col relative bg-white min-h-screen">
+    <div className="max-w-2xl mx-auto flex flex-col relative bg-white min-h-screen pb-64">
       {testPosts.map((post) => (
         <Link
           to={`/app/post/${post.id}`}
