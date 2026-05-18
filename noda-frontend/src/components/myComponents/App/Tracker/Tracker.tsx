@@ -3,7 +3,9 @@ import {
     Plus, Search, ChevronsUpDown,
     Link as LinkIcon, Activity,
     Users, Star, AlertTriangle, Briefcase, Globe, Calendar, DollarSign, CheckCircle2, Clock,
-    Rss, Trash2
+    Rss, Trash2,
+    X,
+    CornerDownRight
 } from 'lucide-react';
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
@@ -165,7 +167,8 @@ const AppTracker = () => {
 
 // --- SUB-COMPONENTS ---
 
-// --- REDESIGNED DEEP-DIVE INSPECTOR (From Previous Step) ---
+
+
 const DeepDiveInspector = ({ selectedNode, setSelectedNode }: any) => {
     const [localLogs, setLocalLogs] = useState<any[]>([]);
     const [isAddingLog, setIsAddingLog] = useState(false);
@@ -179,8 +182,10 @@ const DeepDiveInspector = ({ selectedNode, setSelectedNode }: any) => {
         }
     }, [selectedNode]);
 
-    const handleAddLog = () => {
+    const handleAddLog = (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
         if (!newLogStage.trim()) return;
+        
         const newLog = {
             stage: newLogStage.toUpperCase(),
             date: new Date().toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(),
@@ -194,194 +199,207 @@ const DeepDiveInspector = ({ selectedNode, setSelectedNode }: any) => {
     return (
         <Dialog open={!!selectedNode} onOpenChange={() => setSelectedNode(null)}>
             {selectedNode && (
-                <DialogContent className="sm:max-w-5xl rounded-none p-0 overflow-hidden bg-zinc-50 border-none flex flex-col h-[85vh]">
+                <DialogContent className="sm:max-w-4xl rounded-none p-0 overflow-hidden bg-white border-none shadow-xl flex flex-col h-[75vh] text-zinc-900">
                     
-                    <DialogHeader className="p-3 bg-zinc-800 border-b border-zinc-700 text-white flex flex-row items-center justify-between space-y-0 shrink-0 relative overflow-hidden">
-                        <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000)', backgroundSize: '4px 4px' }} />
-                        <div className="flex items-center gap-3 relative z-10">
-                            <div className="w-6 h-6 bg-zinc-800 border border-zinc-700 flex items-center justify-center">
-                                <Rss size={12} className="text-orange-500 animate-pulse" />
-                            </div>
-                            <DialogTitle className="text-[11px] font-mono font-black uppercase tracking-[0.2em] leading-none text-zinc-100">
+                    {/* FLAT HEADER BANNER WITH CLOSE ACTION */}
+                    <DialogHeader className="h-9 px-3 bg-zinc-900 text-white flex flex-row items-center justify-between space-y-0 shrink-0 select-none">
+                        <div className="flex items-center gap-2">
+                            <Rss size={12} className="text-blue-500" />
+                            <DialogTitle className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-200">
                                 Job Tracker // ID: {selectedNode.id}
                             </DialogTitle>
                         </div>
+                        <button 
+                            onClick={() => setSelectedNode(null)}
+                            className="h-full px-2 -mr-3 hover:bg-zinc-800 text-zinc-400 hover:text-white transition-colors cursor-pointer flex items-center justify-center border-l border-zinc-800"
+                        >
+                            <X size={14} />
+                        </button>
                     </DialogHeader>
 
-                    <div className="flex flex-1 overflow-hidden divide-x divide-zinc-300">
+                    {/* TWO-COLUMN HARD GRID ROW */}
+                    <div className="flex flex-1 overflow-hidden divide-x divide-zinc-200">
                         
-                        <div className="flex-1 overflow-y-auto px-4 pb-2 scrollbar-hide bg-white">
-                            <header className="mb-2 flex flex-col gap-4">
-                                <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-zinc-800 flex items-center justify-center font-mono font-bold text-white text-lg">
-                                            {selectedNode.company[0]}
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-sm font-bold text-zinc-900 uppercase tracking-widest">{selectedNode.company}</span>
-                                            <div className="flex items-center gap-1.5 text-[9px] font-mono text-zinc-500 uppercase tracking-widest mt-0.5">
-                                                <Users size={10} /> {selectedNode.memberCount} Members
-                                            </div>
-                                        </div>
+                        {/* LEFT ELEMENT: SPECS & DOSSIER */}
+                        <div className="flex-1 overflow-y-auto p-3 scrollbar-hide flex flex-col gap-3 bg-white">
+                            
+                            {/* FLAT METADATA FRAME */}
+                            <div className="flex items-center justify-between gap-2 pb-2 border-b border-zinc-200">
+                                <div className="flex items-center gap-2 min-w-0">
+                                    <div className="w-8 h-8 bg-zinc-900 flex items-center justify-center font-mono font-black text-white text-sm shrink-0 rounded-none border border-zinc-700">
+                                        {selectedNode.company[0]}
                                     </div>
-                                    <div className="flex flex-col items-end">
-                                        <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest mb-1">Target Match</span>
-                                        <div className="flex items-end gap-1">
-                                            <span className="text-xl font-black text-orange-600 leading-none">{selectedNode.match}%</span>
+                                    <div className="min-w-0">
+                                        <span className="text-xs font-black text-zinc-900 uppercase tracking-wide block truncate">{selectedNode.company}</span>
+                                        <div className="flex items-center gap-1 text-[9px] font-mono text-zinc-400 uppercase mt-0.5">
+                                            <Users size={10} /> {selectedNode.memberCount} Members
                                         </div>
                                     </div>
                                 </div>
+                                <div className="text-right shrink-0 border border-zinc-200 px-2 py-0.5 bg-zinc-50 flex items-center gap-2">
+                                    <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase tracking-wider">Match Score:</span>
+                                    <span className="text-xs font-mono font-black text-blue-600">{selectedNode.match}%</span>
+                                </div>
+                            </div>
 
-                                <div className="space-y-1.5 w-full flex justify-between">
-                                    <h2 className="text-xl font-bold uppercase tracking-tighter leading-none text-zinc-900">
+                            {/* ROLE IDENTIFICATION BLOCK */}
+                            <div className="space-y-2">
+                                <div className="flex items-center justify-between gap-2 bg-zinc-50 border border-zinc-200 p-1.5">
+                                    <h2 className="text-xs font-mono font-black uppercase text-zinc-900 truncate">
                                         {selectedNode.role}
                                     </h2>
-                                    <span className="text-[10px] font-mono font-medium uppercase tracking-widest bg-zinc-800 text-white px-2 py-0.5 h-fit ">
+                                    <span className="text-[9px] font-mono font-bold uppercase bg-blue-600 text-white px-1.5 py-0.5 shrink-0">
                                         {selectedNode.experience || '4+ Years'}
                                     </span>
                                 </div>
 
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-[1px] bg-zinc-300 border border-zinc-300">
-                                    <div className="bg-zinc-50 p-2 flex flex-col justify-center">
-                                        <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest mb-1">Pay Range</span>
-                                        <span className="text-[11px] font-bold text-zinc-900">{selectedNode.salary || "NaN"}</span>
-                                    </div>
-                                    <div className="bg-zinc-50 p-2 flex flex-col justify-center">
-                                        <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest mb-1">Remote type</span>
-                                        <span className="text-[11px] font-bold text-zinc-900 uppercase">{selectedNode.workMode}</span>
-                                    </div>
-                                    <div className="bg-zinc-50 p-2 flex flex-col justify-center">
-                                        <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest mb-1">Contract Type</span>
-                                        <span className="text-[11px] font-bold text-zinc-900 uppercase">{selectedNode.jobType || 'Full-time'}</span>
-                                    </div>
-                                    <div className="bg-zinc-50 p-2 flex flex-col justify-center">
-                                        <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest mb-1">Location</span>
-                                        <span className="text-[11px] font-bold text-zinc-900 uppercase">{selectedNode.location}</span>
-                                    </div>
-                                </div>
-                            </header>
-
-                            <div className="py-2 border-y border-zinc-300 mb-4">
-                                <h5 className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest mb-2">Technical Stack</h5>
-                                <div className="flex flex-wrap gap-1.5">
-                                    {selectedNode.stack?.map((tag: string) => (
-                                        <span key={tag} className="px-2 py-1 bg-white border border-zinc-300 text-[10px] font-mono font-black text-zinc-700 uppercase tracking-widest shadow-sm">
-                                            {tag}
-                                        </span>
-                                    ))}
+                                {/* SOLID FLAT SPEC MATRIX */}
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-200 border border-zinc-200">
+                                    <SpecBox label="Pay Range" value={selectedNode.salary || "Not Specified"} />
+                                    <SpecBox label="Remote Type" value={selectedNode.workMode} />
+                                    <SpecBox label="Contract" value={selectedNode.jobType || 'Full-time'} />
+                                    <SpecBox label="Location" value={selectedNode.location} />
                                 </div>
                             </div>
 
-                            <section className="space-y-4">
-                                <h4 className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-[0.2em] flex items-center gap-3 shrink-0">
-                                    Role_Specification
-                                    <div className="h-[1px] flex-1 bg-zinc-200" />
-                                </h4>
-                                <div className="pr-2 pb-6">
-                                    <div className="text-[12px] leading-relaxed text-zinc-800">
-                                        <ReactMarkdown
-                                            components={{
-                                                h3: ({ node, ...props }) => <h3 className="text-[10px] font-mono font-black uppercase tracking-widest text-orange-600 mt-4 mb-3 border-b border-zinc-200 pb-1 inline-block" {...props} />,
-                                                p: ({ node, ...props }) => <p className="mb-2 font-medium text-zinc-700" {...props} />,
-                                                ul: ({ node, ...props }) => <ul className="space-y-2 mb-4 list-none" {...props} />,
-                                                li: ({ node, ...props }) => <li className="relative pl-4 before:content-[''] before:w-1.5 before:h-1.5 before:bg-zinc-300 before:absolute before:left-0 before:top-1.5" {...props} />,
-                                            }}
-                                        >
-                                            {selectedNode.description}
-                                        </ReactMarkdown>
+                            {/* TEXT STACK REGISTRY */}
+                            {selectedNode.stack && selectedNode.stack.length > 0 && (
+                                <div className="p-2 border border-zinc-200 bg-zinc-50/50">
+                                    <span className="text-[8px] font-mono font-bold text-zinc-400 uppercase tracking-wider block mb-1">Indexed Tech Infrastructure</span>
+                                    <div className="flex flex-wrap gap-1">
+                                        {selectedNode.stack.map((tag: string) => (
+                                            <span key={tag} className="px-1.5 py-0.5 bg-white border border-zinc-300 text-[9px] font-mono font-bold text-zinc-700 uppercase">
+                                                {tag}
+                                            </span>
+                                        ))}
                                     </div>
                                 </div>
-                            </section>
+                            )}
+
+                            {/* COMPACT DETAILED DOSSIER */}
+                            <div className="border border-zinc-200 p-2 flex-1 overflow-y-auto bg-white">
+                                <div className="text-[9px] font-mono font-bold text-zinc-400 uppercase tracking-wider mb-2 border-b border-zinc-100 pb-1">Role Specification Profile</div>
+                                <div className="text-[11px] leading-relaxed text-zinc-700 space-y-2 font-sans">
+                                    <ReactMarkdown
+                                        components={{
+                                            h3: ({ ...props }) => <h3 className="text-[10px] font-mono font-black uppercase text-blue-600 mt-3 mb-1 border-b border-dashed border-zinc-200 pb-0.5 inline-block first:mt-0" {...props} />,
+                                            p: ({ ...props }) => <p className="mb-1 text-zinc-600" {...props} />,
+                                            ul: ({ ...props }) => <ul className="space-y-1 mb-2 list-none pl-0" {...props} />,
+                                            li: ({ ...props }) => (
+                                                <li className="relative pl-3.5 flex items-start text-zinc-700" {...props}>
+                                                    <CornerDownRight size={10} className="absolute left-0 top-1 text-blue-500 shrink-0" />
+                                                    <span>{props.children}</span>
+                                                </li>
+                                            ),
+                                        }}
+                                    >
+                                        {selectedNode.description}
+                                    </ReactMarkdown>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="w-60 shrink-0 flex flex-col relative">
-                            <div className="pb-2 px-4 border-b border-zinc-300 bg-white shrink-0 z-10 shadow-sm">
-                                <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest block mb-3">System_Control</span>
-                                <div className="space-y-1.5">
-                                    <label className="text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest block">Status Update</label>
-                                    <Select defaultValue={selectedNode.status}>
-                                        <SelectTrigger className="w-full h-10 rounded-none cursor-pointer border-zinc-300 bg-zinc-50 text-zinc-900 font-mono text-[11px] font-bold uppercase tracking-widest shadow-none transition-colors">
-                                            <SelectValue />
-                                        </SelectTrigger>
-                                        <SelectContent position="popper" sideOffset={0} className="rounded-none border-zinc-300  bg-white ">
-                                            <SelectItem value="Applied" className='cursor-pointer text-xs font-medium'>Applied</SelectItem>
-                                            <SelectItem value="Interviewing" className='cursor-pointer text-xs font-medium'>Interviewing</SelectItem>
-                                            <SelectItem value="Offer" className='cursor-pointer text-xs font-medium'>Offer_Received</SelectItem>
-                                            <SelectItem value="Rejected" className='cursor-pointer text-xs font-medium'>Rejected</SelectItem>
-                                        </SelectContent>
-                                    </Select>
+                        {/* RIGHT ELEMENT: PIPELINE & ACTION PANELS */}
+                        <div className="w-56 shrink-0 flex flex-col bg-zinc-50/50">
+                            
+                            {/* SYSTEM STEP UPDATER */}
+                            <div className="p-2 border-b border-zinc-200 bg-white shrink-0">
+                                <label className="text-[9px] font-mono font-bold text-zinc-400 uppercase block mb-1">Pipeline State</label>
+                                <Select defaultValue={selectedNode.status}>
+                                    <SelectTrigger className="w-full h-8 rounded-none border-zinc-300 bg-white text-zinc-900 font-mono text-[11px] font-bold uppercase focus:ring-0 focus:ring-offset-0">
+                                        <SelectValue />
+                                    </SelectTrigger>
+                                    <SelectContent position="popper" sideOffset={1} className="rounded-none border-zinc-300 bg-white p-0">
+                                        {["Applied", "Interviewing", "Offer", "Rejected"].map((status) => (
+                                            <SelectItem key={status} value={status} className='cursor-pointer text-[11px] font-mono rounded-none focus:bg-blue-600 focus:text-white uppercase p-2'>
+                                                {status === "Offer" ? "Offer Rec'd" : status}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            {/* NEW ACCORDION CONTENT: COMPACT ACTIVITY OVERVIEW */}
+                            <div className="p-2 border-b border-zinc-200 bg-zinc-100/50 grid grid-cols-2 gap-1 text-[9px] font-mono select-none">
+                                <div className="bg-white p-1 border border-zinc-200 flex items-center gap-1">
+                                    <Calendar size={10} className="text-zinc-400" />
+                                    <div className="truncate">
+                                        <span className="text-zinc-400 block text-[7px]">TRACKED</span>
+                                        <span className="font-bold text-zinc-800">14 DAYS</span>
+                                    </div>
+                                </div>
+                                <div className="bg-white p-1 border border-zinc-200 flex items-center gap-1">
+                                    <Activity size={10} className="text-zinc-400" />
+                                    <div className="truncate">
+                                        <span className="text-zinc-400 block text-[7px]">EVENTS</span>
+                                        <span className="font-bold text-zinc-800">{localLogs.length} LOGS</span>
+                                    </div>
+                                    
                                 </div>
                             </div>
 
-                            <div className="py-2 px-4 flex-1 overflow-y-auto scrollbar-hide">
-                                <div className="flex items-center gap-2 mb-4">
-                                    <Clock size={12} className="text-zinc-400" />
-                                    <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest">Progression Log</span>
+                            {/* EVENT REGISTRY HISTORY STREAM */}
+                            <div className="p-2 flex-1 overflow-y-auto scrollbar-hide flex flex-col">
+                                <div className="flex items-center gap-1 mb-2 shrink-0 select-none">
+                                    <Clock size={10} className="text-zinc-400" />
+                                    <span className="text-[9px] font-mono font-bold text-zinc-400 uppercase">Registry Log</span>
                                 </div>
 
-                                <div className="relative ml-1 space-y-5">
-                                    <div className="absolute left-[3px] top-2 bottom-2 w-px bg-zinc-300" />
+                                <div className="relative space-y-3 flex-1 overflow-y-auto mb-2 pr-1">
+                                    <div className="absolute left-[3px] top-1 bottom-1 w-px bg-zinc-300" />
                                     {localLogs.map((log: any, idx: number) => (
-                                        <div key={idx} className="relative pl-6 animate-in slide-in-from-left-2 duration-300 fade-in">
+                                        <div key={idx} className="relative pl-4 flex flex-col group">
                                             <div className={cn(
-                                                "absolute left-0 top-1 w-2 h-2 border z-10 transition-colors",
-                                                log.status === "COMPLETED" ? "bg-zinc-900 border-zinc-900" :
-                                                log.status === "ACTIVE" ? "bg-white border-orange-500 ring-2 ring-orange-500/20" : "bg-zinc-100 border-zinc-400"
+                                                "absolute left-0 top-1 w-1.5 h-1.5 rounded-none border z-10 transition-colors",
+                                                log.status === "COMPLETED" ? "bg-blue-600 border-blue-600" : "bg-white border-zinc-400"
                                             )} />
-                                            <div className="flex flex-col gap-0.5">
-                                                <span className={cn(
-                                                    "text-[11px] font-bold uppercase tracking-tight leading-none",
-                                                    log.status === "PENDING" ? "text-zinc-500" : "text-zinc-900"
-                                                )}>
-                                                    {log.stage}
-                                                </span>
-                                                <span className="text-[9px] font-mono font-bold text-zinc-600 tracking-widest uppercase">{log.date}</span>
-                                            </div>
+                                            <span className="text-[10px] font-mono font-bold uppercase text-zinc-800 leading-none truncate">
+                                                {log.stage}
+                                            </span>
+                                            <span className="text-[8px] font-mono text-zinc-400 uppercase mt-0.5">{log.date}</span>
                                         </div>
                                     ))}
                                 </div>
 
-                                {isAddingLog ? (
-                                    <div className="mt-4 p-3 border border-orange-500 bg-orange-50/50 relative animate-in fade-in slide-in-from-top-2 duration-200">
-                                        <div className="absolute -top-2 left-2 bg-zinc-50 px-1 text-[9px] font-mono font-black text-orange-600 uppercase tracking-widest">
-                                            New Log
-                                        </div>
-                                        <div className="flex items-center gap-2 mt-2">
-                                            <span className="text-orange-500 font-mono font-black text-xs">{">"}</span>
+                                {/* HIGH CONTRAST SOLID APPEND TERMINAL BLOCK */}
+                                <div className="mt-auto shrink-0 pt-2 border-t border-dashed border-zinc-300">
+                                    {isAddingLog ? (
+                                        <form onSubmit={handleAddLog} className="border border-zinc-300 p-2 bg-white space-y-1.5">
                                             <input 
                                                 autoFocus
                                                 value={newLogStage}
                                                 onChange={e => setNewLogStage(e.target.value)}
-                                                onKeyDown={e => {
-                                                    if (e.key === 'Enter') handleAddLog();
-                                                    if (e.key === 'Escape') setIsAddingLog(false);
-                                                }}
-                                                placeholder="E.G. TECHNICAL_INTERVIEW"
-                                                className="flex-1 bg-transparent border-none outline-none font-mono text-[10px] font-bold uppercase text-zinc-900 placeholder:text-zinc-400/70"
+                                                onKeyDown={e => { if (e.key === 'Escape') setIsAddingLog(false); }}
+                                                placeholder="ENTER TERMINAL STEP..."
+                                                className="w-full bg-zinc-50 border border-zinc-300 p-1.5 font-mono text-[9px] font-bold uppercase text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-blue-500 rounded-none"
                                             />
-                                        </div>
-                                        <div className="flex justify-end gap-2 mt-3 pt-2 border-t border-orange-500/20">
-                                            <button onClick={() => setIsAddingLog(false)} className="text-[9px] font-mono font-bold text-zinc-500 hover:text-zinc-900 uppercase tracking-widest px-2 py-1 transition-colors cursor-pointer outline-none">
-                                                [Esc] Cancel
-                                            </button>
-                                            <button onClick={handleAddLog} disabled={!newLogStage.trim()} className="text-[9px] font-mono font-black text-white bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:hover:bg-orange-500 uppercase tracking-widest px-3 py-1 transition-all active:shadow-none active:translate-x-[2px] active:translate-y-[2px] cursor-pointer outline-none">
-                                                [ENT] ADD
-                                            </button>
-                                        </div>
-                                    </div>
-                                ) : (
-                                    <button onClick={() => setIsAddingLog(true)} className="mt-6 w-full py-2.5 border border-dashed border-zinc-300 bg-white text-[9px] font-mono font-black text-zinc-500 uppercase hover:border-orange-500 hover:text-orange-600 transition-colors cursor-pointer outline-none">
-                                        + Append_Log_Trace
-                                    </button>
-                                )}
+                                            <div className="flex justify-end gap-2 text-[8px] font-mono font-bold uppercase">
+                                                <button type="button" onClick={() => setIsAddingLog(false)} className="text-zinc-400 hover:text-zinc-600 cursor-pointer">
+                                                    Cancel
+                                                </button>
+                                                <button type="submit" disabled={!newLogStage.trim()} className="text-white bg-blue-600 px-2 py-0.5 cursor-pointer">
+                                                    Add
+                                                </button>
+                                            </div>
+                                        </form>
+                                    ) : (
+                                        <button 
+                                            onClick={() => setIsAddingLog(true)} 
+                                            className="w-full py-1.5 border border-zinc-400 bg-zinc-900 text-white text-[9px] font-mono font-bold uppercase hover:bg-blue-600 transition-colors cursor-pointer rounded-none tracking-wide"
+                                        >
+                                            + Append Trace Log
+                                        </button>
+                                    )}
+                                </div>
                             </div>
 
-                            <div className="p-5 bg-white border-t border-zinc-300 space-y-3 shrink-0">
-                                <a href={selectedNode.jobLink} target="_blank" className="w-full h-10 border border-zinc-300 bg-white flex items-center justify-center gap-2 text-[10px] font-mono font-black text-zinc-700 uppercase hover:bg-zinc-50 transition-colors cursor-pointer outline-none shadow-sm">
-                                    <LinkIcon size={12} /> Open Job
+                            {/* PERSISTENT ACTIONS FOOTER */}
+                            <div className="p-2 bg-white border-t border-zinc-200 flex flex-col gap-1 shrink-0">
+                                <a href={selectedNode.jobLink} target="_blank" rel="noreferrer" className="w-full h-8 border border-zinc-300 bg-white flex items-center justify-center gap-1.5 text-[10px] font-mono font-bold text-zinc-600 uppercase hover:bg-zinc-50 transition-colors rounded-none">
+                                    <LinkIcon size={10} /> Launch Source
                                 </a>
-                                <button className="w-full h-10 bg-zinc-900 text-white text-[10px] font-mono font-black uppercase hover:bg-orange-500 transition-colors cursor-pointer outline-none shadow-[2px_2px_0px_0px_rgba(24,24,27,0.2)] active:shadow-none active:translate-y-[2px] active:translate-x-[2px]">
-                                    Update Status
+                                <button className="w-full h-8 bg-blue-600 text-white text-[10px] font-mono font-bold uppercase hover:bg-blue-700 transition-colors rounded-none">
+                                    Save Changes
                                 </button>
                             </div>
                         </div>
@@ -391,6 +409,15 @@ const DeepDiveInspector = ({ selectedNode, setSelectedNode }: any) => {
         </Dialog>
     );
 };
+
+// HARD MATRIX GRID BOX COMPONENT
+const SpecBox = ({ label, value }: { label: string; value: string }) => (
+    <div className="bg-white p-1.5 flex flex-col min-w-0 border border-transparent">
+        <span className="text-[8px] font-mono font-bold text-zinc-400 uppercase block leading-none">{label}</span>
+        <span className="text-[10px] font-mono font-bold text-zinc-800 uppercase truncate mt-1">{value}</span>
+    </div>
+);
+
 
 // --- PRE-EXISTING COMPONENTS (Kept Intact) ---
 
