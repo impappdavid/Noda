@@ -173,6 +173,10 @@ export default function Feed() {
     navigate(`/app/user/${username}`);
   };
 
+  const [aspectRatio, setAspectRatio] = React.useState<number | null>(null);
+
+
+
   const testPosts = [
     {
       id: "p_text",
@@ -227,9 +231,12 @@ export default function Feed() {
       likes: 342,
       comments: 45,
       views: "12.1k",
-      images: Array(9).fill(
-        "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=800",
-      ),
+      images: [
+        "https://pbs.twimg.com/media/HIkmDcVaYAABtzK?format=jpg&name=4096x4096",
+        "https://pbs.twimg.com/media/HIkmEToagAAbd1Y?format=jpg&name=4096x4096",
+        "https://pbs.twimg.com/media/HIkmFk-a8AAgtG2?format=jpg&name=4096x4096",
+        "https://pbs.twimg.com/media/HIkmGaPacAAjuXo?format=jpg&name=4096x4096"
+      ]
     },
     {
       id: "p_image",
@@ -245,9 +252,11 @@ export default function Feed() {
       likes: 24,
       comments: 12,
       views: "1.2k",
-      images: ["https://pbs.twimg.com/media/HIkmDcVaYAABtzK?format=jpg&name=4096x4096"],
+      images: ["https://pbs.twimg.com/media/HIjmQqBXwAAqMvH?format=jpg&name=4096x4096"],
     },
   ];
+
+ 
 
   return (
     <div className="max-w-2xl mx-auto flex flex-col relative bg-white min-h-screen">
@@ -328,10 +337,10 @@ export default function Feed() {
             {post.images && post.images.length > 0 && (
               <div
                 className={cn(
-                  "overflow-hidden border border-zinc-300 grid gap-1 mb-4 mt-3 aspect-square",
+                  "overflow-hidden  grid gap-0.5 mb-4 mt-3 ",
                   post.images.length === 1
-                    ? "grid-cols-1 aspect-video"
-                    : "grid-cols-2",
+                    ? "grid-cols-1 aspect-auto"
+                    : "grid-cols-2 ",
                 )}
               >
                 {post.images.slice(0, 4).map((img, idx) => (
@@ -348,7 +357,7 @@ export default function Feed() {
                   >
                     <img
                       src={img}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-full"
                       alt="media"
                     />
                     {idx === 3 && post.images.length > 4 && (
