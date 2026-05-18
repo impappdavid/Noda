@@ -183,26 +183,29 @@ export default function PostViewDialog({
           <X className="w-4.5 h-4.5" />
         </div>
 
-        <div className="w-3/4 h-screen flex flex-col items-center justify-center relative bg-black/5">
+        <div className="w-5/6 h-screen flex flex-col items-center justify-center relative bg-black/5 ">
           {selectedPost?.images && selectedPost.images.length > 0 ? (
             <>
               <Carousel
                 setApi={setApi} // Set the API to track index
-                className="w-full h-full flex items-center justify-center"
+                className="w-full h-full flex items-center justify-center "
                 opts={{
                   startIndex: initialIndex,
                 }}
               >
-                <CarouselContent className="h-full items-center">
+                <CarouselContent className="h-full w-full items-center">
                   {selectedPost.images.map((img: string, index: number) => (
                     <CarouselItem
                       key={index}
-                      className="flex items-center justify-center h-full"
+                      // Added p-4 or p-8 to prevent the image from touching the edges of the modal container
+                      className="flex items-center justify-center h-full w-full p-4 md:p-10"
                     >
                       <img
                         src={img}
-                        className="max-w-full max-h-full object-contain"
+                        // Changed max bounds to 90% or 85% of the viewport width/height to scale it down nicely
+                        className="max-w-[90%] max-h-[90vh] object-contain shadow-2xl transition-all"
                         onClick={(e) => e.stopPropagation()}
+                        alt={`Sourced asset ${index + 1}`}
                       />
                     </CarouselItem>
                   ))}
@@ -236,7 +239,7 @@ export default function PostViewDialog({
           )}
         </div>
 
-        <div className="w-1/4 bg-white h-screen border-l border-zinc-300 flex flex-col ">
+        <div className="w-1/6 bg-white h-screen border-l border-zinc-300 flex flex-col ">
           {selectedPost && (
             <>
               <div className="flex justify-between items-start mb-1 p-3">
