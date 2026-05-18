@@ -231,6 +231,22 @@ export default function Feed() {
         "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=800",
       ),
     },
+    {
+      id: "p_image",
+      author: {
+        name: "Alex Rivers",
+        username: "arivers",
+        role: "Vector Engineer",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+      },
+      postedAgo: "2h",
+      content:
+        "",
+      likes: 24,
+      comments: 12,
+      views: "1.2k",
+      images: ["https://pbs.twimg.com/media/HIkmDcVaYAABtzK?format=jpg&name=4096x4096"],
+    },
   ];
 
   return (
@@ -332,7 +348,7 @@ export default function Feed() {
                   >
                     <img
                       src={img}
-                      className="w-full h-full object-cover hover:opacity-90 transition-opacity"
+                      className="w-full h-full object-cover"
                       alt="media"
                     />
                     {idx === 3 && post.images.length > 4 && (
