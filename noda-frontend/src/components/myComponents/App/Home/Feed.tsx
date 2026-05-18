@@ -159,6 +159,7 @@ export default function Feed() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const [selectedPost, setSelectedPost] = useState<any>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [dropdownOpen, setDropDownOpen] = useState(true)
 
   const toggleLike = (e: React.MouseEvent, id: string) => {
     e.stopPropagation();
@@ -275,7 +276,7 @@ export default function Feed() {
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <button
-                  className="text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors"
+                  className={`text-zinc-500 hover:text-zinc-900 p-1.5 hover:bg-zinc-200 outline-none cursor-pointer transition-colors `}
                   onClick={(e) => e.preventDefault()}
                 >
                   <MoreHorizontal size={16} />
@@ -283,14 +284,13 @@ export default function Feed() {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-32 rounded-none border-zinc-300 p-1 shadow-2xl bg-white"
+                className="w-32 rounded-none border-zinc-300 shadow-2xl p-0 bg-white"
                 onClick={(e) => e.stopPropagation()}
               >
-                <DropdownMenuItem className="gap-1.5 text-[10px] font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-100">
+                <DropdownMenuItem className="gap-1.5 border-b border-zinc-300 text-[10px] font-mono cursor-pointer py-2 rounded-none hover:bg-zinc-200">
                   <Link2 size={12} /> COPY_URL
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="gap-1.5 text-[10px] font-mono text-red-600 cursor-pointer py-2 hover:bg-red-50">
+                <DropdownMenuItem className="gap-1.5 text-[10px] font-mono text-red-600 cursor-pointer py-2 rounded-none hover:bg-red-500/20">
                   <Flag size={12} /> REPORT
                 </DropdownMenuItem>
               </DropdownMenuContent>
