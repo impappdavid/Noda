@@ -27,54 +27,54 @@ const UserDropDown = () => {
                 </DropdownMenuTrigger>
 
                 {/* 2. Menu Content styled for Noda */}
-                <DropdownMenuContent className="w-42 mt-2 rounded-none border-zinc-300 p-1 " align="end" forceMount>
+                <DropdownMenuContent className="w-42 mt-2 rounded-none border-zinc-300 p-0 " align="end" forceMount>
                     <DropdownMenuLabel className="font-normal px-2 py-2">
                         <div className="flex flex-col ">
                             <p className="text-xs font-bold leading-none text-zinc-900">Alex Rivers</p>
                         </div>
                     </DropdownMenuLabel>
 
-                    <DropdownMenuSeparator className="bg-zinc-200" />
+                    <DropdownMenuSeparator className="bg-zinc-300" />
 
                     <DropdownMenuGroup>
                         <Link to={`/app/user/me`}>
-                            <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-100 focus:text-zinc-900 cursor-pointer">
+                            <DropdownMenuItem className="rounded-none hover:bg-zinc-200 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-200 focus:text-zinc-900 cursor-pointer">
                                 <User className=" h-4 w-4 text-zinc-400" />
                                 <span>Profile</span>
                             </DropdownMenuItem>
                         </Link>
                         <Link to={`/app/settings`}>
-                            <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
+                            <DropdownMenuItem className="rounded-none hover:bg-zinc-200 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-200 focus:text-zinc-900 cursor-pointer">
                                 <Settings className=" h-4 w-4 text-zinc-400" />
                                 <span>Settings</span>
                             </DropdownMenuItem>
                         </Link>
-                        <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
+                        <DropdownMenuItem className="rounded-none hover:bg-zinc-200 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-200 focus:text-zinc-900 cursor-pointer">
                             <CreditCard className=" h-4 w-4 text-zinc-400" />
                             <span>Billing Tiers</span>
                         </DropdownMenuItem>
                     </DropdownMenuGroup>
 
-                    <DropdownMenuSeparator className="bg-zinc-50" />
+                    <DropdownMenuSeparator className="bg-zinc-300" />
 
-                    <DropdownMenuGroup className="space-y-1 py-1">
-                        <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
-                            <ShieldCheck className=" h-4 w-4 text-orange-500" />
+                    <DropdownMenuGroup className="">
+                        <DropdownMenuItem className="rounded-none hover:bg-zinc-200 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
+                            <ShieldCheck className=" h-4 w-4 text-blue-500" />
                             <span>Verification</span>
                             <DropdownMenuShortcut className="text-[9px] font-mono">BETA</DropdownMenuShortcut>
                         </DropdownMenuItem>
                         <Link to={`/app/createcompany`}>
-                            <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
-                                <BadgePlus className=" h-4 w-4 text-orange-500" />
+                            <DropdownMenuItem className="rounded-none hover:bg-zinc-200 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-50 focus:text-zinc-900 cursor-pointer">
+                                <BadgePlus className=" h-4 w-4 text-blue-500" />
                                 <span>Create a company</span>
                             </DropdownMenuItem>
                         </Link>
                     </DropdownMenuGroup>
 
-                    <DropdownMenuSeparator className="bg-zinc-50" />
+                    <DropdownMenuSeparator className="bg-zinc-300" />
 
                     <Link to={`/login`}>
-                        <DropdownMenuItem className="rounded-sm hover:bg-zinc-200/80 px-2 py-2 text-xs text-red-500 focus:bg-red-50 focus:text-red-600 cursor-pointer mt-1">
+                        <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-2 text-xs text-red-500 focus:bg-red-50 focus:text-red-600 cursor-pointer">
                             <LogOut className=" h-4 w-4" />
                             <span>Logout</span>
                         </DropdownMenuItem>
