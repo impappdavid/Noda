@@ -257,6 +257,32 @@ export default function Feed() {
       views: "1.2k",
       images: ["https://pbs.twimg.com/media/HIjmQqBXwAAqMvH?format=jpg&name=4096x4096"],
     },
+     {
+      id: "p_vimage",
+      author: {
+        name: "Alex Rivers",
+        username: "arivers",
+        role: "Vector Engineer",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
+      },
+      postedAgo: "2h",
+      content:
+        "Which is better?",
+      likes: 24,
+      comments: 12,
+      views: "1.2k",
+      poll: {
+        options: [
+          { label: "First", votes: 450 },
+          { label: "Second", votes: 120 },
+        ],
+        totalVotes: 880,
+      },
+      images: ["https://pbs.twimg.com/media/HG6prFdbQAA-QKL?format=png&name=4096x4096",
+        "https://pbs.twimg.com/media/HG6prFdbgAAjZfm?format=jpg&name=4096x4096"
+        
+      ],
+    },
   ];
 
  
