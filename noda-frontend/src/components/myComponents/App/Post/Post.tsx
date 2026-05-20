@@ -4,12 +4,44 @@ import { useNavigate } from "react-router-dom";
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import CommentNode from './CommentNode';
-import PollSection from './PollSection';
 import { cn } from "@/lib/utils";
-import type { Post } from '@/types/post';
+import { PollModule } from './PollSection';
+import { ProjectShowcaseModule } from '../Home/PostCards/ProjectShowcaseModule';
+import { SystemMilestoneModule } from '../Home/PostCards/SystemMilestoneModule';
+import { JobListingModule } from '../Home/PostCards/JobListingModule';
+
+interface Post {
+  id: string;
+  // Use a union of string literals to strictly enforce the allowable categories
+  type: "normal" | "poll" | "project_showcase" | "system_milestone" | "job_listing";
+  author: {
+    id: string;
+    name: string;
+    username: string;
+    role: string;
+    avatar: string;
+    reliability?: string;
+  };
+  content: string;
+  postedAgo: string;
+  likes: number;
+  commentsCount: number;
+  views: string | number;
+  images: string[];
+  
+  // Optional payloads for specific category variants
+  poll?: {
+    options: Array<{ label: string; votes: number }>;
+    totalVotes: number;
+  };
+  project?: any;     // Replace 'any' with your explicit Project interface if available
+  milestone?: any;   // Replace 'any' with your explicit Milestone interface if available
+  jobListing?: any;  // Replace 'any' with your explicit JobListing interface if available
+}
 
 const MOCK_POST: Post = {
     id: "p_poll_1",
+    type: "poll", // Added category classifier type to test rendering variants
     author: {
         id: "u_marcus_v",
         name: "Marcus Vane",
@@ -57,7 +89,7 @@ const PostDetail = () => {
             )}
 
             <div className="max-w-4xl w-full mx-auto px-6 flex gap-4">
-                <aside className="w-24 flex-none">
+                <aside className="w-25 flex-none">
                     <div className="sticky top-0 pt-16"><AppSideBar /></div>
                 </aside>
 
@@ -80,21 +112,33 @@ const PostDetail = () => {
                             <PostHeader author={MOCK_POST.author} postedAgo={MOCK_POST.postedAgo} onCopy={handleCopyLink} onAvatarClick={(id) => navigate(`/app/user/${id}`)} />
                             
                             <div className="pl-0 md:pl-[52px]">
-                                <p className="text-sm text-zinc-800 leading-relaxed mb-4">{MOCK_POST.content}</p>
+                                <p className="text-sm text-zinc-800 leading-relaxed mb-2">{MOCK_POST.content}</p>
 
-                                {MOCK_POST.poll && (
-                                    <PollSection 
-                                        options={MOCK_POST.poll.options} 
-                                        totalVotes={MOCK_POST.poll.totalVotes} 
-                                        userVote={userVote} 
-                                        onVote={setUserVote} 
-                                    />
-                                )}
+                                {/* FEED CARD CATEGORIES INJECTION MODULES */}
+                                <div className="mb-2">
+                                    {MOCK_POST.type === "poll" && MOCK_POST.poll && (
+                                        <PollModule poll={MOCK_POST.poll}
+                                        />
+                                    )}
 
-                                {MOCK_POST.images.length > 0 && (
+                                    {MOCK_POST.type === "project_showcase" && MOCK_POST.project && (
+                                        <ProjectShowcaseModule project={MOCK_POST.project} />
+                                    )}
+
+                                    {MOCK_POST.type === "system_milestone" && MOCK_POST.milestone && (
+                                        <SystemMilestoneModule milestone={MOCK_POST.milestone} />
+                                    )}
+
+                                    {MOCK_POST.type === "job_listing" && MOCK_POST.jobListing && (
+                                        <JobListingModule job={MOCK_POST.jobListing} />
+                                    )}
+                                </div>
+
+                                {/* CAROUSEL / IMAGES DISPLAY SECTION */}
+                                {MOCK_POST.images && MOCK_POST.images.length > 0 && MOCK_POST.type !== "poll" && (
                                     <div className="overflow-hidden border border-zinc-100 grid grid-cols-2 gap-1 mb-4 aspect-video">
                                         {MOCK_POST.images.map((img, i) => (
-                                            <img key={i} src={img} className="w-full h-full object-cover cursor-pointer hover:opacity-95 transition-opacity" onClick={() => setSelectedImg(img)} />
+                                            <img key={i} src={img} className="w-full h-full object-cover cursor-pointer hover:opacity-95 transition-opacity" onClick={() => setSelectedImg(img)} alt="" />
                                         ))}
                                     </div>
                                 )}
@@ -135,9 +179,9 @@ const PostDetail = () => {
 
 // Helper components...
 const PostHeader = ({ author, postedAgo, onCopy, onAvatarClick }: any) => (
-    <div className="flex justify-between items-start mb-1">
+    <div className="flex justify-between items-start ">
         <div className="flex gap-3">
-            <div className="w-10 h-10 rounded-full border border-zinc-200 overflow-hidden cursor-pointer" onClick={() => onAvatarClick(author.id)}>
+            <div className="w-10 h-10  border border-zinc-300 overflow-hidden cursor-pointer" onClick={() => onAvatarClick(author.id)}>
                 <img src={author.avatar} alt="" className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col">
@@ -145,15 +189,15 @@ const PostHeader = ({ author, postedAgo, onCopy, onAvatarClick }: any) => (
                 <span className="text-[10px] font-mono font-black text-zinc-400 uppercase mt-1">{author.username} • {postedAgo}</span>
             </div>
         </div>
-        <button onClick={onCopy} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 rounded-lg cursor-pointer transition-all active:scale-90"><Copy size={14} /></button>
+        <button onClick={onCopy} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-200  cursor-pointer transition-all active:scale-90"><Copy size={14} /></button>
     </div>
 );
 
 const PostActionBar = ({ post, liked, bookmarked, onLike, onBookmark }: any) => (
     <div className="flex items-center justify-between border-t border-zinc-100 mt-3">
         <div className="flex items-center gap-10">
-            <button onClick={onLike} className={cn("flex items-center gap-2 text-xs font-mono cursor-pointer transition-colors", liked ? "text-orange-600 font-bold" : "text-zinc-500 hover:text-orange-600")}>
-                <Heart size={16} className={liked ? "fill-orange-600" : ""} /> {post.likes + (liked ? 1 : 0)}
+            <button onClick={onLike} className={cn("flex items-center gap-2 text-xs font-mono cursor-pointer transition-colors", liked ? "text-blue-600 font-bold" : "text-zinc-500 hover:text-blue-600")}>
+                <Heart size={16} className={liked ? "fill-blue-600" : ""} /> {post.likes + (liked ? 1 : 0)}
             </button>
             <div className="flex items-center gap-2 text-xs font-mono text-zinc-500"><MessageSquare size={16} /> {post.commentsCount}</div>
             <div className="flex items-center gap-2 text-xs font-mono text-zinc-500"><BarChart3 size={16} /> {post.views}</div>

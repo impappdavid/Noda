@@ -1,42 +1,58 @@
-import React from 'react';
-import { cn } from "@/lib/utils";
-import type { PollOption } from '@/types/post';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
-interface PollProps {
-    options: PollOption[];
-    totalVotes: number;
-    userVote: number | null;
-    onVote: (idx: number) => void;
-}
+export const PollModule = ({ poll }: { poll: any }) => {
+  const [voted, setVoted] = useState<number | null>(null);
 
-const PollSection: React.FC<PollProps> = ({ options, totalVotes, userVote, onVote }) => {
-    const isVoted = userVote !== null;
+  return (
+    <div
+      className="mt-2 border border-zinc-300 bg-white overflow-hidden"
+      onClick={(e) => e.preventDefault()}
+    >
+      <div className="flex justify-between items-center px-2 py-1 h-8 border-b border-zinc-300 bg-zinc-200">
+        <span className="text-[10px] font-mono font-bold text-zinc-900 uppercase tracking-wider">
+          Active Poll
+        </span>
+      </div>
+      <div className="divide-y divide-zinc-300">
+        {poll.options.map((opt: any, i: number) => {
+          const percent = poll.totalVotes
+            ? Math.round((opt.votes / poll.totalVotes) * 100)
+            : 33;
+          const isYourVote = voted === i;
 
-    return (
-        <div className="space-y-2 mb-6">
-            {options.map((option, idx) => {
-                const percentage = isVoted ? Math.round((option.votes / totalVotes) * 100) : 0;
-                return (
-                    <button
-                        key={idx}
-                        onClick={() => !isVoted && onVote(idx)}
-                        className={cn(
-                            "relative w-full h-9 rounded-none border text-left text-xs px-4 overflow-hidden transition-all",
-                            isVoted ? "border-zinc-300 cursor-default" : "border-zinc-300 hover:border-orange-500 hover:bg-orange-500/20 cursor-pointer"
-                        )}
-                    >
-                        {isVoted && (
-                            <div className="absolute inset-y-0 left-0 bg-zinc-200 transition-all duration-500" style={{ width: `${percentage}%` }} />
-                        )}
-                        <div className="relative z-10 flex justify-between items-center h-full">
-                            <span className="text-xs font-bold">{option.label}</span>
-                            {isVoted && <span className="text-[10px] font-mono font-black">{percentage}%</span>}
-                        </div>
-                    </button>
-                );
-            })}
-        </div>
-    );
+          return (
+            <button
+              key={i}
+              onClick={() => voted === null && setVoted(i)}
+              className="w-full relative flex items-center h-9 bg-white hover:bg-blue-500/10 transition-colors cursor-pointer text-left"
+            >
+              {voted !== null && (
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${percent}%` }}
+                  className={`absolute inset-y-0 left-0 border-r border-zinc-200 ${
+                    isYourVote ? "bg-blue-500/20" : "bg-zinc-500/10"
+                  }`}
+                />
+              )}
+
+              <div className="relative z-10 flex w-full justify-between px-2 items-center">
+                <span
+                  className={`text-xs font-mono font-bold uppercase ${isYourVote ? "text-blue-600" : "text-zinc-800"}`}
+                >
+                  {typeof opt === "string" ? opt : opt.label}
+                </span>
+                {voted !== null && (
+                  <span className="text-xs font-mono font-bold text-zinc-500">
+                    {percent}%
+                  </span>
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
-
-export default PollSection;

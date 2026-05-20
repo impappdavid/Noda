@@ -41,10 +41,10 @@ const CommentNode: React.FC<CommentProps> = ({ id, likes, onUserClick }) => {
                         onClick={() => setCLiked(!cLiked)} 
                         className={cn(
                             "flex items-center gap-1.5 transition-colors cursor-pointer", 
-                            cLiked ? "text-orange-500" : "text-zinc-500 hover:text-orange-500"
+                            cLiked ? "text-blue-500" : "text-zinc-500 hover:text-blue-500"
                         )}
                     >
-                        <Heart size={14} className={cLiked ? "fill-orange-500" : ""} />
+                        <Heart size={14} className={cLiked ? "fill-blue-500" : ""} />
                         <span className="text-[10px] font-mono font-black">{likes + (cLiked ? 1 : 0)}</span>
                     </button>
                     <button className="flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 transition-colors cursor-pointer">
