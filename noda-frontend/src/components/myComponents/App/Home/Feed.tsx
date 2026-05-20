@@ -235,7 +235,7 @@ export default function Feed() {
   ];
 
   return (
-    <div className="max-w-xl mx-auto flex flex-col bg-white min-h-screen border-x border-zinc-200 pb-32">
+    <div className="max-w-xl mx-auto flex flex-col bg-white min-h-screen pb-32">
       {feedPosts.map((post) => (
         <PostCard
           key={post.id}

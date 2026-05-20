@@ -34,6 +34,7 @@ import CompanySearchPage from './components/myComponents/App/CompanySearch/Compa
 import CreateCompanyPage from './components/myComponents/App/CreateCompany/CreateCompany'
 import VerificationTerminal from './components/myComponents/App/Admin/CompanyReview/CompanyReview'
 import Applicants from './components/myComponents/App/CompanyAdmin/Applicants/Applicants'
+import ProjectDetailView from './components/myComponents/App/Project/ProjectDetailView'
 
 function App() {
 
@@ -53,6 +54,8 @@ function App() {
         <Route path="/app/communities/:id" element={<CommunityDetail />} />
         <Route path="/app/user/:id" element={<UserProfile />} />
         <Route path="/app/company/:id" element={<CompanyPage />} />
+
+        <Route path="/app/project/:id" element={<ProjectDetailView />} />
 
         <Route path="/app/user" element={<UserSearchPage />} />
         <Route path="/app/company" element={<CompanySearchPage />} />

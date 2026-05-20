@@ -1,12 +1,12 @@
 import React from "react";
 import { ExternalLink, Github, FolderGit2 } from "lucide-react";
 import {type ProjectData } from "./types";
+import { Link } from "react-router-dom";
 
 export const ProjectShowcaseModule = ({ project }: { project: ProjectData }) => {
   return (
-    <div 
+    <Link to={"/app/project/1"}
       className="mt-2.5 border border-zinc-300 bg-white overflow-hidden flex flex-col select-none"
-      onClick={(e) => e.preventDefault()}
     >
       {/* 1. COVER HERO IMAGE VIEWPORT */}
       {project.coverImage && (
@@ -72,6 +72,6 @@ export const ProjectShowcaseModule = ({ project }: { project: ProjectData }) => 
           </div>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
