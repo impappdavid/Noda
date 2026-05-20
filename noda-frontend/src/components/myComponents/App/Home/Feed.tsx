@@ -207,6 +207,31 @@ export default function Feed() {
         "https://pbs.twimg.com/media/HG6prFdbgAAjZfm?format=jpg&name=4096x4096",
       ],
     },
+    {
+    id: "job_listing_01",
+    type: "job_listing",
+    author: {
+      name: "Linear HQ",
+      username: "linear",
+      role: "Verified Corporate Node",
+      avatar: "https://api.dicebear.com/7.x/initials/svg?seed=LN&backgroundColor=000000",
+    },
+    postedAgo: "45m",
+    content: "We are expanding our core product execution cycles. Looking for deep performance engineers to take ownership of global editor architecture state synchronization primitives.",
+    likes: 412,
+    comments: 23,
+    views: "18.9k",
+    jobListing: {
+      companyName: "Linear Engine Inc.",
+      companyLogo: "https://api.dicebear.com/7.x/initials/svg?seed=LN",
+      positionTitle: "Staff Systems Engineer (Desktop Core)",
+      department: "Product Engineering Group",
+      location: "Remote (US/EU)",
+      salaryRange: "$190k - $240k + Equity",
+      applyUrl: "https://example.com/careers/staff-systems",
+      tags: ["Electron", "Rust", "Wasm", "TypeScript", "CRDT"]
+    }
+  },
   ];
 
   return (

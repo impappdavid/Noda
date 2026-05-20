@@ -7,6 +7,7 @@ import { ProjectShowcaseModule } from "./ProjectShowcaseModule";
 import { ActionTray } from "./InteractionButtons";
 import {type Post } from "./types";
 import { SystemMilestoneModule } from "./SystemMilestoneModule";
+import { JobListingModule } from "./JobListingModule";
 
 interface PostCardProps {
   post: Post;
@@ -81,6 +82,8 @@ export const PostCard = ({
         {post.type === 'project_showcase' && post.project && <ProjectShowcaseModule project={post.project} />}
 
         {post.type === 'system_milestone' && post.milestone && <SystemMilestoneModule milestone={post.milestone} />}
+
+        {post.type === 'job_listing' && post.jobListing && <JobListingModule job={post.jobListing} />}
 
         {/* FLAT GRID SYSTEM GENERATOR */}
         {post.images && post.images.length > 0 && (

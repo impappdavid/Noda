@@ -1,6 +1,17 @@
-export type PostType = 'text' | 'poll' | 'media' | 'project_showcase' | 'system_milestone';
+export type PostType = 'text' | 'poll' | 'media' | 'project_showcase' | 'system_milestone' | 'job_listing';
 
 export type MilestoneCategory = 'PROMOTION' | 'NEW_HIRE' | 'ANNIVERSARY';
+
+export interface JobListingData {
+  companyName: string;
+  companyLogo: string;
+  positionTitle: string;
+  department: string;
+  location: string; // e.g., "REMOTE (US/EU)" or "HYBRID (NYC)"
+  salaryRange?: string; // e.g., "$140k - $180k"
+  applyUrl: string;
+  tags: string[]; // e.g., ["RUST", "WASM", "DISTRIBUTED SYSTEMS"]
+}
 
 export interface MilestoneData {
   category: MilestoneCategory;
@@ -56,4 +67,5 @@ export interface Post {
   poll?: PollData;
   project?: ProjectData;
   milestone?: MilestoneData;
+  jobListing?: JobListingData;
 }   
