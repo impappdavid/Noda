@@ -1,4 +1,20 @@
-export type PostType = 'text' | 'poll' | 'media' | 'project_showcase';
+export type PostType = 'text' | 'poll' | 'media' | 'project_showcase' | 'system_milestone';
+
+export type MilestoneCategory = 'PROMOTION' | 'NEW_HIRE' | 'ANNIVERSARY';
+
+export interface MilestoneData {
+  category: MilestoneCategory;
+  companyName: string;
+  companyLogo: string; // Industrial token or glyph graphic
+  targetUser: {
+    name: string;
+    username: string;
+    avatar: string;
+    previousRole?: string;
+    assignedRole: string;
+  };
+  metricDetail?: string;
+}
 
 export interface Author {
   name: string;
@@ -39,4 +55,5 @@ export interface Post {
   images?: string[];
   poll?: PollData;
   project?: ProjectData;
+  milestone?: MilestoneData;
 }   

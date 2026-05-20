@@ -6,6 +6,7 @@ import { PollModule } from "./PollModule";
 import { ProjectShowcaseModule } from "./ProjectShowcaseModule";
 import { ActionTray } from "./InteractionButtons";
 import {type Post } from "./types";
+import { SystemMilestoneModule } from "./SystemMilestoneModule";
 
 interface PostCardProps {
   post: Post;
@@ -78,6 +79,8 @@ export const PostCard = ({
         {post.poll && <PollModule poll={post.poll} />}
         
         {post.type === 'project_showcase' && post.project && <ProjectShowcaseModule project={post.project} />}
+
+        {post.type === 'system_milestone' && post.milestone && <SystemMilestoneModule milestone={post.milestone} />}
 
         {/* FLAT GRID SYSTEM GENERATOR */}
         {post.images && post.images.length > 0 && (

@@ -77,7 +77,7 @@ export const ActionTray = ({
   toggleBookmark,
 }: any) => (
   <div
-    className="flex items-center justify-between mt-3 pt-2 border-t border-zinc-100 select-none"
+    className="flex items-center justify-between mt-2  border-t border-zinc-100 select-none"
     onClick={(e) => e.preventDefault()}
   >
     <div className="flex items-center gap-4">
