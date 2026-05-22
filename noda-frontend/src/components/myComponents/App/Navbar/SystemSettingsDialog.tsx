@@ -34,7 +34,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 type SectionId =
   | "profile"
   | "preferences"
@@ -48,6 +47,12 @@ type SectionId =
 interface SettingsDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+}
+
+interface FormSelectorProps {
+  label: string;
+  defaultValue: string;
+  options: { label: string; value: string }[];
 }
 
 export default function FullyLoadedVerticalSettingsDialog({
@@ -161,22 +166,22 @@ export default function FullyLoadedVerticalSettingsDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
-        <DialogOverlay className="fixed inset-0 z-[150] bg-zinc-900/20 backdrop-blur-xs" />
+        <DialogOverlay className="fixed inset-0 z-[150] bg-zinc-800/20 backdrop-blur-xs" />
 
         {/* Vertical Form Desk Layout Strategy */}
-        <DialogContent className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[680px] p-0 gap-0 z-[200] rounded-none border border-zinc-300 bg-white shadow-2xl overflow-hidden flex flex-col text-zinc-800 focus:outline-none antialiased font-mono text-[11px]">
+        <DialogContent className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[680px] p-0 gap-0 z-[200] rounded-none border-none bg-white shadow-2xl overflow-hidden flex flex-col text-zinc-800 focus:outline-none antialiased font-mono text-[11px]">
           {/* HEADER LAYER */}
-          <div className="py-1 px-2 flex items-center justify-between bg-zinc-50 border-b border-zinc-200 shrink-0 select-none">
+          <div className="py-1 px-2 flex items-center justify-between bg-blue-500 border-b border-zinc-200 shrink-0 select-none">
             <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-blue-500" />
-              <span className="font-bold tracking-tight text-zinc-900 uppercase">
+              <div className="w-2 h-2 bg-white" />
+              <span className="font-bold tracking-tight text-white uppercase">
                 Settings
               </span>
             </div>
             <button
               type="button"
               onClick={() => onOpenChange(false)}
-              className="p-1 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-200 border border-transparent transition-all cursor-pointer rounded-none"
+              className="p-1 text-zinc-100 hover:text-white hover:bg-zinc-800/30 border border-transparent transition-all cursor-pointer rounded-none"
             >
               <X size={13} />
             </button>
@@ -339,12 +344,12 @@ export default function FullyLoadedVerticalSettingsDialog({
 
               {/* 2. ACCOUNT PREFERENCES */}
               {activeSection === "preferences" && (
-                <div className="space-y-3.5 animate-in fade-in duration-100">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Local Client Render Theme
-                    </span>
-                    <div className="grid grid-cols-3 gap-1.5">
+                <div className=" animate-in fade-in duration-100">
+                  <div className="">
+                    <div className="py-1 px-2 text-zinc-500 uppercase bg-zinc-200">
+                      Themes
+                    </div>
+                    <div className="grid grid-cols-3">
                       {(["LIGHT", "DARK", "SYSTEM"] as const).map((t) => (
                         <button
                           key={t}
@@ -352,26 +357,19 @@ export default function FullyLoadedVerticalSettingsDialog({
                           className={cn(
                             "text-left p-1.5 border transition-all flex flex-col bg-zinc-50 cursor-pointer rounded-none",
                             theme === t
-                              ? "border-zinc-950 ring-1 ring-zinc-950 bg-white"
+                              ? " bg-zinc-300 text-white"
                               : "border-zinc-200 hover:border-zinc-300",
                           )}
                         >
                           <div
                             className={cn(
-                              "w-full h-10 border relative p-1 flex flex-col justify-between",
+                              "w-full h-20 border relative p-1 flex flex-col justify-between",
                               t === "DARK"
-                                ? "bg-zinc-900 border-zinc-800"
+                                ? "bg-zinc-800 border-zinc-800"
                                 : "bg-white border-zinc-200",
                             )}
                           >
                             <div className="w-4 h-0.5 bg-zinc-400" />
-                            <div className="flex justify-end">
-                              {theme === t && (
-                                <div className="w-2 h-2 bg-zinc-950 text-white flex items-center justify-center text-[5px]">
-                                  <Check size={5} />
-                                </div>
-                              )}
-                            </div>
                           </div>
                           <span className="text-[9px] font-bold text-zinc-900 mt-1 block px-0.5">
                             {t}
@@ -381,34 +379,28 @@ export default function FullyLoadedVerticalSettingsDialog({
                     </div>
                   </div>
 
-                  <div className="border border-zinc-200 bg-white grid grid-cols-2 divide-x divide-zinc-200">
-                    <div className="p-2 space-y-1">
-                      <label className="text-[9px] font-bold text-zinc-400 block uppercase">
-                        Language / Region
-                      </label>
-                      <Select value={localeCode} onValueChange={setLocaleCode}>
-                        <SelectTrigger className="h-6 rounded-none border border-zinc-200 bg-zinc-50/50 text-[11px] px-1.5 focus:ring-0 shadow-none">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="rounded-none border-zinc-200 bg-white text-[11px]">
-                          <SelectItem value="en-US">en-US (English)</SelectItem>
-                          <SelectItem value="de-DE">de-DE (Deutsch)</SelectItem>
-                          <SelectItem value="ja-JP">ja-JP (日本語)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <div className="p-2 space-y-1">
-                      <label className="text-[9px] font-bold text-zinc-400 block uppercase">
-                        Timezone Auto-Detect
-                      </label>
-                      <div className="h-6 border border-zinc-200 bg-zinc-100/70 text-zinc-600 px-2 flex items-center text-[10px] truncate select-none">
-                        {timezone}
-                      </div>
-                      <span className="text-[7.5px] text-zinc-400 font-sans block leading-none">
-                        Auto-synchronized via client window runtime API.
-                      </span>
-                    </div>
+                  <div className="py-1 px-2 text-zinc-500 uppercase bg-zinc-200">
+                    Language And Timezone
+                  </div>
+                  <div className=" bg-white grid grid-cols-2 divide-x divide-zinc-200">
+                    <FormSelector
+                      label="Language / Region"
+                      defaultValue="us"
+                      options={[
+                        { label: "English (US)", value: "us" },
+                        { label: "Hybrid_System", value: "hybrid" },
+                        { label: "Onsite_Physical", value: "onsite" },
+                      ]}
+                    />
+                    <FormSelector
+                      label="Timezone (Auto-Detect)"
+                      defaultValue="remote"
+                      options={[
+                        { label: "Europe/Budapest ", value: "remote" },
+                        { label: "Hybrid_System", value: "hybrid" },
+                        { label: "Onsite_Physical", value: "onsite" },
+                      ]}
+                    />
                   </div>
                 </div>
               )}
@@ -855,7 +847,7 @@ export default function FullyLoadedVerticalSettingsDialog({
                           Mask candidate footprints when indexing company panel
                           assessments
                         </span>
-                       <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                        <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
                           <input
                             type="checkbox"
                             id="AcceptConditions"
@@ -1102,3 +1094,33 @@ export default function FullyLoadedVerticalSettingsDialog({
     </Dialog>
   );
 }
+
+export const FormSelector = React.memo(
+  ({ label, defaultValue, options }: FormSelectorProps) => (
+    <div className="bg-white p-1.5 pb-1 space-y-0.5 border-r border-b border-zinc-300">
+      <label className="text-[8px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
+        {label}
+      </label>
+      <Select defaultValue={defaultValue}>
+        <SelectTrigger className="h-5 w-full rounded-none border-none p-0 text-[10px] font-bold uppercase focus:ring-0 shadow-none cursor-pointer bg-transparent">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent
+          position="popper"
+          sideOffset={4}
+          className="rounded-none border-zinc-300 font-mono text-[10px] uppercase bg-white z-50"
+        >
+          {options.map((opt) => (
+            <SelectItem
+              key={opt.value}
+              value={opt.value}
+              className="text-xs cursor-pointer"
+            >
+              {opt.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  ),
+);
