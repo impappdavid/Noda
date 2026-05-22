@@ -1,49 +1,30 @@
-import React, { useState } from "react";
-import {
-  Search,
-  Settings,
-  Globe,
-  Shield,
-  Laptop,
-  Link2,
-  EyeOff,
-  Bell,
-  User,
-  Briefcase,
-  Mail,
-  KeyRound,
-  Chrome,
-  Smartphone,
-  Globe2,
-  Trash2,
-  X,
-  UserLock,
-  Compass,
-  Building2,
-  Scale,
-  DollarSign,
-  Fingerprint,
-  Webhook,
-  Activity,
-  History,
-  CloudLightning,
-  RefreshCw,
-  Database,
-  Lock
+import React, { useState, useEffect } from "react";
+import { 
+  X, 
+  Check, 
+  Monitor, 
+  Smartphone, 
+  Globe, 
+  ShieldCheck, 
+  Mail, 
+  Bell, 
+  Lock, 
+  Sliders, 
+  Upload, 
+  Link2, 
+  Building2, 
+  EyeOff, 
+  AlertTriangle 
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Native Shadcn Drop-ins
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogOverlay,
   DialogPortal,
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -52,756 +33,649 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-type SettingCategory =
-  | "PROFILE"
-  | "PREFERENCES"
-  | "SECURITY"
-  | "SESSIONS"
-  | "OAUTH"
-  | "WORKSPACE"
-  | "STEALTH"
-  | "NOTIFICATIONS";
+type SectionId = 
+  | "profile" 
+  | "preferences" 
+  | "security" 
+  | "sessions" 
+  | "connections" 
+  | "workspace" 
+  | "privacy" 
+  | "notifications";
 
-interface DialogProps {
+interface SettingsDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-// Custom Brutalist Tactical Matrix Switch
-const CustomTerminalSwitch = ({ checked, onChange }: { checked: boolean; onChange: () => void }) => (
-  <button
-    type="button"
-    onClick={onChange}
-    className={cn(
-      "h-6 px-2 font-mono text-[9px] font-black tracking-widest border transition-colors cursor-pointer select-none rounded-none flex items-center gap-1 shrink-0",
-      checked 
-        ? "bg-zinc-950 text-white border-zinc-950" 
-        : "bg-zinc-50 text-zinc-400 border-zinc-300 hover:bg-zinc-100"
-    )}
-  >
-    <span>[{checked ? "●" : " "}]</span>
-    <span>{checked ? "ACTIVE" : "BYPASS"}</span>
-  </button>
-);
+export default function FullyLoadedVerticalSettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
+  const [activeSection, setActiveSection] = useState<SectionId>("profile");
 
-export default function SystemSettingsDialog({ open, onOpenChange }: DialogProps) {
-  const [activeTab, setActiveTab] = useState<SettingCategory>("PROFILE");
-  const [searchQuery, setSearchQuery] = useState("");
+  // ==========================================
+  // --- STATE MATRIX DIRECT SYSTEM MAPPINGS ---
+  // ==========================================
+  
+  // 1. Profile (users.*)
+  const [displayName, setDisplayName] = useState("John Doe");
+  const [username, setUsername] = useState("johndoe");
+  const [bio, setBio] = useState("Staff Systems Architect matching decentralized runtime components.");
+  const [githubUrl, setGithubUrl] = useState("https://github.com/johndoe");
+  const [figmaUrl, setFigmaUrl] = useState("https://figma.com/@johndoe");
+  const [portfolioUrl, setPortfolioUrl] = useState("https://johndoe.dev");
 
-  const MENU_NODES = [
-    { id: "PROFILE", desc: "Public Profile & Links", icon: User },
-    { id: "PREFERENCES", desc: "Account Preferences", icon: Globe },
-    { id: "SECURITY", desc: "Security & Login", icon: Shield },
-    { id: "SESSIONS", desc: "Active Sessions & Telemetry", icon: Laptop },
-    { id: "OAUTH", desc: "Third-Party Integrations", icon: Link2 },
-    { id: "WORKSPACE", desc: "Workspace & Parameters", icon: Briefcase },
-    { id: "STEALTH", desc: "Stealth & Obfuscation", icon: EyeOff },
-    { id: "NOTIFICATIONS", desc: "Notification Dispatch Matrices", icon: Bell },
+  // 2. Preferences
+  const [theme, setTheme] = useState<"LIGHT" | "DARK" | "SYSTEM">("LIGHT");
+  const [localeCode, setLocaleCode] = useState("en-US");
+  const [timezone, setTimezone] = useState("UTC");
+
+  useEffect(() => {
+    if (typeof Intl !== "undefined") {
+      setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC");
+    }
+  }, []);
+
+  // 3. Security
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
+  const [show2FAModal, setShow2FAModal] = useState(false);
+
+  // 4. Sessions Data Proxy
+  const [sessions, setSessions] = useState([
+    { id: "sess_02", device: "Mobile Access Cluster", os: "iOS 17.5.1 // Safari WebKit", ip: "84.2.114.90", location: "London, UK", time: "Active 2h past" },
+    { id: "sess_03", device: "Backup Core Runtime", os: "Linux Kernel 6.1 // Headless Curl", ip: "104.22.4.12", location: "Frankfurt, DE", time: "Active 1d past" }
+  ]);
+
+  // 5. Connections
+  const [googleConnected, setGoogleConnected] = useState(true);
+  const [githubConnected, setGithubConnected] = useState(true);
+
+  // 6. Workspace Metrics
+  const [minSalary, setMinSalary] = useState(165000);
+  const [workModels, setWorkModels] = useState<{ [key: string]: boolean }>({
+    REMOTE: true,
+    HYBRID: true,
+    ON_SITE: false,
+  });
+
+  // 7. Stealth & Privacy
+  const [stealthModeActive, setStealthModeActive] = useState(true);
+  const [hidePollActivity, setHidePollActivity] = useState(false);
+  const [hideReviewIdentity, setHideReviewIdentity] = useState(true);
+
+  // 8. Notification Compact Matrix Matrix State
+  const [notifyMatrix, setNotifyMatrix] = useState({
+    appUpdates: { push: true, email: true, inapp: true },
+    directMessages: { push: true, email: false, inapp: true },
+    socialEngagement: { push: false, email: false, inapp: true },
+    recruiterDeadlines: { push: true, email: true, inapp: true }
+  });
+
+  const toggleNotify = (row: keyof typeof notifyMatrix, type: "push" | "email" | "inapp") => {
+    setNotifyMatrix(prev => ({
+      ...prev,
+      [row]: { ...prev[row], [type]: !prev[row][type] }
+    }));
+  };
+
+  const handleGlobalLogout = () => {
+    setSessions([]);
+  };
+
+  const navigationItems = [
+    { id: "profile", label: "Public Profile" },
+    { id: "preferences", label: "Preferences" },
+    { id: "security", label: "Security & Login" },
+    { id: "sessions", label: "Active Sessions" },
+    { id: "connections", label: "Integrations" },
+    { id: "workspace", label: "Workspace Match" },
+    { id: "privacy", label: "Stealth Lock" },
+    { id: "notifications", label: "Notification Matrix" },
   ] as const;
-
-  const filteredMenu = MENU_NODES.filter((node) =>
-    node.desc.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
-        <DialogOverlay className="fixed inset-0 z-[150] bg-zinc-950/20 backdrop-blur-none" />
+        <DialogOverlay className="fixed inset-0 z-[150] bg-zinc-900/20 backdrop-blur-xs" />
 
-        <DialogContent className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[80vh] p-0 gap-0 z-[200] rounded-none focus:outline-none flex flex-row select-none border border-zinc-400 bg-white shadow-none [&>button]:hidden">
+        {/* Vertical Form Desk Layout Strategy */}
+        <DialogContent className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[680px] p-0 gap-0 z-[200] rounded-none border border-zinc-300 bg-white shadow-2xl overflow-hidden flex flex-col text-zinc-800 focus:outline-none antialiased font-mono text-[11px]">
           
-          <div className="absolute top-2 right-2 z-10">
-            <DialogClose className="p-1 border border-transparent hover:border-zinc-400 hover:bg-zinc-100 transition-colors cursor-pointer rounded-none">
-              <X className="w-4 h-4 text-zinc-600" />
-            </DialogClose>
-          </div>
-
-          {/* LEFT SIDEBAR CONTROLLER */}
-          <div className="w-64 bg-zinc-50 flex flex-col justify-between border-r border-zinc-400 shrink-0">
-            <div className="flex flex-col">
-              <div className="px-3 py-3 bg-zinc-900 flex items-center text-white border-b border-zinc-900">
-                <div className="flex items-center gap-2">
-                  <Settings size={13} className="text-zinc-400" />
-                  <span className="text-[11px] font-mono font-black tracking-[0.12em] uppercase text-zinc-100">
-                    SYSTEM_CORE_VARIABLES
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-2 bg-white border-b border-zinc-400 flex items-center gap-2">
-                <Search size={12} className="text-zinc-400 shrink-0" />
-                <input
-                  type="text"
-                  placeholder="FILTER CONFIG CONTEXT..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-transparent text-[11px] font-mono outline-none border-0 p-0 text-zinc-900 uppercase font-bold placeholder-zinc-400 focus:ring-0"
-                />
-              </div>
-
-              <nav className="flex flex-col overflow-y-auto max-h-[calc(80vh-82px)] divide-y divide-zinc-200">
-                {filteredMenu.map((node) => {
-                  const Icon = node.icon;
-                  const isSelected = activeTab === node.id;
-                  return (
-                    <button
-                      key={node.id}
-                      onClick={() => setActiveTab(node.id)}
-                      className={cn(
-                        "w-full text-left p-3 transition-colors flex flex-col gap-0.5 rounded-none text-zinc-500 cursor-pointer relative border-0",
-                        isSelected ? "bg-white text-zinc-950 font-black" : "bg-zinc-50 hover:bg-zinc-100",
-                      )}
-                    >
-                      {isSelected && <div className="absolute left-0 top-0 bottom-0 w-1 bg-zinc-900" />}
-                      <span className="text-[11px] font-mono tracking-tight flex items-center gap-2.5">
-                        <Icon size={13} className={isSelected ? "text-zinc-950" : "text-zinc-400"} />
-                        <span className="truncate uppercase">{node.desc}</span>
-                      </span>
-                    </button>
-                  );
-                })}
-              </nav>
+          {/* HEADER LAYER */}
+          <div className="h-9 px-3 flex items-center justify-between bg-zinc-50 border-b border-zinc-200 shrink-0 select-none">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-zinc-950" />
+              <span className="font-bold tracking-tight text-zinc-900 uppercase">CONFIGURATION_DESK_V2</span>
             </div>
-
             <button
+              type="button"
               onClick={() => onOpenChange(false)}
-              className="w-full bg-zinc-100 p-2.5 text-[10px] font-mono font-bold text-center uppercase tracking-wider text-red-600 hover:bg-red-50 border-t border-zinc-400 cursor-pointer transition-colors rounded-none"
+              className="p-1 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-200 border border-transparent transition-all cursor-pointer rounded-none"
             >
-              HALT_CONTEXT_STREAM_[ESC]
+              <X size={13} />
             </button>
           </div>
 
-          {/* MAIN CONFIGURATION CANVAS */}
-          <div className="flex-1 bg-white overflow-y-auto p-6 flex flex-col justify-between">
-            <div className="space-y-6">
-              {activeTab === "PROFILE" && <CategoryProfile />}
-              {activeTab === "PREFERENCES" && <CategoryPreferences />}
-              {activeTab === "SECURITY" && <CategorySecurity />}
-              {activeTab === "SESSIONS" && <CategorySessions />}
-              {activeTab === "OAUTH" && <CategoryOAuth />}
-              {activeTab === "WORKSPACE" && <CategoryWorkspace />}
-              {activeTab === "STEALTH" && <CategoryStealth />}
-              {activeTab === "NOTIFICATIONS" && <CategoryNotifications />}
+          {/* SPLIT LAYOUT BODY */}
+          <div className="flex-1 flex flex-row overflow-hidden">
+            
+            {/* SIDEBAR NAVIGATION PANEL */}
+            <div className="w-40 bg-zinc-50/60 border-r border-zinc-200 p-2 flex flex-col justify-between shrink-0 select-none">
+              <div className="space-y-3">
+                <span className="text-[9px] font-bold text-zinc-400 tracking-wider block uppercase px-1">// DB_DOMAINS</span>
+                <nav className="flex flex-col gap-0.5">
+                  {navigationItems.map((item) => {
+                    const isActive = activeSection === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => setActiveSection(item.id)}
+                        className={cn(
+                          "w-full text-left py-1 px-1.5 rounded-none transition-all uppercase tracking-tight cursor-pointer font-bold border-l-2",
+                          isActive 
+                            ? "text-zinc-950 bg-white border-zinc-900 font-black shadow-2xs" 
+                            : "text-zinc-400 border-transparent hover:text-zinc-800 hover:bg-zinc-100/30"
+                        )}
+                      >
+                        {item.label}
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
+
+              <div className="text-[9px] text-zinc-400 font-bold flex items-center gap-1.5 px-1">
+                <span className="w-1.5 h-1.5 bg-emerald-500 inline-block" />
+                <span>INDEX_HEALTH_OK</span>
+              </div>
             </div>
 
-            <div className="mt-8 pt-4 border-t border-zinc-300 flex justify-end gap-2 shrink-0">
-              <button
+            {/* INTERNAL WORKSPACE STAGE */}
+            <div className="flex-1 overflow-y-auto bg-white p-3.5">
+              
+              {/* 1. PUBLIC PROFILE */}
+              {activeSection === "profile" && (
+                <div className="space-y-3.5 animate-in fade-in duration-700">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Identity Vectors (users.profile)</span>
+                    <div className="border border-zinc-200 divide-y divide-zinc-200 bg-white">
+                      <div className="grid grid-cols-2 divide-x divide-zinc-200">
+                        <div className="p-2 space-y-1">
+                          <span className="text-[9px] font-bold text-zinc-400 block uppercase">Display Name</span>
+                          <input type="text" maxLength={50} value={displayName} onChange={(e) => setDisplayName(e.target.value)} className="w-full h-6 bg-zinc-50/50 border border-zinc-200 px-2 outline-none focus:border-zinc-400 rounded-none text-[11px]" />
+                        </div>
+                        <div className="p-2 space-y-1">
+                          <span className="text-[9px] font-bold text-zinc-400 block uppercase">Username</span>
+                          <div className="flex items-center bg-zinc-50/50 border border-zinc-200 px-2 h-6">
+                            <span className="text-zinc-400 font-bold mr-0.5">@</span>
+                            <input type="text" value={username} onChange={(e) => setUsername(e.target.value.replace(/[^a-zA-Z0-9_]/g, ""))} className="w-full h-full bg-transparent outline-none rounded-none text-[11px]" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-2 space-y-1">
+                        <span className="text-[9px] font-bold text-zinc-400 block uppercase">Bio / Tagline (Max 160)</span>
+                        <textarea rows={2} maxLength={160} value={bio} onChange={(e) => setBio(e.target.value)} className="w-full bg-zinc-50/50 border border-zinc-200 p-1.5 outline-none focus:border-zinc-400 rounded-none text-[11px] font-mono resize-none" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Drag and Drop Upload Asset Layout */}
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Static Asset Buffers</span>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div className="border border-zinc-200 border-dashed p-3 text-center bg-zinc-50/50 flex flex-col items-center justify-center cursor-pointer hover:bg-zinc-50 transition-all">
+                        <Upload size={12} className="text-zinc-400 mb-1" />
+                        <span className="font-bold text-[9px] text-zinc-700 uppercase">Avatar Asset</span>
+                        <span className="text-[8px] text-zinc-400">JPG/PNG/WEBP • MAX 5MB</span>
+                      </div>
+                      <div className="border border-zinc-200 border-dashed p-3 text-center bg-zinc-50/50 flex flex-col items-center justify-center cursor-pointer hover:bg-zinc-50 transition-all">
+                        <Upload size={12} className="text-zinc-400 mb-1" />
+                        <span className="font-bold text-[9px] text-zinc-700 uppercase">Banner Asset</span>
+                        <span className="text-[8px] text-zinc-400">JPG/PNG/WEBP • MAX 5MB</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Proof of Work Portfolios */}
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Proof-of-Work Routing Links</span>
+                    <div className="border border-zinc-200 bg-white p-2 space-y-2">
+                      <div className="space-y-0.5">
+                        <span className="text-[9px] font-bold text-zinc-400 block uppercase">GitHub Domain URL</span>
+                        <input type="url" value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)} className="w-full h-6 bg-zinc-50/50 border border-zinc-200 px-2 outline-none focus:border-zinc-400 rounded-none text-[11px]" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <span className="text-[9px] font-bold text-zinc-400 block uppercase">Figma Canvas URL</span>
+                        <input type="url" value={figmaUrl} onChange={(e) => setFigmaUrl(e.target.value)} className="w-full h-6 bg-zinc-50/50 border border-zinc-200 px-2 outline-none focus:border-zinc-400 rounded-none text-[11px]" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <span className="text-[9px] font-bold text-zinc-400 block uppercase">Custom App Engine Portfolios</span>
+                        <input type="url" value={portfolioUrl} onChange={(e) => setPortfolioUrl(e.target.value)} className="w-full h-6 bg-zinc-50/50 border border-zinc-200 px-2 outline-none focus:border-zinc-400 rounded-none text-[11px]" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 2. ACCOUNT PREFERENCES */}
+              {activeSection === "preferences" && (
+                <div className="space-y-3.5 animate-in fade-in duration-100">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Local Client Render Theme</span>
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {(["LIGHT", "DARK", "SYSTEM"] as const).map((t) => (
+                        <button
+                          key={t}
+                          onClick={() => setTheme(t)}
+                          className={cn(
+                            "text-left p-1.5 border transition-all flex flex-col bg-zinc-50 cursor-pointer rounded-none",
+                            theme === t ? "border-zinc-950 ring-1 ring-zinc-950 bg-white" : "border-zinc-200 hover:border-zinc-300"
+                          )}
+                        >
+                          <div className={cn("w-full h-10 border relative p-1 flex flex-col justify-between", t === "DARK" ? "bg-zinc-900 border-zinc-800" : "bg-white border-zinc-200")}>
+                            <div className="w-4 h-0.5 bg-zinc-400" />
+                            <div className="flex justify-end">
+                              {theme === t && <div className="w-2 h-2 bg-zinc-950 text-white flex items-center justify-center text-[5px]"><Check size={5} /></div>}
+                            </div>
+                          </div>
+                          <span className="text-[9px] font-bold text-zinc-900 mt-1 block px-0.5">{t}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="border border-zinc-200 bg-white grid grid-cols-2 divide-x divide-zinc-200">
+                    <div className="p-2 space-y-1">
+                      <label className="text-[9px] font-bold text-zinc-400 block uppercase">Language / Region</label>
+                      <Select value={localeCode} onValueChange={setLocaleCode}>
+                        <SelectTrigger className="h-6 rounded-none border border-zinc-200 bg-zinc-50/50 text-[11px] px-1.5 focus:ring-0 shadow-none">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-none border-zinc-200 bg-white text-[11px]">
+                          <SelectItem value="en-US">en-US (English)</SelectItem>
+                          <SelectItem value="de-DE">de-DE (Deutsch)</SelectItem>
+                          <SelectItem value="ja-JP">ja-JP (日本語)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="p-2 space-y-1">
+                      <label className="text-[9px] font-bold text-zinc-400 block uppercase">Timezone Auto-Detect</label>
+                      <div className="h-6 border border-zinc-200 bg-zinc-100/70 text-zinc-600 px-2 flex items-center text-[10px] truncate select-none">
+                        {timezone}
+                      </div>
+                      <span className="text-[7.5px] text-zinc-400 font-sans block leading-none">Auto-synchronized via client window runtime API.</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 3. SECURITY & LOGIN */}
+              {activeSection === "security" && (
+                <div className="space-y-3.5 animate-in fade-in duration-100">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Rotation Matrix (bcrypt/Argon2id)</span>
+                    <div className="border border-zinc-200 bg-white p-2.5 space-y-2">
+                      <div className="space-y-0.5">
+                        <span className="text-[9px] font-bold text-zinc-400 block uppercase">Current Secret</span>
+                        <input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} placeholder="••••••••••••" className="w-full h-6 bg-zinc-50/30 border border-zinc-200 px-2 text-[11px] outline-none focus:border-zinc-400 rounded-none" />
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="space-y-0.5">
+                          <span className="text-[9px] font-bold text-zinc-400 block uppercase">New Secret Shift</span>
+                          <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="••••••••••••" className="w-full h-6 bg-zinc-50/30 border border-zinc-200 px-2 text-[11px] outline-none focus:border-zinc-400 rounded-none" />
+                        </div>
+                        <div className="space-y-0.5">
+                          <span className="text-[9px] font-bold text-zinc-400 block uppercase">Confirm Secret</span>
+                          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="••••••••••••" className="w-full h-6 bg-zinc-50/30 border border-zinc-200 px-2 text-[11px] outline-none focus:border-zinc-400 rounded-none" />
+                        </div>
+                      </div>
+                      <div className="flex justify-end pt-0.5">
+                        <button type="button" className="h-5.5 px-2.5 bg-zinc-900 text-white font-bold text-[9px] uppercase tracking-wide hover:bg-zinc-800 transition-all rounded-none cursor-pointer">Commit Rotator Endpoint</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Handshake Multi-Factor</span>
+                    <div className="border border-zinc-200 p-2.5 flex items-center justify-between bg-white">
+                      <div className="space-y-0.5 max-w-[80%]">
+                        <span className="font-bold text-zinc-900 uppercase text-[10px] block">Two-Factor Authentication (2FA)</span>
+                        <p className="text-[9.5px] text-zinc-400 font-sans leading-tight">Intercept raw malicious queries by wrapping logins with a dynamic seed key validation protocol.</p>
+                      </div>
+                      <Switch 
+                        checked={twoFactorEnabled} 
+                        onCheckedChange={(checked) => {
+                          setTwoFactorEnabled(checked);
+                          if(checked) setShow2FAModal(true);
+                        }} 
+                        className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85 origin-right" 
+                      />
+                    </div>
+                  </div>
+
+                  {/* Inline 2FA Debug Simulator */}
+                  {show2FAModal && twoFactorEnabled && (
+                    <div className="border border-zinc-300 bg-zinc-50 p-2 animate-in slide-in-from-top-2 duration-100 space-y-2">
+                      <div className="flex justify-between items-start">
+                        <span className="text-[9px] font-bold text-zinc-900 uppercase tracking-tight block">// AUTH_SEED_GENERATED</span>
+                        <button type="button" onClick={() => setShow2FAModal(false)} className="text-zinc-400 hover:text-zinc-900"><X size={11} /></button>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-14 h-14 bg-zinc-900 flex items-center justify-center p-1 shrink-0">
+                          {/* QR Mock */}
+                          <div className="grid grid-cols-4 gap-0.5 w-full h-full bg-white p-0.5">
+                            {Array.from({ length: 16 }).map((_, i) => (
+                              <div key={i} className={cn("w-full h-full", (i * 7 + 3) % 2 === 0 ? "bg-zinc-900" : "bg-white")} />
+                            ))}
+                          </div>
+                        </div>
+                        <div className="space-y-1">
+                          <span className="text-[8.5px] font-mono text-zinc-500 uppercase block">Backup Registry Key:</span>
+                          <span className="bg-white border border-zinc-200 px-1.5 py-0.5 text-[9.5px] font-bold text-zinc-800 tracking-wider select-all block">F3K9-W2XA-09L1-MZ7P</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* 4. ACTIVE SESSIONS */}
+              {activeSection === "sessions" && (
+                <div className="space-y-3.5 animate-in fade-in duration-100">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Active Client Handshake Context</span>
+                    <div className="border border-zinc-200 p-2.5 bg-zinc-900 text-zinc-100 flex items-center justify-between">
+                      <div className="space-y-0.5">
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-white text-[10px] uppercase">Current Workspace Node</span>
+                          <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
+                        </div>
+                        <p className="text-[10px] text-zinc-400 font-mono leading-none">Chrome Canary Engine // macOS Darwin 23.4</p>
+                        <p className="text-[9px] text-zinc-500 font-mono">Telemetry IP: 194.22.102.14 (Budapest, HU)</p>
+                      </div>
+                      <Monitor size={14} className="text-zinc-500" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Active User Session Array View ({sessions.length})</span>
+                    {sessions.length > 0 ? (
+                      <div className="border border-zinc-200 divide-y divide-zinc-200 bg-white">
+                        {sessions.map((sess) => (
+                          <div key={sess.id} className="p-2 flex items-center justify-between">
+                            <div className="space-y-0.5">
+                              <span className="font-bold text-zinc-800 text-[10px] uppercase block">{sess.device}</span>
+                              <p className="text-[9.5px] text-zinc-400 font-mono leading-none">{sess.os}</p>
+                              <p className="text-[8.5px] text-zinc-400 font-mono">Network Anchor: {sess.ip} • {sess.location} ({sess.time})</p>
+                            </div>
+                            <button 
+                              type="button" 
+                              onClick={() => setSessions(prev => prev.filter(s => s.id !== sess.id))}
+                              className="text-[9px] font-bold text-red-600 border border-red-200 bg-red-50/20 hover:bg-red-50 px-1.5 py-0.5 rounded-none cursor-pointer"
+                            >
+                              Revoke
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="border border-zinc-200 border-dashed p-4 text-center text-zinc-400 text-[10px] uppercase font-bold bg-zinc-50/50">
+                        No alternative connection nodes initialized.
+                      </div>
+                    )}
+                  </div>
+
+                  {sessions.length > 0 && (
+                    <div className="pt-1">
+                      <button 
+                        type="button" 
+                        onClick={handleGlobalLogout}
+                        className="w-full h-6.5 bg-red-50 text-red-700 border border-red-200 text-[9.5px] font-bold uppercase tracking-wide hover:bg-red-100 transition-all rounded-none cursor-pointer"
+                      >
+                        Log Out of All Other Sessions
+                      </button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* 5. THIRD-PARTY CONNECTIONS */}
+              {activeSection === "connections" && (
+                <div className="space-y-3.5 animate-in fade-in duration-100">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// SSO Federated Framework Bridges</span>
+                    <div className="border border-zinc-200 divide-y divide-zinc-200 bg-white">
+                      
+                      {/* Google */}
+                      <div className="p-2.5 flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-bold text-zinc-900 text-[10px] uppercase">Google Account Hub</span>
+                            <span className={cn("text-[8px] font-bold px-1 py-0.25 border", googleConnected ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-red-50 text-red-700 border-red-200")}>
+                              {googleConnected ? "🟢 CONNECTED" : "🔴 DISCONNECTED"}
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-zinc-400 font-sans leading-tight">Syncs write-access scopes for workspace pipeline calendar integrations automatically.</p>
+                        </div>
+                        <Switch checked={googleConnected} onCheckedChange={setGoogleConnected} className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85" />
+                      </div>
+
+                      {/* GitHub */}
+                      <div className="p-2.5 flex items-center justify-between">
+                        <div className="space-y-0.5">
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-bold text-zinc-900 text-[10px] uppercase">GitHub Developer Node</span>
+                            <span className={cn("text-[8px] font-bold px-1 py-0.25 border", githubConnected ? "bg-emerald-50 text-emerald-700 border-emerald-200" : "bg-red-50 text-red-700 border-red-200")}>
+                              {githubConnected ? "🟢 CONNECTED" : "🔴 DISCONNECTED"}
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-zinc-400 font-sans leading-tight">Inspects repository markers to update algorithmic candidate matching metrics.</p>
+                        </div>
+                        <Switch checked={githubConnected} onCheckedChange={setGithubConnected} className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85" />
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 6. WORKSPACE & JOB SEARCH */}
+              {activeSection === "workspace" && (
+                <div className="space-y-3.5 animate-in fade-in duration-100">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Active Domain Mapping (users.company_id)</span>
+                    <div className="border border-zinc-200 p-2.5 bg-zinc-50/50 flex items-start justify-between">
+                      <div className="space-y-0.5">
+                        <div className="flex items-center gap-1.5 text-zinc-900 font-bold text-[10px]">
+                          <Building2 size={12} />
+                          <span>STRIPE INC. ENTERPRISE NODE</span>
+                        </div>
+                        <p className="text-[10px] text-zinc-500 font-mono">Role Tier: L6 Staff Systems Architect</p>
+                        <p className="text-[9px] text-zinc-400 font-mono">Bound: stripe.com verified internal workspace routing loop</p>
+                      </div>
+                      <button type="button" className="text-[9px] font-bold uppercase tracking-tight text-red-600 border border-red-200 bg-white hover:bg-red-50 px-2 py-0.5 rounded-none cursor-pointer">Leave Cluster</button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Dynamic Recruitment Constraints</span>
+                    <div className="border border-zinc-200 bg-white p-2.5 space-y-3">
+                      
+                      {/* Numeric Entry Box */}
+                      <div className="space-y-1">
+                        <label className="text-[9px] font-bold text-zinc-400 block uppercase">Minimum Target Floor Compensation (USD)</label>
+                        <div className="relative flex items-center">
+                          <span className="absolute left-2.5 text-xs font-bold text-zinc-400">$</span>
+                          <input 
+                            type="number" 
+                            step={5000}
+                            value={minSalary}
+                            onChange={(e) => setMinSalary(parseInt(e.target.value) || 0)}
+                            className="w-full pl-5 pr-3 h-6 border border-zinc-200 text-[11px] font-bold outline-none focus:border-zinc-400 bg-zinc-50/30 rounded-none font-mono"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Checkbox Grid Array Mapping */}
+                      <div className="space-y-1">
+                        <span className="text-[9px] font-bold text-zinc-400 block uppercase">Preferred Structural Models</span>
+                        <div className="grid grid-cols-3 gap-2 pt-0.5">
+                          {Object.keys(workModels).map((model) => (
+                            <label key={model} className={cn("border p-1.5 flex items-center gap-2 cursor-pointer transition-all select-none bg-zinc-50/50", workModels[model] ? "border-zinc-950 bg-white ring-1 ring-zinc-950" : "border-zinc-200 hover:border-zinc-300")}>
+                              <input 
+                                type="checkbox" 
+                                checked={workModels[model]} 
+                                onChange={() => setWorkModels(prev => ({ ...prev, [model]: !prev[model] }))}
+                                className="accent-zinc-900 rounded-none w-3 h-3 cursor-pointer"
+                              />
+                              <span className="text-[9.5px] font-bold text-zinc-800 font-mono">{model}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 7. STEALTH & PRIVACY */}
+              {activeSection === "privacy" && (
+                <div className="space-y-3.5 animate-in fade-in duration-100">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Master Visibility Loop Filter</span>
+                    <div className="border border-red-200 p-2.5 flex items-center justify-between bg-red-50/20">
+                      <div className="space-y-0.5 max-w-[80%]">
+                        <span className="font-bold text-red-950 uppercase text-[10px] flex items-center gap-1.5"><EyeOff size={12} /> Master Stealth Status Activation</span>
+                        <p className="text-[9.5px] text-zinc-500 font-sans leading-tight">Completely filters out profile parameters and mapping loops if viewer.company_id == candidate.company_id.</p>
+                      </div>
+                      <Switch checked={stealthModeActive} onCheckedChange={setStealthModeActive} className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85 origin-right" />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Granular Profile Activity Telemetry</span>
+                    <div className="border border-zinc-200 divide-y divide-zinc-200 bg-white">
+                      
+                      <div className="p-2.5 flex items-center justify-between">
+                        <span className="text-[10px] text-zinc-800 font-mono font-bold uppercase">Hide network identity context during public vote operations</span>
+                        <Switch checked={hidePollActivity} onCheckedChange={setHidePollActivity} className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85" />
+                      </div>
+
+                      <div className="p-2.5 flex items-center justify-between">
+                        <span className="text-[10px] text-zinc-800 font-mono font-bold uppercase">Mask candidate footprints when indexing company panel assessments</span>
+                        <Switch checked={hideReviewIdentity} onCheckedChange={setHideReviewIdentity} className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85" />
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 8. NOTIFICATION MATRICES */}
+              {activeSection === "notifications" && (
+                <div className="space-y-3.5 animate-in fade-in duration-100">
+                  <div className="space-y-1">
+                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">// Compact Signal Routing Channels</span>
+                    
+                    {/* Dense Grid Table */}
+                    <div className="border border-zinc-200 overflow-hidden bg-white">
+                      <table className="w-full border-collapse text-left font-mono text-[9px]">
+                        <thead>
+                          <tr className="bg-zinc-50 border-b border-zinc-200 select-none text-zinc-400 font-bold">
+                            <th className="p-2 uppercase font-bold tracking-tight">Trigger Event Context</th>
+                            <th className="p-2 text-center uppercase font-bold tracking-tight w-12">Push</th>
+                            <th className="p-2 text-center uppercase font-bold tracking-tight w-12">Mail</th>
+                            <th className="p-2 text-center uppercase font-bold tracking-tight w-12">App</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-zinc-200 font-bold text-zinc-800 text-[10px]">
+                          
+                          {/* Row 1 */}
+                          <tr>
+                            <td className="p-2 font-mono font-bold leading-tight uppercase">
+                              Pipeline Progression Updates
+                              <span className="block text-[8px] text-zinc-400 font-sans font-normal leading-none pt-0.5">Application shifts to reviewed/interview state bounds.</span>
+                            </td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.appUpdates.push} onChange={() => toggleNotify("appUpdates", "push")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.appUpdates.email} onChange={() => toggleNotify("appUpdates", "email")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.appUpdates.inapp} onChange={() => toggleNotify("appUpdates", "inapp")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                          </tr>
+
+                          {/* Row 2 */}
+                          <tr>
+                            <td className="p-2 font-mono font-bold leading-tight uppercase">
+                              Direct Stream Messaging
+                              <span className="block text-[8px] text-zinc-400 font-sans font-normal leading-none pt-0.5">Inbound message queries initialized by platform connections.</span>
+                            </td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.directMessages.push} onChange={() => toggleNotify("directMessages", "push")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.directMessages.email} onChange={() => toggleNotify("directMessages", "email")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.directMessages.inapp} onChange={() => toggleNotify("directMessages", "inapp")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                          </tr>
+
+                          {/* Row 3 */}
+                          <tr>
+                            <td className="p-2 font-mono font-bold leading-tight uppercase">
+                              Feed Engagement Actions
+                              <span className="block text-[8px] text-zinc-400 font-sans font-normal leading-none pt-0.5">Mentions, likes, or conclusion updates on public poll indexes.</span>
+                            </td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.socialEngagement.push} onChange={() => toggleNotify("socialEngagement", "push")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.socialEngagement.email} onChange={() => toggleNotify("socialEngagement", "email")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.socialEngagement.inapp} onChange={() => toggleNotify("socialEngagement", "inapp")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                          </tr>
+
+                          {/* Row 4 */}
+                          <tr>
+                            <td className="p-2 font-mono font-bold leading-tight uppercase text-amber-800 flex items-center gap-1">
+                              <AlertTriangle size={11} className="text-amber-600 shrink-0" />
+                              <div className="leading-tight">
+                                Recruiter Service Deadlines
+                                <span className="block text-[8px] text-zinc-400 font-sans font-normal leading-none pt-0.5">Active warnings for response rates & strike boundaries.</span>
+                              </div>
+                            </td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.recruiterDeadlines.push} onChange={() => toggleNotify("recruiterDeadlines", "push")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.recruiterDeadlines.email} onChange={() => toggleNotify("recruiterDeadlines", "email")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                            <td className="p-2 text-center"><input type="checkbox" checked={notifyMatrix.recruiterDeadlines.inapp} onChange={() => toggleNotify("recruiterDeadlines", "inapp")} className="accent-zinc-900 cursor-pointer w-3 h-3" /></td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+            </div>
+          </div>
+
+          {/* LOWER RUNTIME COMMITS */}
+          <div className="h-11 border-t border-zinc-200 bg-zinc-50 px-3 flex items-center justify-between shrink-0 select-none">
+            <span className="text-[9px] text-zinc-400 font-bold uppercase tracking-tight">
+              STATE // LOCAL_BUFFER_FLUSH_READY
+            </span>
+            <div className="flex items-center gap-1.5">
+              <button 
+                type="button"
                 onClick={() => onOpenChange(false)}
-                className="h-8 px-4 border border-zinc-400 text-[10px] font-mono font-bold uppercase tracking-wider bg-white text-zinc-600 hover:bg-zinc-50 rounded-none cursor-pointer transition-colors shadow-none"
+                className="h-6 px-3 border border-zinc-200 bg-white hover:bg-zinc-100 rounded-none text-[10px] font-bold uppercase text-zinc-700 cursor-pointer transition-all"
               >
-                Abort Changes
+                Cancel
               </button>
-              <button className="h-8 px-5 bg-zinc-900 text-white text-[10px] font-mono font-bold uppercase tracking-wider hover:bg-zinc-800 transition-colors rounded-none cursor-pointer border-0 shadow-none">
-                Commit Modifications
+              <button 
+                type="button"
+                onClick={() => onOpenChange(false)}
+                className="h-6 px-4 bg-blue-600 hover:bg-blue-700 rounded-none text-[10px] font-bold uppercase tracking-wide text-white cursor-pointer transition-all"
+              >
+                Save Local States
               </button>
             </div>
           </div>
+
         </DialogContent>
       </DialogPortal>
     </Dialog>
-  );
-}
-
-const ModuleHeader = ({ title }: { title: string }) => (
-  <div className="pb-2 border-b border-zinc-400 mb-4">
-    <h2 className="text-xs font-mono font-black uppercase tracking-wider text-zinc-950">
-      {title}
-    </h2>
-  </div>
-);
-
-/* ============================================================================
-   SUB-CATEGORIES 
-   ============================================================================ */
-
-function CategoryProfile() {
-  return (
-    <div className="space-y-4">
-      <ModuleHeader title="SYS_PORTFOLIO_LINKS" />
-      <div className="w-full h-20 bg-zinc-50 border border-zinc-300 flex flex-col items-center justify-center border-dashed cursor-pointer hover:bg-zinc-100/50 hover:border-zinc-400 transition-colors rounded-none">
-        <span className="text-[9px] font-mono text-zinc-500 font-bold tracking-wider uppercase flex flex-col items-center">
-          OVERWRITE SYSTEM BANNER BITSTREAM
-          <span className="text-zinc-400 font-normal">[1080 x 600 RAW]</span>
-        </span>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <div className="w-12 h-12 bg-zinc-900 flex items-center justify-center font-mono font-black text-white text-xs shrink-0 rounded-none border border-zinc-900">
-          AR
-        </div>
-        <div className="space-y-1">
-          <Label className="text-[9px] font-mono font-bold uppercase text-zinc-400 block">AVATAR_IMAGE_HEX</Label>
-          <button className="h-6 px-2.5 border border-zinc-400 text-[9px] font-mono font-bold uppercase bg-white hover:bg-zinc-50 rounded-none cursor-pointer shadow-none">
-            Update Block
-          </button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 border border-zinc-300 divide-x divide-zinc-300">
-        <div className="bg-white p-2 space-y-1">
-          <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block">Identity Record</label>
-          <div className="flex items-center h-5">
-            <User className="w-3.5 h-3.5 text-zinc-400 mr-2 shrink-0" />
-            <input defaultValue="Alex Rivers" className="w-full text-xs font-bold font-mono text-zinc-800 outline-none bg-transparent p-0 border-0 focus:ring-0" />
-          </div>
-        </div>
-        <div className="bg-white p-2 space-y-1">
-          <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block">System Routing Alias</label>
-          <div className="flex items-center h-5">
-            <User className="w-3.5 h-3.5 text-zinc-400 mr-2 shrink-0" />
-            <input defaultValue="@arivers" className="w-full text-xs font-bold font-mono text-zinc-800 outline-none bg-transparent p-0 border-0 focus:ring-0" />
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 border border-zinc-300 divide-x divide-zinc-300 divide-y divide-zinc-300">
-        <div className="bg-white p-2 space-y-1 col-span-2">
-          <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block">Primary Contact Route</label>
-          <div className="flex items-center h-5">
-            <Mail className="w-3.5 h-3.5 text-zinc-400 mr-2 shrink-0" />
-            <input defaultValue="alexr@gmail.com" className="w-full text-xs font-bold font-mono text-zinc-800 outline-none bg-transparent p-0 border-0 focus:ring-0" />
-          </div>
-        </div>
-        <div className="bg-white p-2 space-y-1">
-          <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block">GitHub URI</label>
-          <div className="flex items-center h-5">
-            <Link2 className="w-3.5 h-3.5 text-zinc-400 mr-2 shrink-0" />
-            <input defaultValue="github.com/arivers" className="w-full text-[11px] font-bold font-mono text-zinc-800 outline-none bg-transparent p-0 border-0 focus:ring-0 uppercase" />
-          </div>
-        </div>
-        <div className="bg-white p-2 space-y-1">
-          <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block">Portfolio Gateway</label>
-          <div className="flex items-center h-5">
-            <Link2 className="w-3.5 h-3.5 text-zinc-400 mr-2 shrink-0" />
-            <input defaultValue="alexrivers.dev" className="w-full text-[11px] font-bold font-mono text-zinc-800 outline-none bg-transparent p-0 border-0 focus:ring-0 uppercase" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CategoryPreferences() {
-  return (
-    <div className="space-y-4">
-      <ModuleHeader title="PREF_LOCALIZATION" />
-
-      <div className="border border-zinc-300 bg-white divide-y divide-zinc-300">
-        <div className="p-3 flex items-center justify-between gap-8 bg-zinc-50/50">
-          <div className="space-y-0.5">
-            <span className="text-[11px] font-mono font-black text-zinc-900 block uppercase">Language Engine Mapping</span>
-            <span className="text-[10px] font-mono text-zinc-400 block leading-none">Defines system-wide literal value tokenization translations.</span>
-          </div>
-          <div className="w-56 shrink-0">
-            <Select defaultValue="en">
-              <SelectTrigger className="h-7 w-full rounded-none text-xs font-bold font-mono border border-zinc-400 bg-white px-2 shadow-none focus:ring-0 focus:border-zinc-900 flex justify-between items-center">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent position="popper" sideOffset={1} className="rounded-none z-[300] border-zinc-400 bg-white shadow-none w-[var(--radix-select-trigger-width)]">
-                <SelectItem value="en" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">ENGLISH (US_ASCII)</SelectItem>
-                <SelectItem value="jp" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">JAPANESE (N2_SHIFT_JIS)</SelectItem>
-                <SelectItem value="de" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">GERMAN (DE_UTF8)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <div className="p-3 flex items-center justify-between gap-8 bg-zinc-50/50">
-          <div className="space-y-0.5">
-            <span className="text-[11px] font-mono font-black text-zinc-900 block uppercase">Chronometer Offsetting</span>
-            <span className="text-[10px] font-mono text-zinc-400 block leading-none">Locks calculations to localized geospatial telemetry timestamps.</span>
-          </div>
-          <div className="w-56 shrink-0">
-            <Select defaultValue="cet">
-              <SelectTrigger className="h-7 w-full rounded-none text-xs font-bold font-mono border border-zinc-400 bg-white px-2 shadow-none focus:ring-0 focus:border-zinc-900 flex justify-between items-center">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent position="popper" sideOffset={1} className="rounded-none z-[300] border-zinc-400 bg-white shadow-none w-[var(--radix-select-trigger-width)]">
-                <SelectItem value="pst" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">PST (UTC -08:00)</SelectItem>
-                <SelectItem value="cet" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">CET (UTC +01:00)</SelectItem>
-                <SelectItem value="gmt" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">GMT (UTC +00:00)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <div className="p-3 flex items-center justify-between gap-8 bg-zinc-50/50">
-          <div className="space-y-0.5">
-            <span className="text-[11px] font-mono font-black text-zinc-900 block uppercase">Editor Keybindings Structure</span>
-            <span className="text-[10px] font-mono text-zinc-400 block leading-none">Alters hotkey focus manipulation maps throughout dialog frames.</span>
-          </div>
-          <div className="w-56 shrink-0">
-            <Select defaultValue="standard">
-              <SelectTrigger className="h-7 w-full rounded-none text-xs font-bold font-mono border border-zinc-400 bg-white px-2 shadow-none focus:ring-0 focus:border-zinc-900 flex justify-between items-center">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent position="popper" sideOffset={1} className="rounded-none z-[300] border-zinc-400 bg-white shadow-none w-[var(--radix-select-trigger-width)]">
-                <SelectItem value="standard" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">STANDARD ACCEL</SelectItem>
-                <SelectItem value="vim" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">VIM MATRIX (HJKL)</SelectItem>
-                <SelectItem value="emacs" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">EMACS PIPELINES</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-      </div>
-
-      <div className="bg-white p-3 border border-zinc-300 space-y-2">
-        <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block">UI Theme Engine</label>
-        <div className="grid grid-cols-3 border border-zinc-300 divide-x divide-zinc-300">
-          {["☀️ LIGHT_MATRIX", "🌙 OBFUSCATED_DARK", "💻 INHERIT_SYSTEM"].map((label, idx) => (
-            <button
-              key={idx}
-              className={cn(
-                "p-2 text-center text-[10px] font-mono font-bold cursor-pointer rounded-none border-0 transition-colors",
-                idx === 1 ? "bg-zinc-900 text-white" : "bg-zinc-50 text-zinc-500 hover:bg-zinc-100"
-              )}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CategorySecurity() {
-  return (
-    <div className="space-y-4">
-      <ModuleHeader title="SEC_CREDENTIAL_SHIELD" />
-
-      <div className="border border-zinc-300 bg-white">
-        <div className="p-2 bg-zinc-50 border-b border-zinc-300 flex items-center justify-between">
-          <span className="text-[9px] font-mono font-black text-zinc-900 flex items-center gap-1.5 uppercase tracking-wider">
-            <KeyRound size={12} className="text-zinc-500" /> PASSKEY ROTATION PROTOCOL
-          </span>
-        </div>
-
-        <div className="grid grid-cols-2 divide-x divide-zinc-300">
-          <div className="p-2 space-y-1">
-            <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block">Active Sign Key</label>
-            <input type="password" placeholder="••••••••••••" className="w-full h-5 text-xs font-mono text-zinc-800 outline-none bg-transparent p-0 border-0 focus:ring-0" />
-          </div>
-          <div className="p-2 space-y-1">
-            <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block">Target Payload Key</label>
-            <input type="password" placeholder="••••••••••••" className="w-full h-5 text-xs font-mono text-zinc-800 outline-none bg-transparent p-0 border-0 focus:ring-0" />
-          </div>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 border border-zinc-300 divide-x divide-zinc-300 bg-white">
-        <div className="p-3 flex items-center justify-between">
-          <div className="space-y-0.5">
-            <h4 className="text-[11px] font-mono font-bold uppercase text-zinc-900">Cryptographic 2FA</h4>
-            <p className="text-[9px] text-zinc-400 font-mono leading-none">Require payload authorization block handshakes.</p>
-          </div>
-          <CustomTerminalSwitch checked={true} onChange={() => {}} />
-        </div>
-        <div className="p-3 flex items-center justify-between">
-          <div className="space-y-0.5">
-            <h4 className="text-[11px] font-mono font-bold uppercase text-zinc-900">Hardware Keys Only</h4>
-            <p className="text-[9px] text-zinc-400 font-mono leading-none">Reject backup SMS entry verification requests.</p>
-          </div>
-          <CustomTerminalSwitch checked={false} onChange={() => {}} />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CategorySessions() {
-  return (
-    <div className="space-y-4">
-      <ModuleHeader title="SEC_ACTIVE_REGISTRY" />
-
-      <div className="grid grid-cols-3 gap-3">
-        <div className="border border-zinc-400 bg-white p-3 flex flex-col justify-between h-28 relative">
-          <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-zinc-950" />
-          <div className="space-y-1">
-            <div className="flex items-center gap-1.5 text-zinc-900">
-              <Chrome size={13} className="shrink-0" />
-              <span className="text-[11px] font-mono font-black truncate">CHROME / MACOS</span>
-            </div>
-            <span className="text-[10px] font-mono text-zinc-400 block leading-tight">IP: 185.24.233.10<br />BUDAPEST, HU</span>
-          </div>
-          <div className="text-[9px] font-mono bg-zinc-900 text-white px-1.5 py-0.5 font-bold uppercase tracking-wider self-start">
-            CORE_NODE
-          </div>
-        </div>
-
-        <div className="border border-zinc-300 bg-zinc-50/50 p-3 flex flex-col justify-between h-28">
-          <div className="space-y-1">
-            <div className="flex items-center gap-1.5 text-zinc-700">
-              <Smartphone size={13} className="shrink-0" />
-              <span className="text-[11px] font-mono font-bold truncate">SAFARI / IPHONE</span>
-            </div>
-            <span className="text-[10px] font-mono text-zinc-400 block leading-tight">IP: 74.125.19.103<br />SAN FRANCISCO, US</span>
-          </div>
-          <button className="text-[9px] font-mono border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-100 px-1.5 py-0.5 font-bold uppercase tracking-wider text-red-600 transition-colors self-start rounded-none cursor-pointer">
-            TERMINATE
-          </button>
-        </div>
-
-        <div className="border border-zinc-300 bg-zinc-50/50 p-3 flex flex-col justify-between h-28">
-          <div className="space-y-1">
-            <div className="flex items-center gap-1.5 text-zinc-700">
-              <Laptop size={13} className="shrink-0" />
-              <span className="text-[11px] font-mono font-bold truncate">FIREFOX / WIN11</span>
-            </div>
-            <span className="text-[10px] font-mono text-zinc-400 block leading-tight">IP: 46.137.91.201<br />BERLIN, DE</span>
-          </div>
-          <button className="text-[9px] font-mono border border-zinc-300 hover:border-zinc-400 hover:bg-zinc-100 px-1.5 py-0.5 font-bold uppercase tracking-wider text-red-600 transition-colors self-start rounded-none cursor-pointer">
-            TERMINATE
-          </button>
-        </div>
-      </div>
-
-      <div className="border border-zinc-400 bg-zinc-950 p-3 text-zinc-400 font-mono text-[9px] relative h-36 overflow-hidden select-none pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f23_1px,transparent_1px),linear-gradient(to_bottom,#1f1f23_1px,transparent_1px)] bg-[size:14px_14px] opacity-40" />
-        
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 border border-zinc-800 rounded-none opacity-60" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-zinc-800 rounded-none opacity-30" />
-        <div className="absolute top-0 bottom-0 left-1/2 w-[1px] bg-zinc-800" />
-        <div className="absolute left-0 right-0 top-1/2 h-[1px] bg-zinc-800" />
-
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center bg-zinc-950 px-2 py-1 border border-zinc-700 z-10">
-          <div className="text-white font-black">LOC_LOCK: BUDAPEST_HU</div>
-          <div className="text-zinc-500 text-[8px]">47.4979° N, 19.0402° E // ZOOM: 12.4x</div>
-        </div>
-
-        <div className="absolute bottom-2 left-2 text-zinc-500 uppercase tracking-widest text-[8px] flex items-center gap-1">
-          <Compass size={10} /> TELEMETRY INTERCEPT ENGINE STATUS: STATIC_RESOLVED
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CategoryOAuth() {
-  return (
-    <div className="space-y-4">
-      <ModuleHeader title="AUTH_EXTERNAL_SSO" />
-
-      <div className="grid grid-cols-3 gap-3">
-        {[
-          { name: "Google", domain: "google.com/auth", desc: "Syncs master calendar clusters and verification loops.", connected: true, color: "bg-red-500" },
-          { name: "GitHub", domain: "github.com/oauth", desc: "Validates code verification hashes against profile.", connected: true, color: "bg-zinc-900" },
-          { name: "LinkedIn", domain: "linkedin.com/api", desc: "Imports historical credential experience registers.", connected: false, color: "bg-blue-600" }
-        ].map((item, idx) => (
-          <div key={idx} className="border border-zinc-300 bg-white p-3 flex flex-col justify-between h-40">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <div className={cn("w-6 h-6 flex items-center justify-center text-white text-xs font-black font-mono rounded-none", item.color)}>
-                  {item.name[0]}
-                </div>
-                <span className={cn("text-[8px] font-mono font-bold uppercase tracking-wider px-1 border", 
-                  item.connected ? "border-zinc-950 bg-zinc-50 text-zinc-950" : "border-zinc-200 text-zinc-300"
-                )}>
-                  {item.connected ? "SECURED" : "NULL"}
-                </span>
-              </div>
-              <div>
-                <h4 className="text-xs font-mono font-black uppercase text-zinc-900">{item.name}</h4>
-                <p className="text-[9px] font-mono text-zinc-400 truncate lowercase">{item.domain}</p>
-              </div>
-              <p className="text-[10px] font-mono text-zinc-500 leading-tight line-clamp-2">
-                {item.desc}
-              </p>
-            </div>
-            
-            <button className={cn("w-full h-6 font-mono text-[9px] font-bold uppercase tracking-wider border rounded-none cursor-pointer transition-colors shadow-none",
-              item.connected ? "border-zinc-300 text-zinc-400 bg-white hover:bg-zinc-50" : "bg-zinc-900 border-zinc-900 text-white hover:bg-zinc-800"
-            )}>
-              {item.connected ? "EJECT LINK" : "INITIALIZE"}
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function CategoryWorkspace() {
-  const [isRemote, setIsRemote] = useState(true);
-
-  return (
-    <div className="space-y-4">
-      <ModuleHeader title="WORK_MATCH_CRITERIA" />
-
-      {/* Fixed Value Selectors Option Matrices Instead of Inputs */}
-      <div className="grid grid-cols-2 gap-3">
-        
-        <div className="border border-zinc-300 bg-white p-2.5 space-y-1">
-          <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block flex items-center gap-1">
-            <Building2 size={11} /> Base Domain Allocation
-          </label>
-          <Select defaultValue="internal">
-            <SelectTrigger className="h-6 w-full rounded-none text-xs font-bold font-mono border-0 bg-transparent p-0 shadow-none focus:ring-0 flex justify-between items-center text-zinc-800 uppercase">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent position="popper" sideOffset={4} className="rounded-none z-[300] border-zinc-400 bg-white shadow-none w-[var(--radix-select-trigger-width)]">
-              <SelectItem value="internal" className="text-xs rounded-none font-mono cursor-pointer uppercase">NODALABS.INTERNAL.DOMAIN</SelectItem>
-              <SelectItem value="sandbox" className="text-xs rounded-none font-mono cursor-pointer uppercase">STAGING.SANDBOX.NET</SelectItem>
-              <SelectItem value="isolated" className="text-xs rounded-none font-mono cursor-pointer uppercase">DMZ.ISOLATED_CLUSTER.ORG</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="border border-zinc-300 bg-white p-2.5 space-y-1">
-          <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block flex items-center gap-1">
-            <Scale size={11} /> Legal Jurisdiction Mask
-          </label>
-          <Select defaultValue="eu">
-            <SelectTrigger className="h-6 w-full rounded-none text-xs font-bold font-mono border-0 bg-transparent p-0 shadow-none focus:ring-0 flex justify-between items-center text-zinc-800 uppercase">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent position="popper" sideOffset={4} className="rounded-none z-[300] border-zinc-400 bg-white shadow-none w-[var(--radix-select-trigger-width)]">
-              <SelectItem value="eu" className="text-xs rounded-none font-mono cursor-pointer uppercase">EU_CONTRACT_LAW_2026</SelectItem>
-              <SelectItem value="us" className="text-xs rounded-none font-mono cursor-pointer uppercase">US_DELAWARE_CORP_REG</SelectItem>
-              <SelectItem value="ch" className="text-xs rounded-none font-mono cursor-pointer uppercase">CH_SWISS_PRIVACY_STATUTE</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="border border-zinc-300 bg-white p-2.5 space-y-1">
-          <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block flex items-center gap-1">
-            <DollarSign size={11} /> Operational Overhead Margin
-          </label>
-          <Select defaultValue="12">
-            <SelectTrigger className="h-6 w-full rounded-none text-xs font-bold font-mono border-0 bg-transparent p-0 shadow-none focus:ring-0 flex justify-between items-center text-zinc-800 uppercase">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent position="popper" sideOffset={4} className="rounded-none z-[300] border-zinc-400 bg-white shadow-none w-[var(--radix-select-trigger-width)]">
-              <SelectItem value="5" className="text-xs rounded-none font-mono cursor-pointer uppercase">MAX_5_PERCENT_MARGIN</SelectItem>
-              <SelectItem value="12" className="text-xs rounded-none font-mono cursor-pointer uppercase">MAX_12_PERCENT_MARGIN</SelectItem>
-              <SelectItem value="25" className="text-xs rounded-none font-mono cursor-pointer uppercase">MAX_25_PERCENT_MARGIN</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="border border-zinc-300 bg-white p-2.5 space-y-1">
-          <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block flex items-center gap-1">
-            <History size={11} /> Contract Minimum Runway
-          </label>
-          <Select defaultValue="18">
-            <SelectTrigger className="h-6 w-full rounded-none text-xs font-bold font-mono border-0 bg-transparent p-0 shadow-none focus:ring-0 flex justify-between items-center text-zinc-800 uppercase">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent position="popper" sideOffset={4} className="rounded-none z-[300] border-zinc-400 bg-white shadow-none w-[var(--radix-select-trigger-width)]">
-              <SelectItem value="6" className="text-xs rounded-none font-mono cursor-pointer uppercase">6_MONTHS_MINIMUM</SelectItem>
-              <SelectItem value="18" className="text-xs rounded-none font-mono cursor-pointer uppercase">18_MONTHS_MINIMUM</SelectItem>
-              <SelectItem value="36" className="text-xs rounded-none font-mono cursor-pointer uppercase">36_MONTHS_LONG_RANGE</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-
-      <div className="border border-zinc-300 bg-white">
-        <div className="p-2 bg-zinc-50 border-b border-zinc-300">
-          <span className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-wider block">
-            Remuneration & Geography Matrices
-          </span>
-        </div>
-
-        <div className="divide-y divide-zinc-200">
-          <div className="p-3 space-y-2">
-            <div className="flex justify-between text-[9px] font-mono font-bold text-zinc-500 uppercase">
-              <span>Target Base Compensation Matrix</span>
-              <span className="text-zinc-950 font-black">$145,000 USD / YR</span>
-            </div>
-            <div className="pt-1 px-0.5">
-              <Slider
-                defaultValue={[145000]}
-                min={80000}
-                max={300000}
-                step={5000}
-                className="[&_[data-slot=track]]:bg-zinc-100 [&_[data-slot=range]]:bg-zinc-900 [&_[data-slot=thumb]]:border-zinc-900 [&_[data-slot=thumb]]:bg-zinc-900 [&_[data-slot=thumb]]:rounded-none [&_[data-slot=thumb]]:h-3 [&_[data-slot=thumb]]:w-3 shadow-none"
-              />
-            </div>
-          </div>
-
-          <div className="p-3 space-y-2">
-            <label className="text-[9px] font-mono font-black uppercase text-zinc-500 block tracking-wider">
-              Deployment Matrix Arrangements
-            </label>
-            <div className="flex gap-4">
-              <label className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase text-zinc-900 cursor-pointer">
-                <Checkbox
-                  checked={isRemote}
-                  onCheckedChange={(checked) => setIsRemote(!!checked)}
-                  className="rounded-none h-3.5 w-3.5 border-zinc-400 data-[state=checked]:bg-zinc-900 data-[state=checked]:border-zinc-900 data-[state=checked]:text-white shadow-none"
-                />
-                100% Remote Isolation
-              </label>
-              {["Hybrid_Node", "On-Site_Static"].map((arr) => (
-                <label key={arr} className="flex items-center gap-1.5 text-xs font-mono font-bold uppercase text-zinc-400 cursor-pointer">
-                  <Checkbox className="rounded-none h-3.5 w-3.5 border-zinc-300 data-[state=checked]:bg-zinc-900 data-[state=checked]:border-zinc-900 shadow-none" />
-                  {arr}
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {isRemote && (
-            <div className="p-3 bg-zinc-50 space-y-1">
-              <label className="text-[9px] font-mono font-black uppercase text-zinc-900 flex items-center gap-1">
-                <Globe2 size={11} /> Local Exclusivity Target Constraints
-              </label>
-              <Select defaultValue="multi">
-                <SelectTrigger className="h-6 w-full rounded-none text-xs font-bold font-mono border-0 bg-transparent p-0 shadow-none focus:ring-0 flex justify-between items-center text-zinc-800 uppercase">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent position="popper" sideOffset={4} className="rounded-none z-[300] border-zinc-400 bg-white shadow-none w-[var(--radix-select-trigger-width)]">
-                  <SelectItem value="global" className="text-xs rounded-none font-mono cursor-pointer uppercase">UNRESTRICTED GLOBAL BOUNDARIES</SelectItem>
-                  <SelectItem value="multi" className="text-xs rounded-none font-mono cursor-pointer uppercase">EUROPEAN ZONE ONLY [PL, HU, DE, CZ]</SelectItem>
-                  <SelectItem value="na" className="text-xs rounded-none font-mono cursor-pointer uppercase">NORTH AMERICAN EMISSION JURISDICTIONS</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CategoryStealth() {
-  return (
-    <div className="space-y-4">
-      <ModuleHeader title="STEALTH_PRIVACY_MATRIX" />
-
-      <div className="border border-zinc-300 divide-y divide-zinc-200 bg-white">
-        <div className="p-3 flex justify-between items-center">
-          <div className="space-y-0.5 max-w-xl pr-4">
-            <h4 className="text-xs font-mono font-bold uppercase text-zinc-900">Absolute Encryption Mask</h4>
-            <p className="text-[10px] font-mono text-zinc-400 leading-tight">Drop completely out of global metadata scraping engines entirely.</p>
-          </div>
-          <CustomTerminalSwitch checked={true} onChange={() => {}} />
-        </div>
-
-        <div className="p-3 flex justify-between items-center">
-          <div className="space-y-0.5 max-w-xl pr-4">
-            <h4 className="text-xs font-mono font-bold uppercase text-zinc-900">Action Telemetry Masking</h4>
-            <p className="text-[10px] font-mono text-zinc-400 leading-tight">Anonymize signatures when committing ledger block modifications.</p>
-          </div>
-          <CustomTerminalSwitch checked={false} onChange={() => {}} />
-        </div>
-      </div>
-
-      <div className="bg-white p-3 border border-zinc-300 space-y-1">
-        <label className="text-[9px] font-mono font-black text-zinc-400 uppercase tracking-wider block">Inbound Access Filter Profile</label>
-        <div className="pt-0.5">
-          <Select defaultValue="friends">
-            <SelectTrigger className="h-7 w-full rounded-none text-xs font-bold font-mono border border-zinc-400 bg-white px-2 shadow-none focus:ring-0 focus:border-zinc-900 flex justify-between items-center">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent position="popper" sideOffset={1} className="rounded-none z-[300] border-zinc-400 bg-white shadow-none w-[var(--radix-select-trigger-width)]">
-              <SelectItem value="all" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">ALLOW UNRESTRICTED PACKETS</SelectItem>
-              <SelectItem value="friends" className="text-xs rounded-none focus:bg-zinc-900 focus:text-white font-mono cursor-pointer">RESTRICT TO RECOGNIZED TRUST NODES</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CategoryNotifications() {
-  return (
-    <div className="space-y-4">
-      <ModuleHeader title="NOTIF_DISPATCH_MATRIX" />
-
-      {/* Expanded & Granular Notification Option Array */}
-      <div className="border border-zinc-300 bg-white divide-y divide-zinc-200">
-        
-        <div className="p-3 flex items-center justify-between gap-6 bg-white">
-          <div className="flex items-start gap-2.5">
-            <Shield size={14} className="text-zinc-900 mt-0.5 shrink-0" />
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-mono font-black uppercase text-zinc-900 leading-none">Security Threshold Breach Alerts</h4>
-              <p className="text-[10px] font-mono text-zinc-400 leading-tight">Immediate routing if credential variations or lock alterations are executed on unverified nodes.</p>
-            </div>
-          </div>
-          <CustomTerminalSwitch checked={true} onChange={() => {}} />
-        </div>
-
-        <div className="p-3 flex items-center justify-between gap-6 bg-white">
-          <div className="flex items-start gap-2.5">
-            <Fingerprint size={14} className="text-zinc-900 mt-0.5 shrink-0" />
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-mono font-black uppercase text-zinc-900 leading-none">Node Authentication Audits</h4>
-              <p className="text-[10px] font-mono text-zinc-400 leading-tight">Receive telemetry records whenever a separate browser register initiates session handshakes.</p>
-            </div>
-          </div>
-          <CustomTerminalSwitch checked={true} onChange={() => {}} />
-        </div>
-
-        <div className="p-3 flex items-center justify-between gap-6 bg-white">
-          <div className="flex items-start gap-2.5">
-            <CloudLightning size={14} className="text-zinc-900 mt-0.5 shrink-0" />
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-mono font-black uppercase text-zinc-900 leading-none">Instant Pipeline Failures</h4>
-              <p className="text-[10px] font-mono text-zinc-400 leading-tight">Dispatch high-priority communication triggers if standard runtime build compilations collapse.</p>
-            </div>
-          </div>
-          <CustomTerminalSwitch checked={true} onChange={() => {}} />
-        </div>
-
-        <div className="p-3 flex items-center justify-between gap-6 bg-white">
-          <div className="flex items-start gap-2.5">
-            <RefreshCw size={14} className="text-zinc-400 mt-0.5 shrink-0" />
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-mono font-bold uppercase text-zinc-500 leading-none">Automated Shadow Backups</h4>
-              <p className="text-[10px] font-mono text-zinc-400 leading-tight">Ping upon successful execution of nightly configuration snapshot syncs to peripheral nodes.</p>
-            </div>
-          </div>
-          <CustomTerminalSwitch checked={false} onChange={() => {}} />
-        </div>
-
-        <div className="p-3 flex items-center justify-between gap-6 bg-white">
-          <div className="flex items-start gap-2.5">
-            <Database size={14} className="text-zinc-900 mt-0.5 shrink-0" />
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-mono font-black uppercase text-zinc-900 leading-none">Third-Party Data Handshakes</h4>
-              <p className="text-[10px] font-mono text-zinc-400 leading-tight">Logs background profile requests initialized via active connected OAuth endpoints.</p>
-            </div>
-          </div>
-          <CustomTerminalSwitch checked={true} onChange={() => {}} />
-        </div>
-
-        <div className="p-3 flex items-center justify-between gap-6 bg-white">
-          <div className="flex items-start gap-2.5">
-            <Lock size={14} className="text-zinc-400 mt-0.5 shrink-0" />
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-mono font-bold uppercase text-zinc-500 leading-none">Ledger State Commit Verification</h4>
-              <p className="text-[10px] font-mono text-zinc-400 leading-tight">Transmit structural cryptographic confirmations when workspace parameter variables alter.</p>
-            </div>
-          </div>
-          <CustomTerminalSwitch checked={false} onChange={() => {}} />
-        </div>
-
-        <div className="p-3 flex items-center justify-between gap-6 bg-white">
-          <div className="flex items-start gap-2.5">
-            <Webhook size={14} className="text-zinc-400 mt-0.5 shrink-0" />
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-mono font-bold uppercase text-zinc-500 leading-none">Webhook Core Subscriptions</h4>
-              <p className="text-[10px] font-mono text-zinc-400 leading-tight">Transmit programmatic payload alerts directly down custom pipeline data endpoints.</p>
-            </div>
-          </div>
-          <CustomTerminalSwitch checked={false} onChange={() => {}} />
-        </div>
-
-        <div className="p-3 flex items-center justify-between gap-6 bg-white">
-          <div className="flex items-start gap-2.5">
-            <Activity size={14} className="text-zinc-400 mt-0.5 shrink-0" />
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-mono font-bold uppercase text-zinc-500 leading-none">Telemetry Matrix Heartbeats</h4>
-              <p className="text-[10px] font-mono text-zinc-400 leading-tight">Send low-priority weekly digest status summaries concerning system operational runtime metrics.</p>
-            </div>
-          </div>
-          <CustomTerminalSwitch checked={false} onChange={() => {}} />
-        </div>
-      </div>
-    </div>
   );
 }
