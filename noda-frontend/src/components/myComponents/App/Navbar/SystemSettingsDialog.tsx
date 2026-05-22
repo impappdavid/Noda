@@ -28,7 +28,6 @@ import {
   DialogOverlay,
   DialogPortal,
 } from "@/components/ui/dialog";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -36,6 +35,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Session from "./SettingsDialog/Sessions";
 type SectionId =
   | "profile"
   | "preferences"
@@ -95,25 +95,6 @@ export default function FullyLoadedVerticalSettingsDialog({
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const [show2FAModal, setShow2FAModal] = useState(false);
 
-  // 4. Sessions Data Proxy
-  const [sessions, setSessions] = useState([
-    {
-      id: "sess_02",
-      device: "Mobile Access Cluster",
-      os: "iOS 17.5.1 // Safari WebKit",
-      ip: "84.2.114.90",
-      location: "London, UK",
-      time: "Active 2h past",
-    },
-    {
-      id: "sess_03",
-      device: "Backup Core Runtime",
-      os: "Linux Kernel 6.1 // Headless Curl",
-      ip: "104.22.4.12",
-      location: "Frankfurt, DE",
-      time: "Active 1d past",
-    },
-  ]);
 
   // 5. Connections
   const [googleConnected, setGoogleConnected] = useState(true);
@@ -150,9 +131,7 @@ export default function FullyLoadedVerticalSettingsDialog({
     }));
   };
 
-  const handleGlobalLogout = () => {
-    setSessions([]);
-  };
+  
 
   const navigationItems = [
     { id: "profile", label: "Public Profile" },
@@ -604,86 +583,7 @@ export default function FullyLoadedVerticalSettingsDialog({
 
               {/* 4. ACTIVE SESSIONS */}
               {activeSection === "sessions" && (
-                <div className="space-y-3.5 animate-in fade-in duration-100">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Active Client Handshake Context
-                    </span>
-                    <div className="border border-zinc-200 p-2.5 bg-zinc-900 text-zinc-100 flex items-center justify-between">
-                      <div className="space-y-0.5">
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold text-white text-[10px] uppercase">
-                            Current Workspace Node
-                          </span>
-                          <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
-                        </div>
-                        <p className="text-[10px] text-zinc-400 font-mono leading-none">
-                          Chrome Canary Engine // macOS Darwin 23.4
-                        </p>
-                        <p className="text-[9px] text-zinc-500 font-mono">
-                          Telemetry IP: 194.22.102.14 (Budapest, HU)
-                        </p>
-                      </div>
-                      <Monitor size={14} className="text-zinc-500" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Active User Session Array View ({sessions.length})
-                    </span>
-                    {sessions.length > 0 ? (
-                      <div className="border border-zinc-200 divide-y divide-zinc-200 bg-white">
-                        {sessions.map((sess) => (
-                          <div
-                            key={sess.id}
-                            className="p-2 flex items-center justify-between"
-                          >
-                            <div className="space-y-0.5">
-                              <span className="font-bold text-zinc-800 text-[10px] uppercase block">
-                                {sess.device}
-                              </span>
-                              <p className="text-[9.5px] text-zinc-400 font-mono leading-none">
-                                {sess.os}
-                              </p>
-                              <p className="text-[8.5px] text-zinc-400 font-mono">
-                                Network Anchor: {sess.ip} • {sess.location} (
-                                {sess.time})
-                              </p>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() =>
-                                setSessions((prev) =>
-                                  prev.filter((s) => s.id !== sess.id),
-                                )
-                              }
-                              className="text-[9px] font-bold text-red-600 border border-red-200 bg-red-50/20 hover:bg-red-50 px-1.5 py-0.5 rounded-none cursor-pointer"
-                            >
-                              Revoke
-                            </button>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="border border-zinc-200 border-dashed p-4 text-center text-zinc-400 text-[10px] uppercase font-bold bg-zinc-50/50">
-                        No alternative connection nodes initialized.
-                      </div>
-                    )}
-                  </div>
-
-                  {sessions.length > 0 && (
-                    <div className="pt-1">
-                      <button
-                        type="button"
-                        onClick={handleGlobalLogout}
-                        className="w-full h-6.5 bg-red-50 text-red-700 border border-red-200 text-[9.5px] font-bold uppercase tracking-wide hover:bg-red-100 transition-all rounded-none cursor-pointer"
-                      >
-                        Log Out of All Other Sessions
-                      </button>
-                    </div>
-                  )}
-                </div>
+                <Session />
               )}
 
               {/* 5. THIRD-PARTY CONNECTIONS */}
