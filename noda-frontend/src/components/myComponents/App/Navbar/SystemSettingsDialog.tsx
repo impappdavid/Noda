@@ -18,6 +18,7 @@ import {
   AtSign,
   User,
   Settings,
+  Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -164,6 +165,13 @@ export default function FullyLoadedVerticalSettingsDialog({
     { id: "notifications", label: "Notification Matrix" },
   ] as const;
 
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
@@ -174,7 +182,7 @@ export default function FullyLoadedVerticalSettingsDialog({
           {/* HEADER LAYER */}
           <div className="py-1 px-2 flex items-center justify-between bg-blue-500 border-b border-zinc-200 shrink-0 select-none">
             <div className="flex items-center gap-1">
-              <Settings className="w-3.5 h-3.5 text-white"/>
+              <Settings className="w-3.5 h-3.5 text-white" />
               <span className="font-bold tracking-tight text-white uppercase">
                 Settings
               </span>
@@ -408,66 +416,126 @@ export default function FullyLoadedVerticalSettingsDialog({
 
               {/* 3. SECURITY & LOGIN */}
               {activeSection === "security" && (
-                <div className="space-y-3.5 animate-in fade-in duration-100">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Rotation Matrix (bcrypt/Argon2id)
-                    </span>
-                    <div className="border border-zinc-200 bg-white p-2.5 space-y-2">
-                      <div className="space-y-0.5">
-                        <span className="text-[9px] font-bold text-zinc-400 block uppercase">
-                          Current Secret
-                        </span>
-                        <input
-                          type="password"
-                          value={currentPassword}
-                          onChange={(e) => setCurrentPassword(e.target.value)}
-                          placeholder="••••••••••••"
-                          className="w-full h-6 bg-zinc-50/30 border border-zinc-200 px-2 text-[11px] outline-none focus:border-zinc-400 rounded-none"
-                        />
-                      </div>
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="space-y-0.5">
-                          <span className="text-[9px] font-bold text-zinc-400 block uppercase">
-                            New Secret Shift
-                          </span>
-                          <input
-                            type="password"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                            placeholder="••••••••••••"
-                            className="w-full h-6 bg-zinc-50/30 border border-zinc-200 px-2 text-[11px] outline-none focus:border-zinc-400 rounded-none"
-                          />
-                        </div>
-                        <div className="space-y-0.5">
-                          <span className="text-[9px] font-bold text-zinc-400 block uppercase">
-                            Confirm Secret
-                          </span>
-                          <input
-                            type="password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="••••••••••••"
-                            className="w-full h-6 bg-zinc-50/30 border border-zinc-200 px-2 text-[11px] outline-none focus:border-zinc-400 rounded-none"
-                          />
-                        </div>
-                      </div>
-                      <div className="flex justify-end pt-0.5">
+                <div className=" animate-in fade-in duration-100">
+                  <div className="">
+                    <div className="py-1 px-2 text-zinc-500 uppercase bg-zinc-200">
+                      Change Password
+                    </div>
+                    <div className="bg-white p-2 space-y-1 border-b border-zinc-300 focus-within:bg-zinc-50 transition-colors">
+                      <div className="flex justify-between items-center">
+                        <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
+                          Current Password
+                        </label>
+                        {/* FIX: Added tabIndex={-1} to skip this during tabbing */}
                         <button
                           type="button"
-                          className="h-5.5 px-2.5 bg-zinc-900 text-white font-bold text-[9px] uppercase tracking-wide hover:bg-zinc-800 transition-all rounded-none cursor-pointer"
+                          tabIndex={-1}
+                          className="text-[9px] font-mono font-bold text-zinc-500 hover:text-blue-500 hover:underline cursor-pointer uppercase outline-none transition-colors leading-none"
                         >
-                          Commit Rotator Endpoint
+                          Forgot?
+                        </button>
+                      </div>
+                      <div className="relative flex items-center h-6">
+                        <Lock className="w-3.5 h-3.5 text-zinc-500 mr-2 shrink-0" />
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          placeholder="••••••••••••"
+                          required
+                          className="w-full text-[11px] outline-none bg-transparent placeholder:text-zinc-500 "
+                        />
+                        {/* FIX: Added tabIndex={-1} to skip this during tabbing */}
+                        <button
+                          type="button"
+                          tabIndex={-1}
+                          onClick={togglePasswordVisibility}
+                          className="text-zinc-400 hover:text-zinc-900 outline-none cursor-pointer shrink-0 ml-2"
+                        >
+                          {showPassword ? (
+                            <EyeOff className="w-3.5 h-3.5" />
+                          ) : (
+                            <Eye className="w-3.5 h-3.5" />
+                          )}
                         </button>
                       </div>
                     </div>
+
+                    <div className="grid grid-cols-2">
+                      <div className="bg-white p-2 space-y-1 border-r border-zinc-300 focus-within:bg-zinc-50 transition-colors">
+                        <div className="flex justify-between items-center">
+                          <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
+                            New Password
+                          </label>
+                        </div>
+                        <div className="relative flex items-center h-6">
+                          <Lock className="w-3.5 h-3.5 text-zinc-500 mr-2 shrink-0" />
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="••••••••••••"
+                            required
+                            className="w-full text-[11px] outline-none bg-transparent placeholder:text-zinc-500 "
+                          />
+                          {/* FIX: Added tabIndex={-1} to skip this during tabbing */}
+                          <button
+                            type="button"
+                            tabIndex={-1}
+                            onClick={togglePasswordVisibility}
+                            className="text-zinc-400 hover:text-zinc-900 outline-none cursor-pointer shrink-0 ml-2"
+                          >
+                            {showPassword ? (
+                              <EyeOff className="w-3.5 h-3.5" />
+                            ) : (
+                              <Eye className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="bg-white p-2 space-y-1  focus-within:bg-zinc-50 transition-colors">
+                        <div className="flex justify-between items-center">
+                          <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
+                            Re New Password
+                          </label>
+                        </div>
+                        <div className="relative flex items-center h-6">
+                          <Lock className="w-3.5 h-3.5 text-zinc-500 mr-2 shrink-0" />
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="••••••••••••"
+                            required
+                            className="w-full text-[11px] outline-none bg-transparent placeholder:text-zinc-500 "
+                          />
+                          {/* FIX: Added tabIndex={-1} to skip this during tabbing */}
+                          <button
+                            type="button"
+                            tabIndex={-1}
+                            onClick={togglePasswordVisibility}
+                            className="text-zinc-400 hover:text-zinc-900 outline-none cursor-pointer shrink-0 ml-2"
+                          >
+                            {showPassword ? (
+                              <EyeOff className="w-3.5 h-3.5" />
+                            ) : (
+                              <Eye className="w-3.5 h-3.5" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <button className="w-full bg-blue-500 hover:bg-blue-600 cursor-pointer py-1.5 flex justify-center text-center text-white transition-colors">
+                      Update Password
+                    </button>
                   </div>
 
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Handshake Multi-Factor
-                    </span>
-                    <div className="border border-zinc-200 p-2.5 flex items-center justify-between bg-white">
+                  <div className="">
+                    <div className="py-1 px-2 text-zinc-500 uppercase bg-zinc-200">
+                      2Factor
+                    </div>
+                    <div className="border-b border-zinc-200 p-2.5 flex items-center justify-between bg-white">
                       <div className="space-y-0.5 max-w-[80%]">
                         <span className="font-bold text-zinc-900 uppercase text-[10px] block">
                           Two-Factor Authentication (2FA)
@@ -477,14 +545,14 @@ export default function FullyLoadedVerticalSettingsDialog({
                           with a dynamic seed key validation protocol.
                         </p>
                       </div>
-                      <Switch
-                        checked={twoFactorEnabled}
-                        onCheckedChange={(checked) => {
-                          setTwoFactorEnabled(checked);
-                          if (checked) setShow2FAModal(true);
-                        }}
-                        className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85 origin-right"
-                      />
+                      <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition duration-400 [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                        <input
+                          type="checkbox"
+                          id="AcceptConditions"
+                          className="peer sr-only"
+                        />
+                        <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all duration-300 peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
+                      </label>
                     </div>
                   </div>
 
