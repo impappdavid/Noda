@@ -1,4 +1,12 @@
-import { Monitor, Smartphone, Terminal, MapPin, Cpu, ShieldCheck, LogOut } from "lucide-react";
+import {
+  Monitor,
+  Smartphone,
+  Terminal,
+  MapPin,
+  Cpu,
+  ShieldCheck,
+  LogOut,
+} from "lucide-react";
 import { useState } from "react";
 
 const Session = () => {
@@ -57,7 +65,7 @@ const Session = () => {
       type: "terminal",
       gridX: 62,
       gridY: 38,
-    }
+    },
   ]);
 
   const handleGlobalLogout = () => {
@@ -66,26 +74,28 @@ const Session = () => {
 
   return (
     <div className="flex flex-col font-mono text-[11px] text-zinc-800 animate-in fade-in duration-100 h-[604px] justify-between">
-      
       {/* MATRIX WRAPPER WITH FIXED SCROLL WINDOW BOUNDS */}
-      <div className="flex-1 overflow-y-auto min-h-0 space-y-3.5 pr-1">
-        
+      <div className="flex-1 overflow-y-auto min-h-0 ">
         {/* CURRENT CLIENT NODE HEADER PANEL */}
-        <div className="space-y-1">
-          <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider block">
-            // Active Client Handshake Context
-          </span>
-          <div className="border border-zinc-200 p-2.5 bg-zinc-50/50 flex items-center justify-between relative overflow-hidden">
+        <div className="">
+          <div className="py-1 px-2 text-zinc-500 uppercase bg-zinc-200">
+            Current Device
+          </div>
+          <div className=" p-2 bg-zinc-50/50 flex items-center justify-between relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500" />
             <div className="flex items-center gap-2.5 pl-1">
-              <Monitor size={12} className="text-zinc-700" />
+              <Monitor size={16} className="text-zinc-700" />
               <div className="space-y-0.5">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-black text-zinc-950 uppercase text-[10px]">Current Workspace Node</span>
+                  <span className="font-black text-zinc-950 uppercase text-[10px]">
+                    Current Workspace
+                  </span>
                   <span className="w-1 h-1 bg-emerald-500 rounded-full animate-ping" />
                 </div>
                 <p className="text-[9.5px] text-zinc-500">
-                  macOS • Chrome Canary <span className="text-zinc-300 mx-1">|</span> IP: 194.22.102.14 (Budapest, HU)
+                  macOS • Chrome Canary{" "}
+                  <span className="text-zinc-300 mx-1">|</span> IP:
+                  194.22.102.14 (Budapest, HU)
                 </p>
               </div>
             </div>
@@ -94,13 +104,13 @@ const Session = () => {
         </div>
 
         {/* SYSTEM REGISTRY DENSE MATRIX ROW ENGINE */}
-        <div className="space-y-1">
-          <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider block">
-            // Active User Session Array View ({sessions.length})
-          </span>
+        <div className="">
+          <div className="py-1 px-2 text-zinc-500 uppercase bg-zinc-200">
+            Logged In devices ({sessions.length})
+          </div>
 
           {sessions.length > 0 ? (
-            <div className="border border-zinc-200 divide-y divide-zinc-200 bg-white">
+            <div className="border border-zinc-200 divide-y divide-zinc-300 bg-white">
               {sessions.map((sess) => (
                 <div
                   key={sess.id}
@@ -109,31 +119,52 @@ const Session = () => {
                   {/* LEFT DETAILS AREA */}
                   <div className="flex items-center gap-2.5 min-w-0 flex-1">
                     <div className="text-zinc-400 group-hover:text-zinc-700 transition-colors shrink-0">
-                      {sess.type === "mobile" ? <Smartphone size={12} /> : <Terminal size={12} />}
+                      {sess.type === "mobile" ? (
+                        <Smartphone size={16} />
+                      ) : (
+                        <Terminal size={16} />
+                      )}
                     </div>
                     <div className="space-y-0.5 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-zinc-900 text-[10px] uppercase truncate">{sess.device}</span>
-                        <span className="text-[8px] text-zinc-400 uppercase tracking-tighter">({sess.time})</span>
+                        <span className="font-bold text-zinc-900 text-[10px] uppercase truncate">
+                          {sess.device}
+                        </span>
+                        <span className="text-[8px] text-zinc-500 uppercase tracking-tighter">
+                          ({sess.time})
+                        </span>
                       </div>
                       <p className="text-[9.5px] text-zinc-400 font-mono truncate max-w-[240px]">
-                        {sess.os} <span className="text-zinc-200 mx-0.5">•</span> <span className="text-zinc-500">{sess.ip}</span>
+                        {sess.os}{" "}
+                        <span className="text-zinc-200 mx-0.5">•</span>{" "}
+                        <span className="text-zinc-500">{sess.ip}</span>
                       </p>
                     </div>
                   </div>
 
                   {/* RIGHT MAP VISUALIZATION ZONE (STAYS FULLY VISIBLE) */}
-                  <div className="relative w-28 h-10 border border-zinc-200 overflow-hidden bg-zinc-50/40 shrink-0 select-none mr-2">
+                  <div className="relative w-28 h-10 border border-zinc-300 overflow-hidden bg-zinc-200/40 shrink-0 select-none mr-2">
                     {/* Native Static Text View Matrix Coordinates */}
                     <div className="absolute inset-0 flex flex-col justify-between p-1 z-10">
-                      <span className="text-[7px] text-zinc-500 uppercase leading-none font-sans font-bold">{sess.location}</span>
-                      <span className="text-[6.5px] text-zinc-400 font-mono tracking-tighter leading-none">G: {sess.gridX}N/{sess.gridY}E</span>
+                      <span className="text-[7px] text-zinc-500 uppercase leading-none font-sans font-bold">
+                        {sess.location}
+                      </span>
+                      <span className="text-[6.5px] text-zinc-400 font-mono tracking-tighter leading-none">
+                        G: {sess.gridX}N/{sess.gridY}E
+                      </span>
                     </div>
 
                     {/* Highly Magnified Vector Grid Map Tracing Layer */}
                     <div className="absolute inset-0 scale-[3.5] origin-center opacity-[0.06] text-zinc-950 pointer-events-none">
-                      <svg className="w-full h-full" viewBox="0 0 100 50" preserveAspectRatio="none">
-                        <path d="M10,15 L25,12 L30,22 L20,35 L12,28 Z M45,20 L60,15 L70,25 L55,35 L40,28 Z" fill="currentColor" />
+                      <svg
+                        className="w-full h-full"
+                        viewBox="0 0 100 50"
+                        preserveAspectRatio="none"
+                      >
+                        <path
+                          d="M10,15 L25,12 L30,22 L20,35 L12,28 Z M45,20 L60,15 L70,25 L55,35 L40,28 Z"
+                          fill="currentColor"
+                        />
                       </svg>
                     </div>
 
@@ -145,14 +176,17 @@ const Session = () => {
                   <div className="w-18 shrink-0 flex justify-end">
                     <button
                       type="button"
-                      onClick={() => setSessions((prev) => prev.filter((s) => s.id !== sess.id))}
+                      onClick={() =>
+                        setSessions((prev) =>
+                          prev.filter((s) => s.id !== sess.id),
+                        )
+                      }
                       className=" transition-all duration-150 border border-zinc-200 hover:border-red-200 hover:text-red-600 bg-white px-2 py-1 text-[8.5px] font-black uppercase tracking-tight rounded-none cursor-pointer flex items-center gap-1 select-none shadow-3xs"
                     >
                       <LogOut size={8} className="stroke-[2.5]" />
                       <span>Log out</span>
                     </button>
                   </div>
-
                 </div>
               ))}
             </div>

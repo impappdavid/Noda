@@ -36,6 +36,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Session from "./SettingsDialog/Sessions";
+import Integrations from "./SettingsDialog/Integrations";
 type SectionId =
   | "profile"
   | "preferences"
@@ -97,8 +98,7 @@ export default function FullyLoadedVerticalSettingsDialog({
 
 
   // 5. Connections
-  const [googleConnected, setGoogleConnected] = useState(true);
-  const [githubConnected, setGithubConnected] = useState(true);
+ 
 
   // 6. Workspace Metrics
   const [minSalary, setMinSalary] = useState(165000);
@@ -588,84 +588,7 @@ export default function FullyLoadedVerticalSettingsDialog({
 
               {/* 5. THIRD-PARTY CONNECTIONS */}
               {activeSection === "connections" && (
-                <div className="space-y-3.5 animate-in fade-in duration-100">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // SSO Federated Framework Bridges
-                    </span>
-                    <div className="border border-zinc-200 divide-y divide-zinc-200 bg-white">
-                      {/* Google */}
-                      <div className="p-2.5 flex items-center justify-between">
-                        <div className="space-y-0.5">
-                          <div className="flex items-center gap-1.5">
-                            <span className="font-bold text-zinc-900 text-[10px] uppercase">
-                              Google Account Hub
-                            </span>
-                            <span
-                              className={cn(
-                                "text-[8px] font-bold px-1 py-0.25 border",
-                                googleConnected
-                                  ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                                  : "bg-red-50 text-red-700 border-red-200",
-                              )}
-                            >
-                              {googleConnected
-                                ? "🟢 CONNECTED"
-                                : "🔴 DISCONNECTED"}
-                            </span>
-                          </div>
-                          <p className="text-[10px] text-zinc-400 font-sans leading-tight">
-                            Syncs write-access scopes for workspace pipeline
-                            calendar integrations automatically.
-                          </p>
-                        </div>
-                        <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
-                          <input
-                            type="checkbox"
-                            id="AcceptConditions"
-                            className="peer sr-only"
-                          />
-                          <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
-                        </label>
-                      </div>
-
-                      {/* GitHub */}
-                      <div className="p-2.5 flex items-center justify-between">
-                        <div className="space-y-0.5">
-                          <div className="flex items-center gap-1.5">
-                            <span className="font-bold text-zinc-900 text-[10px] uppercase">
-                              GitHub Developer Node
-                            </span>
-                            <span
-                              className={cn(
-                                "text-[8px] font-bold px-1 py-0.25 border",
-                                githubConnected
-                                  ? "bg-emerald-50 text-emerald-700 border-emerald-200"
-                                  : "bg-red-50 text-red-700 border-red-200",
-                              )}
-                            >
-                              {githubConnected
-                                ? "🟢 CONNECTED"
-                                : "🔴 DISCONNECTED"}
-                            </span>
-                          </div>
-                          <p className="text-[10px] text-zinc-400 font-sans leading-tight">
-                            Inspects repository markers to update algorithmic
-                            candidate matching metrics.
-                          </p>
-                        </div>
-                        <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
-                          <input
-                            type="checkbox"
-                            id="AcceptConditions"
-                            className="peer sr-only"
-                          />
-                          <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Integrations />
               )}
 
               {/* 6. WORKSPACE & JOB SEARCH */}
