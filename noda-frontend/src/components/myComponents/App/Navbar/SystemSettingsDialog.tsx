@@ -17,6 +17,7 @@ import {
   AlertTriangle,
   AtSign,
   User,
+  Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -173,7 +174,7 @@ export default function FullyLoadedVerticalSettingsDialog({
           {/* HEADER LAYER */}
           <div className="py-1 px-2 flex items-center justify-between bg-blue-500 border-b border-zinc-200 shrink-0 select-none">
             <div className="flex items-center gap-1">
-              <div className="w-2 h-2 bg-white" />
+              <Settings className="w-3.5 h-3.5 text-white"/>
               <span className="font-bold tracking-tight text-white uppercase">
                 Settings
               </span>
@@ -1108,7 +1109,7 @@ export const FormSelector = React.memo(
         <SelectContent
           position="popper"
           sideOffset={4}
-          className="rounded-none border-zinc-300 font-mono text-[10px] uppercase bg-white z-50"
+          className="rounded-none border-zinc-300 font-mono text-[10px] uppercase bg-white z-[201]"
         >
           {options.map((opt) => (
             <SelectItem
