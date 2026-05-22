@@ -658,11 +658,14 @@ export default function FullyLoadedVerticalSettingsDialog({
                             calendar integrations automatically.
                           </p>
                         </div>
-                        <Switch
-                          checked={googleConnected}
-                          onCheckedChange={setGoogleConnected}
-                          className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85"
-                        />
+                        <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                          <input
+                            type="checkbox"
+                            id="AcceptConditions"
+                            className="peer sr-only"
+                          />
+                          <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
+                        </label>
                       </div>
 
                       {/* GitHub */}
@@ -690,11 +693,14 @@ export default function FullyLoadedVerticalSettingsDialog({
                             candidate matching metrics.
                           </p>
                         </div>
-                        <Switch
-                          checked={githubConnected}
-                          onCheckedChange={setGithubConnected}
-                          className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85"
-                        />
+                        <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                          <input
+                            type="checkbox"
+                            id="AcceptConditions"
+                            className="peer sr-only"
+                          />
+                          <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -813,11 +819,14 @@ export default function FullyLoadedVerticalSettingsDialog({
                           loops if viewer.company_id == candidate.company_id.
                         </p>
                       </div>
-                      <Switch
-                        checked={stealthModeActive}
-                        onCheckedChange={setStealthModeActive}
-                        className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85 origin-right"
-                      />
+                      <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                        <input
+                          type="checkbox"
+                          id="AcceptConditions"
+                          className="peer sr-only"
+                        />
+                        <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
+                      </label>
                     </div>
                   </div>
 
@@ -831,11 +840,14 @@ export default function FullyLoadedVerticalSettingsDialog({
                           Hide network identity context during public vote
                           operations
                         </span>
-                        <Switch
-                          checked={hidePollActivity}
-                          onCheckedChange={setHidePollActivity}
-                          className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85"
-                        />
+                        <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                          <input
+                            type="checkbox"
+                            id="AcceptConditions"
+                            className="peer sr-only"
+                          />
+                          <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
+                        </label>
                       </div>
 
                       <div className="p-2.5 flex items-center justify-between">
@@ -843,11 +855,14 @@ export default function FullyLoadedVerticalSettingsDialog({
                           Mask candidate footprints when indexing company panel
                           assessments
                         </span>
-                        <Switch
-                          checked={hideReviewIdentity}
-                          onCheckedChange={setHideReviewIdentity}
-                          className="data-[state=checked]:bg-zinc-900 data-[state=unchecked]:bg-zinc-200 rounded-none scale-85"
-                        />
+                       <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                          <input
+                            type="checkbox"
+                            id="AcceptConditions"
+                            className="peer sr-only"
+                          />
+                          <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
+                        </label>
                       </div>
                     </div>
                   </div>
