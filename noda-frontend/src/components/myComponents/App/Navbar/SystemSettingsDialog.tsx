@@ -143,10 +143,10 @@ export default function FullyLoadedVerticalSettingsDialog({ open, onOpenChange }
         <DialogContent className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[680px] p-0 gap-0 z-[200] rounded-none border border-zinc-300 bg-white shadow-2xl overflow-hidden flex flex-col text-zinc-800 focus:outline-none antialiased font-mono text-[11px]">
           
           {/* HEADER LAYER */}
-          <div className="h-9 px-3 flex items-center justify-between bg-zinc-50 border-b border-zinc-200 shrink-0 select-none">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-zinc-950" />
-              <span className="font-bold tracking-tight text-zinc-900 uppercase">CONFIGURATION_DESK_V2</span>
+          <div className="py-1 px-2 flex items-center justify-between bg-zinc-50 border-b border-zinc-200 shrink-0 select-none">
+            <div className="flex items-center gap-1">
+              <div className="w-2 h-2 bg-blue-500" />
+              <span className="font-bold tracking-tight text-zinc-900 uppercase">Settings</span>
             </div>
             <button
               type="button"
@@ -162,8 +162,8 @@ export default function FullyLoadedVerticalSettingsDialog({ open, onOpenChange }
             
             {/* SIDEBAR NAVIGATION PANEL */}
             <div className="w-40 bg-zinc-50/60 border-r border-zinc-200 p-2 flex flex-col justify-between shrink-0 select-none">
-              <div className="space-y-3">
-                <span className="text-[9px] font-bold text-zinc-400 tracking-wider block uppercase px-1">// DB_DOMAINS</span>
+              <div className="space-y-2">
+                <span className="text-[9px] font-bold text-zinc-400 tracking-wider block uppercase px-1">Options</span>
                 <nav className="flex flex-col gap-0.5">
                   {navigationItems.map((item) => {
                     const isActive = activeSection === item.id;
@@ -173,10 +173,10 @@ export default function FullyLoadedVerticalSettingsDialog({ open, onOpenChange }
                         type="button"
                         onClick={() => setActiveSection(item.id)}
                         className={cn(
-                          "w-full text-left py-1 px-1.5 rounded-none transition-all uppercase tracking-tight cursor-pointer font-bold border-l-2",
+                          "w-full text-left py-1 px-1 rounded-none transition-all uppercase tracking-tight cursor-pointer font-bold border-r-2",
                           isActive 
-                            ? "text-zinc-950 bg-white border-zinc-900 font-black shadow-2xs" 
-                            : "text-zinc-400 border-transparent hover:text-zinc-800 hover:bg-zinc-100/30"
+                            ? "text-zinc-950 bg-zinc-200/80 border-blue-500 font-bold " 
+                            : "text-zinc-500 border-transparent hover:text-zinc-800 hover:bg-zinc-100/30"
                         )}
                       >
                         {item.label}
@@ -186,10 +186,7 @@ export default function FullyLoadedVerticalSettingsDialog({ open, onOpenChange }
                 </nav>
               </div>
 
-              <div className="text-[9px] text-zinc-400 font-bold flex items-center gap-1.5 px-1">
-                <span className="w-1.5 h-1.5 bg-emerald-500 inline-block" />
-                <span>INDEX_HEALTH_OK</span>
-              </div>
+              
             </div>
 
             {/* INTERNAL WORKSPACE STAGE */}

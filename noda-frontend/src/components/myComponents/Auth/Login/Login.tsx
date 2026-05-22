@@ -136,7 +136,7 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
                             <button 
                                 type="button" 
                                 tabIndex={-1}
-                                className="text-[9px] font-mono font-bold text-zinc-500 hover:text-orange-500 hover:underline cursor-pointer uppercase outline-none transition-colors leading-none"
+                                className="text-[9px] font-mono font-bold text-zinc-500 hover:text-blue-500 hover:underline cursor-pointer uppercase outline-none transition-colors leading-none"
                             >
                                 Forgot?
                             </button>
@@ -190,14 +190,14 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
                     {/* Navigation Footer */}
                     <div className="col-span-2 flex items-center justify-between">
                         <div className="flex ">
-                            <Link to={`/privacyPolicy`} className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                            <Link to={`/privacyPolicy`} className="text-[8px] p-2 border-r hover:text-blue-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                                 Privacy Policy
                             </Link>
-                            <Link to={`/termsOfService`} className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                            <Link to={`/termsOfService`} className="text-[8px] p-2 border-r hover:text-blue-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                                 Terms of Service
                             </Link>
                         </div>
-                        <Link to={`/signup`} className="text-[8px] p-2 border-l hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                        <Link to={`/signup`} className="text-[8px] p-2 border-l hover:text-blue-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                             Create New Account
                         </Link>
                     </div>
