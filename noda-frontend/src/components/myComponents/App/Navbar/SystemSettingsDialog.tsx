@@ -41,6 +41,7 @@ import Workspace from "./SettingsDialog/Workspace";
 import Privacy from "./SettingsDialog/Privacy";
 import Notifications from "./SettingsDialog/Notifications";
 import Billing from "./SettingsDialog/Subscription";
+import DangerZone from "./SettingsDialog/Danger";
 type SectionId =
   | "profile"
   | "preferences"
@@ -50,7 +51,8 @@ type SectionId =
   | "workspace"
   | "privacy"
   | "notifications"
-  | "billing";
+  | "billing"
+  | "danger";
 
 interface SettingsDialogProps {
   open: boolean;
@@ -148,6 +150,7 @@ export default function FullyLoadedVerticalSettingsDialog({
     { id: "privacy", label: "Privacy" },
     { id: "notifications", label: "Notification" },
     { id: "billing", label: "Billing" },
+    { id: "danger", label: "Danger Zone" },
   ] as const;
 
   const [password, setPassword] = useState("");
@@ -615,6 +618,10 @@ export default function FullyLoadedVerticalSettingsDialog({
               {/* 9. Billing */}
               {activeSection === "billing" && (
                 <Billing />
+              )}
+              {/* 10. Danger */}
+              {activeSection === "danger" && (
+                <DangerZone />
               )}
             </div>
           </div>
