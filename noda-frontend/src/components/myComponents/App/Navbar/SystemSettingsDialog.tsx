@@ -39,6 +39,8 @@ import Session from "./SettingsDialog/Sessions";
 import Integrations from "./SettingsDialog/Integrations";
 import Workspace from "./SettingsDialog/Workspace";
 import Privacy from "./SettingsDialog/Privacy";
+import Notifications from "./SettingsDialog/Notifications";
+import Billing from "./SettingsDialog/Subscription";
 type SectionId =
   | "profile"
   | "preferences"
@@ -47,7 +49,8 @@ type SectionId =
   | "connections"
   | "workspace"
   | "privacy"
-  | "notifications";
+  | "notifications"
+  | "billing";
 
 interface SettingsDialogProps {
   open: boolean;
@@ -139,11 +142,12 @@ export default function FullyLoadedVerticalSettingsDialog({
     { id: "profile", label: "Public Profile" },
     { id: "preferences", label: "Preferences" },
     { id: "security", label: "Security & Login" },
-    { id: "sessions", label: "Active Sessions" },
+    { id: "sessions", label: "Sessions" },
     { id: "connections", label: "Integrations" },
-    { id: "workspace", label: "Workspace Match" },
-    { id: "privacy", label: "Stealth Lock" },
-    { id: "notifications", label: "Notification Matrix" },
+    { id: "workspace", label: "Company & Expectation" },
+    { id: "privacy", label: "Privacy" },
+    { id: "notifications", label: "Notification" },
+    { id: "billing", label: "Billing" },
   ] as const;
 
   const [password, setPassword] = useState("");
@@ -605,206 +609,12 @@ export default function FullyLoadedVerticalSettingsDialog({
 
               {/* 8. NOTIFICATION MATRICES */}
               {activeSection === "notifications" && (
-                <div className="space-y-3.5 animate-in fade-in duration-100">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Compact Signal Routing Channels
-                    </span>
+                <Notifications />
+              )}
 
-                    {/* Dense Grid Table */}
-                    <div className="border border-zinc-200 overflow-hidden bg-white">
-                      <table className="w-full border-collapse text-left font-mono text-[9px]">
-                        <thead>
-                          <tr className="bg-zinc-50 border-b border-zinc-200 select-none text-zinc-400 font-bold">
-                            <th className="p-2 uppercase font-bold tracking-tight">
-                              Trigger Event Context
-                            </th>
-                            <th className="p-2 text-center uppercase font-bold tracking-tight w-12">
-                              Push
-                            </th>
-                            <th className="p-2 text-center uppercase font-bold tracking-tight w-12">
-                              Mail
-                            </th>
-                            <th className="p-2 text-center uppercase font-bold tracking-tight w-12">
-                              App
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-zinc-200 font-bold text-zinc-800 text-[10px]">
-                          {/* Row 1 */}
-                          <tr>
-                            <td className="p-2 font-mono font-bold leading-tight uppercase">
-                              Pipeline Progression Updates
-                              <span className="block text-[8px] text-zinc-400 font-sans font-normal leading-none pt-0.5">
-                                Application shifts to reviewed/interview state
-                                bounds.
-                              </span>
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.appUpdates.push}
-                                onChange={() =>
-                                  toggleNotify("appUpdates", "push")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.appUpdates.email}
-                                onChange={() =>
-                                  toggleNotify("appUpdates", "email")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.appUpdates.inapp}
-                                onChange={() =>
-                                  toggleNotify("appUpdates", "inapp")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                          </tr>
-
-                          {/* Row 2 */}
-                          <tr>
-                            <td className="p-2 font-mono font-bold leading-tight uppercase">
-                              Direct Stream Messaging
-                              <span className="block text-[8px] text-zinc-400 font-sans font-normal leading-none pt-0.5">
-                                Inbound message queries initialized by platform
-                                connections.
-                              </span>
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.directMessages.push}
-                                onChange={() =>
-                                  toggleNotify("directMessages", "push")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.directMessages.email}
-                                onChange={() =>
-                                  toggleNotify("directMessages", "email")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.directMessages.inapp}
-                                onChange={() =>
-                                  toggleNotify("directMessages", "inapp")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                          </tr>
-
-                          {/* Row 3 */}
-                          <tr>
-                            <td className="p-2 font-mono font-bold leading-tight uppercase">
-                              Feed Engagement Actions
-                              <span className="block text-[8px] text-zinc-400 font-sans font-normal leading-none pt-0.5">
-                                Mentions, likes, or conclusion updates on public
-                                poll indexes.
-                              </span>
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.socialEngagement.push}
-                                onChange={() =>
-                                  toggleNotify("socialEngagement", "push")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.socialEngagement.email}
-                                onChange={() =>
-                                  toggleNotify("socialEngagement", "email")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.socialEngagement.inapp}
-                                onChange={() =>
-                                  toggleNotify("socialEngagement", "inapp")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                          </tr>
-
-                          {/* Row 4 */}
-                          <tr>
-                            <td className="p-2 font-mono font-bold leading-tight uppercase text-amber-800 flex items-center gap-1">
-                              <AlertTriangle
-                                size={11}
-                                className="text-amber-600 shrink-0"
-                              />
-                              <div className="leading-tight">
-                                Recruiter Service Deadlines
-                                <span className="block text-[8px] text-zinc-400 font-sans font-normal leading-none pt-0.5">
-                                  Active warnings for response rates & strike
-                                  boundaries.
-                                </span>
-                              </div>
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.recruiterDeadlines.push}
-                                onChange={() =>
-                                  toggleNotify("recruiterDeadlines", "push")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.recruiterDeadlines.email}
-                                onChange={() =>
-                                  toggleNotify("recruiterDeadlines", "email")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                            <td className="p-2 text-center">
-                              <input
-                                type="checkbox"
-                                checked={notifyMatrix.recruiterDeadlines.inapp}
-                                onChange={() =>
-                                  toggleNotify("recruiterDeadlines", "inapp")
-                                }
-                                className="accent-zinc-900 cursor-pointer w-3 h-3"
-                              />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
+              {/* 9. Billing */}
+              {activeSection === "billing" && (
+                <Billing />
               )}
             </div>
           </div>
