@@ -14,7 +14,6 @@ import JobDetailPage from './components/myComponents/App/Job/Job'
 import CommunityDetail from './components/myComponents/App/Community/Community'
 import UserProfile from './components/myComponents/App/User/User'
 import NotificationsPage from './components/myComponents/App/Notifications/Notifications'
-import SettingsPage from './components/myComponents/App/Settings/Settings'
 import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
 import CreatePost from './components/myComponents/App/CompanyAdmin/CreatePost/CreatePost'
@@ -80,7 +79,6 @@ function App() {
         <Route path="/app/noda/admin/companyreview" element={<VerificationTerminal />} />
 
         <Route path="/app/notifications" element={<NotificationsPage />} />
-        <Route path="/app/settings" element={<SettingsPage />} />
         <Route path="/app/messages" element={<MessagesPage />} />
 
         <Route path="/app/admin/post" element={<CreatePost />} />
