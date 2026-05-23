@@ -49,10 +49,7 @@ const UserDropDown = () => {
                             <span>Settings</span>
                         </DropdownMenuItem>
 
-                        <DropdownMenuItem className="rounded-none hover:bg-zinc-200 px-2 py-2 text-xs text-zinc-600 focus:bg-zinc-200 focus:text-zinc-900 cursor-pointer">
-                            <CreditCard className="h-4 w-4 text-zinc-400" />
-                            <span>Billing Tiers</span>
-                        </DropdownMenuItem>
+                        
                     </DropdownMenuGroup>
 
                     <DropdownMenuSeparator className="bg-zinc-300" />

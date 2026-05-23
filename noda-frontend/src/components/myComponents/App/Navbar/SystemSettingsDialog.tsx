@@ -627,24 +627,22 @@ export default function FullyLoadedVerticalSettingsDialog({
           </div>
 
           {/* LOWER RUNTIME COMMITS */}
-          <div className="h-11 border-t border-zinc-200 bg-zinc-50 px-3 flex items-center justify-between shrink-0 select-none">
-            <span className="text-[9px] text-zinc-400 font-bold uppercase tracking-tight">
-              STATE // LOCAL_BUFFER_FLUSH_READY
-            </span>
-            <div className="flex items-center gap-1.5">
+          <div className="h-10 border-t border-zinc-200 bg-zinc-50 w-full flex items-center justify-between shrink-0 select-none">
+            
+            <div className="flex items-center w-full">
               <button
                 type="button"
                 onClick={() => onOpenChange(false)}
-                className="h-6 px-3 border border-zinc-200 bg-white hover:bg-zinc-100 rounded-none text-[10px] font-bold uppercase text-zinc-700 cursor-pointer transition-all"
+                className="h-10 w-1/2 border border-zinc-300 bg-white hover:bg-zinc-200 rounded-none text-[10px] font-bold uppercase text-zinc-700 cursor-pointer transition-all"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={() => onOpenChange(false)}
-                className="h-6 px-4 bg-blue-600 hover:bg-blue-700 rounded-none text-[10px] font-bold uppercase tracking-wide text-white cursor-pointer transition-all"
+                className="h-10 w-1/2 bg-blue-600 hover:bg-blue-700 rounded-none text-[10px] font-bold uppercase tracking-wide text-white cursor-pointer transition-all"
               >
-                Save Local States
+                Save
               </button>
             </div>
           </div>
