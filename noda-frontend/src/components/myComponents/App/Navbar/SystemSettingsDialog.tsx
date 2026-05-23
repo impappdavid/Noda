@@ -38,6 +38,7 @@ import {
 import Session from "./SettingsDialog/Sessions";
 import Integrations from "./SettingsDialog/Integrations";
 import Workspace from "./SettingsDialog/Workspace";
+import Privacy from "./SettingsDialog/Privacy";
 type SectionId =
   | "profile"
   | "preferences"
@@ -599,69 +600,7 @@ export default function FullyLoadedVerticalSettingsDialog({
 
               {/* 7. STEALTH & PRIVACY */}
               {activeSection === "privacy" && (
-                <div className="space-y-3.5 animate-in fade-in duration-100">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Master Visibility Loop Filter
-                    </span>
-                    <div className="border border-red-200 p-2.5 flex items-center justify-between bg-red-50/20">
-                      <div className="space-y-0.5 max-w-[80%]">
-                        <span className="font-bold text-red-950 uppercase text-[10px] flex items-center gap-1.5">
-                          <EyeOff size={12} /> Master Stealth Status Activation
-                        </span>
-                        <p className="text-[9.5px] text-zinc-500 font-sans leading-tight">
-                          Completely filters out profile parameters and mapping
-                          loops if viewer.company_id == candidate.company_id.
-                        </p>
-                      </div>
-                      <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
-                        <input
-                          type="checkbox"
-                          id="AcceptConditions"
-                          className="peer sr-only"
-                        />
-                        <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Granular Profile Activity Telemetry
-                    </span>
-                    <div className="border border-zinc-200 divide-y divide-zinc-200 bg-white">
-                      <div className="p-2.5 flex items-center justify-between">
-                        <span className="text-[10px] text-zinc-800 font-mono font-bold uppercase">
-                          Hide network identity context during public vote
-                          operations
-                        </span>
-                        <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
-                          <input
-                            type="checkbox"
-                            id="AcceptConditions"
-                            className="peer sr-only"
-                          />
-                          <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
-                        </label>
-                      </div>
-
-                      <div className="p-2.5 flex items-center justify-between">
-                        <span className="text-[10px] text-zinc-800 font-mono font-bold uppercase">
-                          Mask candidate footprints when indexing company panel
-                          assessments
-                        </span>
-                        <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
-                          <input
-                            type="checkbox"
-                            id="AcceptConditions"
-                            className="peer sr-only"
-                          />
-                          <span className="absolute inset-y-0 start-0 m-1 size-3 rounded-full  ring-inset ring-white transition-all peer-checked:start-3.5 bg-zinc-500 peer-checked:w-1.5 peer-checked:bg-white peer-checked:ring-transparent"></span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Privacy />
               )}
 
               {/* 8. NOTIFICATION MATRICES */}
