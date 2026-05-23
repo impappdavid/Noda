@@ -37,6 +37,7 @@ import {
 } from "@/components/ui/select";
 import Session from "./SettingsDialog/Sessions";
 import Integrations from "./SettingsDialog/Integrations";
+import Workspace from "./SettingsDialog/Workspace";
 type SectionId =
   | "profile"
   | "preferences"
@@ -593,97 +594,7 @@ export default function FullyLoadedVerticalSettingsDialog({
 
               {/* 6. WORKSPACE & JOB SEARCH */}
               {activeSection === "workspace" && (
-                <div className="space-y-3.5 animate-in fade-in duration-100">
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Active Domain Mapping (users.company_id)
-                    </span>
-                    <div className="border border-zinc-200 p-2.5 bg-zinc-50/50 flex items-start justify-between">
-                      <div className="space-y-0.5">
-                        <div className="flex items-center gap-1.5 text-zinc-900 font-bold text-[10px]">
-                          <Building2 size={12} />
-                          <span>STRIPE INC. ENTERPRISE NODE</span>
-                        </div>
-                        <p className="text-[10px] text-zinc-500 font-mono">
-                          Role Tier: L6 Staff Systems Architect
-                        </p>
-                        <p className="text-[9px] text-zinc-400 font-mono">
-                          Bound: stripe.com verified internal workspace routing
-                          loop
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        className="text-[9px] font-bold uppercase tracking-tight text-red-600 border border-red-200 bg-white hover:bg-red-50 px-2 py-0.5 rounded-none cursor-pointer"
-                      >
-                        Leave Cluster
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1">
-                    <span className="text-[9px] font-bold text-zinc-400 uppercase tracking-wider">
-                      // Dynamic Recruitment Constraints
-                    </span>
-                    <div className="border border-zinc-200 bg-white p-2.5 space-y-3">
-                      {/* Numeric Entry Box */}
-                      <div className="space-y-1">
-                        <label className="text-[9px] font-bold text-zinc-400 block uppercase">
-                          Minimum Target Floor Compensation (USD)
-                        </label>
-                        <div className="relative flex items-center">
-                          <span className="absolute left-2.5 text-xs font-bold text-zinc-400">
-                            $
-                          </span>
-                          <input
-                            type="number"
-                            step={5000}
-                            value={minSalary}
-                            onChange={(e) =>
-                              setMinSalary(parseInt(e.target.value) || 0)
-                            }
-                            className="w-full pl-5 pr-3 h-6 border border-zinc-200 text-[11px] font-bold outline-none focus:border-zinc-400 bg-zinc-50/30 rounded-none font-mono"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Checkbox Grid Array Mapping */}
-                      <div className="space-y-1">
-                        <span className="text-[9px] font-bold text-zinc-400 block uppercase">
-                          Preferred Structural Models
-                        </span>
-                        <div className="grid grid-cols-3 gap-2 pt-0.5">
-                          {Object.keys(workModels).map((model) => (
-                            <label
-                              key={model}
-                              className={cn(
-                                "border p-1.5 flex items-center gap-2 cursor-pointer transition-all select-none bg-zinc-50/50",
-                                workModels[model]
-                                  ? "border-zinc-950 bg-white ring-1 ring-zinc-950"
-                                  : "border-zinc-200 hover:border-zinc-300",
-                              )}
-                            >
-                              <input
-                                type="checkbox"
-                                checked={workModels[model]}
-                                onChange={() =>
-                                  setWorkModels((prev) => ({
-                                    ...prev,
-                                    [model]: !prev[model],
-                                  }))
-                                }
-                                className="accent-zinc-900 rounded-none w-3 h-3 cursor-pointer"
-                              />
-                              <span className="text-[9.5px] font-bold text-zinc-800 font-mono">
-                                {model}
-                              </span>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <Workspace />
               )}
 
               {/* 7. STEALTH & PRIVACY */}
