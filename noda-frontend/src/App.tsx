@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom' // Added useLocation
 import Overview from './components/myComponents/LandingPage/Overview/Overview'
 import AppHome from './components/myComponents/App/Home/Home'
 import AppJobs from './components/myComponents/App/Jobs/Jobs'
@@ -34,17 +34,22 @@ import CreateCompanyPage from './components/myComponents/App/CreateCompany/Creat
 import VerificationTerminal from './components/myComponents/App/Admin/CompanyReview/CompanyReview'
 import Applicants from './components/myComponents/App/CompanyAdmin/Applicants/Applicants'
 import ProjectDetailView from './components/myComponents/App/Project/ProjectDetailView'
+import GlobalMessagingDock from './components/myComponents/App/GlobalMessagingDock'
+
+// 1. Import your dynamic message widget component structure block
 
 function App() {
+  // Pull current active window location context reference 
+  const location = useLocation();
+
+  // Evaluate if route match criteria target active app spaces
+  const isAppSpace = location.pathname.startsWith('/app');
 
   return (
     <>
       <Routes>
-
         <Route path="/" element={<Overview />} />
-      
-
-
+        
         <Route path="/login" element={<AuthController />} />
         <Route path="/signup" element={<SignupPage />} />
 
@@ -87,9 +92,11 @@ function App() {
         <Route path="/app/admin/jobs/create" element={<PostJob />} />
         <Route path="/app/admin/dashboard" element={<CompanyDashboard />} />
         <Route path="/app/admin/team" element={<TeamNodesManager />} />
-        
-
       </Routes>
+
+      {/* 2. Global Persistent Overlay Core Mount Engine
+          Render condition protects presentation inside onboarding screens */}
+      {isAppSpace && <GlobalMessagingDock />}
     </>
   )
 }
