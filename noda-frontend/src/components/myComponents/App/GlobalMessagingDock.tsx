@@ -66,7 +66,7 @@ export default function GlobalMessagingDock() {
   return (
     <div className="fixed bottom-0 right-4 z-50 flex items-end gap-2 select-none pointer-events-none">
       
-      {/* 1. DYNAMIC INDIVIDUAL CHAT POPUPS (Shorter height: 360px total) */}
+      {/* 1. DYNAMIC INDIVIDUAL CHAT POPUPS (Changes width when minimized) */}
       {activeChats.map((user) => (
         <MiniChatWindow 
           key={user.id} 
@@ -82,8 +82,8 @@ export default function GlobalMessagingDock() {
         />
       ))}
 
-      {/* 2. MASTER USER CONNECTOR DIRECTORY (Taller height: 440px total) */}
-      <div className="w-64 flex flex-col bg-white border border-zinc-300 shadow-2xl pointer-events-auto">
+      {/* 2. MASTER USER CONNECTOR DIRECTORY (Fixed standard width) */}
+      <div className="w-64 flex flex-col bg-white shadow-2xl pointer-events-auto ">
         
         {/* MASTER HEADER TRACK */}
         <header 
@@ -102,7 +102,7 @@ export default function GlobalMessagingDock() {
         {/* EXPANDABLE USER LIST HOUSING */}
         <div className={cn(
           "bg-white flex flex-col overflow-hidden transition-all duration-200 ease-in-out",
-          isOpen ? "h-[540px] w-full" : "h-0" // Increased from 96 (384px) to 440px
+          isOpen ? "h-[540px] w-full" : "h-0"
         )}>
           
           {/* Internal Filtering Row */}
@@ -130,7 +130,7 @@ export default function GlobalMessagingDock() {
                   className="p-2 flex items-center gap-2 hover:bg-zinc-200 last:border-b border-zinc-300 cursor-pointer transition-colors"
                 >
                   <div className="relative shrink-0">
-                    <img src={user.avatar} alt="" className="w-9 h-9  object-cover border border-zinc-200" />
+                    <img src={user.avatar} alt="" className="w-9 h-9 object-cover border border-zinc-200" />
                     {user.online && <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border border-white" />}
                   </div>
                   <div className="flex flex-col min-w-0 flex-1">
@@ -152,7 +152,7 @@ export default function GlobalMessagingDock() {
   );
 }
 
-// 3. SEPARATE CHAT WINDOW WORKSPACE
+// 3. SEPARATE CHAT WINDOW WITH CONDITIONAL MINIMIZED WIDTH
 interface MiniChatProps {
   user: UserNode;
   messages: MiniMessage[];
@@ -223,11 +223,14 @@ function MiniChatWindow({ user, messages, onClose, onSendMessage }: MiniChatProp
   };
 
   return (
-    <div className="w-72 flex flex-col bg-white border border-zinc-300 shadow-2xl pointer-events-auto">
+    <div className={cn(
+      "flex flex-col bg-white shadow-2xl pointer-events-auto transition-all duration-300 ease-in-out",
+      isMinimized ? "w-40" : "w-72" // Shifting width: w-72 (288px) when open, w-40 (160px) when minimized
+    )}>
       
       {/* HEADER BAR */}
       <header 
-        className="h-12 bg-zinc-900 text-white px-3 flex items-center justify-between cursor-pointer border-b border-zinc-800 shrink-0"
+        className="h-10 bg-zinc-800 text-white px-3 flex items-center justify-between cursor-pointer border-b border-zinc-800 shrink-0"
         onClick={() => setIsMinimized(!isMinimized)}
       >
         <div className="flex items-center gap-2 min-w-0">
@@ -241,19 +244,17 @@ function MiniChatWindow({ user, messages, onClose, onSendMessage }: MiniChatProp
           </div>
         </div>
         <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
-          <button onClick={() => setIsMinimized(!isMinimized)} className="text-zinc-400 hover:text-white p-0.5 transition-colors">
-            {isMinimized ? <ChevronUp size={15} /> : <ChevronDown size={15} />}
-          </button>
-          <button onClick={onClose} className="text-zinc-400 hover:text-white p-0.5 transition-colors">
+          
+          <button onClick={onClose} className="text-zinc-400 hover:text-white hover:bg-zinc-200/20 cursor-pointer p-1 transition-colors">
             <X size={15} />
           </button>
         </div>
       </header>
 
-      {/* CONTENT FLUID WORKSPACE (Shorter container height: 360px total) */}
+      {/* CONTENT FLUID WORKSPACE */}
       <div className={cn(
         "flex flex-col bg-white transition-all duration-150 relative",
-        isMinimized ? "h-0 overflow-hidden" : "h-[360px]" // Set specifically shorter than the main user list view window
+        isMinimized ? "h-0 overflow-hidden" : "h-[360px]"
       )}>
         
         <input type="file" ref={miniFileRef} onChange={handleMiniUpload} className="hidden" accept="image/*,.pdf" />
