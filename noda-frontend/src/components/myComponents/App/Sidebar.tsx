@@ -13,12 +13,13 @@ const userSession = {
 const routes = [
     { id: 0, name: "Home", route: "/app" },
     { id: 1, name: "Jobs", route: "/app/jobs" },
-    { id: 2, name: "Communities", route: "/app/communities" },
-    { id: 3, name: "Companies", route: "/app/companies" },
-    { id: 4, name: "Tracker", route: "/app/tracker" },
-    { id: 5, name: "Calendar", route: "/app/calendar" },
-    { id: 6, name: "Network", route: "/app/network" },
-    { id: 7, name: "Bookmarks", route: "/app/bookmarks" },
+    { id: 2, name: "Co-Build", route: "/app/co-build" },
+    { id: 3, name: "Communities", route: "/app/communities" },
+    { id: 4, name: "Companies", route: "/app/companies" },
+    { id: 5, name: "Tracker", route: "/app/tracker" },
+    { id: 6, name: "Calendar", route: "/app/calendar" },
+    { id: 7, name: "Network", route: "/app/network" },
+    { id: 8, name: "Bookmarks", route: "/app/bookmarks" },
 ];
 
 const AppSideBar = () => {
