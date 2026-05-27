@@ -49,9 +49,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Overview />} />
         
-        <Route path="/login" element={<AuthController />} />
+        <Route path="/" element={<AuthController />} />
         <Route path="/signup" element={<SignupPage />} />
 
         <Route path="/app/post/:id" element={<PostDetail />} />

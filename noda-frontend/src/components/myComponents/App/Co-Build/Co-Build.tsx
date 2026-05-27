@@ -120,10 +120,9 @@ const CoBuildPage = () => {
           {/* COLUMN 2: PRIMARY INTERFACE GRID FEED */}
           <main className="flex-1 border-x border-zinc-300 min-h-screen pt-13 bg-white flex flex-col">
             
-            <div className="p-2 bg-zinc-50 border-b border-zinc-300 flex items-center justify-between font-mono">
+            <div className="p-2 bg-zinc-200 border-b border-zinc-300 flex items-center justify-between font-mono">
               <div className="text-[10px] font-black uppercase text-zinc-900 tracking-tight flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-zinc-900 inline-block" />
-                <span>Registry Matrix // Clean Build Grid</span>
+                <span>Find your next coding project</span>
               </div>
             </div>
 
@@ -137,7 +136,7 @@ const CoBuildPage = () => {
                     {/* FLAT SQUARED STRUCTURAL CARD VIEW - MAX PADDING p-2 BOUNDS */}
                     <div 
                       onClick={(e) => { e.preventDefault(); e.stopPropagation(); }} 
-                      className="bg-white flex flex-col select-none relative rounded-none p-2 gap-3"
+                      className="bg-white flex flex-col select-none relative rounded-none p-1.5 gap-2"
                     >
                       
                       {/* INTEGRATED CAROUSEL SYSTEM - NO RADIUS */}
