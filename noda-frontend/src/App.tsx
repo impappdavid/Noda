@@ -36,6 +36,7 @@ import Applicants from './components/myComponents/App/CompanyAdmin/Applicants/Ap
 import ProjectDetailView from './components/myComponents/App/Project/ProjectDetailView'
 import GlobalMessagingDock from './components/myComponents/App/GlobalMessagingDock'
 import ProjectDashboard from './components/myComponents/App/Co-Build/Co-Build'
+import CoBuildPage from './pages/CoBuildPage'
 
 // 1. Import your dynamic message widget component structure block
 
@@ -68,7 +69,7 @@ function App() {
 
         <Route path="/app" element={<AppHome />} />
         <Route path="/app/jobs" element={<AppJobs />} />
-        <Route path="/app/co-build" element={<ProjectDashboard />} />
+        <Route path="/app/co-build" element={<CoBuildPage />} />
         <Route path="/app/companies" element={<AppCompanies />} />
         <Route path="/app/tracker" element={<AppTracker />} />
         <Route path="/app/communities" element={<AppCommunities />} />

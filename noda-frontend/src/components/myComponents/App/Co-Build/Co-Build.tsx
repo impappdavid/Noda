@@ -30,7 +30,7 @@ interface ProjectData {
   currentTeam: { name: string; initials: string; role: string }[];
 }
 
-const CoBuildPage = () => {
+const CoBuild = () => {
   const [projects, setProjects] = useState<ProjectData[]>([
     {
       id: "BLD-092",
@@ -399,4 +399,4 @@ const CoBuildPage = () => {
   );
 };
 
-export default CoBuildPage;
+export default CoBuild;
