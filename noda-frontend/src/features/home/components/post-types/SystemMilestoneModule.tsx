@@ -1,25 +1,45 @@
 import { Sparkles, Check } from "lucide-react";
 import type { MilestoneData } from "./types";
+import { useNotifications } from "@/context/NotificationContext";
 
 export const SystemMilestoneModule = ({ milestone }: { milestone: MilestoneData }) => {
+  const { addNotification } = useNotifications();
+
   // Ultra-compact theme configurations
   const themeConfig = {
     PROMOTION: {
       actionText: "PROMOTED",
       gradient: "from-emerald-500/15 via-emerald-500/5 to-transparent",
       textColor: "text-emerald-700",
+      successTitle: "SALUTE TRANSMITTED",
+      successMessage: `Career advancement salute successfully logged for @${milestone.targetUser.username}.`,
     },
     NEW_HIRE: {
       actionText: "JOINED",
       gradient: "from-blue-500/15 via-blue-500/5 to-transparent",
       textColor: "text-blue-700",
+      successTitle: "ONBOARDING SALUTE",
+      successMessage: `Onboarding welcome signal deployed to @${milestone.targetUser.username}'s hub.`,
     },
     ANNIVERSARY: {
       actionText: "ANNIVERSARY",
       gradient: "from-amber-500/15 via-amber-500/5 to-transparent",
       textColor: "text-amber-700",
+      successTitle: "TENURE RECOGNIZED",
+      successMessage: `Tenure milestone affirmation broadcasted to @${milestone.targetUser.username}.`,
     },
   }[milestone.category];
+
+  const handleSaluteClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation(); // Stops the parent component context routing loops
+
+    addNotification({
+      title: themeConfig.successTitle,
+      message: themeConfig.successMessage,
+      type: "success",
+    });
+  };
 
   return (
     <div 
@@ -98,7 +118,7 @@ export const SystemMilestoneModule = ({ milestone }: { milestone: MilestoneData 
         {/* CONTROLS AREA */}
         <div className="flex justify-end">
           <button 
-            onClick={() => alert(`Saluted @${milestone.targetUser.username}`)}
+            onClick={handleSaluteClick}
             className="h-6 px-2.5 border border-zinc-300 rounded-none bg-white hover:bg-zinc-50 transition-colors text-[10px] font-mono font-black text-zinc-700 uppercase tracking-wider cursor-pointer flex items-center gap-1 active:scale-[0.98]"
           >
             <Sparkles size={10} className="text-zinc-400 fill-zinc-400" />

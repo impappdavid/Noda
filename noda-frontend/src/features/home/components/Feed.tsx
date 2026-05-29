@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PostViewDialog from "./PostDialog";
 import { PostCard } from "./post-types/PostCard";
-import type { Post } from "@/components/myComponents/App/Home/PostCards/types";
+import type { Post } from "./post-types/types";
 
 // --- Static Registry Matrix (Preserved and kept outside component scope to prevent re-allocations) ---
 const FEED_POSTS_REGISTRY: Post[] = [

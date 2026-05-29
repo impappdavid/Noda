@@ -1,5 +1,5 @@
 import './App.css'
-import { Routes, Route, useLocation } from 'react-router-dom' // Added useLocation
+import { Routes, Route, useLocation } from 'react-router-dom'
 import AppJobs from './components/myComponents/App/Jobs/Jobs'
 import AppCompanies from './components/myComponents/App/Companies/Companies'
 import AppTracker from './components/myComponents/App/Tracker/Tracker'
@@ -36,19 +36,19 @@ import GlobalMessagingDock from './components/myComponents/App/GlobalMessagingDo
 import CoBuildPage from './pages/CoBuildPage'
 import HomePage from './pages/HomePage'
 
-// 1. Import your dynamic message widget component structure block
+// --- GLOBAL NOTIFICATION STATE ENGINE ---
+import { NotificationProvider } from './context/NotificationContext'
+import { GlobalNotificationDock } from './components/system/GlobalNotificationDock'
 
 function App() {
-  // Pull current active window location context reference 
   const location = useLocation();
-
-  // Evaluate if route match criteria target active app spaces
   const isAppSpace = location.pathname.startsWith('/app');
 
   return (
-    <>
+    /* Keeping the provider permanent at the root prevents it from unmounting 
+       and throwing away notifications when switching routes */
+    <NotificationProvider>
       <Routes>
-        
         <Route path="/" element={<AuthController />} />
         <Route path="/signup" element={<SignupPage />} />
 
@@ -94,11 +94,15 @@ function App() {
         <Route path="/app/admin/team" element={<TeamNodesManager />} />
       </Routes>
 
-      {/* 2. Global Persistent Overlay Core Mount Engine
-          Render condition protects presentation inside onboarding screens */}
-      {isAppSpace && <GlobalMessagingDock />}
-    </>
-  )
+      {/* Conditionally render your visual layout overlays only in application space */}
+      {isAppSpace && (
+        <>
+          <GlobalMessagingDock />
+          <GlobalNotificationDock />
+        </>
+      )}
+    </NotificationProvider>
+  );
 }
 
-export default App
+export default App;
