@@ -1,7 +1,6 @@
-import React from "react";
 import { ExternalLink, Github, FolderGit2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { ProjectData } from "@/components/myComponents/App/Home/PostCards/types";
+import type { ProjectData } from "./types";
 
 export const ProjectShowcaseModule = ({ project }: { project: ProjectData }) => {
   return (

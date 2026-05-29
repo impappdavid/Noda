@@ -7,7 +7,7 @@ import { ProjectShowcaseModule } from "./ProjectShowcaseModule";
 import { ActionTray } from "./InteractionButtons";
 import { SystemMilestoneModule } from "./SystemMilestoneModule";
 import { JobListingModule } from "./JobListingModule";
-import type { Post } from "@/components/myComponents/App/Home/PostCards/types";
+import type { Post } from "./types";
 
 interface PostCardProps {
   post: Post;

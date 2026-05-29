@@ -1,6 +1,5 @@
-import React from "react";
 import { Sparkles, Check } from "lucide-react";
-import type { MilestoneData } from "@/components/myComponents/App/Home/PostCards/types";
+import type { MilestoneData } from "./types";
 
 export const SystemMilestoneModule = ({ milestone }: { milestone: MilestoneData }) => {
   // Ultra-compact theme configurations
