@@ -1,6 +1,5 @@
 import './App.css'
 import { Routes, Route, useLocation } from 'react-router-dom' // Added useLocation
-import AppHome from './components/myComponents/App/Home/Home'
 import AppJobs from './components/myComponents/App/Jobs/Jobs'
 import AppCompanies from './components/myComponents/App/Companies/Companies'
 import AppTracker from './components/myComponents/App/Tracker/Tracker'

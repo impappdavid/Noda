@@ -3,7 +3,6 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { X, Plus, Check, Loader2, Users2, Shield } from "lucide-react";
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
-import Suggestions from '../Home/Suggestions';
 
 // --- MOCK_DATA_RESOURCES ---
 const USER_DATA = Array.from({ length: 51 }, (_, i) => ({

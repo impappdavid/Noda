@@ -3,7 +3,6 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { X, Loader2, Users2, Star, Plus, Check } from "lucide-react";
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
-import Suggestions from '../Home/Suggestions';
 
 const COMPANY_DATA = [
     { 

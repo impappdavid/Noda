@@ -10,7 +10,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import PostViewDialog from "../../Home/PostDialog";
 
 // --- 1. COMPACT VOTE MODULE ---
 const VoteCounter = ({ id }: { id: string }) => {
@@ -133,12 +132,7 @@ export default function IdeaFeed() {
         </div>
       ))}
 
-      <PostViewDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        selectedImg={selectedImg}
-        selectedPost={selectedPost}
-      />
+      
     </div>
   );
 }

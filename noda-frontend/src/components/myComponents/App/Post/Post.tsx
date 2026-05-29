@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ArrowLeft, MessageSquare, Heart, AlertTriangle, BarChart3, Bookmark, X as CloseIcon, Copy } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
@@ -6,9 +7,6 @@ import AppSideBar from '../Sidebar';
 import CommentNode from './CommentNode';
 import { cn } from "@/lib/utils";
 import { PollModule } from './PollSection';
-import { ProjectShowcaseModule } from '../Home/PostCards/ProjectShowcaseModule';
-import { SystemMilestoneModule } from '../Home/PostCards/SystemMilestoneModule';
-import { JobListingModule } from '../Home/PostCards/JobListingModule';
 
 interface Post {
   id: string;
@@ -80,7 +78,6 @@ const PostDetail = () => {
         <div className="min-h-screen bg-white text-zinc-900 font-sans flex flex-col">
             <Navbar />
 
-            {/* LIGHTBOX */}
             {selectedImg && (
                 <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onClick={() => setSelectedImg(null)}>
                     <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors cursor-pointer"><CloseIcon size={32} /></button>
@@ -95,7 +92,7 @@ const PostDetail = () => {
 
                 <div className="flex-1 flex gap-3">
                     <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen pt-12.5">
-                        {/* SUB-HEADER */}
+                        
                         <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-[52px] z-20 h-10 divide-x divide-zinc-200">
                             <button onClick={() => navigate(-1)} className="px-3 h-full hover:bg-zinc-50 flex items-center gap-3 cursor-pointer transition-colors">
                                 <ArrowLeft size={14} /><span className="text-[9px] font-mono font-black uppercase tracking-widest">Return</span>
@@ -107,34 +104,15 @@ const PostDetail = () => {
                             </button>
                         </div>
 
-                        {/* ARTICLE */}
+                    
                         <article className="p-3 bg-white">
                             <PostHeader author={MOCK_POST.author} postedAgo={MOCK_POST.postedAgo} onCopy={handleCopyLink} onAvatarClick={(id) => navigate(`/app/user/${id}`)} />
                             
                             <div className="pl-0 md:pl-[52px]">
                                 <p className="text-sm text-zinc-800 leading-relaxed mb-2">{MOCK_POST.content}</p>
 
-                                {/* FEED CARD CATEGORIES INJECTION MODULES */}
-                                <div className="mb-2">
-                                    {MOCK_POST.type === "poll" && MOCK_POST.poll && (
-                                        <PollModule poll={MOCK_POST.poll}
-                                        />
-                                    )}
+                                
 
-                                    {MOCK_POST.type === "project_showcase" && MOCK_POST.project && (
-                                        <ProjectShowcaseModule project={MOCK_POST.project} />
-                                    )}
-
-                                    {MOCK_POST.type === "system_milestone" && MOCK_POST.milestone && (
-                                        <SystemMilestoneModule milestone={MOCK_POST.milestone} />
-                                    )}
-
-                                    {MOCK_POST.type === "job_listing" && MOCK_POST.jobListing && (
-                                        <JobListingModule job={MOCK_POST.jobListing} />
-                                    )}
-                                </div>
-
-                                {/* CAROUSEL / IMAGES DISPLAY SECTION */}
                                 {MOCK_POST.images && MOCK_POST.images.length > 0 && MOCK_POST.type !== "poll" && (
                                     <div className="overflow-hidden border border-zinc-100 grid grid-cols-2 gap-1 mb-4 aspect-video">
                                         {MOCK_POST.images.map((img, i) => (
@@ -153,13 +131,11 @@ const PostDetail = () => {
                             </div>
                         </article>
 
-                        {/* COMMENT INPUT */}
                         <div className="sticky bottom-0 bg-white border-y border-zinc-300 flex h-12 z-10">
                             <input placeholder="TRANSMIT RESPONSE..." className="flex-1 px-3 text-[10px] font-mono font-black uppercase outline-none" />
                             <button className="bg-zinc-800 text-white px-8 text-[10px] font-mono uppercase font-black hover:bg-zinc-900 transition-colors cursor-pointer">Send</button>
                         </div>
 
-                        {/* COMMENTS */}
                         <div className="divide-y divide-zinc-100 pb-20">
                             {[1, 2].map((i) => (
                                 <CommentNode key={i} id={`user_${i}`} likes={15} onUserClick={(id) => navigate(`/app/user/${id}`)} />
@@ -167,7 +143,6 @@ const PostDetail = () => {
                         </div>
                     </main>
 
-                    {/* SIDEBAR */}
                     <aside className="sticky top-0 h-screen pt-15 w-40 flex flex-col gap-4">
                         <IntelligenceCard author={MOCK_POST.author} onClick={(id) => navigate(`/app/user/${id}`)} />
                     </aside>

@@ -1,6 +1,4 @@
 import Navbar from "../../AppNavbar";
-import PostForm from "../../Home/PostForm";
-import Suggestions from "../../Home/Suggestions";
 import AppSideBar from "../../Sidebar";
 import IdeaFeed from "./IdeaFeed";
 import IdeaForm from "./IdeaFormDialog";
@@ -22,7 +20,6 @@ const AppHome = () => {
             <IdeaFeed />
           </main>
 
-          <Suggestions />
         </div>
       </div>
     </div>
