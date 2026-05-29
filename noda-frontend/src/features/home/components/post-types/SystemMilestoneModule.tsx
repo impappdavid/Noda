@@ -28,7 +28,7 @@ export const SystemMilestoneModule = ({ milestone }: { milestone: MilestoneData 
 
   return (
     <div 
-      className="w-full bg-white border border-zinc-200 rounded-none p-2 flex flex-col select-none font-mono text-left tracking-tight"
+      className="w-full bg-zinc-400/20 border border-zinc-200 rounded-none p-2 flex flex-col select-none font-mono text-left tracking-tight"
       onClick={(e) => e.preventDefault()}
     >
       {/* 1. TOP ROW HEADER (Matches 'Store: Name' & 'Status Badge' from image_ca3a91.png) */}
@@ -47,7 +47,7 @@ export const SystemMilestoneModule = ({ milestone }: { milestone: MilestoneData 
         {/* Left Side: Thumbnail Asset and Text Stack */}
         <div className="flex items-center gap-3 min-w-0">
           {/* User Profile Square Frame */}
-          <div className="w-9 h-9 border border-zinc-200 bg-zinc-100 overflow-hidden shrink-0 rounded-none">
+          <div className="w-9 h-9 border border-zinc-300 bg-zinc-100 overflow-hidden shrink-0 rounded-none">
             <img 
               src={milestone.targetUser.avatar} 
               alt={milestone.targetUser.name} 
@@ -61,7 +61,7 @@ export const SystemMilestoneModule = ({ milestone }: { milestone: MilestoneData 
             <h4 className="text-xs font-bold text-zinc-900 uppercase tracking-tight truncate leading-tight">
               {isPromotion ? (
                 <span className="flex items-center gap-1">
-                  <span className="text-zinc-400 line-through font-normal">{milestone.targetUser.previousRole}</span>
+                  <span className="text-zinc-500 line-through font-normal">{milestone.targetUser.previousRole}</span>
                   <ArrowRight size={11} className="text-zinc-300 stroke-[2.5]" />
                   <span>{milestone.targetUser.assignedRole}</span>
                 </span>
@@ -71,7 +71,7 @@ export const SystemMilestoneModule = ({ milestone }: { milestone: MilestoneData 
             </h4>
             
             {/* User Meta Subtitle */}
-            <span className="text-[10px] text-zinc-400 font-normal block truncate mt-1">
+            <span className="text-[10px] text-zinc-500 font-normal block truncate mt-1">
               <span className="text-zinc-700 font-bold uppercase">{milestone.targetUser.name}</span> • @{milestone.targetUser.username}
             </span>
           </div>
@@ -81,10 +81,9 @@ export const SystemMilestoneModule = ({ milestone }: { milestone: MilestoneData 
         <div className="shrink-0">
           <button
             onClick={handleCongratulate}
-            className="group flex items-center gap-1.5 h-6 px-2 bg-zinc-50 border border-zinc-200 text-[10px] font-bold text-zinc-700 hover:text-white hover:bg-zinc-950 hover:border-zinc-950 transition-all uppercase rounded-none cursor-pointer outline-none"
+            className="group flex items-center gap-1.5 h-6 px-2 bg-blue-500 border border-zinc-200 text-[10px] font-bold text-white hover:text-white hover:bg-blue-600  transition-all uppercase rounded-none cursor-pointer outline-none"
           >
             <span>Congratulate</span>
-            <MessageSquarePlus size={11} className="text-zinc-400 group-hover:text-zinc-300" />
           </button>
         </div>
 

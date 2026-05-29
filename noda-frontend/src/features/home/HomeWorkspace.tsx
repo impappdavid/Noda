@@ -7,7 +7,7 @@ const HomeWorkspace = () => {
     <div className="flex flex-1 min-w-0 gap-2">
       
       {/* Center Feed Column */}
-      <main className="flex-1 max-w-xl w-full border-x border-zinc-300 min-h-screen pt-13 bg-white flex flex-col min-w-0">
+      <main className="flex-1 max-w-xl w-full min-h-screen pt-13  flex flex-col min-w-0">
         <PostForm />
         <Feed />
       </main>
