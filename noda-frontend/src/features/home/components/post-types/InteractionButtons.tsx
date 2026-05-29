@@ -1,6 +1,8 @@
 import React from "react";
 import { Heart, MessageSquare, ChartNoAxesColumn, Bookmark, Share } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+// --- IMPORT NOTIFICATION SYSTEM ---
+import { useNotifications } from "@/context/NotificationContext";
 
 export const LikeButton = ({ post, isLiked, onToggle }: any) => (
   <button
@@ -9,7 +11,6 @@ export const LikeButton = ({ post, isLiked, onToggle }: any) => (
       isLiked ? "text-blue-600" : "text-zinc-500 hover:text-blue-600"
     }`}
   >
-    {/* EXPANDING RING BURST EFFECT */}
     <AnimatePresence>
       {isLiked && (
         <motion.span
@@ -22,7 +23,6 @@ export const LikeButton = ({ post, isLiked, onToggle }: any) => (
       )}
     </AnimatePresence>
 
-    {/* SPRING BOUNCE ICON */}
     <motion.div 
       animate={isLiked ? { scale: [1, 1.35, 0.95, 1], rotate: [0, -8, 8, 0] } : { scale: 1 }} 
       transition={{ type: "spring", stiffness: 350, damping: 15 }}
@@ -31,7 +31,6 @@ export const LikeButton = ({ post, isLiked, onToggle }: any) => (
       <Heart size={13} className={isLiked ? "fill-blue-600 stroke-blue-600" : "fill-transparent stroke-current"} />
     </motion.div>
 
-    {/* ROLLING TEXT NUMBER COUNTER */}
     <div className="overflow-hidden h-4 font-bold relative z-10">
       <AnimatePresence mode="wait">
         <motion.span
@@ -49,25 +48,49 @@ export const LikeButton = ({ post, isLiked, onToggle }: any) => (
   </button>
 );
 
-export const BookmarkButton = ({ isBookmarked, onToggle }: any) => (
-  <button
-    onClick={onToggle}
-    className={`relative outline-none cursor-pointer p-0.5 flex items-center justify-center ${
-      isBookmarked ? "text-zinc-900" : "text-zinc-400 hover:text-zinc-900"
-    }`}
-  >
-    {/* TACTICAL SLIDE AND SNAP SPRING ANCHOR */}
-    <motion.div
-      animate={isBookmarked ? { y: [0, -3, 1, 0], scale: [1, 1.15, 0.95, 1] } : { y: 0, scale: 1 }}
-      transition={{ type: "spring", stiffness: 400, damping: 12 }}
+// --- UPDATED BOOKMARK BUTTON WITH NOTIFICATION TRIGGER ---
+export const BookmarkButton = ({ isBookmarked, onToggle }: any) => {
+  const { addNotification } = useNotifications();
+
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    // Fire your standard state propagation toggle
+    onToggle(e);
+
+    // Conditionally send context feedback alerts depending on toggle transitions
+    if (!isBookmarked) {
+      addNotification({
+        title: "BOOKMARK SAVED",
+        message: "Post added to your bookmarks.",
+        type: "success",
+      });
+    } else {
+      addNotification({
+        title: "BOOKMARK REMOVED",
+        message: "Post removed from your bookmarks.",
+        type: "info",
+      });
+    }
+  };
+
+  return (
+    <button
+      onClick={handleBookmarkClick}
+      className={`relative outline-none cursor-pointer p-0.5 flex items-center justify-center ${
+        isBookmarked ? "text-zinc-900" : "text-zinc-400 hover:text-zinc-900"
+      }`}
     >
-      <Bookmark
-        size={13}
-        className={isBookmarked ? "fill-zinc-900 stroke-zinc-900" : "fill-transparent stroke-current"}
-      />
-    </motion.div>
-  </button>
-);
+      <motion.div
+        animate={isBookmarked ? { y: [0, -3, 1, 0], scale: [1, 1.15, 0.95, 1] } : { y: 0, scale: 1 }}
+        transition={{ type: "spring", stiffness: 400, damping: 12 }}
+      >
+        <Bookmark
+          size={13}
+          className={isBookmarked ? "fill-zinc-900 stroke-zinc-900" : "fill-transparent stroke-current"}
+        />
+      </motion.div>
+    </button>
+  );
+};
 
 export const ActionTray = ({
   post,
@@ -77,7 +100,7 @@ export const ActionTray = ({
   toggleBookmark,
 }: any) => (
   <div
-    className="flex items-center justify-between mt-2  border-t border-zinc-100 select-none"
+    className="flex items-center justify-between mt-2 border-t border-zinc-100 select-none"
     onClick={(e) => e.preventDefault()}
   >
     <div className="flex items-center gap-4">

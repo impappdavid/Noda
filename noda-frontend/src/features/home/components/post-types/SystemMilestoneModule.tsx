@@ -1,130 +1,93 @@
-import { Sparkles, Check } from "lucide-react";
+import React from "react";
+import { ArrowRight, MessageSquarePlus } from "lucide-react";
 import type { MilestoneData } from "./types";
 import { useNotifications } from "@/context/NotificationContext";
 
 export const SystemMilestoneModule = ({ milestone }: { milestone: MilestoneData }) => {
   const { addNotification } = useNotifications();
 
-  // Ultra-compact theme configurations
-  const themeConfig = {
-    PROMOTION: {
-      actionText: "PROMOTED",
-      gradient: "from-emerald-500/15 via-emerald-500/5 to-transparent",
-      textColor: "text-emerald-700",
-      successTitle: "SALUTE TRANSMITTED",
-      successMessage: `Career advancement salute successfully logged for @${milestone.targetUser.username}.`,
-    },
-    NEW_HIRE: {
-      actionText: "JOINED",
-      gradient: "from-blue-500/15 via-blue-500/5 to-transparent",
-      textColor: "text-blue-700",
-      successTitle: "ONBOARDING SALUTE",
-      successMessage: `Onboarding welcome signal deployed to @${milestone.targetUser.username}'s hub.`,
-    },
-    ANNIVERSARY: {
-      actionText: "ANNIVERSARY",
-      gradient: "from-amber-500/15 via-amber-500/5 to-transparent",
-      textColor: "text-amber-700",
-      successTitle: "TENURE RECOGNIZED",
-      successMessage: `Tenure milestone affirmation broadcasted to @${milestone.targetUser.username}.`,
-    },
+  const isPromotion = milestone.category === "PROMOTION";
+
+  // Light-mode, high-contrast structural badge mappings
+  const statusConfig = {
+    PROMOTION: { label: "Promoted", style: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+    NEW_HIRE: { label: "Hired", style: "bg-blue-50 text-blue-700 border-blue-200" },
+    ANNIVERSARY: { label: "Anniversary", style: "bg-amber-50 text-amber-700 border-amber-200" },
   }[milestone.category];
 
-  const handleSaluteClick = (e: React.MouseEvent) => {
+  const handleCongratulate = (e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation(); // Stops the parent component context routing loops
+    e.stopPropagation();
 
     addNotification({
-      title: themeConfig.successTitle,
-      message: themeConfig.successMessage,
+      title: "CONGRATULATIONS FIRED",
+      message: `Greeting signal successfully dispatched to @${milestone.targetUser.username}.`,
       type: "success",
     });
   };
 
   return (
     <div 
-      className="mt-2 border border-zinc-300 rounded-none bg-white overflow-hidden select-none"
+      className="w-full bg-white border border-zinc-200 rounded-none p-2 flex flex-col select-none font-mono text-left tracking-tight"
       onClick={(e) => e.preventDefault()}
     >
-      {/* 1. COMPACT HERO BANNER (Strict Square Assets & Layout) */}
-      <div className={`h-14 w-full bg-gradient-to-r ${themeConfig.gradient} relative flex items-center justify-between p-2 border-b border-zinc-200`}>
-        
-        {/* RECTILINEAR OVERLAPPING BADGE MATRIX */}
-        <div className="flex items-center gap-2">
-          <div className="relative w-11 h-11 shrink-0">
-            {/* Base Block: Company Logo Container */}
-            <div className="absolute top-0 left-0 w-8 h-8 rounded-none border border-zinc-300 bg-black overflow-hidden flex items-center justify-center shadow-xs">
-              <img 
-                src={milestone.companyLogo} 
-                alt={milestone.companyName} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            
-            {/* Overlap Block: Target Employee Portrait */}
-            <div className="absolute bottom-0 right-0 w-7 h-7 rounded-none border border-white bg-zinc-100 overflow-hidden shadow-xs">
-              <img 
-                src={milestone.targetUser.avatar} 
-                alt={milestone.targetUser.name} 
-                className="w-full h-full object-cover"
-              />
-            </div>
+      {/* 1. TOP ROW HEADER (Matches 'Store: Name' & 'Status Badge' from image_ca3a91.png) */}
+      <div className="flex items-center justify-between pb-1 border-b border-zinc-300">
+        <span className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider">
+          System Update
+        </span>
+        <span className={`text-[9px] font-bold px-1.5 py-0.5 border rounded-none ${statusConfig.style}`}>
+          {statusConfig.label}
+        </span>
+      </div>
 
-            {/* Corner System Verification Indicator */}
-            <div className="absolute top-0 right-2.5 bg-emerald-600 text-white rounded-none p-0.5 border border-white z-30 flex items-center justify-center">
-              <Check size={6} className="stroke-[4]" />
-            </div>
+      {/* 2. MAIN CONTENT ROW (Matches product asset, titles, and right-side metrics from image_ca3a91.png) */}
+      <div className="flex items-center justify-between gap-4 mt-3">
+        
+        {/* Left Side: Thumbnail Asset and Text Stack */}
+        <div className="flex items-center gap-3 min-w-0">
+          {/* User Profile Square Frame */}
+          <div className="w-9 h-9 border border-zinc-200 bg-zinc-100 overflow-hidden shrink-0 rounded-none">
+            <img 
+              src={milestone.targetUser.avatar} 
+              alt={milestone.targetUser.name} 
+              className="w-full h-full object-cover" 
+            />
           </div>
 
-          {/* Identity Descriptor */}
-          <div className="min-w-0">
-            <h4 className="text-[11px] font-mono font-black text-zinc-900 uppercase tracking-wide truncate leading-tight">
-              {milestone.companyName}
+          {/* Primary Text Info Matrix */}
+          <div className="min-w-0 flex flex-col justify-center">
+            {/* The Role Header */}
+            <h4 className="text-xs font-bold text-zinc-900 uppercase tracking-tight truncate leading-tight">
+              {isPromotion ? (
+                <span className="flex items-center gap-1">
+                  <span className="text-zinc-400 line-through font-normal">{milestone.targetUser.previousRole}</span>
+                  <ArrowRight size={11} className="text-zinc-300 stroke-[2.5]" />
+                  <span>{milestone.targetUser.assignedRole}</span>
+                </span>
+              ) : (
+                <span>{milestone.targetUser.assignedRole}</span>
+              )}
             </h4>
-            <span className="text-[9px] font-mono text-zinc-400 block truncate leading-none mt-0.5">
-              @{milestone.targetUser.username}
+            
+            {/* User Meta Subtitle */}
+            <span className="text-[10px] text-zinc-400 font-normal block truncate mt-1">
+              <span className="text-zinc-700 font-bold uppercase">{milestone.targetUser.name}</span> • @{milestone.targetUser.username}
             </span>
           </div>
         </div>
 
-        {/* BOLD DISPATCH LABEL */}
-        <div className="pr-1">
-          <span className={`text-base font-mono font-black tracking-wider ${themeConfig.textColor}`}>
-            {themeConfig.actionText}
-          </span>
-        </div>
-      </div>
-
-      {/* 2. DESCRIPTION TEXT & INTERACTION ROW (Max p-2, gap-2) */}
-      <div className="p-2 flex flex-col gap-2">
-        <div className="bg-zinc-50 rounded-none p-2 border border-zinc-200 text-xs text-zinc-600 leading-relaxed font-normal">
-          {milestone.category === "NEW_HIRE" && (
-            <p>
-              Please congratulate <span className="font-bold text-zinc-900">{milestone.targetUser.name}</span> on their formal onboarding parameters update! Welcome to the workspace ecosystem as the newly appointed <span className="font-bold text-zinc-900 uppercase">{milestone.targetUser.assignedRole}</span>.
-            </p>
-          )}
-          {milestone.category === "PROMOTION" && (
-            <p>
-              Please congratulate <span className="font-bold text-zinc-900">{milestone.targetUser.name}</span> on their formal career evolution milestone setup! Advanced safely from <span className="text-zinc-400 line-through">{milestone.targetUser.previousRole}</span> to the new rank of <span className="font-bold text-zinc-900 uppercase">{milestone.targetUser.assignedRole}</span>.
-            </p>
-          )}
-          {milestone.category === "ANNIVERSARY" && (
-            <p>
-              Please congratulate <span className="font-bold text-zinc-900">{milestone.targetUser.name}</span> on celebrating an official tenure log milestone marker! Active infrastructure commitment as a dedicated <span className="font-bold text-zinc-900 uppercase">{milestone.targetUser.assignedRole}</span>.
-            </p>
-          )}
-        </div>
-
-        {/* CONTROLS AREA */}
-        <div className="flex justify-end">
-          <button 
-            onClick={handleSaluteClick}
-            className="h-6 px-2.5 border border-zinc-300 rounded-none bg-white hover:bg-zinc-50 transition-colors text-[10px] font-mono font-black text-zinc-700 uppercase tracking-wider cursor-pointer flex items-center gap-1 active:scale-[0.98]"
+        {/* Right Side: Interactive Congratulate Trigger */}
+        <div className="shrink-0">
+          <button
+            onClick={handleCongratulate}
+            className="group flex items-center gap-1.5 h-6 px-2 bg-zinc-50 border border-zinc-200 text-[10px] font-bold text-zinc-700 hover:text-white hover:bg-zinc-950 hover:border-zinc-950 transition-all uppercase rounded-none cursor-pointer outline-none"
           >
-            <Sparkles size={10} className="text-zinc-400 fill-zinc-400" />
-            <span>Salute</span>
+            <span>Congratulate</span>
+            <MessageSquarePlus size={11} className="text-zinc-400 group-hover:text-zinc-300" />
           </button>
         </div>
+
       </div>
     </div>
   );
