@@ -12,7 +12,6 @@ const Suggestions = () => {
 
           <ProfileSetup />
 
-          <ProfileActivity />
         </div>
       </aside>
     </>
