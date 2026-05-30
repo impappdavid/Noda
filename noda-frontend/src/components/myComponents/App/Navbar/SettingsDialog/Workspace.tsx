@@ -70,7 +70,7 @@ const Workspace = () => {
               type="button"
               className="h-7 px-2.5 border border-zinc-200 hover:border-red-200 text-red-600 hover:bg-red-500/20 text-[9px] font-bold uppercase tracking-tight transition-colors rounded-none cursor-pointer select-none"
             >
-              Leave 
+              Leave
             </button>
           </div>
         </div>
@@ -131,7 +131,7 @@ const Workspace = () => {
           </div>
 
           {/* Row 2: Structural Models Checkbox Array */}
-          <div className="p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+          <div className="p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-0.5">
               <span className="font-bold text-zinc-950 text-[10px] uppercase block">
                 Preferred Structural Models
@@ -141,33 +141,29 @@ const Workspace = () => {
               </span>
             </div>
 
-            {/* Matrix Layout Filter Row */}
-            <div className="flex items-center gap-1.5 w-full sm:w-auto">
-              {Object.keys(workModels).map((model) => {
+            {/* Pill Container imitating the uploaded image style */}
+            <div className="flex items-center p-0.5 bg-zinc-200/80 dark:bg-zinc-900  w-full sm:w-auto relative select-none">
+              {Object.keys(workModels).map((model, index, array) => {
                 const isActive = workModels[model];
                 return (
-                  <button
+                  <div
                     key={model}
-                    type="button"
-                    onClick={() => toggleModel(model)}
-                    className={`h-7 px-2.5 border text-[9px] font-bold tracking-wider uppercase transition-colors cursor-pointer rounded-none flex items-center gap-1.5 ${
-                      isActive
-                        ? "border-zinc-950 bg-zinc-950 text-white font-black"
-                        : "border-zinc-200 hover:border-zinc-300 bg-white text-zinc-500"
-                    }`}
+                    className="flex items-center relative flex-1 sm:flex-initial"
                   >
-                    <div className="shrink-0">
-                      {isActive ? (
-                        <CheckSquare size={10} className="stroke-[3]" />
-                      ) : (
-                        <Square
-                          size={10}
-                          className="text-zinc-300 stroke-[2]"
-                        />
-                      )}
-                    </div>
-                    <span>{model}</span>
-                  </button>
+                    <button
+                      type="button"
+                      onClick={() => toggleModel(model)}
+                      className={`h-7 px-3 text-[10px] font-medium transition-all duration-200 cursor-pointer flex items-center justify-center min-w-[64px] z-10 w-full sm:w-auto ${
+                        isActive
+                          ? "bg-blue-500 text-white shadow-sm font-semibold"
+                          : "text-zinc-500 hover:text-zinc-800 bg-transparent"
+                      }`}
+                    >
+                      <span className="capitalize">{model}</span>
+                    </button>
+
+                    
+                  </div>
                 );
               })}
             </div>
