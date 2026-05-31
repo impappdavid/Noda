@@ -24,7 +24,6 @@ import AdminReportsPage from './components/myComponents/App/Admin/Reports/Report
 import AdminNotificationsPage from './components/myComponents/App/Admin/Notifications/Notifications'
 import IdeaReviewPage from './components/myComponents/App/Admin/Review/Review'
 import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
-import AuthController from './components/myComponents/Auth/Login/LoginController'
 import PremiumPage from './components/myComponents/App/Premium/Premium'
 import UserSearchPage from './components/myComponents/App/UserSearch/User'
 import CompanySearchPage from './components/myComponents/App/CompanySearch/CompanySearch'
@@ -33,12 +32,13 @@ import VerificationTerminal from './components/myComponents/App/Admin/CompanyRev
 import Applicants from './components/myComponents/App/CompanyAdmin/Applicants/Applicants'
 import ProjectDetailView from './components/myComponents/App/Project/ProjectDetailView'
 import GlobalMessagingDock from './components/myComponents/App/GlobalMessagingDock'
-import CoBuildPage from './pages/CoBuildPage'
-import HomePage from './pages/HomePage'
+import CoBuildPage from './pages/app/CoBuildPage'
+import HomePage from './pages/app/HomePage'
 
 // --- GLOBAL NOTIFICATION STATE ENGINE ---
 import { NotificationProvider } from './context/NotificationContext'
 import { GlobalNotificationDock } from './components/system/GlobalNotificationDock'
+import LoginPage from './pages/auth/LoginPage'
 
 function App() {
   const location = useLocation();
@@ -49,7 +49,7 @@ function App() {
        and throwing away notifications when switching routes */
     <NotificationProvider>
       <Routes>
-        <Route path="/" element={<AuthController />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
 
         <Route path="/app/post/:id" element={<PostDetail />} />
