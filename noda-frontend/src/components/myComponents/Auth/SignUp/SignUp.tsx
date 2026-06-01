@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Eye, EyeOff, Mail, Lock, CircleAlert, User2, User, Tag} from "lucide-react"
+import { Eye, EyeOff, Mail, Lock, CircleAlert, User2, User, Tag, AtSign} from "lucide-react"
 import { cn } from "@/lib/utils"
 
 // --- TYPES ---
@@ -73,9 +73,9 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
                         </h1>
                     </div>
                     <div className="flex gap-1.5">
-                        <div className="w-1.5 h-1.5 bg-orange-400" />
-                        <div className="w-1.5 h-1.5 bg-orange-500" />
-                        <div className="w-1.5 h-1.5 bg-orange-600" />
+                        <div className="w-1.5 h-1.5 bg-blue-400" />
+                        <div className="w-1.5 h-1.5 bg-blue-500" />
+                        <div className="w-1.5 h-1.5 bg-blue-600" />
                     </div>
                 </div>
 
@@ -138,7 +138,7 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
                                 type="text"
                                 value={fullName}
                                 onChange={(e) => setFullName(e.target.value)}
-                                placeholder="Test Elek"
+                                placeholder="Alex River"
                                 required
                                 className="w-full text-[11px] outline-none bg-transparent placeholder:text-zinc-500"
                             />
@@ -150,12 +150,12 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
                             Username
                         </label>
                         <div className="relative flex items-center h-6">
-                            <Tag className="w-3.5 h-3.5 text-zinc-500 mr-2 shrink-0" />
+                            <AtSign className="w-3.5 h-3.5 text-zinc-500 mr-2 shrink-0" />
                             <input
                                 type="text"
                                 value={userName}
                                 onChange={(e) => setUserName(e.target.value)}
-                                placeholder="test01"
+                                placeholder="alexriver"
                                 required
                                 className="w-full text-[11px] outline-none bg-transparent placeholder:text-zinc-500"
                             />
@@ -172,7 +172,7 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="test01@gmail.com"
+                                placeholder="ariver10@gmail.com"
                                 required
                                 className="w-full text-[11px] outline-none bg-transparent placeholder:text-zinc-500"
                             />
@@ -253,7 +253,7 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
                             disabled={loading || !email || !password}
                             className={cn(
                                 "w-full h-full p-3 text-white transition-colors font-mono text-[10px] font-black uppercase tracking-[0.2em] outline-none cursor-pointer",
-                                loading ? "bg-zinc-400 text-zinc-500" : "bg-zinc-800 hover:bg-orange-500 disabled:cursor-not-allowed"
+                                loading ? "bg-zinc-400 text-zinc-500" : "bg-blue-500 hover:bg-blue-600 disabled:cursor-not-allowed"
                             )}
                         >
                             {loading ? "Creating..." : "Create Account"}
@@ -264,14 +264,14 @@ const SignUpForm = ({ onLoginInitiated }: LoginPageProps) => {
                     {/* Cell 7: Navigation Footer (Spans both columns) */}
                     <div className="col-span-2 flex items-center justify-between">
                         <div className="flex ">
-                            <Link to={`/privacyPolicy`} className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                            <Link to={`/privacyPolicy`} className="text-[8px] p-2 border-r hover:text-blue-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                                 Privacy Policy
                             </Link>
-                            <Link to={`/termsOfService`} className="text-[8px] p-2 border-r hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                            <Link to={`/termsOfService`} className="text-[8px] p-2 border-r hover:text-blue-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                                 Terms of Service
                             </Link>
                         </div>
-                        <Link to={`/login`} className="text-[8px] p-2 border-l hover:text-orange-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
+                        <Link to={`../`} className="text-[8px] p-2 border-l hover:text-blue-600 hover:underline cursor-pointer border-zinc-300 font-mono font-black text-zinc-500 uppercase">
                             Already Have An Account?
                         </Link>
                     </div>
