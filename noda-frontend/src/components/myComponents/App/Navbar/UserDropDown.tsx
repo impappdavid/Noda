@@ -70,7 +70,7 @@ const UserDropDown = () => {
 
                     <DropdownMenuSeparator className="bg-zinc-300" />
 
-                    <Link to={`/login`}>
+                    <Link to={`/`}>
                         <DropdownMenuItem className="rounded-none hover:bg-zinc-200/80 px-2 py-2 text-xs text-red-500 focus:bg-red-50 focus:text-red-600 cursor-pointer">
                             <LogOut className="h-4 w-4" />
                             <span>Logout</span>
