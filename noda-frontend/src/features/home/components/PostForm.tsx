@@ -77,14 +77,14 @@ export default function PostForm() {
   };
 
   return (
-    <div className="bg-white p-4">
+    <div className="bg-white ">
       <Dialog>
         <DialogTrigger asChild>
-          <button className="w-full flex items-center justify-between bg-zinc-950 border border-zinc-800 px-4 py-2.5 text-zinc-400 hover:bg-black hover:border-zinc-600 transition-all text-left cursor-pointer rounded-none">
+          <button className="w-full flex items-center justify-between bg-zinc-800 border border-zinc-800 px-2.5 py-2.5 text-zinc-200 hover:bg-zinc-900 hover:border-zinc-600 transition-all text-left cursor-pointer rounded-none">
             <span className="text-[10px] font-mono tracking-[0.15em] uppercase font-bold">
-              :: INITIALIZE_BROADCAST_STREAM
+              What's going on today?
             </span>
-            <Plus size={12} />
+            <Plus size={14} />
           </button>
         </DialogTrigger>
 
