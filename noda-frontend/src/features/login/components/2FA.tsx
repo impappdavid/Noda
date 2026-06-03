@@ -3,103 +3,131 @@ import { ArrowRight, RefreshCw, ChevronLeft } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import { useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@/components/ui/input-otp";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface TwoFactorInlineProps {
-    credentials: any;
-    onVerify: (code: string) => void;
-    onBackToLogin: () => void;
+  credentials: any;
+  onVerify: (code: string) => void;
+  onBackToLogin: () => void;
 }
 
-const TwoFactorFormInline = ({ credentials, onVerify, onBackToLogin }: TwoFactorInlineProps) => {
-    const [code, setCode] = useState("");
-    const [isVerifying, setIsVerifying] = useState(false);
-    const navigate = useNavigate();
+const TwoFactorDialog = ({ credentials, onVerify, onBackToLogin }: TwoFactorInlineProps) => {
+  const [code, setCode] = useState("");
+  const [isVerifying, setIsVerifying] = useState(false);
+  const navigate = useNavigate();
 
-    const executeVerification = (verificationCode: string) => {
-        setIsVerifying(true);
-        setTimeout(() => {
-            setIsVerifying(false);
-            onVerify(verificationCode);
-            navigate('/app');
-        }, 1500);
-    };
+  const executeVerification = (verificationCode: string) => {
+    setIsVerifying(true);
+    setTimeout(() => {
+      setIsVerifying(false);
+      onVerify(verificationCode);
+      navigate('/app');
+    }, 1500);
+  };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (code.length < 6 || isVerifying) return;
-        executeVerification(code);
-    };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (code.length < 6 || isVerifying) return;
+    executeVerification(code);
+  };
 
-    return (
-        <form
-            onSubmit={handleSubmit}
-            className="flex flex-col border-x border-b border-zinc-300 bg-white font-mono"
-        >
-            {/* Instruction Cell */}
-            <div className="bg-white p-3 border-b border-zinc-300 flex flex-col gap-1">
-                <label className="text-[9px] font-mono font-black text-zinc-500 uppercase tracking-widest block leading-none">
-                    Identity_Token
-                </label>
-                <span className="text-[11px] font-bold text-zinc-900 uppercase mt-1">
-                    Check Authenticator App
-                </span>
+  return (
+    <Dialog open={true}>
+      <DialogContent 
+        onPointerDownOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+        className="sm:max-w-[320px] max-h-[85vh] flex flex-col rounded-none p-0 overflow-hidden bg-white border-none shadow-none gap-0"
+      >
+        {/* High-Contrast solid blue-500 Header Banner */}
+        <DialogHeader className="bg-blue-500 border-b border-zinc-300 px-3 py-2 text-white flex flex-row items-center justify-between space-y-0 shrink-0">
+          <div className="flex items-center gap-1.5">
+            <div className="w-4 h-4 bg-white flex items-center justify-center text-blue-500 rounded-none">
+              <span className="text-[9px] font-mono font-black">N</span>
             </div>
+            <DialogTitle className="text-[10px] font-mono font-black uppercase tracking-wider text-white">
+              SECURITY_CHECKPOINT
+            </DialogTitle>
+          </div>
+          {/* Mock Console Windows Elements */}
+          <div className="flex gap-1 select-none">
+            <div className="w-1.5 h-1.5 bg-white opacity-60 rounded-none" />
+            <div className="w-1.5 h-1.5 bg-white opacity-60 rounded-none" />
+            <div className="w-1.5 h-1.5 bg-white opacity-100 rounded-none" />
+          </div>
+        </DialogHeader>
 
-            {/* OTP Grid Segment */}
-            <div className="flex flex-col items-center justify-center py-6 px-2 border-b border-zinc-300 bg-white">
-                <InputOTP
-                    maxLength={6}
-                    value={code}
-                    onChange={(val) => {
-                        setCode(val);
-                        if (val.length === 6 && !isVerifying) {
-                            executeVerification(val);
-                        }
-                    }}
-                >
-                    <div className="flex items-center gap-1.5">
-                        <InputOTPGroup>
-                            <InputOTPSlot index={0} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
-                            <InputOTPSlot index={1} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
-                            <InputOTPSlot index={2} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
-                        </InputOTPGroup>
+        {/* Hyper-Compact Grid Input Stream */}
+        <form onSubmit={handleSubmit} className="flex flex-col font-mono bg-white text-left w-full">
+          
+          {/* Compressed Notification Strip */}
+          <div className="bg-white px-3 py-1.5 border-b border-zinc-300 flex flex-col gap-0.5">
+            <label className="text-[8px] font-black text-zinc-400 uppercase tracking-widest block leading-none">
+              PROVIDER_03
+            </label>
+            <span className="text-[10px] font-bold text-zinc-800 uppercase leading-tight">
+              Enter Authenticator Token
+            </span>
+          </div>
 
-                        <InputOTPSeparator className="text-zinc-300 font-bold px-0.5" />
+          {/* Ultra-Low Padding OTP Matrix Container */}
+          <div className="flex flex-col items-center justify-center py-3 px-3 border-b border-zinc-300 bg-white">
+            <InputOTP
+              maxLength={6}
+              value={code}
+              onChange={(val) => {
+                setCode(val);
+                if (val.length === 6 && !isVerifying) {
+                  executeVerification(val);
+                }
+              }}
+            >
+              <div className="flex items-center gap-1">
+                <InputOTPGroup className="gap-0">
+                  <InputOTPSlot index={0} className="w-8 h-8 text-xs font-mono font-bold rounded-none border-zinc-300 bg-white focus:bg-white focus:border-blue-500 focus:ring-0 text-zinc-900 transition-colors shadow-none" />
+                  <InputOTPSlot index={1} className="w-8 h-8 text-xs font-mono font-bold rounded-none border-l-0 border-zinc-300 bg-white focus:bg-white focus:border-blue-500 focus:ring-0 text-zinc-900 transition-colors shadow-none" />
+                  <InputOTPSlot index={2} className="w-8 h-8 text-xs font-mono font-bold rounded-none border-l-0 border-zinc-300 bg-white focus:bg-white focus:border-blue-500 focus:ring-0 text-zinc-900 transition-colors shadow-none" />
+                </InputOTPGroup>
 
-                        <InputOTPGroup>
-                            <InputOTPSlot index={3} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
-                            <InputOTPSlot index={4} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
-                            <InputOTPSlot index={5} className="w-10 h-10 text-lg font-mono font-black rounded-none border-zinc-300 bg-zinc-50 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors shadow-none" />
-                        </InputOTPGroup>
-                    </div>
-                </InputOTP>
-            </div>
+                <InputOTPSeparator className="text-zinc-300 font-bold px-0.5 text-[10px]" />
 
-            {/* Twin Execution Grid */}
-            <div className="grid grid-cols-3 gap-0 bg-white">
-                <button
-                    type="button"
-                    onClick={onBackToLogin}
-                    className="h-12 bg-zinc-50 hover:bg-zinc-100 text-zinc-500 hover:text-zinc-900 border-r border-zinc-300 text-[9px] font-mono font-black uppercase tracking-wider transition-colors flex items-center justify-center gap-1 cursor-pointer outline-none"
-                >
-                    <ChevronLeft size={12} />
-                    <span>Back</span>
-                </button>
+                <InputOTPGroup className="gap-0">
+                  <InputOTPSlot index={3} className="w-8 h-8 text-xs font-mono font-bold rounded-none border-zinc-300 bg-white focus:bg-white focus:border-blue-500 focus:ring-0 text-zinc-900 transition-colors shadow-none" />
+                  <InputOTPSlot index={4} className="w-8 h-8 text-xs font-mono font-bold rounded-none border-l-0 border-zinc-300 bg-white focus:bg-white focus:border-blue-500 focus:ring-0 text-zinc-900 transition-colors shadow-none" />
+                  <InputOTPSlot index={5} className="w-8 h-8 text-xs font-mono font-bold rounded-none border-l-0 border-zinc-300 bg-white focus:bg-white focus:border-blue-500 focus:ring-0 text-zinc-900 transition-colors shadow-none" />
+                </InputOTPGroup>
+              </div>
+            </InputOTP>
+          </div>
 
-                <button
-                    type="submit"
-                    disabled={isVerifying || code.length < 6}
-                    className={cn(
-                        "col-span-2 h-12 flex items-center justify-center gap-2 text-white transition-colors font-mono text-[10px] font-black uppercase tracking-[0.2em] outline-none cursor-pointer border-none",
-                        isVerifying ? "bg-blue-500" : "bg-blue-500 hover:bg-blue-600 disabled:bg-zinc-100 disabled:text-zinc-300 disabled:cursor-not-allowed"
-                    )}
-                >
-                    <span>{isVerifying ? "Verifying..." : "Check"}</span>
-                    {isVerifying ? <RefreshCw size={12} className="animate-spin" /> : <ArrowRight size={12} />}
-                </button>
-            </div>
+          {/* Precision Action Footer Splitter */}
+          <div className="grid grid-cols-3 gap-0 w-full h-10">
+            <button
+              type="button"
+              onClick={onBackToLogin}
+              className="h-full bg-white hover:bg-zinc-50 text-zinc-400 hover:text-zinc-900 border-r border-zinc-300 text-[8px] font-black uppercase tracking-wider transition-colors flex items-center justify-center gap-0.5 cursor-pointer outline-none rounded-none"
+            >
+              <ChevronLeft size={10} strokeWidth={2.5} />
+              <span>Back</span>
+            </button>
+
+            <button
+              type="submit"
+              disabled={isVerifying || code.length < 6}
+              className={cn(
+                "col-span-2 h-full flex items-center justify-center gap-1.5 text-white font-black text-[9px] uppercase tracking-[0.15em] outline-none cursor-pointer border-none rounded-none transition-all",
+                isVerifying 
+                  ? "bg-blue-500" 
+                  : "bg-blue-500 hover:bg-blue-600 disabled:bg-zinc-100 disabled:text-zinc-300 disabled:cursor-not-allowed"
+              )}
+            >
+              <span>{isVerifying ? "VERIFYING..." : "LOGIN"}</span>
+              {isVerifying ? <RefreshCw size={10} className="animate-spin" /> : <ArrowRight size={10} strokeWidth={2.5} />}
+            </button>
+          </div>
         </form>
-    );
+      </DialogContent>
+    </Dialog>
+  );
 };
 
-export default TwoFactorFormInline;
+export default TwoFactorDialog;
