@@ -126,6 +126,8 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                   <span className="truncate">{job.workMode}</span>
                   <span className="opacity-30">•</span>
                   <span className="truncate">{job.type}</span>
+                  <span className="opacity-30">•</span>
+                  <span className="truncate">{job.experience}</span>
                 </div>
               </div>
             </div>
