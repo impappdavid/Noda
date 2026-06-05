@@ -58,7 +58,7 @@ const AllFiltersDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex items-center justify-center gap-1.5 px-4 h-10 bg-white border border-zinc-300 hover:bg-zinc-50 text-[10px] font-mono font-black text-zinc-900 transition-colors cursor-pointer rounded-none">
+        <button className="flex items-center justify-center gap-1.5 px-4 h-10 bg-white  hover:bg-zinc-50 text-[10px] font-mono font-black text-zinc-900 transition-colors cursor-pointer rounded-none">
           <SlidersHorizontal size={12} strokeWidth={2.5} />
           <span className="uppercase tracking-wider">All Filters</span>
         </button>
