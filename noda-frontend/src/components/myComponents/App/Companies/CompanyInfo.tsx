@@ -136,9 +136,7 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[9px] font-mono font-black text-blue-600 uppercase bg-blue-50 px-1 border border-blue-300">
-                {"< 24H"}
-              </span>
+              
               <span className="text-[9px] text-zinc-500 font-mono font-black uppercase tracking-tighter">
                 2h ago
               </span>
@@ -181,33 +179,12 @@ const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
           <div className="">
             {/* Relationship Selector */}
 
-            {/* Response Latency Selector */}
-            <div className={cn("transition-opacity text-left")}>
-              <label className="text-[10px] p-2 border-b border-zinc-300 font-mono font-black text-zinc-700 block ">
-                01 // Recruiter Response Time (Optional)
-              </label>
-              <div className="flex w-full divide-x divide-zinc-300 ">
-                {LATENCY_NODES.map((node) => (
-                  <button
-                    key={node}
-                    onClick={() => setLatency(node)}
-                    className={cn(
-                      "flex-1 py-2.5 text-[10px] font-mono font-black transition-all cursor-pointer",
-                      latency === node
-                        ? "bg-blue-500 text-white"
-                        : "text-zinc-500 hover:bg-zinc-200",
-                    )}
-                  >
-                    {node}
-                  </button>
-                ))}
-              </div>
-            </div>
+            
 
             {/* Log Input */}
             <div className="text-left">
               <label className="text-[10px] p-2 border-b border-zinc-300 font-mono font-black text-zinc-700 block ">
-                02 // Detailed Experience (Min. 10character)
+                01 / Detailed Experience (Min. 10character)
               </label>
               <textarea
                 value={comment}
