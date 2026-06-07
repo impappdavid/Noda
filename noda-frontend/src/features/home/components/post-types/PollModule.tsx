@@ -11,7 +11,7 @@ export const PollModule = ({ poll }: { poll: any }) => {
     >
       <div className="flex justify-between items-center px-2 py-1 h-8 border-b border-zinc-300 bg-zinc-200">
         <span className="text-[10px] font-mono font-bold text-zinc-900 uppercase tracking-wider">
-          Active Poll
+          Question
         </span>
       </div>
       <div className="divide-y divide-zinc-300">
