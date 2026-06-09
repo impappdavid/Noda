@@ -482,7 +482,7 @@ const JobInfo = ({ job }: JobInfoProps) => {
             <User2 size={12} className="text-zinc-500" />
           </div>
           <span className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest">
-            Node_Owner:{" "}
+            Recruiter:{" "}
             <Link
               to={`/app/user/${job.id}`}
               className="text-zinc-900 hover:underline"
@@ -493,8 +493,8 @@ const JobInfo = ({ job }: JobInfoProps) => {
         </div>
 
         <div className="flex flex-col border-b border-zinc-300">
-          <h4 className="text-[9px] px-2 py-2 border-b border-zinc-300 font-mono font-black text-zinc-400 uppercase tracking-[0.3em] bg-zinc-50/10">
-            Skill_Registry
+          <h4 className="text-[9px] px-2 py-2 border-b border-zinc-300 font-mono font-black text-zinc-500 uppercase tracking-[0.3em] bg-zinc-200/80">
+            Needed Skills
           </h4>
           <section className="py-2 px-2 flex flex-wrap gap-1">
             {["React", "TypeScript", "TailwindCSS", "Node.js"].map((skill) => (
@@ -508,8 +508,8 @@ const JobInfo = ({ job }: JobInfoProps) => {
           </section>
         </div>
 
-        <h4 className="text-[9px] px-2 py-2 border-b border-zinc-300 font-mono font-black text-zinc-400 uppercase tracking-[0.3em] bg-white">
-          Operational_Parameters
+        <h4 className="text-[9px] px-2 py-2 border-b border-zinc-300 font-mono font-black text-zinc-500 uppercase tracking-[0.3em] bg-zinc-200/80">
+          Role Description
         </h4>
       </div>
 
