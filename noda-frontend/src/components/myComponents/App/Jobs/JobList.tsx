@@ -129,7 +129,7 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                 </div>
               </div>
 
-              <div className="flex flex-col mt-1">
+              <div className="flex flex-col mt-0.5">
                 <h3
                   className={cn(
                     "text-sm font-bold truncate leading-none",
@@ -138,7 +138,7 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                 >
                   {job.role}
                 </h3>
-                <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-500 mt-1 uppercase">
+                <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-600 mt-1 uppercase">
                   <span className="truncate">{job.workMode}</span>
                   <span className="opacity-30">•</span>
                   <span className="truncate">{job.type}</span>
