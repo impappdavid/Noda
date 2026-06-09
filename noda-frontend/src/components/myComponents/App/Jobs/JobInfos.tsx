@@ -25,7 +25,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogClose,
 } from "@/components/ui/dialog";
 import {
@@ -36,7 +35,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-// --- QUESTIONNAIRE MODAL (NEW COMPONENT) ---
+// --- QUESTIONNAIRE MODAL ---
 const QuestionnaireModal = ({
   isOpen,
   onClose,
@@ -53,7 +52,6 @@ const QuestionnaireModal = ({
   const [answers, setAnswers] = useState({ years: "", reason: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Reset state when modal closes/opens
   useEffect(() => {
     if (!isOpen) {
       setStep(1);
@@ -75,12 +73,11 @@ const QuestionnaireModal = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
         <DialogHeader className="bg-blue-500 p-1.5 flex justify-between w-full items-center space-y-0">
-          <DialogTitle className="text-[10px] font-bold  uppercase text-white flex gap-2 items-center">
+          <DialogTitle className="text-[10px] font-bold uppercase text-white flex gap-2 items-center">
             <ClipboardList size={14} className="text-white" />
             Application Questions
           </DialogTitle>
           <div className="flex items-center gap-3">
-            {/* STEP INDICATOR */}
             <div className="flex gap-1 items-center bg-white/30 px-2 py-0.5 ">
               <span className="text-[9px] font-mono font-bold text-white">STEP</span>
               <span className="text-[10px] font-black text-black font-mono">
@@ -96,7 +93,6 @@ const QuestionnaireModal = ({
         </DialogHeader>
 
         <div className="flex flex-col">
-          {/* HEADER DATA */}
           <div className="border-b border-zinc-300 flex divide-x divide-zinc-300">
             <div className="p-2 flex-1">
               <div className="text-[9px] font-mono text-zinc-400 uppercase font-bold">Role</div>
@@ -110,7 +106,6 @@ const QuestionnaireModal = ({
             </div>
           </div>
 
-          {/* PAGINATED CONTENT */}
           <div className="min-h-[140px]">
             {step === 1 && (
               <motion.div 
@@ -154,12 +149,11 @@ const QuestionnaireModal = ({
             )}
           </div>
 
-          {/* ACTION BUTTONS */}
-          <div className="flex ">
+          <div className="flex">
             {step > 1 && (
               <button
                 onClick={handleBack}
-                className="flex-1 h-10 bg-white border-t border-zinc-300 text-zinc-500 font-bold text-[10px] uppercase tracking-wider  hover:bg-zinc-200 cursor-pointer transition-all"
+                className="flex-1 h-10 bg-white border-t border-zinc-300 text-zinc-500 font-bold text-[10px] uppercase tracking-wider hover:bg-zinc-200 cursor-pointer transition-all"
               >
                 Previous
               </button>
@@ -291,7 +285,6 @@ const ReportModal = ({
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold p-2 flex flex-col gap-1 border-b border-zinc-300 uppercase tracking-tighter text-zinc-900 leading-none">
                   <div className="font-normal text-zinc-500">Category</div>
-
                   <Select onValueChange={setCategory} value={category}>
                     <SelectTrigger className="w-full h-9 rounded-none outline-none border-zinc-300 bg-zinc-50 font-mono text-[10px] cursor-pointer font-bold uppercase">
                       <SelectValue placeholder="INITIALIZE_SELECTION..." />
@@ -374,14 +367,15 @@ interface JobInfoProps {
     workMode: string;
     authorName: string;
     match: number;
+    applied?: boolean; // Modified to track inside data schema
   } | null;
+  onApply: (id: number) => void; // Added core action handle to push mutations upwards
 }
 
-const JobInfo = ({ job }: JobInfoProps) => {
+const JobInfo = ({ job, onApply }: JobInfoProps) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
-  const [isApplyOpen, setIsApplyOpen] = useState(false); // Added for Apply Dialog
-  const [isApplied, setIsApplied] = useState(false);
+  const [isApplyOpen, setIsApplyOpen] = useState(false);
 
   if (!job) {
     return (
@@ -396,9 +390,12 @@ const JobInfo = ({ job }: JobInfoProps) => {
     );
   }
 
+  // Check data structure property directly instead of isolated react component state
+  const isApplied = !!job.applied;
+
   const handleApplyComplete = () => {
     setIsApplyOpen(false);
-    setIsApplied(true);
+    onApply(job.id); // Execute upper callback context
   };
 
   return (
@@ -565,7 +562,6 @@ const JobInfo = ({ job }: JobInfoProps) => {
         nodeTitle={job.role}
       />
 
-      {/* TRIGGERED DIALOG */}
       <QuestionnaireModal 
         isOpen={isApplyOpen}
         onClose={() => setIsApplyOpen(false)}
