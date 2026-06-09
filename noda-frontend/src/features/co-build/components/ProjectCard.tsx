@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flame, ChevronLeft, ChevronRight, Users, Eye } from 'lucide-react';
+import { Flame, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import ProjectModalContent from './ProjectModalContent';
 
@@ -44,6 +44,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onUpvote }) => {
 
   return (
     <Dialog>
+      {/* Outer card box wrapper is left clear of any bottom borders */}
       <div 
         onClick={(e) => { e.preventDefault(); e.stopPropagation(); }} 
         className="bg-white flex flex-col select-none relative rounded-none p-1.5 gap-2"
@@ -83,19 +84,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onUpvote }) => {
               <h2 className="text-xs font-mono font-black uppercase tracking-tight text-zinc-900 truncate">
                 {project.title}
               </h2>
-              <button 
-                onClick={(e) => onUpvote(project.id, e)}
-                className="flex items-center gap-1 text-[8px] font-mono border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-500 hover:text-zinc-900 px-1.5 py-0.5 transition-all shrink-0 cursor-pointer rounded-none"
-              >
-                <Flame size={8} className="text-zinc-400 group-hover:text-zinc-900" /> {project.upvotes}
-              </button>
             </div>
 
             {/* Looking For Segment Chips */}
             <div className="flex flex-wrap gap-1">
-              <span className="text-[7px] font-mono font-bold uppercase text-zinc-400 mr-1 self-center">LOOKING FOR:</span>
+              <span className="text-[9px] font-mono font-bold uppercase text-zinc-500 self-center">LOOKING FOR:</span>
               {project.lookingFor.map((tag, idx) => (
-                <span key={idx} className="text-[8px] font-mono font-black uppercase px-1 py-0.2 bg-zinc-900 text-white border border-zinc-900 rounded-none">
+                <span key={idx} className="text-[9px] font-mono font-black uppercase px-1 py-0.2 bg-zinc-800 text-white border border-zinc-800 rounded-none">
                   {tag}
                 </span>
               ))}
@@ -108,25 +103,38 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onUpvote }) => {
 
           {/* Current Crew / Members Container */}
           <div className="border-t border-dashed border-zinc-200 pt-2 mt-1">
-            <div className="text-[7px] font-mono font-bold uppercase text-zinc-400 mb-1 flex items-center gap-1">
-              <Users size={8} /> Active Members ({project.currentTeam.length})
+            <div className="text-[8px] font-mono font-bold uppercase text-zinc-500 mb-1 flex items-center gap-1">
+               Active Members ({project.currentTeam.length})
             </div>
             <div className="flex flex-wrap gap-1">
               {project.currentTeam.map((member, idx) => (
-                <div key={idx} className="flex items-center gap-1 bg-zinc-50 border border-zinc-200 px-1 py-0.5 rounded-none text-[8px] font-mono text-zinc-700">
+                <div key={idx} className="flex items-center gap-1 bg-zinc-50 border border-zinc-200 px-1 py-0.5 rounded-none text-[9px] font-mono text-zinc-700">
                   <span className="font-black text-zinc-900">{member.name}</span>
-                  <span className="text-zinc-400 text-[7px]">({member.role})</span>
+                  <span className="text-zinc-600 text-[9px]">({member.role})</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Learn More Core Action Trigger */}
-          <DialogTrigger asChild>
-            <button className="w-full h-8 mt-2 bg-zinc-900 hover:bg-zinc-800 text-white font-mono font-black text-[9px] uppercase tracking-widest transition-colors rounded-none border-none outline-none cursor-pointer flex items-center justify-center gap-1.5">
-              <Eye size={10} /> LEARN MORE
+          {/* Action Bar: Learn More + Like Button */}
+          <div className="flex items-stretch w-full h-8 mt-1 gap-1">
+            {/* Main Action Trigger */}
+            <DialogTrigger asChild>
+              <button className="flex-1 h-full bg-blue-500 hover:bg-blue-600 text-white font-mono font-black text-[9px] uppercase tracking-widest transition-colors rounded-none border-none outline-none cursor-pointer flex items-center justify-center gap-1.5">
+                 LEARN MORE
+              </button>
+            </DialogTrigger>
+
+            {/* Relocated Like (Flame) Button */}
+            <button 
+              onClick={(e) => onUpvote(project.id, e)}
+              className="flex items-center justify-center gap-1 w-14 h-full text-[9px] font-mono font-black border border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-500 hover:text-zinc-900 transition-colors shrink-0 cursor-pointer rounded-none outline-none"
+            >
+              <Flame size={10} strokeWidth={2.5} className="text-zinc-400 group-hover:text-zinc-900" /> 
+              <span>{project.upvotes}</span>
             </button>
-          </DialogTrigger>
+          </div>
+
         </div>
       </div>
 
