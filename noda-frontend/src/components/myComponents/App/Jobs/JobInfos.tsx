@@ -256,7 +256,7 @@ const ReportModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
-        <DialogHeader className="bg-zinc-800 p-1 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
+        <DialogHeader className="bg-red-500 p-1 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
           <DialogTitle className="text-[12px] tracking-wide uppercase text-white flex gap-1 items-center">
             <AlertTriangle size={16} className="text-white shrink-0" />
             Report
@@ -291,7 +291,7 @@ const ReportModal = ({
                     </SelectTrigger>
                     <SelectContent
                       position="popper"
-                      className="rounded-none border-zinc-300 font-mono text-[10px] bg-white shadow-none"
+                      className="rounded-none border-zinc-300 font-mono text-[10px]  bg-white shadow-none"
                     >
                       {VIOLATION_CATEGORIES.map((item) => (
                         <SelectItem
