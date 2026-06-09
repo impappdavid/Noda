@@ -87,7 +87,7 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
             <div
               key={job.id}
               onClick={() => onSelect(job)}
-              className={`group p-2 border-b border-zinc-300 transition-all cursor-pointer flex flex-col justify-center min-h-[70px] ${
+              className={`group p-2 border-b border-zinc-300 transition-all cursor-pointer flex flex-col justify-center  ${
                 isSelected ? "bg-zinc-200" : "bg-white hover:bg-zinc-200/60 "
               }`}
             >
@@ -100,7 +100,7 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: any) => {
                   {job.company}
                 </span>
                 <span
-                  className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border ${
+                  className={`text-[10px] font-mono font-bold px-1.5 py-0.5 border ${
                     isSelected
                       ? job.match > 90
                         ? "bg-blue-500/20 border-blue-500/50 text-blue-700"
