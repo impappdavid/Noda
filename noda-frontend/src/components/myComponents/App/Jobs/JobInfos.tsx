@@ -74,22 +74,22 @@ const QuestionnaireModal = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
-        <DialogHeader className="bg-zinc-300 p-2 flex justify-between w-full items-center space-y-0">
-          <DialogTitle className="text-[10px] font-bold tracking-[0.2em] uppercase text-black flex gap-2 items-center">
-            <ClipboardList size={14} className="text-blue-500" />
+        <DialogHeader className="bg-blue-500 p-1.5 flex justify-between w-full items-center space-y-0">
+          <DialogTitle className="text-[10px] font-bold  uppercase text-white flex gap-2 items-center">
+            <ClipboardList size={14} className="text-white" />
             Application Questions
           </DialogTitle>
           <div className="flex items-center gap-3">
             {/* STEP INDICATOR */}
-            <div className="flex gap-1 items-center bg-zinc-400/30 px-2 py-0.5 ">
-              <span className="text-[9px] font-mono font-bold">STEP</span>
-              <span className="text-[10px] font-black text-blue-600 font-mono">
+            <div className="flex gap-1 items-center bg-white/30 px-2 py-0.5 ">
+              <span className="text-[9px] font-mono font-bold text-white">STEP</span>
+              <span className="text-[10px] font-black text-black font-mono">
                 0{step}/0{totalSteps}
               </span>
             </div>
             <DialogClose>
-              <button className="hover:bg-zinc-500/20 cursor-pointer p-1 transition-colors outline-none">
-                <X className="w-4 h-4 text-zinc-600" />
+              <button className="hover:bg-zinc-800/20 cursor-pointer p-1 transition-colors outline-none">
+                <X className="w-4 h-4 text-zinc-200" />
               </button>
             </DialogClose>
           </div>
@@ -140,7 +140,7 @@ const QuestionnaireModal = ({
                 className="p-2 flex flex-col gap-2"
               >
                 <label className="text-[10px] font-bold uppercase tracking-tight flex justify-between">
-                  02. Why this node? 
+                  02. Write a Cover Letter that contains why do you want to work at this company
                   <span className="text-zinc-500 font-mono">[STR]</span>
                 </label>
                 <textarea 
@@ -155,11 +155,11 @@ const QuestionnaireModal = ({
           </div>
 
           {/* ACTION BUTTONS */}
-          <div className="flex border-t border-zinc-300">
+          <div className="flex ">
             {step > 1 && (
               <button
                 onClick={handleBack}
-                className="flex-1 h-10 bg-white border-r border-zinc-300 text-zinc-500 font-bold text-[10px] uppercase tracking-widest hover:bg-zinc-300 cursor-pointer transition-all"
+                className="flex-1 h-10 bg-white border-t border-zinc-300 text-zinc-500 font-bold text-[10px] uppercase tracking-wider  hover:bg-zinc-200 cursor-pointer transition-all"
               >
                 Previous
               </button>
@@ -169,7 +169,7 @@ const QuestionnaireModal = ({
               <button
                 onClick={handleNext}
                 disabled={!answers.years}
-                className="flex-[2] h-10 bg-zinc-800 text-white cursor-pointer font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-blue-600 disabled:bg-zinc-300 disabled:text-zinc-500 transition-all flex items-center justify-center gap-2"
+                className="flex-[2] h-10 bg-zinc-800 text-white cursor-pointer font-bold text-[10px] uppercase tracking-[0.1em] hover:bg-blue-500 disabled:bg-zinc-300 disabled:text-zinc-500 transition-all flex items-center justify-center gap-2"
               >
                 Next Question 
               </button>
@@ -177,7 +177,7 @@ const QuestionnaireModal = ({
               <button
                 onClick={handleFinish}
                 disabled={answers.reason.length < 10 || isSubmitting}
-                className="flex-[2] h-10 bg-blue-500 cursor-pointer text-white font-bold text-[10px] uppercase tracking-[0.3em] hover:bg-blue-600 disabled:bg-zinc-200 disabled:text-zinc-400 transition-all flex items-center justify-center gap-2"
+                className="flex-[2] h-10 bg-blue-500 cursor-pointer text-white font-bold text-[10px] uppercase tracking-[0.1em] hover:bg-blue-600 disabled:bg-zinc-200 disabled:text-zinc-400 transition-all flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
                   <Loader2 size={14} className="animate-spin" />
@@ -547,12 +547,12 @@ const JobInfo = ({ job }: JobInfoProps) => {
           onClick={() => setIsApplyOpen(true)}
           disabled={isApplied}
           className={cn(
-            "w-full h-12 flex items-center justify-center gap-3 transition-all uppercase text-[11px] font-bold tracking-[0.3em] cursor-pointer active:scale-[0.98]",
-            isApplied ? "bg-emerald-500 text-white" : "bg-zinc-900 text-white hover:bg-blue-600"
+            "w-full h-10 flex items-center justify-center gap-3 transition-all uppercase text-[11px] font-bold tracking-[0.1em] cursor-pointer active:scale-[0.98]",
+            isApplied ? "bg-blue-500/60 text-white cursor-not-allowed" : "bg-zinc-900 text-white hover:bg-blue-600"
           )}
         >
           {isApplied ? (
-            <>Application_Sent <CheckCircle2 size={14} /></>
+            <>You Already Applied</>
           ) : (
             <>Apply NOW <ArrowUpRight size={14} /></>
           )}
