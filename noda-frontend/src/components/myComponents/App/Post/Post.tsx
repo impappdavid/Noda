@@ -1,16 +1,22 @@
-
 import React, { useState } from 'react';
-import { ArrowLeft, MessageSquare, Heart, AlertTriangle, BarChart3, Bookmark, X as CloseIcon, Copy } from 'lucide-react';
+import { ArrowLeft, MessageSquare, Heart, AlertTriangle, BarChart3, Bookmark, X as CloseIcon, Copy, CornerDownRight } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 import CommentNode from './CommentNode';
 import { cn } from "@/lib/utils";
-import { PollModule } from './PollSection';
+
+interface CommentType {
+  id: string;
+  username: string;
+  likes: number;
+  content: string;
+  postedAgo: string;
+  replies?: CommentType[];
+}
 
 interface Post {
   id: string;
-  // Use a union of string literals to strictly enforce the allowable categories
   type: "normal" | "poll" | "project_showcase" | "system_milestone" | "job_listing";
   author: {
     id: string;
@@ -26,20 +32,18 @@ interface Post {
   commentsCount: number;
   views: string | number;
   images: string[];
-  
-  // Optional payloads for specific category variants
   poll?: {
     options: Array<{ label: string; votes: number }>;
     totalVotes: number;
   };
-  project?: any;     // Replace 'any' with your explicit Project interface if available
-  milestone?: any;   // Replace 'any' with your explicit Milestone interface if available
-  jobListing?: any;  // Replace 'any' with your explicit JobListing interface if available
+  project?: any;
+  milestone?: any;
+  jobListing?: any;
 }
 
 const MOCK_POST: Post = {
     id: "p_poll_1",
-    type: "poll", // Added category classifier type to test rendering variants
+    type: "poll",
     author: {
         id: "u_marcus_v",
         name: "Marcus Vane",
@@ -63,15 +67,82 @@ const MOCK_POST: Post = {
     }
 };
 
+// Seed initial system data with a layered response example layout
+const INITIAL_COMMENTS: CommentType[] = [
+  {
+    id: "user_1",
+    username: "alpha_node",
+    likes: 15,
+    postedAgo: "1h ago",
+    content: "Signal received. Node verification remains stable under current latency benchmarks.",
+    replies: [
+      {
+        id: "reply_1",
+        username: "beta_tester",
+        likes: 3,
+        postedAgo: "32m ago",
+        content: "Are you pushing overhead metrics over gRPC or custom TCP streams here?"
+      }
+    ]
+  },
+  {
+    id: "user_2",
+    username: "quantum_dev",
+    likes: 8,
+    postedAgo: "45m ago",
+    content: "Cap'n Proto zero-copy capabilities look highly optimized for local node configurations.",
+    replies: []
+  }
+];
+
 const PostDetail = () => {
     const navigate = useNavigate();
     const [liked, setLiked] = useState(false);
     const [bookmarked, setBookmarked] = useState(false);
-    const [userVote, setUserVote] = useState<number | null>(null);
     const [selectedImg, setSelectedImg] = useState<string | null>(null);
+
+    // Form inputs and dynamic comment state trees
+    const [comments, setComments] = useState<CommentType[]>(INITIAL_COMMENTS);
+    const [commentText, setCommentText] = useState("");
+    const [replyTarget, setReplyTarget] = useState<{ id: string; username: string } | null>(null);
 
     const handleCopyLink = () => {
         navigator.clipboard.writeText(window.location.href);
+    };
+
+    const handleSendComment = () => {
+        if (!commentText.trim()) return;
+
+        const newCommentObj = {
+            id: `user_${Date.now()}`,
+            username: "current_user",
+            likes: 0,
+            postedAgo: "Just now",
+            content: commentText,
+            replies: []
+        };
+
+        if (replyTarget) {
+            // Append payload to targeted nested sub-tree layer
+            setComments(prev => prev.map(c => {
+                if (c.id === replyTarget.id) {
+                    return { ...c, replies: [...(c.replies || []), newCommentObj] };
+                }
+                return c;
+            }));
+            setReplyTarget(null);
+        } else {
+            // Un-targeted top-level root tree placement
+            setComments(prev => [...prev, newCommentObj]);
+        }
+
+        setCommentText("");
+    };
+
+    const handleInitiateReply = (commentId: string, username: string) => {
+        setReplyTarget({ id: commentId, username });
+        const inputEl = document.getElementById("signal-input");
+        if (inputEl) inputEl.focus();
     };
 
     return (
@@ -104,14 +175,11 @@ const PostDetail = () => {
                             </button>
                         </div>
 
-                    
                         <article className="p-3 bg-white">
                             <PostHeader author={MOCK_POST.author} postedAgo={MOCK_POST.postedAgo} onCopy={handleCopyLink} onAvatarClick={(id) => navigate(`/app/user/${id}`)} />
                             
                             <div className="pl-0 md:pl-[52px]">
                                 <p className="text-sm text-zinc-800 leading-relaxed mb-2">{MOCK_POST.content}</p>
-
-                                
 
                                 {MOCK_POST.images && MOCK_POST.images.length > 0 && MOCK_POST.type !== "poll" && (
                                     <div className="overflow-hidden border border-zinc-100 grid grid-cols-2 gap-1 mb-4 aspect-video">
@@ -131,14 +199,50 @@ const PostDetail = () => {
                             </div>
                         </article>
 
-                        <div className="sticky bottom-0 bg-white border-y border-zinc-300 flex h-12 z-10">
-                            <input placeholder="TRANSMIT RESPONSE..." className="flex-1 px-3 text-[10px] font-mono font-black uppercase outline-none" />
-                            <button className="bg-zinc-800 text-white px-8 text-[10px] font-mono uppercase font-black hover:bg-zinc-900 transition-colors cursor-pointer">Send</button>
+                        {/* Interactive Form Field Unit */}
+                        <div className="sticky bottom-0 bg-white border-y border-zinc-300 flex flex-col z-10">
+                            {replyTarget && (
+                                <div className="bg-zinc-50 px-3 py-1 border-b border-zinc-200 flex items-center justify-between">
+                                    <span className="text-[8px] font-mono font-black text-blue-600 uppercase flex items-center gap-1">
+                                        <CornerDownRight size={10} /> Replying to @{replyTarget.username}
+                                    </span>
+                                    <button onClick={() => setReplyTarget(null)} className="text-[8px] font-mono uppercase text-zinc-400 hover:text-zinc-900 cursor-pointer">
+                                        [ Cancel ]
+                                    </button>
+                                </div>
+                            )}
+                            <div className="flex h-12">
+                                <input 
+                                    id="signal-input"
+                                    value={commentText}
+                                    onChange={(e) => setCommentText(e.target.value)}
+                                    onKeyDown={(e) => e.key === 'Enter' && handleSendComment()}
+                                    placeholder={replyTarget ? `TRANSMIT REPLY TO @${replyTarget.username}...` : "TRANSMIT RESPONSE..."} 
+                                    className="flex-1 px-3 text-[10px] font-mono font-black uppercase outline-none placeholder:text-zinc-400" 
+                                />
+                                <button 
+                                    onClick={handleSendComment}
+                                    className="bg-zinc-800 text-white px-8 text-[10px] font-mono uppercase font-black hover:bg-zinc-900 transition-colors cursor-pointer"
+                                >
+                                    Send
+                                </button>
+                            </div>
                         </div>
 
+                        {/* Active Generated Comment Tree Output */}
                         <div className="divide-y divide-zinc-100 pb-20">
-                            {[1, 2].map((i) => (
-                                <CommentNode key={i} id={`user_${i}`} likes={15} onUserClick={(id) => navigate(`/app/user/${id}`)} />
+                            {comments.map((comment) => (
+                                <CommentNode 
+                                    key={comment.id} 
+                                    id={comment.id} 
+                                    username={comment.username}
+                                    likes={comment.likes} 
+                                    content={comment.content}
+                                    postedAgo={comment.postedAgo}
+                                    replies={comment.replies}
+                                    onUserClick={(id) => navigate(`/app/user/${id}`)} 
+                                    onReplyClick={(id, name) => handleInitiateReply(id, name)}
+                                />
                             ))}
                         </div>
                     </main>
@@ -152,11 +256,10 @@ const PostDetail = () => {
     );
 };
 
-// Helper components...
 const PostHeader = ({ author, postedAgo, onCopy, onAvatarClick }: any) => (
     <div className="flex justify-between items-start ">
         <div className="flex gap-3">
-            <div className="w-10 h-10  border border-zinc-300 overflow-hidden cursor-pointer" onClick={() => onAvatarClick(author.id)}>
+            <div className="w-10 h-10 border border-zinc-300 overflow-hidden cursor-pointer" onClick={() => onAvatarClick(author.id)}>
                 <img src={author.avatar} alt="" className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col">
@@ -164,7 +267,7 @@ const PostHeader = ({ author, postedAgo, onCopy, onAvatarClick }: any) => (
                 <span className="text-[10px] font-mono font-black text-zinc-400 uppercase mt-1">{author.username} • {postedAgo}</span>
             </div>
         </div>
-        <button onClick={onCopy} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-200  cursor-pointer transition-all active:scale-90"><Copy size={14} /></button>
+        <button onClick={onCopy} className="p-2 text-zinc-400 hover:text-zinc-900 hover:bg-zinc-200 cursor-pointer transition-all active:scale-90"><Copy size={14} /></button>
     </div>
 );
 
