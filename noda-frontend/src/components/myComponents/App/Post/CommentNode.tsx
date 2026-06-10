@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Heart, MessageSquare, CornerDownRight } from 'lucide-react';
+import { Heart, MessageSquare } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
 interface CommentProps {
@@ -26,20 +26,27 @@ const CommentNode: React.FC<CommentProps> = ({
     isReply = false
 }) => {
     const [cLiked, setCLiked] = useState(false);
+    const [showAllReplies, setShowAllReplies] = useState(false);
     const userAvatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`;
 
+    // Determine slicing variables for truncated visibility state
+    const structuralLimit = 3;
+    const hasExcessReplies = replies.length > structuralLimit;
+    const visibleReplies = showAllReplies ? replies : replies.slice(0, structuralLimit);
+    const hiddenCount = replies.length - structuralLimit;
+
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
             {/* Core Node Box Container */}
             <div className={cn(
-                "p-3 bg-white hover:bg-zinc-50/50 transition-colors relative",
-                isReply ? "pl-6 border-l border-zinc-200 ml-6 md:ml-12" : ""
+                "p-2 bg-white transition-colors relative",
+                isReply ? "pl-6 border-l border-zinc-200 ml-6 md:ml-6" : ""
             )}>
-                <div className="absolute left-4 top-4">
+                <div className="absolute ">
                     <div 
                         className={cn(
-                            "rounded-full border border-zinc-200 overflow-hidden cursor-pointer active:scale-90 transition-transform",
-                            isReply ? "w-6 h-6" : "w-8 h-8"
+                            "border border-zinc-300 overflow-hidden cursor-pointer active:scale-90 transition-transform",
+                            isReply ? "w-7 h-7" : "w-8 h-8"
                         )}
                         onClick={() => onUserClick(id)}
                     >
@@ -47,8 +54,8 @@ const CommentNode: React.FC<CommentProps> = ({
                     </div>
                 </div>
 
-                <div className={cn(isReply ? "pl-8" : "pl-[40px] md:pl-[52px]")}>
-                    <div className="flex items-center gap-2 mb-1">
+                <div className={cn(isReply ? "pl-9" : "pl-[40px] md:pl-[40px]")}>
+                    <div className="flex items-center gap-2 ">
                         <span 
                             className="text-[10px] font-mono font-black text-zinc-900 uppercase cursor-pointer hover:underline" 
                             onClick={() => onUserClick(id)}
@@ -89,7 +96,7 @@ const CommentNode: React.FC<CommentProps> = ({
             {/* Recursively maps child reply assets inside structural list stack */}
             {replies.length > 0 && (
                 <div className="bg-zinc-50/30 flex flex-col">
-                    {replies.map((reply) => (
+                    {visibleReplies.map((reply) => (
                         <CommentNode
                             key={reply.id}
                             id={reply.id}
@@ -101,6 +108,30 @@ const CommentNode: React.FC<CommentProps> = ({
                             isReply={true}
                         />
                     ))}
+
+                    {/* Interactive Sub-tree expansion button control */}
+                    {hasExcessReplies && !showAllReplies && (
+                        <div className="pl-12 py-1 bg-white">
+                            <button
+                                onClick={() => setShowAllReplies(true)}
+                                className="text-[9px] font-mono font-black text-zinc-500 hover:text-zinc-950 uppercase cursor-pointer transition-colors"
+                            >
+                                ↳ Show More ({hiddenCount})
+                            </button>
+                        </div>
+                    )}
+                    
+                    {/* Optional: Collapse back option handle */}
+                    {hasExcessReplies && showAllReplies && (
+                        <div className="pl-12 py-1 bg-white">
+                            <button
+                                onClick={() => setShowAllReplies(false)}
+                                className="text-[9px] font-mono font-black text-zinc-400 hover:text-zinc-950 uppercase cursor-pointer transition-colors"
+                            >
+                                ↳ Collapse Replies
+                            </button>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

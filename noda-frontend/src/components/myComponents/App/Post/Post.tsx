@@ -82,7 +82,28 @@ const INITIAL_COMMENTS: CommentType[] = [
         likes: 3,
         postedAgo: "32m ago",
         content: "Are you pushing overhead metrics over gRPC or custom TCP streams here?"
-      }
+      },
+      {
+        id: "reply_2",
+        username: "Teo",
+        likes: 200,
+        postedAgo: "1h ago",
+        content: "Xddd"
+      },
+      {
+        id: "reply_3",
+        username: "test",
+        likes: 3,
+        postedAgo: "3m ago",
+        content: "Are you pushing overhead metrics over gRPC or custom TCP streams here? lalalal"
+      },
+      {
+        id: "reply_4",
+        username: "beta_tester",
+        likes: 3,
+        postedAgo: "32m ago",
+        content: "Are you pushing overhead metrics over gRPC or custom TCP streams here?"
+      },
     ]
   },
   {
@@ -211,7 +232,7 @@ const PostDetail = () => {
                                     </button>
                                 </div>
                             )}
-                            <div className="flex h-12">
+                            <div className="flex h-10">
                                 <input 
                                     id="signal-input"
                                     value={commentText}
@@ -222,7 +243,7 @@ const PostDetail = () => {
                                 />
                                 <button 
                                     onClick={handleSendComment}
-                                    className="bg-zinc-800 text-white px-8 text-[10px] font-mono uppercase font-black hover:bg-zinc-900 transition-colors cursor-pointer"
+                                    className="bg-blue-500 text-white px-8 text-[10px] font-mono uppercase font-black hover:bg-blue-600 transition-colors cursor-pointer"
                                 >
                                     Send
                                 </button>
@@ -230,7 +251,7 @@ const PostDetail = () => {
                         </div>
 
                         {/* Active Generated Comment Tree Output */}
-                        <div className="divide-y divide-zinc-100 pb-20">
+                        <div className="divide-y divide-zinc-300 pb-20">
                             {comments.map((comment) => (
                                 <CommentNode 
                                     key={comment.id} 
