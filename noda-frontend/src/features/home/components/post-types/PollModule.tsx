@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-export const PollModule = ({ poll }: { poll: any }) => {
+// Added questionText string property to the module definition
+export const PollModule = ({ poll, questionText }: { poll: any; questionText: string }) => {
   const [voted, setVoted] = useState<number | null>(null);
 
   return (
@@ -9,9 +10,10 @@ export const PollModule = ({ poll }: { poll: any }) => {
       className="mt-2 border border-zinc-300 bg-white overflow-hidden"
       onClick={(e) => e.preventDefault()}
     >
-      <div className="flex justify-between items-center px-2 py-1 h-8 border-b border-zinc-300 bg-zinc-200">
-        <span className="text-[10px] font-mono font-bold text-zinc-900 uppercase tracking-wider">
-          Question
+      {/* Poll Header Box displays the dynamic content question string */}
+      <div className="flex justify-between items-center px-2 py-1.5 min-h-8 border-b border-zinc-300 bg-zinc-200">
+        <span className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-wider whitespace-normal break-words leading-tight w-full">
+          {questionText || "POLL QUESTION"}
         </span>
       </div>
       <div className="divide-y divide-zinc-300">
@@ -25,7 +27,7 @@ export const PollModule = ({ poll }: { poll: any }) => {
             <button
               key={i}
               onClick={() => voted === null && setVoted(i)}
-              className="w-full relative flex items-center h-9 bg-white hover:bg-blue-500/10 transition-colors cursor-pointer text-left"
+              className="w-full relative flex items-center h-9 bg-white hover:bg-blue-500/10 transition-colors cursor-pointer text-left border-none outline-none"
             >
               {voted !== null && (
                 <motion.div

@@ -32,12 +32,12 @@ const FEED_POSTS_REGISTRY: Post[] = [
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
     },
     postedAgo: "1h",
-    content:
-      "Which serialization protocol are you prioritizing for low-latency node clusters in 2026?",
+    content: "Global systems cluster development poll.", // Content now serves as an optional post descriptor
     likes: 89,
     comments: 34,
     views: "5.6k",
     poll: {
+      question: "Which serialization protocol are you prioritizing for low-latency node clusters in 2026?", // Dedicated question key
       options: [
         { label: "Protocol Buffers", votes: 450 },
         { label: "Cap'n Proto", votes: 120 },

@@ -41,6 +41,7 @@ export interface PollOption {
 
 export interface PollData {
   options: PollOption[];
+  question: string;
   totalVotes: number;
 }
 

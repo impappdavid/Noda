@@ -77,7 +77,7 @@ export const PostCard = ({
         {post.content && <p className="text-xs text-zinc-800 leading-relaxed font-medium mb-2">{post.content}</p>}
 
         {/* COMPONENT MODULE LOGIC SEPARATIONS */}
-        {post.poll && <PollModule poll={post.poll} />}
+        {post.poll && <PollModule poll={post.poll} questionText={post.poll.question} />}
         
         {post.type === 'project_showcase' && post.project && <ProjectShowcaseModule project={post.project} />}
 
