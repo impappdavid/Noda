@@ -28,6 +28,8 @@ const TwoFactorDialog = ({
 }: TwoFactorInlineProps) => {
   const [code, setCode] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
 
   const executeVerification = (verificationCode: string) => {
@@ -35,9 +37,10 @@ const TwoFactorDialog = ({
     setTimeout(() => {
       setIsVerifying(false);
       onVerify(verificationCode);
-      if (code === "000000") {
+      if (verificationCode === "000000") {
         navigate("/app");
       }else{
+        setIsError(true)
         setCode("")
       }
     }, 1500);
@@ -104,10 +107,11 @@ const TwoFactorDialog = ({
               }}
             >
               <div className="flex items-center gap-1">
-                <InputOTPGroup className="gap-1">
+                <InputOTPGroup className="gap-1 ">
                   <InputOTPSlot
                     index={0}
-                    className="w-9 h-9 text-xs font-mono font-bold rounded-none  bg-white focus:bg-white focus:border-blue-500 focus:ring-0 text-zinc-900 transition-colors shadow-none"
+                    className={`w-9 h-9 text-xs font-mono font-bold rounded-none  bg-white focus:bg-white focus:border-blue-500  text-zinc-900 transition-colors shadow-none
+                    `}
                   />
                   <InputOTPSlot
                     index={1}
