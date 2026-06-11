@@ -7,11 +7,12 @@ interface IntelligenceNodeProps {
     value: string;
     active?: boolean;
     protocol?: boolean;
+    icon?: React.ReactNode;
 }
 
-export const IntelligenceNode = React.memo(({ label, value, active, protocol }: IntelligenceNodeProps) => (
+export const IntelligenceNode = React.memo(({ label, value, active, protocol, icon }: IntelligenceNodeProps) => (
     <div className={cn(
-        "flex-1 flex  items-center px-4 gap-2 transition-colors",
+        "flex-1 flex items-center px-4 gap-2 transition-colors",
         active && "bg-zinc-50/50"
     )}>
         <span className="text-[10px] font-mono font-black text-zinc-400 uppercase tracking-tighter shrink-0">
@@ -19,6 +20,7 @@ export const IntelligenceNode = React.memo(({ label, value, active, protocol }: 
         </span>
         <span className="w-1 h-1 rounded-full bg-zinc-100 shrink-0" />
         <div className="flex items-center gap-1 min-w-0">
+            {icon && <span className="text-zinc-500 flex items-center">{icon}</span>}
             <span className={cn(
                 "text-[10px] font-bold uppercase tracking-tight truncate",
                 active ? "text-blue-600" : "text-zinc-900"
