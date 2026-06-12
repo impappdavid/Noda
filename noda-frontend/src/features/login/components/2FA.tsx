@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight, RefreshCw, ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +31,17 @@ const TwoFactorDialog = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
+
+  // Automatic error suppression timer configuration
+  useEffect(() => {
+    if (!isError) return;
+
+    const timeoutHandle = setTimeout(() => {
+      setIsError(false);
+    }, 3000);
+
+    return () => clearTimeout(timeoutHandle);
+  }, [isError]);
 
   const executeVerification = (verificationCode: string) => {
     setIsVerifying(true);
@@ -94,6 +105,18 @@ const TwoFactorDialog = ({
             </span>
           </div>
 
+          {/* System Error Message Banner Strip */}
+          {isError && (
+            <div className="bg-red-50 p-1.5 border-b border-red-200 flex flex-col gap-0.5 animate-in fade-in duration-100">
+              <label className="text-[9px] font-black text-red-600 uppercase tracking-widest block leading-none">
+                Error_Log_03
+              </label>
+              <span className="text-[10px] font-bold text-red-800 uppercase leading-tight">
+                Invalid verification token sequence
+              </span>
+            </div>
+          )}
+
           {/* Ultra-Low Padding OTP Matrix Container */}
           <div className="flex flex-col items-center justify-center p-3 border-b border-zinc-300 bg-white">
             <InputOTP
@@ -101,6 +124,7 @@ const TwoFactorDialog = ({
               value={code}
               onChange={(val) => {
                 setCode(val);
+                if (isError) setIsError(false); // Clear notification strip on immediate mechanical input alteration
                 if (val.length === 6 && !isVerifying) {
                   executeVerification(val);
                 }
