@@ -39,6 +39,7 @@ import HomePage from './pages/app/HomePage'
 import { NotificationProvider } from './context/NotificationContext'
 import { GlobalNotificationDock } from './components/system/GlobalNotificationDock'
 import LoginPage from './pages/auth/LoginPage'
+import JobsPage from './pages/app/JobsPage'
 
 function App() {
   const location = useLocation();
@@ -66,7 +67,7 @@ function App() {
         <Route path="/app/createcompany" element={<CreateCompanyPage />} />
 
         <Route path="/app" element={<HomePage />} />
-        <Route path="/app/jobs" element={<AppJobs />} />
+        <Route path="/app/jobs" element={<JobsPage />} />
         <Route path="/app/co-build" element={<CoBuildPage />} />
         <Route path="/app/companies" element={<AppCompanies />} />
         <Route path="/app/tracker" element={<AppTracker />} />
