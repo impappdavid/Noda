@@ -41,9 +41,9 @@ export const defaultAllFiltersState: AllFiltersState = {
   selectedTypes: [],
   respondTime: "Any",
   salary: { min: "", max: "" },
-  selectedDescLangs: ["English"],
-  selectedReqLangs: ["English"],
-  skills: ["React", "TypeScript", "Node.js"],
+  selectedDescLangs: [],
+  selectedReqLangs: [],
+  skills: [],
 };
 
 const cn = (...classes: (string | boolean | undefined | null)[]) => classes.filter(Boolean).join(" ");
