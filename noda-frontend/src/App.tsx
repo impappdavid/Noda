@@ -1,6 +1,5 @@
 import './App.css'
 import { Routes, Route, useLocation } from 'react-router-dom'
-import AppJobs from './components/myComponents/App/Jobs/Jobs'
 import AppCompanies from './components/myComponents/App/Companies/Companies'
 import AppTracker from './components/myComponents/App/Tracker/Tracker'
 import AppCommunities from './components/myComponents/App/Communities/Communities'
