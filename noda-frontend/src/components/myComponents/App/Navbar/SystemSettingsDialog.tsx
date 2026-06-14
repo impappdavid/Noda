@@ -178,7 +178,7 @@ export default function FullyLoadedVerticalSettingsDialog({
             <button
               type="button"
               onClick={() => onOpenChange(false)}
-              className="p-1 text-zinc-100 hover:text-white hover:bg-zinc-800/30 border border-transparent transition-all cursor-pointer rounded-none"
+              className="p-1 text-zinc-100 hover:text-white hover:bg-zinc-800/30 border border-transparent transition-all cursor-pointer outline-none rounded-none"
             >
               <X size={13} />
             </button>

@@ -1,5 +1,6 @@
 import { MapPin, DollarSign, ArrowUpRight } from "lucide-react";
 import type { JobListingData } from "./types";
+import { Link } from "react-router-dom";
 
 // --- Type Definitions ---
 
@@ -84,15 +85,15 @@ export const JobListingModule = ({ job }: JobListingModuleProps) => {
 
       {/* 4. APPLICATION CTA ROUTING PIPELINE ACTION DOCK */}
       <div className="mt-0.5">
-        <a 
-          href={job.applyUrl}
+        <Link
+          to={job.applyUrl}
           target="_blank"
           rel="noreferrer"
           className="w-full h-8 flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 active:scale-[0.995] text-white text-[10px] font-mono font-black uppercase tracking-widest transition-all"
         >
           <span>Watch the listing</span>
           <ArrowUpRight size={11} />
-        </a>
+        </Link>
       </div>
     </div>
   );
