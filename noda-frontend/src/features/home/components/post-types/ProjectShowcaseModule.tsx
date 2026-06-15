@@ -1,11 +1,25 @@
 import { ExternalLink, Github, FolderGit2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { ProjectData } from "./types";
 
 export const ProjectShowcaseModule = ({ project }: { project: ProjectData }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate("/app/project/1");
+  };
+
   return (
-    <Link to={"/app/project/1"}
-      className="mt-2.5 border border-zinc-300 bg-white overflow-hidden flex flex-col select-none"
+    <div 
+      onClick={handleCardClick}
+      className="mt-2.5 border border-zinc-300 bg-white overflow-hidden flex flex-col select-none cursor-pointer"
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          handleCardClick();
+        }
+      }}
     >
       {/* 1. COVER HERO IMAGE VIEWPORT */}
       {project.coverImage && (
@@ -46,12 +60,16 @@ export const ProjectShowcaseModule = ({ project }: { project: ProjectData }) => 
             href={project.repoUrl} 
             target="_blank" 
             rel="noreferrer" 
+            onClick={(e) => e.stopPropagation()} // Prevents navigating to /app/project/1
             className="h-8 bg-white hover:bg-zinc-50 flex items-center justify-center gap-1.5 text-[10px] font-mono font-black text-zinc-700 uppercase tracking-wider transition-colors active:bg-zinc-100"
           >
             <Github size={12} className="text-zinc-500" /> Source Repository
           </a>
         ) : (
-          <div className="h-8 bg-zinc-50 flex items-center justify-center text-[10px] font-mono text-zinc-400 uppercase tracking-wider">
+          <div 
+            onClick={(e) => e.stopPropagation()} 
+            className="h-8 bg-zinc-50 flex items-center justify-center text-[10px] font-mono text-zinc-400 uppercase tracking-wider cursor-default"
+          >
             Private Repository
           </div>
         )}
@@ -61,16 +79,20 @@ export const ProjectShowcaseModule = ({ project }: { project: ProjectData }) => 
             href={project.liveUrl} 
             target="_blank" 
             rel="noreferrer" 
+            onClick={(e) => e.stopPropagation()} // Prevents navigating to /app/project/1
             className="h-8 bg-zinc-900 text-white hover:bg-blue-600 flex items-center justify-center gap-1.5 text-[10px] font-mono font-black uppercase tracking-wider transition-colors active:bg-blue-700"
           >
             <ExternalLink size={11} /> Launch Build
           </a>
         ) : (
-          <div className="h-8 bg-zinc-50 flex items-center justify-center text-[10px] font-mono text-zinc-400 uppercase tracking-wider">
+          <div 
+            onClick={(e) => e.stopPropagation()} 
+            className="h-8 bg-zinc-50 flex items-center justify-center text-[10px] font-mono text-zinc-400 uppercase tracking-wider cursor-default"
+          >
             Internal Deployment
           </div>
         )}
       </div>
-    </Link>
+    </div>
   );
 };
