@@ -1,6 +1,5 @@
 import './App.css'
 import { Routes, Route, useLocation } from 'react-router-dom'
-import AppCompanies from './components/myComponents/App/Companies/Companies'
 import AppTracker from './components/myComponents/App/Tracker/Tracker'
 import AppCalendar from './components/myComponents/App/Calendar/Calendar'
 import AppNetwork from './components/myComponents/App/Network/Network'
@@ -39,6 +38,7 @@ import { GlobalNotificationDock } from './components/system/GlobalNotificationDo
 import LoginPage from './pages/auth/LoginPage'
 import JobsPage from './pages/app/JobsPage'
 import CommunitiesPage from './pages/app/CommunitiesPage'
+import CompaniesPage from './pages/app/CompaniesPage'
 
 function App() {
   const location = useLocation();
@@ -68,7 +68,7 @@ function App() {
         <Route path="/app" element={<HomePage />} />
         <Route path="/app/jobs" element={<JobsPage />} />
         <Route path="/app/co-build" element={<CoBuildPage />} />
-        <Route path="/app/companies" element={<AppCompanies />} />
+        <Route path="/app/companies" element={<CompaniesPage />} />
         <Route path="/app/tracker" element={<AppTracker />} />
         <Route path="/app/communities" element={<CommunitiesPage />} />
         <Route path="/app/calendar" element={<AppCalendar />} />
