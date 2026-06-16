@@ -1,6 +1,5 @@
 import './App.css'
 import { Routes, Route, useLocation } from 'react-router-dom'
-import AppCalendar from './components/myComponents/App/Calendar/Calendar'
 import AppNetwork from './components/myComponents/App/Network/Network'
 import AppBookmarks from './components/myComponents/App/Bookmarks/Bookmarks'
 import PostDetail from './components/myComponents/App/Post/Post'
@@ -39,6 +38,7 @@ import JobsPage from './pages/app/JobsPage'
 import CommunitiesPage from './pages/app/CommunitiesPage'
 import CompaniesPage from './pages/app/CompaniesPage'
 import TrackerPage from './pages/app/TrackerPage'
+import CalendarPage from './pages/app/CalendarPage'
 
 function App() {
   const location = useLocation();
@@ -71,7 +71,7 @@ function App() {
         <Route path="/app/companies" element={<CompaniesPage />} />
         <Route path="/app/tracker" element={<TrackerPage />} />
         <Route path="/app/communities" element={<CommunitiesPage />} />
-        <Route path="/app/calendar" element={<AppCalendar />} />
+        <Route path="/app/calendar" element={<CalendarPage />} />
         <Route path="/app/network" element={<AppNetwork />} />
         <Route path="/app/bookmarks" element={<AppBookmarks />} />
         <Route path="/app/premium" element={<PremiumPage />} />
