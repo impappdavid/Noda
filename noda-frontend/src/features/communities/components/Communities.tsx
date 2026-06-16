@@ -25,7 +25,7 @@ const Communities: React.FC = () => {
   }, [searchQuery]); // Only re-run when searchQuery changes
 
   return (
-    <div className="h-screen bg-white w-full text-zinc-900 font-sans flex flex-col overflow-hidden">
+    <div className="bg-white w-full text-zinc-900 font-sans flex flex-col overflow-hidden">
       <div className="max-w-4xl mx-auto  flex flex-1 w-full gap-4 overflow-hidden">
         <main className="flex flex-1 flex-col max-w-4xl border-x border-zinc-300 h-full overflow-hidden bg-white ">
           {/* FILTER BAR */}
