@@ -20,7 +20,7 @@ export const InvitationRow = ({ person }: any) => (
           </span>
           <span className="text-[11px] font-mono text-zinc-600 uppercase tracking-tighter">
             {person.role} at{" "}
-            <Link to={"/app/company/vercel"} className="text-zinc-900 font-bold">{person.company}</Link>
+            <Link to={"/app/company/vercel"} className="text-zinc-900 font-bold hover:underline">{person.company}</Link>
           </span>
         </div>
       </div>
