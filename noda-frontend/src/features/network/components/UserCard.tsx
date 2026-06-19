@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const UserCard = ({ person }: any) => (
   <Link
     to={`/app/user/${person.name}`}
-    className=" bg-white flex flex-col border-r border-zinc-300 justify-between  group hover:bg-zinc-50 transition-all relative cursor-pointer"
+    className=" bg-white flex flex-col [&>*:nth-child(n+3)]:border-b  [&>*:nth-child(3)]:border-r-none border-r border-zinc-300 justify-between group hover:bg-zinc-50 transition-all relative cursor-pointer"
   >
     <div className="flex justify-between items-start p-1.5">
       {/* Left: Avatar Box */}
@@ -19,7 +19,7 @@ export const UserCard = ({ person }: any) => (
       </div>
     </div>
 
-    <div className="mt-1 w-full flex p-1.5">
+    <div className=" w-full flex p-1.5">
       <div className="space-y-1 w-full">
         <div className="flex items-center gap-1">
           <h3 className="text-[12px] font-bold tracking-tight leading-none">
