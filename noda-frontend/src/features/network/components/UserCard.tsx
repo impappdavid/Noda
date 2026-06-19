@@ -1,10 +1,15 @@
-import { ArrowUpRight, Plus } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const UserCard = ({ person }: any) => (
+export const UserCard = ({ person }: any) => {
+
+  const [isConnected, setIsConnected] = useState(false)
+
+  return(
   <Link
     to={`/app/user/${person.name}`}
-    className=" bg-white flex flex-col [&>*:nth-child(n+3)]:border-b  [&>*:nth-child(3)]:border-r-none border-r border-zinc-300 justify-between group hover:bg-zinc-200/60 transition-all relative cursor-pointer"
+    className=" bg-white flex flex-col [&>*:nth-child(n+3)]:border-b  [&>*:nth-child(3)]:border-r-none border-r border-zinc-300 justify-between group hover:bg-zinc-200/40 transition-all relative cursor-pointer"
   >
     <div className="flex justify-between items-start p-1.5">
       {/* Left: Avatar Box */}
@@ -59,10 +64,16 @@ export const UserCard = ({ person }: any) => (
       </div>
     </div>
     <div className="grid grid-cols-1 mt-1">
-      
-      <button className="bg-blue-500 text-white cursor-pointer hover:bg-blue-600 text-[11px] flex items-center justify-center py-1.5">
-        Connect
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          setIsConnected(!isConnected)
+        }}
+        className={`  cursor-pointer text-[11px] flex items-center transition-colors justify-center py-1.5 ${isConnected ? "bg-zinc-300 text-black hover:bg-red-500 hover:text-white" : "bg-blue-500 text-white hover:bg-blue-600 "}`}
+      >
+        {isConnected ? "Connected" : "Connect"}
       </button>
     </div>
   </Link>
-);
+  )
+};
