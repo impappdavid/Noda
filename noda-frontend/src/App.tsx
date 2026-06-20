@@ -13,7 +13,6 @@ import CompanyDashboard from './components/myComponents/App/CompanyAdmin/Dashboa
 import TeamNodesManager from './components/myComponents/App/CompanyAdmin/Team/Team'
 import ManageApplicants from './components/myComponents/App/CompanyAdmin/Jobs/Applications'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
-import AdminReportsPage from './components/myComponents/App/Admin/Reports/Reports'
 import AdminNotificationsPage from './components/myComponents/App/Admin/Notifications/Notifications'
 import IdeaReviewPage from './components/myComponents/App/Admin/Review/Review'
 import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
@@ -39,6 +38,7 @@ import TrackerPage from './pages/app/TrackerPage'
 import CalendarPage from './pages/app/CalendarPage'
 import NetworkPage from './pages/app/NetworkPage'
 import BookmarksPage from './pages/app/BookmarksPage'
+import ReportsPage from './pages/app/Admin/ReportsPage'
 
 function App() {
   const location = useLocation();
@@ -78,7 +78,7 @@ function App() {
 
         <Route path="/app/noda/ideas" element={<IdeaResonanceBoard />} />
 
-        <Route path="/app/noda/admin/reports" element={<AdminReportsPage />} />
+        <Route path="/app/noda/admin/reports" element={<ReportsPage />} />
         <Route path="/app/noda/admin/notifications" element={<AdminNotificationsPage />} />
         <Route path="/app/noda/admin/review" element={<IdeaReviewPage />} />
         <Route path="/app/noda/admin/companyreview" element={<VerificationTerminal />} />
