@@ -13,7 +13,6 @@ import CompanyDashboard from './components/myComponents/App/CompanyAdmin/Dashboa
 import TeamNodesManager from './components/myComponents/App/CompanyAdmin/Team/Team'
 import ManageApplicants from './components/myComponents/App/CompanyAdmin/Jobs/Applications'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
-import AdminNotificationsPage from './components/myComponents/App/Admin/Notifications/Notifications'
 import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
 import PremiumPage from './components/myComponents/App/Premium/Premium'
 import UserSearchPage from './components/myComponents/App/UserSearch/User'
@@ -79,7 +78,6 @@ function App() {
         <Route path="/app/noda/ideas" element={<IdeaResonanceBoard />} />
 
         <Route path="/app/noda/admin/reports" element={<ReportsPage />} />
-        <Route path="/app/noda/admin/notifications" element={<AdminNotificationsPage />} />
         <Route path="/app/noda/admin/review" element={<IdeaReviewPage />} />
         <Route path="/app/noda/admin/companyreview" element={<CompanyReviewPage />} />
 
