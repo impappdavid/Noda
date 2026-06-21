@@ -14,7 +14,6 @@ import TeamNodesManager from './components/myComponents/App/CompanyAdmin/Team/Te
 import ManageApplicants from './components/myComponents/App/CompanyAdmin/Jobs/Applications'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
 import AdminNotificationsPage from './components/myComponents/App/Admin/Notifications/Notifications'
-import IdeaReviewPage from './components/myComponents/App/Admin/Review/Review'
 import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
 import PremiumPage from './components/myComponents/App/Premium/Premium'
 import UserSearchPage from './components/myComponents/App/UserSearch/User'
@@ -39,6 +38,7 @@ import CalendarPage from './pages/app/CalendarPage'
 import NetworkPage from './pages/app/NetworkPage'
 import BookmarksPage from './pages/app/BookmarksPage'
 import ReportsPage from './pages/app/Admin/ReportsPage'
+import IdeaReviewPage from './pages/app/Admin/IdeaReviewPage'
 
 function App() {
   const location = useLocation();
