@@ -19,7 +19,6 @@ import PremiumPage from './components/myComponents/App/Premium/Premium'
 import UserSearchPage from './components/myComponents/App/UserSearch/User'
 import CompanySearchPage from './components/myComponents/App/CompanySearch/CompanySearch'
 import CreateCompanyPage from './components/myComponents/App/CreateCompany/CreateCompany'
-import VerificationTerminal from './components/myComponents/App/Admin/CompanyReview/CompanyReview'
 import Applicants from './components/myComponents/App/CompanyAdmin/Applicants/Applicants'
 import ProjectDetailView from './components/myComponents/App/Project/ProjectDetailView'
 import GlobalMessagingDock from './components/myComponents/App/GlobalMessagingDock'
@@ -39,6 +38,7 @@ import NetworkPage from './pages/app/NetworkPage'
 import BookmarksPage from './pages/app/BookmarksPage'
 import ReportsPage from './pages/app/Admin/ReportsPage'
 import IdeaReviewPage from './pages/app/Admin/IdeaReviewPage'
+import CompanyReviewPage from './pages/app/Admin/CompanyReviewPage'
 
 function App() {
   const location = useLocation();
@@ -81,7 +81,7 @@ function App() {
         <Route path="/app/noda/admin/reports" element={<ReportsPage />} />
         <Route path="/app/noda/admin/notifications" element={<AdminNotificationsPage />} />
         <Route path="/app/noda/admin/review" element={<IdeaReviewPage />} />
-        <Route path="/app/noda/admin/companyreview" element={<VerificationTerminal />} />
+        <Route path="/app/noda/admin/companyreview" element={<CompanyReviewPage />} />
 
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/messages" element={<MessagesPage />} />
