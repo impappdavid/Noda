@@ -7,7 +7,6 @@ import UserProfile from './components/myComponents/App/User/User'
 import NotificationsPage from './components/myComponents/App/Notifications/Notifications'
 import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
-import CreatePost from './components/myComponents/App/CompanyAdmin/CreatePost/CreatePost'
 import PostJob from './components/myComponents/App/CompanyAdmin/PostJob/PostJob'
 import ManageApplicants from './components/myComponents/App/CompanyAdmin/Jobs/Applications'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
@@ -38,6 +37,7 @@ import IdeaReviewPage from './pages/app/Admin/IdeaReviewPage'
 import CompanyReviewPage from './pages/app/Admin/CompanyReviewPage'
 import DashboardPage from './pages/app/CompanyAdmin/DashboardPage'
 import TeamPage from './pages/app/CompanyAdmin/TeamPage'
+import PostPage from './pages/app/CompanyAdmin/PostPage'
 
 function App() {
   const location = useLocation();
@@ -84,7 +84,7 @@ function App() {
         <Route path="/app/notifications" element={<NotificationsPage />} />
         <Route path="/app/messages" element={<MessagesPage />} />
 
-        <Route path="/app/admin/post" element={<CreatePost />} />
+        <Route path="/app/admin/post" element={<PostPage />} />
         <Route path="/app/admin/jobs" element={<ManageApplicants />} />
         <Route path="/app/admin/jobs/:id" element={<Applicants />} />
         <Route path="/app/admin/jobs/create" element={<PostJob />} />
