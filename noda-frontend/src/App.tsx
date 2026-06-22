@@ -9,7 +9,6 @@ import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
 import CreatePost from './components/myComponents/App/CompanyAdmin/CreatePost/CreatePost'
 import PostJob from './components/myComponents/App/CompanyAdmin/PostJob/PostJob'
-import TeamNodesManager from './components/myComponents/App/CompanyAdmin/Team/Team'
 import ManageApplicants from './components/myComponents/App/CompanyAdmin/Jobs/Applications'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
 import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
@@ -38,6 +37,7 @@ import ReportsPage from './pages/app/Admin/ReportsPage'
 import IdeaReviewPage from './pages/app/Admin/IdeaReviewPage'
 import CompanyReviewPage from './pages/app/Admin/CompanyReviewPage'
 import DashboardPage from './pages/app/CompanyAdmin/DashboardPage'
+import TeamPage from './pages/app/CompanyAdmin/TeamPage'
 
 function App() {
   const location = useLocation();
@@ -89,7 +89,7 @@ function App() {
         <Route path="/app/admin/jobs/:id" element={<Applicants />} />
         <Route path="/app/admin/jobs/create" element={<PostJob />} />
         <Route path="/app/admin/dashboard" element={<DashboardPage />} />
-        <Route path="/app/admin/team" element={<TeamNodesManager />} />
+        <Route path="/app/admin/team" element={<TeamPage />} />
       </Routes>
 
       {/* Conditionally render your visual layout overlays only in application space */}
