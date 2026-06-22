@@ -9,7 +9,6 @@ import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
 import CreatePost from './components/myComponents/App/CompanyAdmin/CreatePost/CreatePost'
 import PostJob from './components/myComponents/App/CompanyAdmin/PostJob/PostJob'
-import CompanyDashboard from './components/myComponents/App/CompanyAdmin/Dashboard/Dashboard'
 import TeamNodesManager from './components/myComponents/App/CompanyAdmin/Team/Team'
 import ManageApplicants from './components/myComponents/App/CompanyAdmin/Jobs/Applications'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
@@ -38,6 +37,7 @@ import BookmarksPage from './pages/app/BookmarksPage'
 import ReportsPage from './pages/app/Admin/ReportsPage'
 import IdeaReviewPage from './pages/app/Admin/IdeaReviewPage'
 import CompanyReviewPage from './pages/app/Admin/CompanyReviewPage'
+import DashboardPage from './pages/app/CompanyAdmin/DashboardPage'
 
 function App() {
   const location = useLocation();
@@ -88,7 +88,7 @@ function App() {
         <Route path="/app/admin/jobs" element={<ManageApplicants />} />
         <Route path="/app/admin/jobs/:id" element={<Applicants />} />
         <Route path="/app/admin/jobs/create" element={<PostJob />} />
-        <Route path="/app/admin/dashboard" element={<CompanyDashboard />} />
+        <Route path="/app/admin/dashboard" element={<DashboardPage />} />
         <Route path="/app/admin/team" element={<TeamNodesManager />} />
       </Routes>
 
