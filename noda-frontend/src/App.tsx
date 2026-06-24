@@ -7,14 +7,12 @@ import UserProfile from './components/myComponents/App/User/User'
 import NotificationsPage from './components/myComponents/App/Notifications/Notifications'
 import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
-import PostJob from './components/myComponents/App/CompanyAdmin/PostJob/PostJob'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
 import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
 import PremiumPage from './components/myComponents/App/Premium/Premium'
 import UserSearchPage from './components/myComponents/App/UserSearch/User'
 import CompanySearchPage from './components/myComponents/App/CompanySearch/CompanySearch'
 import CreateCompanyPage from './components/myComponents/App/CreateCompany/CreateCompany'
-import Applicants from './components/myComponents/App/CompanyAdmin/Applicants/Applicants'
 import ProjectDetailView from './components/myComponents/App/Project/ProjectDetailView'
 import GlobalMessagingDock from './components/myComponents/App/GlobalMessagingDock'
 import CoBuildPage from './pages/app/CoBuildPage'
@@ -86,8 +84,6 @@ function App() {
 
         <Route path="/app/admin/post" element={<PostPage />} />
         <Route path="/app/admin/jobs" element={<ApplicantsPage />} />
-        <Route path="/app/admin/jobs/:id" element={<Applicants />} />
-        <Route path="/app/admin/jobs/create" element={<PostJob />} />
         <Route path="/app/admin/dashboard" element={<DashboardPage />} />
         <Route path="/app/admin/team" element={<TeamPage />} />
       </Routes>
