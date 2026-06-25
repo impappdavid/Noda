@@ -125,8 +125,8 @@ const AdminReportsPage = () => {
                     </h3>
 
                     <div className="flex items-center justify-between mt-auto">
-                      <div className="flex items-center gap-1 text-[8px] font-mono font-bold text-zinc-400 uppercase">
-                        <User size={8} /> {report.reporter}
+                      <div className="flex items-center gap-1 text-[9px] font-mono font-bold text-zinc-400 uppercase">
+                        <User size={12} /> {report.reporter}
                       </div>
                       <ChevronRight
                         size={12}
