@@ -113,7 +113,7 @@ const CompanyVerification = () => {
                         size={16}
                         className="text-white shrink-0"
                       />
-                      Verify
+                      Review
                     </DialogTitle>
                     <DialogClose>
                       <button className="hover:bg-black/40 cursor-pointer p-1 transition-colors outline-none">
