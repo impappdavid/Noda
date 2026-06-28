@@ -3,7 +3,6 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import PostDetail from './components/myComponents/App/Post/Post'
 import JobDetailPage from './components/myComponents/App/Job/Job'
 import CommunityDetail from './components/myComponents/App/Community/Community'
-import UserProfile from './components/myComponents/App/User/User'
 import NotificationsPage from './components/myComponents/App/Notifications/Notifications'
 import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
@@ -36,6 +35,7 @@ import DashboardPage from './pages/app/CompanyAdmin/DashboardPage'
 import TeamPage from './pages/app/CompanyAdmin/TeamPage'
 import PostPage from './pages/app/CompanyAdmin/PostPage'
 import ApplicantsPage from './pages/app/CompanyAdmin/ApplicantsPage'
+import UserPage from './pages/app/UserPage'
 
 function App() {
   const location = useLocation();
@@ -52,7 +52,7 @@ function App() {
         <Route path="/app/post/:id" element={<PostDetail />} />
         <Route path="/app/jobs/:id" element={<JobDetailPage />} />
         <Route path="/app/communities/:id" element={<CommunityDetail />} />
-        <Route path="/app/user/:id" element={<UserProfile />} />
+        <Route path="/app/user/:id" element={<UserPage />} />
         <Route path="/app/company/:id" element={<CompanyPage />} />
 
         <Route path="/app/project/:id" element={<ProjectDetailView />} />
