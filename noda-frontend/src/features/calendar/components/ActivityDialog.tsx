@@ -28,7 +28,7 @@ const ActivityDialog: React.FC<ActivityDialogProps> = ({
 
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
+            <DialogContent className="sm:max-w-112.5 p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
                 
                 {/* ENHANCED HEADER STYLE */}
                 <DialogHeader className="bg-blue-500 p-1.5 px-2 border-b border-zinc-300 flex flex-row items-center justify-between space-y-0 w-full">

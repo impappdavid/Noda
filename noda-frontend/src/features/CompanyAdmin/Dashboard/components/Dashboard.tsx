@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Users, Eye, MessageSquare,
   Heart, BarChart3, Target, RefreshCcw, Hash, Briefcase, Link2,
@@ -18,7 +18,6 @@ const chartData = [
 ];
 
 const CompanyDashboard: React.FC = () => {
-  const [activeStream, setActiveStream] = useState<"all" | "views" | "likes">("all");
 
   return (
     <div className="w-full bg-white text-zinc-900 font-sans flex flex-col overflow-hidden">
@@ -53,7 +52,7 @@ const CompanyDashboard: React.FC = () => {
           </div>
 
           {/* REDESIGNED GRAPH METRIC SEGMENT */}
-          <div className="p-3 border-b border-zinc-300 bg-gradient-to-b from-zinc-50/50 to-transparent">
+          <div className="p-3 border-b border-zinc-300 bg-linear-to-b from-zinc-50/50 to-transparent">
             <div className="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 select-none">
               <SectionHeader icon={<Target size={11} />} title="Resonance_Uplink_Telemetry" />
               

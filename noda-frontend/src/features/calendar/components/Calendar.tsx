@@ -61,7 +61,7 @@ const Calendar = () => {
                 <main className="flex flex-1 flex-col max-w-3xl border-x border-zinc-300 h-full bg-white overflow-hidden ">
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-10">
                         <div className="flex flex-1 items-center divide-x divide-zinc-300 h-full">
-                            <div className="flex-[2] px-4 flex items-center justify-between gap-3">
+                            <div className="flex-2 px-4 flex items-center justify-between gap-3">
                                 <h2 className="text-[10px] font-mono font-black uppercase tracking-[0.3em]">{MONTHS[currentDate.getMonth()]} {currentDate.getFullYear()}</h2>
                                 <div className="flex gap-1">
                                     <button onClick={prevMonth} className="p-1 hover:bg-zinc-200 transition-colors cursor-pointer"><ChevronLeft size={12} /></button>

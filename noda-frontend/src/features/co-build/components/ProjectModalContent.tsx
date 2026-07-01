@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import { 
   Layers, 
   X, 
-  Info, 
-  User, 
   ChevronLeft, 
   ChevronRight,
   ArrowUpRight,
-  ShieldAlert
 } from 'lucide-react';
 import { 
   DialogContent, 
@@ -16,7 +13,6 @@ import {
   DialogClose 
 } from "@/components/ui/dialog";
 
-const cn = (...classes: any[]) => classes.filter(Boolean).join(" ");
 
 interface TeamMember {
   name: string;
@@ -100,7 +96,7 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
 // --- CORE REDESIGNED COMPONENT ---
 const ProjectModalContent: React.FC<ProjectModalContentProps> = ({ project }) => {
   return (
-    <DialogContent className="sm:max-w-[480px] p-0 border-none rounded-none shadow-none overflow-hidden bg-white gap-0 font-mono text-left select-none text-zinc-900">
+    <DialogContent className="sm:max-w-120 p-0 border-none rounded-none shadow-none overflow-hidden bg-white gap-0 font-mono text-left select-none text-zinc-900">
       
       {/* HEADER SECTION */}
       <DialogHeader className="bg-blue-600 p-1.5 px-3  flex flex-row items-center justify-between space-y-0 w-full text-white">

@@ -22,7 +22,7 @@ const ProjectFilterSidebar: React.FC<ProjectFilterSidebarProps> = ({
 }) => {
   return (
     <aside className="w-39 flex-none hidden lg:flex flex-col bg-white border-l border-zinc-300 min-h-screen ">
-      <div className="flex flex-col h-full divide-y divide-zinc-200 sticky top-[53px]">
+      <div className="flex flex-col h-full divide-y divide-zinc-200 sticky top-13.25">
         
         <div className="p-2 px-3 bg-zinc-50 flex items-center gap-1.5">
           <SlidersHorizontal size={10} className="text-zinc-800" />
@@ -44,7 +44,7 @@ const ProjectFilterSidebar: React.FC<ProjectFilterSidebarProps> = ({
                   onChange={() => onToggleFilter(selectedRoles, setSelectedRoles, role)}
                 />
                 <div className="w-3 h-3 border border-zinc-300 bg-white flex items-center justify-center peer-checked:bg-zinc-900 peer-checked:border-zinc-900 transition-colors shrink-0 rounded-none">
-                  <Check size={8} className="text-white hidden peer-checked:block stroke-[3]" />
+                  <Check size={8} className="text-white hidden peer-checked:block stroke-3" />
                 </div>
                 <span className="truncate peer-checked:font-black">{role}</span>
               </label>
@@ -65,7 +65,7 @@ const ProjectFilterSidebar: React.FC<ProjectFilterSidebarProps> = ({
                   onChange={() => onToggleFilter(selectedSkills, setSelectedSkills, skill)}
                 />
                 <div className="w-3 h-3 border border-zinc-300 bg-white flex items-center justify-center peer-checked:bg-zinc-900 peer-checked:border-zinc-900 transition-colors shrink-0 rounded-none">
-                  <Check size={8} className="text-white hidden peer-checked:block stroke-[3]" />
+                  <Check size={8} className="text-white hidden peer-checked:block stroke-3" />
                 </div>
                 <span className="truncate peer-checked:font-black">{skill}</span>
               </label>
@@ -86,7 +86,7 @@ const ProjectFilterSidebar: React.FC<ProjectFilterSidebarProps> = ({
                   onChange={() => onToggleFilter(selectedCompensation, setSelectedCompensation, compType)}
                 />
                 <div className="w-3 h-3 border border-zinc-300 bg-white flex items-center justify-center peer-checked:bg-zinc-900 peer-checked:border-zinc-900 transition-colors shrink-0 rounded-none">
-                  <Check size={8} className="text-white hidden peer-checked:block stroke-[3]" />
+                  <Check size={8} className="text-white hidden peer-checked:block stroke-3" />
                 </div>
                 <span className="truncate peer-checked:font-black">{compType}</span>
               </label>

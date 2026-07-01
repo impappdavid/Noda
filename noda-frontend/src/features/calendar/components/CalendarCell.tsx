@@ -8,7 +8,7 @@ const CalendarCell: React.FC<CalendarCellProps> = ({ day, interviews, isCurrent,
         <div 
             onClick={onClick}
             className={cn(
-                "min-h-[110px] p-2 flex flex-col border-b border-zinc-300 transition-colors relative group",
+                "min-h-27.5 p-2 flex flex-col border-b border-zinc-300 transition-colors relative group",
                 !day && "bg-zinc-50/20",
                 day && "bg-white hover:bg-zinc-200/60 cursor-pointer",
                 isCurrent && "bg-zinc-200/80"

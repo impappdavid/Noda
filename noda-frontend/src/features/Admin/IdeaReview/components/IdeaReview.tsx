@@ -130,7 +130,7 @@ const IdeaReview = () => {
           <div className="px-2 h-8 border-b border-zinc-300 bg-zinc-200 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-2">
               <ShieldCheck size={14} className="text-black" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.1em]">
+              <span className="text-[10px] font-semibold uppercase tracking-widest">
                 Idea Review Queue
               </span>
             </div>
@@ -169,7 +169,7 @@ const IdeaReview = () => {
                   </div>
                 </DialogTrigger>
 
-                <DialogContent className="sm:max-w-[500px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
+                <DialogContent className="sm:max-w-125 p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
                   <DialogHeader className="bg-blue-500 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
                     <DialogTitle className="text-[12px] tracking-wide uppercase text-white flex gap-1 items-center">
                       <BadgeQuestionMark size={16} className="text-white shrink-0" />

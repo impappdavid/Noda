@@ -1,7 +1,6 @@
 import React from 'react';
 import { Trash2, X } from 'lucide-react';
 import { cn } from "@/lib/utils";
-import type { Poll } from '@/types/admin/createPost';
 
 export const ImageGrid = React.memo(({ images, onRemove }: { images: string[], onRemove: (i: number) => void }) => (
     <div className={cn(

@@ -9,14 +9,11 @@ import type { JobNode } from "@/types/admin/applications";
 import {
   Calendar1,
   EllipsisVertical,
-  Pencil,
   Trash,
   ChevronLeft,
   ChevronRight,
   Clock,
   X,
-  Plus,
-  Check,
   AlertTriangle,
   Terminal,
   Bell,
@@ -179,7 +176,7 @@ export const JobCard = React.memo(({ job }: { job: JobNode }) => {
 
       {/* DELETE CONFIRMATION DIALOG */}
       <Dialog open={deleteDialog} onOpenChange={setDeleteDialog}>
-        <DialogContent className="max-w-[360px] p-0 rounded-none border-none gap-0 outline-none flex flex-col h-fit">
+        <DialogContent className="max-w-90 p-0 rounded-none border-none gap-0 outline-none flex flex-col h-fit">
           <DialogHeader className="bg-zinc-800 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
             <DialogTitle className="text-[12px] tracking-wider text-white flex gap-1 items-center">
               <AlertTriangle size={16} className="text-white shrink-0" />

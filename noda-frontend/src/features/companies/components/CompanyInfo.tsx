@@ -23,7 +23,6 @@ import { Switch } from "@/components/ui/switch";
 import type { Company } from "@/types/companies";
 import { Link } from "react-router-dom";
 
-const LATENCY_NODES = ["< 24H", "< 3D", "< 1W", "> 1W"];
 
 const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);

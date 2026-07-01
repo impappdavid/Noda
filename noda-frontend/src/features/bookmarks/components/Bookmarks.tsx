@@ -39,7 +39,7 @@ const Bookmarks = () => {
                     {/* FILTER BAR */}
                     <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-10">
                         <div className="flex flex-1 items-center divide-x divide-zinc-300 h-full">
-                            <div className="relative flex-[2] flex items-center bg-white px-3 h-full">
+                            <div className="relative flex-2 flex items-center bg-white px-3 h-full">
                                 <Search size={14} className="text-zinc-500 mr-2" />
                                 <input 
                                     placeholder="SEARCH SAVED NODES..." 

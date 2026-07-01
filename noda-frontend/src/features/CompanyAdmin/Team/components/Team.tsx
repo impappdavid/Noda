@@ -1,9 +1,8 @@
-import React, { useState, useMemo, useCallback } from "react";
+import { useState, useMemo } from "react";
 import {
   Search,
   Users,
   Inbox,
-  Trash2,
   Clock,
   Shield,
   Mail,
@@ -236,7 +235,7 @@ const TeamManager = () => {
                   className="w-full h-full bg-transparent pl-8 pr-4 text-[11px] font-mono font-bold text-black outline-none placeholder:text-zinc-500 transition-all"
                 />
               </div>
-              <button className="h-full px-4 bg-blue-500 text-white font-mono font-bold text-[10px] uppercase tracking-[0.1em] flex items-center gap-2 hover:bg-blue-600 active:bg-blue-500 transition-all cursor-pointer">
+              <button className="h-full px-4 bg-blue-500 text-white font-mono font-bold text-[10px] uppercase tracking-widest flex items-center gap-2 hover:bg-blue-600 active:bg-blue-500 transition-all cursor-pointer">
                 Send Invite
               </button>
             </div>

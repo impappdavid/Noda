@@ -13,7 +13,7 @@ const BookmarkCard: React.FC<Props> = ({ data }) => {
     return (
         <Link 
             to={isJob ? `/app/jobs/${data.id}` : `/app/post/${data.id}`} 
-            className="p-3 flex flex-col justify-center min-h-[90px] bg-white hover:bg-zinc-50 transition-colors cursor-pointer group relative"
+            className="p-3 flex flex-col justify-center min-h-22.5 bg-white hover:bg-zinc-50 transition-colors cursor-pointer group relative"
         >
             <div className="flex justify-between items-start mb-1">
                 <div className="flex flex-col min-w-0">

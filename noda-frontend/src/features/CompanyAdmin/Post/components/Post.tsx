@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { Send, Image as ImageIcon, BarChart3, CheckCircle2, Terminal, Users, Zap, MoreHorizontal, MessageSquare, Bookmark, Share, Heart, X, Loader2 } from 'lucide-react';
+import { Send, Image as ImageIcon, BarChart3, Users, MoreHorizontal, MessageSquare, Bookmark, Share, Heart, X, Loader2 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 import type { Poll } from '@/types/admin/createPost';
 import { PollModule } from './Attachments';
@@ -96,7 +96,7 @@ const CreatePost = () => {
                                     <MoreHorizontal size={16} className="text-zinc-400" />
                                 </div>
 
-                                <div className="pl-[52px] flex-1 flex flex-col">
+                                <div className="pl-13 flex-1 flex flex-col">
                                     <textarea
                                         ref={textareaRef}
                                         value={content}
@@ -119,7 +119,7 @@ const CreatePost = () => {
                                                         <div key={idx} className={cn("relative bg-zinc-100 overflow-hidden", images.length === 3 && idx === 0 ? "row-span-2" : "")}>
                                                             <img src={img} className="w-full h-full object-cover" alt="preview" />
                                                             {isFourth && hasMore && (
-                                                                <div className="absolute inset-0 bg-zinc-900/60 backdrop-blur-[4px] flex items-center justify-center">
+                                                                <div className="absolute inset-0 bg-zinc-900/60 backdrop-blur-xs flex items-center justify-center">
                                                                     <span className="text-white text-lg font-mono font-black tracking-widest">+{images.length - 3}</span>
                                                                 </div>
                                                             )}
@@ -167,7 +167,7 @@ const CreatePost = () => {
                                             {content.length.toString().padStart(3, '0')}_CHARS
                                         </span>
                                     </div>
-                                    <div className="w-[1px] h-6 bg-zinc-200" />
+                                    <div className="w-px h-6 bg-zinc-200" />
                                     <div className="flex flex-col">
                                         <span className="text-[8px] font-mono font-black text-zinc-400 uppercase leading-none">Attachments</span>
                                         <span className="text-[10px] font-mono font-bold mt-1 text-zinc-900">

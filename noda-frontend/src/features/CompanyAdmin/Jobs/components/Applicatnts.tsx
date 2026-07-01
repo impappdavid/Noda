@@ -47,7 +47,7 @@ const ReviewApplicantDialog = ({ app }: { app: ApplicantNode }) => {
   const education = "MIT - MS Computer Science";
 
   return (
-    <DialogContent className="sm:max-w-[650px] p-0 rounded-none border-none bg-white shadow-none overflow-hidden font-sans">
+    <DialogContent className="sm:max-w-162.5 p-0 rounded-none border-none bg-white shadow-none overflow-hidden font-sans">
       <DialogHeader className="px-4 h-12 bg-zinc-800 flex flex-row items-center justify-between shrink-0 space-y-0">
         <div className="flex items-center gap-2">
           <ShieldCheck size={14} className="text-emerald-500" />
@@ -118,7 +118,7 @@ const ReviewApplicantDialog = ({ app }: { app: ApplicantNode }) => {
                     <span className="text-[9px] font-mono font-black text-zinc-500 uppercase">
                       Education
                     </span>
-                    <span className="text-[9px] font-bold text-zinc-900 uppercase text-right leading-tight max-w-[120px]">
+                    <span className="text-[9px] font-bold text-zinc-900 uppercase text-right leading-tight max-w-30">
                       {education}
                     </span>
                   </div>
@@ -218,7 +218,7 @@ const ReviewApplicantDialog = ({ app }: { app: ApplicantNode }) => {
           </div>
         </TabsContent>
 
-        <TabsContent value="cv" className="m-0 h-[450px] bg-zinc-200 relative">
+        <TabsContent value="cv" className="m-0 h-112.5 bg-zinc-200 relative">
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
             <FileText size={48} className="text-zinc-400" />
             <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest">
@@ -236,7 +236,7 @@ const ReviewApplicantDialog = ({ app }: { app: ApplicantNode }) => {
 
 // --- DIALOG: ACCEPTANCE FLOW (Stayed the same) ---
 const AcceptApplicantDialog = () => (
-  <DialogContent className="sm:max-w-[400px] p-0 rounded-none border-none bg-white shadow-none font-sans overflow-hidden">
+  <DialogContent className="sm:max-w-100 p-0 rounded-none border-none bg-white shadow-none font-sans overflow-hidden">
     <DialogHeader className="px-4 h-12 bg-zinc-800 flex flex-row items-center justify-between shrink-0 space-y-0">
       <div className="flex items-center gap-2">
         <CheckCircle2 size={14} className="text-emerald-500" />
@@ -294,7 +294,7 @@ const AcceptApplicantDialog = () => (
 
 
 export const ApplicantCard = React.memo(({ app }: { app: ApplicantNode }) => (
-  <div className="p-2 border-b border-zinc-300 bg-white hover:bg-zinc-50 transition-all group flex items-center justify-between border-b border-zinc-100">
+  <div className="p-2  border-zinc-300 bg-white hover:bg-zinc-50 transition-all group flex items-center justify-between border-b ">
     <div className="flex items-center gap-4">
       <div className="w-10 h-10 bg-zinc-100 border border-zinc-200 flex items-center justify-center font-bold text-xs text-zinc-400 shrink-0">
         {app.name[0]}

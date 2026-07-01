@@ -84,7 +84,7 @@ const AdminReportsPage = () => {
           <div className="px-2 h-8 border-b border-zinc-300 bg-zinc-200 flex justify-between items-center shrink-0">
             <div className="flex items-center gap-2">
               <Flag size={14} className="text-black" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.1em]">
+              <span className="text-[10px] font-semibold uppercase tracking-widest">
                 Report Queue
               </span>
             </div>
@@ -99,7 +99,7 @@ const AdminReportsPage = () => {
             {reports.map((report) => (
               <Dialog key={report.id}>
                 <DialogTrigger asChild>
-                  <div className="p-2 bg-white flex flex-col border-b border-zinc-300 [&:not(:nth-child(3n))]:border-r h-fit cursor-pointer hover:bg-zinc-200/80 transition-colors group">
+                  <div className="p-2 bg-white flex flex-col border-b border-zinc-300 not-nth-[3n]:border-r h-fit cursor-pointer hover:bg-zinc-200/80 transition-colors group">
                     <div className="flex items-center justify-between mb-1.5">
                       <div className="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase">
                         <span className="text-zinc-900 bg-zinc-100 px-1 border border-zinc-200 shadow-sm">
@@ -137,7 +137,7 @@ const AdminReportsPage = () => {
                 </DialogTrigger>
 
                 {/* ENHANCED MODAL CONTENT */}
-                <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
+                <DialogContent className="sm:max-w-112.5 p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
                   <DialogHeader className="bg-blue-500 p-1.5 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
                     <DialogTitle className="text-[12px] tracking-wide uppercase text-white flex gap-1 items-center">
                       <AlertTriangle

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flame, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import { Flame, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import ProjectModalContent from './ProjectModalContent';
 
@@ -50,7 +50,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onUpvote }) => {
         className="bg-white flex flex-col select-none relative rounded-none p-1.5 gap-2"
       >
         {/* Project Image Carousel Wrapper */}
-        <div className="w-full aspect-[16/10] relative overflow-hidden shrink-0 group bg-zinc-100 border border-zinc-200 rounded-none">
+        <div className="w-full aspect-16/10 relative overflow-hidden shrink-0 group bg-zinc-100 border border-zinc-200 rounded-none">
           <img 
             src={project.images[currentImgIdx]} 
             alt={project.title}
