@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { 
-    BadgeCheck, GraduationCap, Heart, Zap, Globe, Terminal, Briefcase, Code2, 
-    Github, Twitter, Linkedin, Award, BarChart3, TrendingUp, Users, Search, 
+    BadgeCheck, GraduationCap, Zap, Globe, Terminal, Briefcase, Code2, 
+    Github, Twitter, Linkedin, BarChart3, TrendingUp, Users, Search, 
     Quote, Settings2
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
@@ -128,7 +128,7 @@ const UserProfile: React.FC = () => {
                         </div>
 
                         {/* MODULES CONTAINER */}
-                        <div className="flex-1 bg-zinc-300 gap-[1px] flex flex-col">
+                        <div className="flex-1 bg-zinc-300 gap-px flex flex-col">
                             {activeTab === 'ABOUT' && (
                                 <>
                                     <div ref={sectionRefs.about} className="bg-white p-2 border-b border-zinc-300">
@@ -154,7 +154,7 @@ const UserProfile: React.FC = () => {
 
                                     <div ref={sectionRefs.projects} className="bg-white border-b border-zinc-300">
                                         <ModuleHeader title="Projects" icon={<Code2 size={12}/>} />
-                                        <div className="grid grid-cols-2 gap-[1px] bg-zinc-300">
+                                        <div className="grid grid-cols-2 gap-px bg-zinc-300">
                                             {userData.projects.map((proj, idx) => (
                                                 <div key={idx} className="bg-white p-2 group cursor-pointer">
                                                     <div className="aspect-video bg-zinc-100 mb-2 overflow-hidden border border-zinc-200 shadow-inner">

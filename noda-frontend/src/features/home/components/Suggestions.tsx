@@ -1,5 +1,4 @@
 import PremiumCard from "./suggestions/PremiumCard";
-import ProfileActivity from "./suggestions/ProfileActivity";
 import ProfileSetup from "./suggestions/ProfileSetup";
 
 const Suggestions = () => {

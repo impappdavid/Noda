@@ -51,7 +51,7 @@ const ReportModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
+      <DialogContent className="sm:max-w-112.5 p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
         <DialogHeader className="bg-red-500 p-1 px-2 border-b border-zinc-300 flex justify-between w-full items-center space-y-0">
           <DialogTitle className="text-[12px] tracking-wide uppercase text-white flex gap-1 items-center">
             <AlertTriangle size={16} className="text-white shrink-0" />
@@ -132,7 +132,7 @@ const ReportModal = ({
             </div>
           </div>
         ) : (
-          <div className="h-[300px] flex flex-col items-center justify-center text-center p-6 bg-white">
+          <div className="h-75 flex flex-col items-center justify-center text-center p-6 bg-white">
             <div className="w-16 h-16 border-2 border-emerald-500 flex items-center justify-center mb-4">
               <CheckCircle2
                 size={32}

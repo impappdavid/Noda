@@ -22,13 +22,11 @@ interface TwoFactorInlineProps {
 }
 
 const TwoFactorDialog = ({
-  credentials,
   onVerify,
   onBackToLogin,
 }: TwoFactorInlineProps) => {
   const [code, setCode] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
 
@@ -101,7 +99,7 @@ const TwoFactorDialog = ({
               Security_03
             </label>
             <span className="text-[10px] font-bold text-zinc-800 uppercase leading-tight">
-              Enter Authenticator Token
+              Enter Authenticator Token (000-000)
             </span>
           </div>
 

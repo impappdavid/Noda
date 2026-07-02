@@ -26,19 +26,16 @@ import { Link } from "react-router-dom";
 
 const CompanyInfo = ({ selectedCompany }: { selectedCompany: Company }) => {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
-  const [latency, setLatency] = useState("");
   const [comment, setComment] = useState("");
   const [isAnonymous, setIsAnonymous] = useState(true);
 
   const handleSubmitFeedback = () => {
     setIsFeedbackOpen(false);
     // Reset Logic
-    setLatency("");
     setComment("");
   };
 
-  const cn = (...classes: (string | boolean | undefined | null)[]): string =>
-    classes.filter(Boolean).join(" ");
+
 
   return (
     <div className="flex flex-col h-full bg-white overflow-hidden border-zinc-300  font-sans">

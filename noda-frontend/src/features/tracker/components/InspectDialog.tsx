@@ -90,7 +90,7 @@ const InspectorDialog: React.FC<InspectorProps> = ({ selectedNode, onClose }) =>
                                 <span className="text-[10px] font-mono font-black text-zinc-500 uppercase tracking-widest">Progression_Log</span>
                             </div>
                             <div className="relative ml-2 space-y-4">
-                                <div className="absolute left-[7px] top-2 bottom-2 w-[1px] bg-zinc-200" />
+                                <div className="absolute left-1.75 top-2 bottom-2 w-px bg-zinc-200" />
                                 {selectedNode.logs?.map((log, idx) => (
                                     <LogStep key={idx} log={log} />
                                 ))}
@@ -120,7 +120,7 @@ const SpecBox = ({ label, value }: { label: string; value: string }) => (
 const LogStep = ({ log }: { log: any }) => (
     <div className="relative pl-6">
         <div className={cn(
-            "absolute left-0.5 top-1 w-[12px] h-[12px] bg-white z-10 border transition-all",
+            "absolute left-0.5 top-1 w-3 h-3 bg-white z-10 border transition-all",
             log.status === "COMPLETED" ? "bg-zinc-800 border-zinc-800" :
             log.status === "ACTIVE" ? "bg-white border-orange-500 animate-pulse" : "bg-white border-zinc-300"
         )} />

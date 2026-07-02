@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { 
-    ArrowLeft, ShieldCheck, Zap, ChevronRight, 
-    Info, Terminal, Globe, MoreHorizontal, Heart, 
-    MessageSquare, Eye, Lock, Users, Activity,
+     ShieldCheck, 
+    Info,  MoreHorizontal, Heart, 
+    MessageSquare, Eye, 
     Image as ImageIcon, BarChart3, Send, AlertTriangle,
     TrendingUp, Clock, Image, UserCheck
 } from 'lucide-react';

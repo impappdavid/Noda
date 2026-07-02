@@ -21,7 +21,7 @@ export const FilterCombobox: React.FC<FilterComboboxProps> = ({ label, options, 
                     <ChevronsUpDown className="h-3 w-3 shrink-0 opacity-40" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="p-0 z-[100] w-[190px] rounded-none border-zinc-300" align="start">
+            <PopoverContent className="p-0 z-100 w-47.5 rounded-none border-zinc-300" align="start">
                 <Command className="font-mono bg-white">
                     <CommandGroup>
                         {options.map((opt) => (

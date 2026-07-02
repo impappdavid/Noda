@@ -26,6 +26,7 @@ const AdminReportsPage = () => {
       date: "2026.02.13",
       severity: "HIGH",
       target: {
+        author: "@troll_node",
         title: "SR_BLOCKCHAIN_DEV",
         company: "NEURAL_NET_INC",
         salary: "$180K - $240K",
@@ -55,6 +56,7 @@ const AdminReportsPage = () => {
       date: "2026.02.13",
       severity: "LOW",
       target: {
+        author: "@troll_node",
         title: "EASY $5000/DAY",
         company: "WEB3_DREAMS",
         desc: "Click link now to start earning without work.",

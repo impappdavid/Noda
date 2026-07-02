@@ -183,8 +183,8 @@ const CreatePost = () => {
 
                             <div className="flex items-center justify-between">
                                 <div className="flex p-1 border border-zinc-300 gap-1">
-                                    <ToolbarButton onClick={addImage} icon={<ImageIcon size={14} />} label="IMG" active={images.length > 0} className="hover:bg-white transition-colors" />
-                                    <ToolbarButton onClick={togglePoll} icon={<BarChart3 size={14} />} label="POLL" active={!!poll} className="hover:bg-white transition-colors" />
+                                    <ToolbarButton onClick={addImage} icon={<ImageIcon size={14} />} label="IMG" active={images.length > 0}  />
+                                    <ToolbarButton onClick={togglePoll} icon={<BarChart3 size={14} />} label="POLL" active={!!poll} />
                                 </div>
 
                                 <button onClick={handleTransmit} disabled={!content || isTransmitting} className={cn("h-11 px-8 font-mono font-black text-[11px] uppercase tracking-[0.3em] cursor-pointer transition-all flex items-center gap-4 relative overflow-hidden group", isTransmitting ? "bg-emerald-600 text-white" : "bg-zinc-900 text-white hover:bg-orange-600 disabled:bg-zinc-100 disabled:text-zinc-400")}>

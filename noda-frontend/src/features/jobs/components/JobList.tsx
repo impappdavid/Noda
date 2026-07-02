@@ -88,7 +88,7 @@ const MinimalistJobList = ({ jobs, selectedJob, onSelect }: MinimalistJobListPro
   const showLastPage = totalPages > 5 && visiblePages[visiblePages.length - 1] < totalPages;
 
   return (
-    <div className="flex flex-col h-[877px] w-full overflow-hidden relative bg-white">
+    <div className="flex flex-col h-219.25 w-full overflow-hidden relative bg-white">
       {/* JOB ITEM TRACK CONTAINER */}
       <div className="flex-1 overflow-y-auto scrollbar-hide pb-9">
         {currentJobs.map((job) => {

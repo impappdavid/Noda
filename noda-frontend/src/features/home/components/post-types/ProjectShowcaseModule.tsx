@@ -23,7 +23,7 @@ export const ProjectShowcaseModule = ({ project }: { project: ProjectData }) => 
     >
       {/* 1. COVER HERO IMAGE VIEWPORT */}
       {project.coverImage && (
-        <div className="w-full aspect-[16/9] bg-zinc-100 border-b border-zinc-300 relative overflow-hidden group">
+        <div className="w-full aspect-video bg-zinc-100 border-b border-zinc-300 relative overflow-hidden group">
           <img 
             src={project.coverImage} 
             alt={project.title} 

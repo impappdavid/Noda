@@ -199,7 +199,7 @@ const AppJobs = () => {
                             {selectedJob ? (
                                 <JobInfo 
                                     job={selectedJob} 
-                                    onMarkApplied={() => handleMarkAsApplied(selectedJob.id)} 
+                                    onApply={() => handleMarkAsApplied(selectedJob.id)} 
                                 />
                             ) : (
                                 <div className="h-full flex items-center justify-center bg-zinc-50/30 text-zinc-400 font-mono text-xs">

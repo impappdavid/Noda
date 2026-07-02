@@ -111,7 +111,7 @@ const Tracker = () => {
                                         key={item.id}
                                         onClick={() => setSelectedNode(item)}
                                         className={cn(
-                                            "p-2 flex flex-col justify-center min-h-[72px] transition-colors cursor-pointer group relative",
+                                            "p-2 flex flex-col justify-center min-h-18 transition-colors cursor-pointer group relative",
                                             borderClasses,
                                             isUnscheduled ? "bg-zinc-200 hover:bg-zinc-200/80" : "bg-white hover:bg-zinc-200/60"
                                         )}
@@ -338,7 +338,7 @@ const DeepDiveInspector = ({ selectedNode, setSelectedNode }: any) => {
                                 </div>
 
                                 <div className="relative space-y-3 flex-1 overflow-y-auto mb-2 pr-1">
-                                    <div className="absolute left-[3px] top-1 bottom-1 w-px bg-zinc-300" />
+                                    <div className="absolute left-0.75 top-1 bottom-1 w-px bg-zinc-300" />
                                     {localLogs.map((log: any, idx: number) => (
                                         <div key={idx} className="relative pl-4 flex flex-col group">
                                             <div className={cn(
@@ -457,7 +457,7 @@ const AddNodeModal = ({ onClose }: { onClose: () => void }) => {
                     </div>
                     <div className="flex gap-2 pt-4">
                         <button type="button" onClick={onClose} className="flex-1 h-10 border border-zinc-300 text-[10px] font-mono font-black uppercase hover:bg-zinc-50 transition-colors cursor-pointer">Abort</button>
-                        <button type="submit" className="flex-[2] h-10 bg-zinc-800 text-white text-[10px] font-mono font-black uppercase hover:bg-zinc-900 transition-colors cursor-pointer">Initialize_Deployment</button>
+                        <button type="submit" className="flex-2 h-10 bg-zinc-800 text-white text-[10px] font-mono font-black uppercase hover:bg-zinc-900 transition-colors cursor-pointer">Initialize_Deployment</button>
                     </div>
                 </form>
             ) : (
@@ -481,7 +481,7 @@ function FilterCombobox({ label, options, current, onSelect }: any) {
                     <ChevronsUpDown className="h-3 w-3 shrink-0 opacity-40" />
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="p-0 z-[100] w-[190px] rounded-none border-zinc-300" align="start">
+            <PopoverContent className="p-0 z-100 w-47.5 rounded-none border-zinc-300" align="start">
                 <Command className="font-mono bg-white">
                     <CommandGroup>
                         {options.map((opt: any) => (

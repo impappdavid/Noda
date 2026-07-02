@@ -54,9 +54,9 @@ const FilterCombobox = ({ label, options, value, onChange }: FilterComboboxProps
         </Button>
       </PopoverTrigger>
       
-      <PopoverContent className="p-0 z-[100] w-[160px] rounded-none border border-zinc-300 shadow-md" align="start">
+      <PopoverContent className="p-0 z-100 w-40 rounded-none border border-zinc-300 shadow-md" align="start">
         <Command className="font-mono rounded-none bg-white">
-          <CommandList className="max-h-[300px] overflow-y-auto">
+          <CommandList className="max-h-75 overflow-y-auto">
             <CommandGroup className="p-0 divide-y divide-zinc-200">
               {options.map((opt) => {
                 const isSelected = value.toLowerCase() === opt.value.toLowerCase();

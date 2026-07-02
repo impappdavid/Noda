@@ -58,7 +58,7 @@ interface PostViewDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   selectedImg: string | null;
-  selectedPost: Post | null;
+  selectedPost: Post | null; // This will now match perfectly
   likedPosts: Record<string, boolean>;
   toggleLike: (e: React.MouseEvent, id: string) => void;
 }
@@ -270,7 +270,7 @@ export default function PostViewDialog({
               </div>
 
               {/* Post Payload Body Segment */}
-              <div className="pl-13 md:pl-[64px] pr-4 pb-4">
+              <div className="pl-13 md:pl-16 pr-4 pb-4">
                 <p className="text-sm text-zinc-800 leading-relaxed mb-3">
                   {selectedPost.content}
                 </p>

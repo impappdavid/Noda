@@ -46,7 +46,7 @@ export const QuestionnaireModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[450px] p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
+      <DialogContent className="sm:max-w-112.5 p-0 rounded-none border-none shadow-none overflow-hidden bg-white gap-0">
         <DialogHeader className="bg-blue-500 p-1.5 flex justify-between w-full items-center space-y-0">
           <DialogTitle className="text-[10px] font-bold uppercase text-white flex gap-2 items-center">
             <ClipboardList size={14} className="text-white" />
@@ -81,7 +81,7 @@ export const QuestionnaireModal = ({
             </div>
           </div>
 
-          <div className="min-h-[140px]">
+          <div className="min-h-35">
             {step === 1 && (
               <motion.div 
                 initial={{ opacity: 0, x: -10 }} 
@@ -140,7 +140,7 @@ export const QuestionnaireModal = ({
                 type="button"
                 onClick={handleNext}
                 disabled={!answers.years}
-                className="flex-[2] h-10 bg-zinc-800 text-white cursor-pointer font-bold text-[10px] uppercase tracking-[0.1em] hover:bg-blue-500 disabled:bg-zinc-300 disabled:text-zinc-500 transition-all flex items-center justify-center gap-2 border-none rounded-none"
+                className="flex-2 h-10 bg-zinc-800 text-white cursor-pointer font-bold text-[10px] uppercase tracking-widest hover:bg-blue-500 disabled:bg-zinc-300 disabled:text-zinc-500 transition-all flex items-center justify-center gap-2 border-none rounded-none"
               >
                 Next Question 
               </button>
@@ -149,7 +149,7 @@ export const QuestionnaireModal = ({
                 type="button"
                 onClick={handleFinish}
                 disabled={answers.reason.length < 10 || isSubmitting}
-                className="flex-[2] h-10 bg-blue-500 cursor-pointer text-white font-bold text-[10px] uppercase tracking-[0.1em] hover:bg-blue-600 disabled:bg-zinc-200 disabled:text-zinc-400 transition-all flex items-center justify-center gap-2 border-none rounded-none"
+                className="flex-2 h-10 bg-blue-500 cursor-pointer text-white font-bold text-[10px] uppercase tracking-widest hover:bg-blue-600 disabled:bg-zinc-200 disabled:text-zinc-400 transition-all flex items-center justify-center gap-2 border-none rounded-none"
               >
                 {isSubmitting ? (
                   <Loader2 size={14} className="animate-spin" />

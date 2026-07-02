@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, MessageSquarePlus } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { MilestoneData } from "./types";
 import { useNotifications } from "@/context/NotificationContext";
 

@@ -122,7 +122,7 @@ const LanguageFilterSelect = ({
             onTouchMove={(e) => e.stopPropagation()}
             onCloseAutoFocus={(e) => { e.preventDefault(); onSearchChange(""); }}
             style={{ width: "var(--radix-popover-trigger-width)" }}
-            className="rounded-none border border-zinc-300 p-0 shadow-md font-mono bg-white z-[150] max-h-[200px] flex flex-col"
+            className="rounded-none border border-zinc-300 p-0 shadow-md font-mono bg-white z-150 max-h-50 flex flex-col"
           >
             <div className="flex items-center px-2 border-b border-zinc-200 bg-zinc-50 sticky top-0 z-10 shrink-0">
               <Search size={10} className="text-zinc-400 mr-1.5 shrink-0" />

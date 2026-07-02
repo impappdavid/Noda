@@ -48,7 +48,7 @@ const LoginPage = ({ onLoginInitiated }: LoginPageProps) => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="grid grid-cols-1 md:grid-cols-2 gap-[1px] border-x border-b border-zinc-300"
+            className="grid grid-cols-1 md:grid-cols-2 gap-px border-x border-b border-zinc-300"
         >
             {error && (
                 <div className="md:col-span-2 bg-red-500/20 border-b border-zinc-300 p-2 flex items-center gap-2">

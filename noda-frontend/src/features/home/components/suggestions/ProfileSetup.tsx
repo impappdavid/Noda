@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ChevronDown, CircleCheck, Circle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -25,7 +25,7 @@ const ProfileSetup = () => {
             <Collapsible open={isOpen} onOpenChange={setIsOpen}>
                 {/* YOUR ORIGINAL TRIGGER DESIGN */}
                 <CollapsibleTrigger className="w-full">
-                    <div className="flex items-center justify-between p-2 bg-gradient-to-br from-blue-600 to-blue-800 cursor-pointer">
+                    <div className="flex items-center justify-between p-2 bg-linear-to-br from-blue-600 to-blue-800 cursor-pointer">
                         <div className="flex gap-1 items-center">
                             <motion.div
                                 animate={{ rotate: isOpen ? 180 : 0 }}
@@ -37,12 +37,12 @@ const ProfileSetup = () => {
                         </div>
                         <div className="flex gap-1 items-center">
                             <div className="flex gap-0.5 items-center">
-                                <div className="h-[13px] w-[2px] bg-blue-400"></div>
-                                <div className="h-[13px] w-[2px] bg-blue-400"></div>
-                                <div className="h-[13px] w-[2px] bg-blue-400"></div>
-                                <div className="h-[13px] w-[2px] bg-blue-400"></div>
-                                <div className="h-[13px] w-[2px] bg-zinc-300 opacity-30"></div>
-                                <div className="h-[13px] w-[2px] bg-zinc-300 opacity-30"></div>
+                                <div className="h-3.25 w-0.5 bg-blue-400"></div>
+                                <div className="h-3.25 w-0.5 bg-blue-400"></div>
+                                <div className="h-3.25 w-0.5 bg-blue-400"></div>
+                                <div className="h-3.25 w-0.5 bg-blue-400"></div>
+                                <div className="h-3.25 w-0.5 bg-zinc-300 opacity-30"></div>
+                                <div className="h-3.25 w-0.5 bg-zinc-300 opacity-30"></div>
                             </div>
                             <div className="text-[10px] text-zinc-200 font-mono">4/6</div>
                         </div>

@@ -240,7 +240,7 @@ const JobInfo = ({ job, onApply }: JobInfoProps) => {
           onClick={() => setIsApplyOpen(true)}
           disabled={isApplied}
           className={cn(
-            "w-full h-10 flex items-center justify-center gap-3 transition-all uppercase text-[11px] font-bold tracking-[0.1em] cursor-pointer active:scale-[0.98] border-none rounded-none",
+            "w-full h-10 flex items-center justify-center gap-3 transition-all uppercase text-[11px] font-bold tracking-widest cursor-pointer active:scale-[0.98] border-none rounded-none",
             isApplied ? "bg-blue-500/60 text-white cursor-not-allowed" : "bg-zinc-900 text-white hover:bg-blue-600"
           )}
         >

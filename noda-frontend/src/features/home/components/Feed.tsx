@@ -184,6 +184,7 @@ const FEED_POSTS_REGISTRY: Post[] = [
     comments: 12,
     views: "1.2k",
     poll: {
+      question:"Test Question",
       options: [
         { label: "First", votes: 450 },
         { label: "Second", votes: 120 },

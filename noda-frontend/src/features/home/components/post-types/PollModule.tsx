@@ -12,7 +12,7 @@ export const PollModule = ({ poll, questionText }: { poll: any; questionText: st
     >
       {/* Poll Header Box displays the dynamic content question string */}
       <div className="flex justify-between items-center px-2 py-1.5 min-h-8 border-b border-zinc-300 bg-zinc-200">
-        <span className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-wider whitespace-normal break-words leading-tight w-full">
+        <span className="text-[10px] font-mono font-black text-zinc-900 uppercase tracking-wider whitespace-normal wrap-break-word leading-tight w-full">
           {questionText || "POLL QUESTION"}
         </span>
       </div>

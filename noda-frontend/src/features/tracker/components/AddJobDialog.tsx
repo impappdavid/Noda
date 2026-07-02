@@ -44,7 +44,7 @@ const AddNodeModal: React.FC<AddNodeModalProps> = ({ onClose }) => {
                         <button type="button" onClick={onClose} className="flex-1 h-10 border border-zinc-300 text-[10px] font-mono font-black uppercase hover:bg-zinc-50 transition-colors">
                             Abort
                         </button>
-                        <button type="submit" className="flex-[2] h-10 bg-zinc-800 text-white text-[10px] font-mono font-black uppercase hover:bg-zinc-900 transition-colors">
+                        <button type="submit" className="flex-2 h-10 bg-zinc-800 text-white text-[10px] font-mono font-black uppercase hover:bg-zinc-900 transition-colors">
                             Initialize_Deployment
                         </button>
                     </div>

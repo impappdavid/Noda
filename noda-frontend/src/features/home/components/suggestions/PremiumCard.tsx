@@ -9,7 +9,7 @@ const PremiumCard = () => {
                 className="w-37 bg-zinc-100 border border-zinc-300 p-2 block transition-all duration-300 cursor-pointer group  relative overflow-hidden no-underline"
             >
                 {/* HOVER GLOW EFFECT */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-orange-500/0 via-blue-500/0 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-tr from-orange-500/0 via-blue-500/0 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* TOP BAND */}
                 <div className="flex justify-between items-center mb-2 relative z-10">
@@ -27,8 +27,8 @@ const PremiumCard = () => {
                 {/* CTA SECTION */}
                 <div className="flex flex-col gap-1.5 relative z-10">
                     {/* EXPANDING DIVIDER */}
-                    <div className="relative h-[1px] w-full bg-zinc-100 overflow-hidden">
-                        <div className="absolute inset-0 bg-blue-500 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+                    <div className="relative h-px w-full bg-zinc-100 overflow-hidden">
+                        <div className="absolute inset-0 bg-blue-500 -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
                     </div>
 
                     <div className="flex items-center justify-between">
