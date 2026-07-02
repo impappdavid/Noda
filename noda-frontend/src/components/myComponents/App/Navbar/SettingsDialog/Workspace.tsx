@@ -1,10 +1,7 @@
 import {
   DollarSign,
-  CheckSquare,
-  Square,
   ChevronUp,
   ChevronDown,
-  Building2,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -153,7 +150,7 @@ const Workspace = () => {
                     <button
                       type="button"
                       onClick={() => toggleModel(model)}
-                      className={`h-7 px-3 text-[10px] font-medium transition-all duration-200 cursor-pointer flex items-center justify-center min-w-[64px] z-10 w-full sm:w-auto ${
+                      className={`h-7 px-3 text-[10px] font-medium transition-all duration-200 cursor-pointer flex items-center justify-center min-w-16 z-10 w-full sm:w-auto ${
                         isActive
                           ? "bg-blue-500 text-white shadow-sm font-semibold"
                           : "text-zinc-500 hover:text-zinc-800 bg-transparent"

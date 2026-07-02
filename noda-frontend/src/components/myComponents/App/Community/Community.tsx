@@ -109,7 +109,7 @@ const CommunityDetail: React.FC = () => {
             <div className="max-w-4xl mx-auto px-6 flex flex-1 w-full gap-4 relative">
                 
                 {/* Left App Navigation Sidebar */}
-                <aside className="w-[100px] shrink-0 relative">
+                <aside className="w-25 shrink-0 relative">
                     <div className="sticky top-14 h-fit py-4">
                         <AppSideBar />
                     </div>
@@ -181,7 +181,7 @@ const CommunityDetail: React.FC = () => {
                                                 value={composerText}
                                                 onChange={e => setComposerText(e.target.value)}
                                                 placeholder="Transmit data packet to cluster..."
-                                                className="w-full text-xs font-bold text-zinc-800 placeholder:text-zinc-400 bg-transparent outline-none resize-none min-h-[32px]"
+                                                className="w-full text-xs font-bold text-zinc-800 placeholder:text-zinc-400 bg-transparent outline-none resize-none min-h-8"
                                             />
                                             <div className="flex items-center justify-between pt-3 border-t border-zinc-100 mt-2">
                                                 <div className="flex items-center gap-1">
@@ -203,7 +203,7 @@ const CommunityDetail: React.FC = () => {
 
                             {/* FEED RENDER PATHWAYS */}
                             {(activeTab === 'TOP' || activeTab === 'LATEST') && (
-                                <div className="flex flex-col gap-[1px]">
+                                <div className="flex flex-col gap-px">
                                     {getFilteredPosts().map(post => (
                                         <FeedItem key={post.id} post={post} />
                                     ))}
@@ -237,7 +237,7 @@ const CommunityDetail: React.FC = () => {
 
                             {/* ABOUT BREAKDOWN VIEW */}
                             {activeTab === 'ABOUT' && (
-                                <div className="bg-white p-6 space-y-6 min-h-[400px]">
+                                <div className="bg-white p-6 space-y-6 min-h-100">
                                     <div>
                                         <h3 className="text-[10px] font-mono font-black uppercase tracking-wider text-zinc-400 mb-2">Core Manifesto</h3>
                                         <p className="text-xs text-zinc-700 leading-relaxed font-medium">
@@ -288,7 +288,7 @@ const CommunityDetail: React.FC = () => {
 
                                 {/* PROTOCOL RESTRAINTS LIST */}
                                 <div>
-                                    <span className="text-[8px] font-mono font-black text-zinc-400 uppercase block tracking-wider mb-1.5 flex items-center gap-1"><AlertTriangle size={10} className="text-orange-500" /> Operational Rules</span>
+                                    <span className="text-[8px] font-mono font-black text-zinc-400 uppercase block tracking-wider mb-1.5 items-center gap-1"><AlertTriangle size={10} className="text-orange-500" /> Operational Rules</span>
                                     <div className="space-y-1">
                                         {MOCK_COMMUNITY.rules.map((rule, idx) => (
                                             <div key={idx} className="bg-white border border-zinc-200 p-1.5 rounded-sm flex items-start gap-1.5">

@@ -12,11 +12,9 @@ import {
   Clock,
   ArrowUpRight,
   ShieldAlert,
-  Terminal,
   Grid,
   Code2,
   Flame,
-  Link2,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../AppNavbar";
@@ -99,7 +97,7 @@ export default function ProjectDetailView() {
       {/* LIGHTBOX DIALOG OVERLAY */}
       {selectedImg && (
         <div
-          className="fixed inset-0 z-[100] bg-zinc-950/95 flex items-center justify-center p-2"
+          className="fixed inset-0 z-100 bg-zinc-950/95 flex items-center justify-center p-2"
           onClick={() => setSelectedImg(null)}
         >
           <button className="absolute top-3 right-3 text-zinc-400 hover:text-white cursor-pointer bg-zinc-900 border border-zinc-700 p-1 rounded-none">
@@ -126,7 +124,7 @@ export default function ProjectDetailView() {
         <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen flex-row pt-13">
           <div className="flex-1 flex flex-col mb-64">
             {/* COMPACT STICKY CONTROL TRACK */}
-            <div className="flex w-full items-center justify-between border-b border-zinc-300 bg-white sticky top-[52px] z-20 h-9  divide-x divide-zinc-300">
+            <div className="flex w-full items-center justify-between border-b border-zinc-300 bg-white sticky top-13 z-20 h-9  divide-x divide-zinc-300">
               <button
                 onClick={() => navigate(-1)}
                 className="hover:bg-zinc-200 h-full flex items-center gap-1.5 cursor-pointer text-[9px] font-mono font-black uppercase tracking-wider text-zinc-600 px-2 pr-3 rounded-none border-r border-zinc-300"
@@ -144,7 +142,7 @@ export default function ProjectDetailView() {
             </div>
 
             {/* STACKED CORE LAYOUT VIA gap-[1px] STRUCTURE */}
-            <div className="flex-1 bg-zinc-300 gap-[1px] flex flex-col">
+            <div className="flex-1 bg-zinc-300 gap-px flex flex-col">
               {/* BLOCK 1: MAIN REPO IDENTITY */}
               <div
                 ref={sectionRefs.identity}

@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { 
-    BadgeCheck, Building2, Heart, Zap, Globe, Terminal, Briefcase, Code2, 
+    BadgeCheck, Building2, Heart,  Globe,  Briefcase, Code2, 
     Github, Twitter, Linkedin, BarChart3, TrendingUp, Users, Search, 
-    Settings2, Play, Pause, Video, Eye, Calendar, MapPin, ExternalLink, 
-    Radio, Award, Newspaper, Flame, MessagesSquare
+     Play, Pause, Video, Eye, Calendar, MapPin, ExternalLink, 
+     Award, Flame, 
 } from 'lucide-react';
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
@@ -130,7 +130,7 @@ const CompanyProfile: React.FC = () => {
                         </div>
 
                         {/* TAB CONTENT PANELS */}
-                        <div className="flex-1 bg-zinc-300 gap-[1px] flex flex-col">
+                        <div className="flex-1 bg-zinc-300 gap-px flex flex-col">
                             {activeTab === 'OVERVIEW' && (
                                 <>
                                     {/* SECTION: Telemetry */}
@@ -176,7 +176,7 @@ const CompanyProfile: React.FC = () => {
                                     {/* SECTION: Products */}
                                     <div className="bg-white border-b border-zinc-300">
                                         <ModuleHeader title="Updates & News" icon={<Code2 size={12}/>} />
-                                        <div className="grid grid-cols-2 gap-[1px] bg-zinc-300">
+                                        <div className="grid grid-cols-2 gap-px bg-zinc-300">
                                             {companyData.products.map((prod, idx) => (
                                                 <div key={idx} className="bg-white p-2 group cursor-pointer">
                                                     <div className="aspect-video bg-zinc-100 mb-2 overflow-hidden border border-zinc-200 shadow-inner">
@@ -196,7 +196,7 @@ const CompanyProfile: React.FC = () => {
                                         <ModuleHeader title="Timeline" icon={<Flame size={12}/>} />
                                         <div className="p-2 space-y-2">
                                             {companyData.milestones.map((ms, idx) => (
-                                                <div key={idx} className="flex gap-4 relative before:absolute before:left-2 before:top-3 before:bottom-[-20px] before:w-[1px] before:bg-zinc-200 last:before:hidden">
+                                                <div key={idx} className="flex gap-4 relative before:absolute before:left-2 before:top-3 before:-bottom-5 before:w-px before:bg-zinc-200 last:before:hidden">
                                                     <div className="w-4 h-4  bg-blue-500 flex items-center justify-center text-white shrink-0 z-10 mt-0.5 shadow-sm">
                                                         <div className="w-1 h-1 bg-white "/>
                                                     </div>

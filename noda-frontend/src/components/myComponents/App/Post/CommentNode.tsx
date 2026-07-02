@@ -54,7 +54,7 @@ const CommentNode: React.FC<CommentProps> = ({
                     </div>
                 </div>
 
-                <div className={cn(isReply ? "pl-9" : "pl-[40px] md:pl-[40px]")}>
+                <div className={cn(isReply ? "pl-9" : "pl-10 md:pl-10")}>
                     <div className="flex items-center gap-2 ">
                         <span 
                             className="text-[10px] font-mono font-black text-zinc-900 uppercase cursor-pointer hover:underline" 

@@ -4,7 +4,6 @@ import {
   Download,
   ArrowUpRight,
   AlertTriangle,
-  XCircle,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -112,7 +111,7 @@ const Billing = () => {
               <button
                 type="button"
                 onClick={handleCancelSubscription}
-                className="h-6 px-2.5 w-full flex justify-center  hover:border-red-200 bg-white text-zinc-400 hover:text-red-600 font-bold uppercase text-[9px] tracking-tight transition-colors cursor-pointer flex items-center gap-1.5"
+                className="h-6 px-2.5 w-full  justify-center  hover:border-red-200 bg-white text-zinc-400 hover:text-red-600 font-bold uppercase text-[9px] tracking-tight transition-colors cursor-pointer flex items-center gap-1.5"
               >
                 <AlertTriangle size={10} className="shrink-0" />
                 <span>Cancel Subscription</span>
@@ -150,7 +149,7 @@ const Billing = () => {
         </div>
 
         <div className="border border-zinc-200 bg-white divide-y divide-zinc-200 overflow-x-auto">
-          <table className="w-full border-collapse text-left font-mono text-[9px] min-w-[510px]">
+          <table className="w-full border-collapse text-left font-mono text-[9px] min-w-127.5">
             <thead>
               <tr className="bg-zinc-50/70 border-b border-zinc-200 text-zinc-400 font-bold select-none">
                 <th className="p-2 uppercase tracking-tight">ID</th>

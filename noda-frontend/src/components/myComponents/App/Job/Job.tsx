@@ -1,8 +1,8 @@
 import React from 'react';
 import { 
-    ArrowLeft, ArrowUpRight, Copy, ShieldCheck, 
-    Bookmark, Share2, DollarSign, MapPin, 
-    Briefcase, Zap, User2, Flag, Clock 
+    ArrowLeft, ArrowUpRight, Copy,  
+    Bookmark,  DollarSign, MapPin, 
+    Briefcase, User2, Flag, Clock 
 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -54,7 +54,7 @@ const JobDetail: React.FC = () => {
 
                 <main className="flex flex-1 border-x border-zinc-300 h-full overflow-hidden bg-white pt-12.5 flex-row">
                     {/* LEFT PANE: SYSTEM CONTENT */}
-                    <div className="flex-[3] flex flex-col border-r border-zinc-300 h-full relative overflow-hidden">
+                    <div className="flex-3 flex flex-col border-r border-zinc-300 h-full relative overflow-hidden">
                         
                         {/* 1. COMMAND HEADER - ADDED REPORT BUTTON */}
                         <header className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-0 z-30 h-9 divide-x divide-zinc-300 shrink-0">

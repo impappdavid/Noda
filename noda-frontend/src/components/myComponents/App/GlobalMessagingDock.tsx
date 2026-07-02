@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessageSquare, ChevronUp, ChevronDown, Radio, Send, Smile, Paperclip, X, Search, FileText, Download } from 'lucide-react';
+import { MessageSquare, ChevronUp, ChevronDown, Send, Smile, Paperclip, X, Search, FileText, Download } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
 // Mock Data Types
@@ -102,7 +102,7 @@ export default function GlobalMessagingDock() {
         {/* EXPANDABLE USER LIST HOUSING */}
         <div className={cn(
           "bg-white flex flex-col overflow-hidden transition-all duration-200 ease-in-out",
-          isOpen ? "h-[540px] w-full" : "h-0"
+          isOpen ? "h-135 w-full" : "h-0"
         )}>
           
           {/* Internal Filtering Row */}
@@ -254,7 +254,7 @@ function MiniChatWindow({ user, messages, onClose, onSendMessage }: MiniChatProp
       {/* CONTENT FLUID WORKSPACE */}
       <div className={cn(
         "flex flex-col bg-white transition-all duration-150 relative",
-        isMinimized ? "h-0 overflow-hidden" : "h-[360px]"
+        isMinimized ? "h-0 overflow-hidden" : "h-90"
       )}>
         
         <input type="file" ref={miniFileRef} onChange={handleMiniUpload} className="hidden" accept="image/*,.pdf" />
@@ -298,7 +298,7 @@ function MiniChatWindow({ user, messages, onClose, onSendMessage }: MiniChatProp
                   {msg.type === 'text' && <p>{msg.text}</p>}
                   
                   {msg.type === 'image' && (
-                    <img src={msg.mediaUrl} alt="" className="w-full max-w-[200px] h-auto object-cover border border-zinc-100" />
+                    <img src={msg.mediaUrl} alt="" className="w-full max-w-50 h-auto object-cover border border-zinc-100" />
                   )}
 
                   {msg.type === 'file' && (

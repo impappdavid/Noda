@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ChevronUp, ChevronDown, MessageSquare, Eye, ShieldCheck } from "lucide-react";
 
 const cn = (...classes: any[]) => classes.filter(Boolean).join(" ");
@@ -81,7 +81,7 @@ export default function IdeaGridFeed() {
               </div>
 
               {/* CELL SECTION 02: IMAGE CANVAS (Changed to a wider 21:9 ratio to save vertical space) */}
-              <div className="w-full aspect-[21/9] overflow-hidden relative border-b border-zinc-300 bg-zinc-100">
+              <div className="w-full aspect-21/9 overflow-hidden relative border-b border-zinc-300 bg-zinc-100">
                 <img 
                   src={post.image} 
                   className="w-full h-full object-cover pointer-events-none" 

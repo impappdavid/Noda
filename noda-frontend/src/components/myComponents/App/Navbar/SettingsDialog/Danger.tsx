@@ -17,10 +17,10 @@ const DangerZone = () => {
         </div>
 
       {/* Upgraded layout with a clean inner alert track and subtle warning tones */}
-      <div className="border-b border-red-200/60 bg-gradient-to-br from-red-50/10 to-transparent p-3 flex flex-col md:flex-row md:items-center justify-between gap-4 relative overflow-hidden">
+      <div className="border-b border-red-200/60 bg-linear-to-br from-red-50/10 to-transparent p-3 flex flex-col md:flex-row md:items-center justify-between gap-4 relative overflow-hidden">
         
         {/* Subtle geometric structural side-mark */}
-        <div className="absolute top-0 right-0 w-24 h-24 bg-red-500/[0.02] rotate-45 pointer-events-none translate-x-12 -translate-y-12" />
+        <div className="absolute top-0 right-0 w-24 h-24 bg-red-500/2 rotate-45 pointer-events-none translate-x-12 -translate-y-12" />
 
         <div className="flex items-start gap-3 max-w-xl">
           <div className="p-1 bg-red-50 border border-red-100 text-red-600 mt-0.5 shrink-0 select-none">

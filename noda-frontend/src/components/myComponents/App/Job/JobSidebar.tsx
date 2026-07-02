@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntelligenceMetric } from './JobComponents';
-import { Zap, Users, Cpu, MessageSquare } from 'lucide-react';
+import { Zap, Users } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
 interface JobSidebarProps {
@@ -12,7 +12,6 @@ interface JobSidebarProps {
 }
 
 const JobSidebar: React.FC<JobSidebarProps> = ({ 
-    recruiter, 
     analytics, 
     match = 94, 
     applicants = 124, 
@@ -42,7 +41,7 @@ const JobSidebar: React.FC<JobSidebarProps> = ({
                             <div 
                                 key={i}
                                 className={cn(
-                                    "h-[13px] w-[2px] transition-colors duration-500",
+                                    "h-3.25 w-0.5 transition-colors duration-500",
                                     i < activeBars 
                                         ? "bg-orange-400 shadow-[0_0_5px_rgba(251,146,60,0.4)]" 
                                         : "bg-zinc-300 opacity-30"

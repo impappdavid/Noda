@@ -27,7 +27,7 @@ const NotificationsPage = () => {
                     </div>
                 </aside>
 
-                <main className="flex flex-1 border-x border-zinc-300 bg-white min-h-screen flex pt-10 mb-24">
+                <main className=" flex-1 border-x border-zinc-300 bg-white min-h-screen flex pt-10 mb-24">
                     
                     {/* 1. TABS WRAPPER */}
                     <Tabs defaultValue="All" className="flex-1 flex flex-col border-r border-zinc-300">
@@ -45,7 +45,7 @@ const NotificationsPage = () => {
                         </div>
 
                         {/* 2. TABS LIST (Navigation) */}
-                        <TabsList className="w-full h-9 flex rounded-none bg-white p-0 gap-0 border-b border-zinc-300 divide-x divide-zinc-200 top-[82px] z-20">
+                        <TabsList className="w-full h-9 flex rounded-none bg-white p-0 gap-0 border-b border-zinc-300 divide-x divide-zinc-200 top-20.5 z-20">
                             {categories.map((tab) => (
                                 <TabsTrigger
                                     key={tab}

@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { X, Plus, Check, Loader2, Users2, Shield } from "lucide-react";
+import {  Plus, Loader2, Users2 } from "lucide-react";
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
 
@@ -91,7 +91,7 @@ const UserSearchPage = () => {
                         </div>
 
                         {/* USER LIST - COMPACT PADDING 2 */}
-                        <div className="flex flex-col bg-zinc-200 gap-[1px]">
+                        <div className="flex flex-col bg-zinc-200 gap-px">
                             {currentUsers.map((person) => {
                                 const isFollowed = followedIds.includes(person.id);
                                 return (
@@ -140,7 +140,7 @@ const UserSearchPage = () => {
                                         <button
                                             onClick={(e) => toggleFollow(e, person.id)}
                                             className={`
-                                                relative flex items-center justify-center gap-1.5 min-w-[85px] h-7 
+                                                relative flex items-center justify-center gap-1.5 min-w-21.25 h-7 
                                                 transition-all duration-200 ease-out shrink-0 border-0 rounded-none cursor-pointer
                                                 active:scale-95
                                                 ${isFollowed 

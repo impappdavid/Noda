@@ -104,7 +104,7 @@ const Notifications = () => {
                   <span className="text-[9px] text-zinc-400 uppercase tracking-tight font-bold flex items-center gap-1 select-none">
                     <Mail size={10} /> Mail
                   </span>
-                  <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                  <label className="relative inline-block h-5 w-7.5 cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:transparent] has-checked:bg-blue-500">
                     <input
                       type="checkbox"
                       checked={notifyMatrix[row.key].email}
@@ -120,7 +120,7 @@ const Notifications = () => {
                   <span className="text-[9px] text-zinc-400 tracking-tight uppercase font-bold flex items-center gap-1 select-none">
                     <Monitor size={10} /> App
                   </span>
-                  <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                  <label className="relative inline-block h-5 w-7.5 cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:transparent] has-checked:bg-blue-500">
                     <input
                       type="checkbox"
                       checked={notifyMatrix[row.key].inapp}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, MessageSquare, Heart, AlertTriangle, BarChart3, Bookmark, X as CloseIcon, Copy, CornerDownRight } from 'lucide-react';
 import { useNavigate } from "react-router-dom";
 import Navbar from '../AppNavbar';
@@ -171,7 +171,7 @@ const PostDetail = () => {
             <Navbar />
 
             {selectedImg && (
-                <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onClick={() => setSelectedImg(null)}>
+                <div className="fixed inset-0 z-100 bg-black/80 backdrop-blur-md flex items-center justify-center p-4" onClick={() => setSelectedImg(null)}>
                     <button className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors cursor-pointer"><CloseIcon size={32} /></button>
                     <img src={selectedImg} className="max-w-full max-h-[90vh] object-contain shadow-2xl rounded-sm" onClick={(e) => e.stopPropagation()} />
                 </div>
@@ -185,7 +185,7 @@ const PostDetail = () => {
                 <div className="flex-1 flex gap-3">
                     <main className="flex flex-col max-w-xl w-full border-x border-zinc-300 min-h-screen pt-12.5">
                         
-                        <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-[52px] z-20 h-10 divide-x divide-zinc-200">
+                        <div className="flex w-full items-center border-b border-zinc-300 bg-white sticky top-13 z-20 h-10 divide-x divide-zinc-200">
                             <button onClick={() => navigate(-1)} className="px-3 h-full hover:bg-zinc-50 flex items-center gap-3 cursor-pointer transition-colors">
                                 <ArrowLeft size={14} /><span className="text-[9px] font-mono font-black uppercase tracking-widest">Return</span>
                             </button>
@@ -199,7 +199,7 @@ const PostDetail = () => {
                         <article className="p-3 bg-white">
                             <PostHeader author={MOCK_POST.author} postedAgo={MOCK_POST.postedAgo} onCopy={handleCopyLink} onAvatarClick={(id) => navigate(`/app/user/${id}`)} />
                             
-                            <div className="pl-0 md:pl-[52px]">
+                            <div className="pl-0 md:pl-13">
                                 <p className="text-sm text-zinc-800 leading-relaxed mb-2">{MOCK_POST.content}</p>
 
                                 {MOCK_POST.images && MOCK_POST.images.length > 0 && MOCK_POST.type !== "poll" && (

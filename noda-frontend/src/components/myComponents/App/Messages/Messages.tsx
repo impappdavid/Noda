@@ -256,7 +256,7 @@ const MessagesPage = () => {
             </header>
 
             {/* DYNAMIC MESSAGE STREAM BUBBLES */}
-            <div className="flex-1 overflow-y-auto p-3.5 space-y-1 scrollbar-hide bg-gradient-to-b from-zinc-50/30 to-transparent">
+            <div className="flex-1 overflow-y-auto p-3.5 space-y-1 scrollbar-hide bg-linear-to-b from-zinc-50/30 to-transparent">
               {currentMessages.map((msg, idx) => {
                 const isPlaying = playingAudioId === msg.id;
                 
@@ -347,7 +347,7 @@ const MessagesPage = () => {
                               <span 
                                 key={idx} 
                                 className={cn(
-                                  "w-[2px] rounded-full transition-all duration-300", 
+                                  "w-0.5 rounded-full transition-all duration-300", 
                                   isPlaying ? "animate-pulse bg-emerald-400" : (msg.isMe ? "bg-blue-200" : "bg-zinc-400")
                                 )} 
                                 style={{ 

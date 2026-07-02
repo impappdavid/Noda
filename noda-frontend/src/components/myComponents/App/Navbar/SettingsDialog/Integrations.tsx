@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Check } from "lucide-react";
 
 const Integrations = () => {
   const [googleConnected, setGoogleConnected] = useState(true);

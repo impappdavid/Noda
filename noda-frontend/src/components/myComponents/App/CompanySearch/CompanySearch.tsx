@@ -1,8 +1,9 @@
 import { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { X, Loader2, Users2, Star, Plus, Check } from "lucide-react";
+import {  Loader2, Users2, Star, Plus } from "lucide-react";
 import Navbar from '../AppNavbar';
 import AppSideBar from '../Sidebar';
+import Suggestions from '@/features/home/components/Suggestions';
 
 const COMPANY_DATA = [
     { 
@@ -35,7 +36,7 @@ const COMPANY_DATA = [
 ].map((item, i) => ({ ...item, id: `c${i + 1}` }));
 
 const CompanySearchPage = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const query = searchParams.get("q") || "";
 
@@ -102,7 +103,7 @@ const CompanySearchPage = () => {
                             </div>
                         </div>
 
-                        <div className="flex flex-col bg-zinc-200 gap-[1px]">
+                        <div className="flex flex-col bg-zinc-200 gap-px">
                             {currentCompanies.map((company) => {
                                 const isFollowed = followedIds.includes(company.id);
                                 return (
@@ -146,7 +147,7 @@ const CompanySearchPage = () => {
                                         <button
                                             onClick={(e) => toggleFollow(e, company.id)}
                                             className={`
-                                                relative flex items-center justify-center gap-2 min-w-[90px] h-7 
+                                                relative flex items-center justify-center gap-2 min-w-22.5 h-7 
                                                 transition-all duration-300 ease-out shrink-0 border-0 rounded-none cursor-pointer
                                                 active:scale-95
                                                 ${isFollowed 

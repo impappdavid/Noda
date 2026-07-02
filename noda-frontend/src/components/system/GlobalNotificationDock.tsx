@@ -9,7 +9,7 @@ export const GlobalNotificationDock: React.FC = () => {
 
   return (
     /* Pinned top-center container */
-    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999] w-full max-w-sm px-4 h-48 pointer-events-none flex justify-center items-start">
+    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-9999 w-full max-w-sm px-4 h-48 pointer-events-none flex justify-center items-start">
       <AnimatePresence mode="popLayout">
         {notifications.map((notif, index) => {
           // Calculate distance from the front of the line
@@ -43,13 +43,13 @@ export const GlobalNotificationDock: React.FC = () => {
             >
               {/* CLEAN CONTRAST STATUS INDICATORS */}
               {notif.type === "success" && (
-                <CheckCircle2 size={15} className="text-emerald-600 shrink-0 mt-0.5 stroke-[2]" />
+                <CheckCircle2 size={15} className="text-emerald-600 shrink-0 mt-0.5 stroke-2" />
               )}
               {notif.type === "error" && (
-                <AlertCircle size={15} className="text-rose-600 shrink-0 mt-0.5 stroke-[2]" />
+                <AlertCircle size={15} className="text-rose-600 shrink-0 mt-0.5 stroke-2" />
               )}
               {notif.type === "info" && (
-                <Info size={15} className="text-blue-600 shrink-0 mt-0.5 stroke-[2]" />
+                <Info size={15} className="text-blue-600 shrink-0 mt-0.5 stroke-2" />
               )}
 
               {/* CORE METADATA FIELD */}
@@ -68,7 +68,7 @@ export const GlobalNotificationDock: React.FC = () => {
                   onClick={() => removeNotification(notif.id)}
                   className="text-zinc-400 hover:text-zinc-700 transition-colors cursor-pointer outline-none border-none bg-transparent shrink-0"
                 >
-                  <X size={14} className="stroke-[2]" />
+                  <X size={14} className="stroke-2" />
                 </button>
               )}
             </motion.div>

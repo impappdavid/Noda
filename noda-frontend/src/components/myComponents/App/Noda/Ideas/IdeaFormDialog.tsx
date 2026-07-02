@@ -1,15 +1,12 @@
 import { useState, useRef, useEffect, type ChangeEvent } from "react";
 import {
-  EyeOff,
   Image as ImageIcon,
   Plus,
   X,
   Lightbulb,
-  Cpu,
   Layout,
   Bug,
   Activity,
-  Lock,
 } from "lucide-react";
 import {
   Dialog,
@@ -33,7 +30,6 @@ export default function IdeaForm() {
   const [category, setCategory] = useState<IdeaCategory>("CONCEPT");
 
   // Anonymity is now fixed/read-only per your request
-  const isAnonymous = false;
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -154,7 +150,7 @@ export default function IdeaForm() {
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder={`Submit technical notes for this ${category.toLowerCase()}...`}
-              className="w-full min-h-[140px] mt-2 bg-transparent border-none focus:ring-0 outline-none text-xs font-medium placeholder:text-zinc-500 resize-none overflow-hidden"
+              className="w-full min-h-35 mt-2 bg-transparent border-none focus:ring-0 outline-none text-xs font-medium placeholder:text-zinc-500 resize-none overflow-hidden"
               rows={4}
             />
 

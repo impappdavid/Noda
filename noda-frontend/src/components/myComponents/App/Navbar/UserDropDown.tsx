@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { 
   DropdownMenu, DropdownMenuContent, DropdownMenuGroup, 
   DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, 
   DropdownMenuShortcut, DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
-import { User, Settings, LogOut, ShieldCheck, CreditCard, BadgePlus } from "lucide-react";
+import { User, Settings, LogOut, ShieldCheck, BadgePlus } from "lucide-react";
 import { Link } from "react-router-dom";
 import SystemSettingsDialog from "./SystemSettingsDialog";
 

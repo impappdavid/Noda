@@ -2,8 +2,6 @@ import {
   Monitor,
   Smartphone,
   Terminal,
-  MapPin,
-  Cpu,
   ShieldCheck,
   LogOut,
 } from "lucide-react";
@@ -73,7 +71,7 @@ const Session = () => {
   };
 
   return (
-    <div className="flex flex-col font-mono text-[11px] text-zinc-800 animate-in fade-in duration-100 h-[604px] justify-between">
+    <div className="flex flex-col font-mono text-[11px] text-zinc-800 animate-in fade-in duration-100 h-151 justify-between">
       {/* MATRIX WRAPPER WITH FIXED SCROLL WINDOW BOUNDS */}
       <div className="flex-1 overflow-y-auto min-h-0 ">
         {/* CURRENT CLIENT NODE HEADER PANEL */}
@@ -134,7 +132,7 @@ const Session = () => {
                           ({sess.time})
                         </span>
                       </div>
-                      <p className="text-[9.5px] text-zinc-400 font-mono truncate max-w-[240px]">
+                      <p className="text-[9.5px] text-zinc-400 font-mono truncate max-w-60">
                         {sess.os}{" "}
                         <span className="text-zinc-200 mx-0.5">•</span>{" "}
                         <span className="text-zinc-500">{sess.ip}</span>

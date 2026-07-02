@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { 
     Building2, Globe, Mail, Fingerprint, 
     Upload, ShieldCheck,
-    Terminal, Loader2, Info, Zap
+    Terminal, Loader2, Info, 
 } from 'lucide-react';
 import { cn } from "@/lib/utils";
 
@@ -123,7 +123,7 @@ const CreateCompany = () => {
                                 onClick={handleVerificationTrigger}
                                 disabled={isVerifying}
                                 className={cn(
-                                    "h-10 w-full font-mono font-bold text-[11px] uppercase tracking-[0.3em] transition-all flex justify-center items-center gap-3 border-none cursor-pointer active:translate-x-[1px] active:translate-y-[1px]",
+                                    "h-10 w-full font-mono font-bold text-[11px] uppercase tracking-[0.3em] transition-all flex justify-center items-center gap-3 border-none cursor-pointer active:translate-x-px active:translate-y-px",
                                     isVerifying ? "bg-orange-500 text-white" : "bg-zinc-800 text-white hover:bg-zinc-900"
                                 )}
                             >

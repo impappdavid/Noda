@@ -6,10 +6,8 @@ import {
   User,
   Building2,
   Briefcase,
-  MapPin,
   Hash,
   ChevronRight,
-  History,
 } from "lucide-react";
 
 // --- MOCK DATABASE ---

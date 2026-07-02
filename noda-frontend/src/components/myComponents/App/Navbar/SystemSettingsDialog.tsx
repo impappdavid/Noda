@@ -1,20 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   X,
-  Check,
-  Monitor,
-  Smartphone,
-  Globe,
-  ShieldCheck,
-  Mail,
-  Bell,
+  
   Lock,
-  Sliders,
-  Upload,
-  Link2,
-  Building2,
   EyeOff,
-  AlertTriangle,
   AtSign,
   User,
   Settings,
@@ -75,31 +64,13 @@ export default function FullyLoadedVerticalSettingsDialog({
   // --- STATE MATRIX DIRECT SYSTEM MAPPINGS ---
   // ==========================================
 
-  // 1. Profile (users.*)
-  const [displayName, setDisplayName] = useState("John Doe");
-  const [username, setUsername] = useState("johndoe");
-  const [bio, setBio] = useState(
-    "Staff Systems Architect matching decentralized runtime components.",
-  );
-  const [githubUrl, setGithubUrl] = useState("https://github.com/johndoe");
-  const [figmaUrl, setFigmaUrl] = useState("https://figma.com/@johndoe");
-  const [portfolioUrl, setPortfolioUrl] = useState("https://johndoe.dev");
 
   // 2. Preferences
   const [theme, setTheme] = useState<"LIGHT" | "DARK" | "SYSTEM">("LIGHT");
-  const [localeCode, setLocaleCode] = useState("en-US");
-  const [timezone, setTimezone] = useState("UTC");
 
-  useEffect(() => {
-    if (typeof Intl !== "undefined") {
-      setTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC");
-    }
-  }, []);
+ 
 
   // 3. Security
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
   const [show2FAModal, setShow2FAModal] = useState(false);
 
@@ -107,36 +78,8 @@ export default function FullyLoadedVerticalSettingsDialog({
   // 5. Connections
  
 
-  // 6. Workspace Metrics
-  const [minSalary, setMinSalary] = useState(165000);
-  const [workModels, setWorkModels] = useState<{ [key: string]: boolean }>({
-    REMOTE: true,
-    HYBRID: true,
-    ON_SITE: false,
-  });
 
-  // 7. Stealth & Privacy
-  const [stealthModeActive, setStealthModeActive] = useState(true);
-  const [hidePollActivity, setHidePollActivity] = useState(false);
-  const [hideReviewIdentity, setHideReviewIdentity] = useState(true);
 
-  // 8. Notification Compact Matrix Matrix State
-  const [notifyMatrix, setNotifyMatrix] = useState({
-    appUpdates: { push: true, email: true, inapp: true },
-    directMessages: { push: true, email: false, inapp: true },
-    socialEngagement: { push: false, email: false, inapp: true },
-    recruiterDeadlines: { push: true, email: true, inapp: true },
-  });
-
-  const toggleNotify = (
-    row: keyof typeof notifyMatrix,
-    type: "push" | "email" | "inapp",
-  ) => {
-    setNotifyMatrix((prev) => ({
-      ...prev,
-      [row]: { ...prev[row], [type]: !prev[row][type] },
-    }));
-  };
 
   
 
@@ -163,10 +106,10 @@ export default function FullyLoadedVerticalSettingsDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogPortal>
-        <DialogOverlay className="fixed inset-0 z-[150] bg-zinc-800/20 backdrop-blur-xs" />
+        <DialogOverlay className="fixed inset-0 z-150 bg-zinc-800/20 backdrop-blur-xs" />
 
         {/* Vertical Form Desk Layout Strategy */}
-        <DialogContent className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-[680px] p-0 gap-0 z-[200] rounded-none border-none bg-white shadow-2xl overflow-hidden flex flex-col text-zinc-800 focus:outline-none antialiased font-mono text-[11px]">
+        <DialogContent className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-170 p-0 gap-0 z-200 rounded-none border-none bg-white shadow-2xl overflow-hidden flex flex-col text-zinc-800 focus:outline-none antialiased font-mono text-[11px]">
           {/* HEADER LAYER */}
           <div className="py-1 px-2 flex items-center justify-between bg-blue-500 border-b border-zinc-200 shrink-0 select-none">
             <div className="flex items-center gap-1">
@@ -533,7 +476,7 @@ export default function FullyLoadedVerticalSettingsDialog({
                           with a dynamic seed key validation protocol.
                         </p>
                       </div>
-                      <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition duration-400 [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500">
+                      <label className="relative inline-block h-5 w-7.5 cursor-pointer rounded-full bg-zinc-200 transition duration-400 [-webkit-tap-highlight-color:transparent] has-checked:bg-blue-500">
                         <input
                           type="checkbox"
                           id="AcceptConditions"
@@ -665,7 +608,7 @@ export const FormSelector = React.memo(
         <SelectContent
           position="popper"
           sideOffset={4}
-          className="rounded-none border-zinc-300 font-mono text-[10px] uppercase bg-white z-[201]"
+          className="rounded-none border-zinc-300 font-mono text-[10px] uppercase bg-white z-201"
         >
           {options.map((opt) => (
             <SelectItem

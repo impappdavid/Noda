@@ -33,7 +33,7 @@ const Privacy = () => {
           </div>
 
           {/* Switch Component */}
-          <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500 shrink-0 ml-3">
+          <label className="relative inline-block h-5 w-7.5 cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:transparent] has-checked:bg-blue-500 rink-0 ml-3">
             <input
               type="checkbox"
               checked={stealthMode}
@@ -60,7 +60,7 @@ const Privacy = () => {
               <p className="text-[9.5px] text-zinc-500 font-sans leading-tight">Hide network identity context and user nodes during public workspace vote operations.</p>
             </div>
             
-            <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500 shrink-0">
+            <label className="relative inline-block h-5 w-7.5 cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:transparent] has-checked:bg-blue-500 shrink-0">
               <input
                 type="checkbox"
                 checked={hideVotes}
@@ -78,7 +78,7 @@ const Privacy = () => {
               <p className="text-[9.5px] text-zinc-500 font-sans leading-tight">Suppress log entries and view metrics when indexing or reading enterprise panel assessments.</p>
             </div>
             
-            <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500 shrink-0">
+            <label className="relative inline-block h-5 w-7.5 cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:transparent] has-checked:bg-blue-500 shrink-0">
               <input
                 type="checkbox"
                 checked={maskFootprints}
@@ -96,7 +96,7 @@ const Privacy = () => {
               <p className="text-[9.5px] text-zinc-500 font-sans leading-tight">Only reveal target compensation numbers to confirmed interview loops. Keep hidden from general search queries.</p>
             </div>
             
-            <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500 shrink-0">
+            <label className="relative inline-block h-5 w-7.5 cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:transparent] has-checked:bg-blue-500 shrink-0">
               <input
                 type="checkbox"
                 checked={hideSalary}
@@ -114,7 +114,7 @@ const Privacy = () => {
               <p className="text-[9.5px] text-zinc-500 font-sans leading-tight">Limit matchmaking index passes exclusively to direct, in-house corporate engineering talent nodes.</p>
             </div>
             
-            <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500 shrink-0">
+            <label className="relative inline-block h-5 w-7.5 cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:transparent] has-checked:bg-blue-500 shrink-0">
               <input
                 type="checkbox"
                 checked={blockAgency}
@@ -132,7 +132,7 @@ const Privacy = () => {
               <p className="text-[9.5px] text-zinc-500 font-sans leading-tight">Block unsolicited connection message frames unless a viewer node presents a matching node application requirement stack.</p>
             </div>
             
-            <label className="relative inline-block h-5 w-[30px] cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-blue-500 shrink-0">
+            <label className="relative inline-block h-5 w-7.5 cursor-pointer rounded-full bg-zinc-200 transition [-webkit-tap-highlight-color:transparent] has-checked:bg-blue-500 shrink-0">
               <input
                 type="checkbox"
                 checked={restrictDms}

@@ -21,7 +21,7 @@ export const SocialPost = React.memo(({ author, username, role, time, content }:
                 </div>
                 <button className="text-zinc-500 hover:text-zinc-900 p-1 hover:bg-zinc-300/50 transition-colors"><MoreHorizontal size={16} /></button>
             </div>
-            <div className="pl-[52px]">
+            <div className="pl-13">
                 <p className="text-sm text-zinc-800 leading-relaxed mb-3">{content}</p>
                 <div className="flex items-center gap-8 pt-2">
                     <PostAction icon={<Heart size={16} />} count="102" />

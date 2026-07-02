@@ -1,10 +1,6 @@
 import { useState } from "react";
 import {
   Check,
-  ChevronRight,
-  Zap,
-  Target,
-  Radio,
   Minus,
   ShieldCheck,
   Star,
@@ -100,7 +96,7 @@ const PremiumPage = () => {
           </div>
         </aside>
 
-        <main className="flex flex-1 border-x mt-12 border-zinc-300 bg-white overflow-y-auto scrollbar-hide font-mono flex flex-col">
+        <main className=" flex-1 border-x mt-12 border-zinc-300 bg-white overflow-y-auto scrollbar-hide font-mono flex flex-col">
           {/* SLIM TERMINAL HEADER */}
           <div className="border-b border-zinc-300 px-2 py-2 flex justify-between items-center bg-zinc-50">
             <div className="flex items-center gap-2">
@@ -260,7 +256,7 @@ const PremiumPage = () => {
                 </span>
               </div>
             </div>
-            <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-none h-10 px-8 text-[12px] font-bold flex items-center uppercase tracking-[0.1em] border-none transition-all">
+            <Button className="bg-blue-500 hover:bg-blue-600 text-white rounded-none h-10 px-8 text-[12px] font-bold flex items-center uppercase tracking-widest border-none transition-all">
               ${activePrice?.toFixed(2)} PAY 
             </Button>
           </div>
