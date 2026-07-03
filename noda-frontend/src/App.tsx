@@ -7,7 +7,6 @@ import NotificationsPage from './components/myComponents/App/Notifications/Notif
 import MessagesPage from './components/myComponents/App/Messages/Messages'
 import CompanyPage from './components/myComponents/App/Company/Company'
 import IdeaResonanceBoard from './components/myComponents/App/Noda/Ideas/Ideas'
-import SignupPage from './components/myComponents/Auth/SignUp/SignUp'
 import PremiumPage from './components/myComponents/App/Premium/Premium'
 import UserSearchPage from './components/myComponents/App/UserSearch/User'
 import CompanySearchPage from './components/myComponents/App/CompanySearch/CompanySearch'
@@ -36,6 +35,7 @@ import TeamPage from './pages/app/CompanyAdmin/TeamPage'
 import PostPage from './pages/app/CompanyAdmin/PostPage'
 import ApplicantsPage from './pages/app/CompanyAdmin/ApplicantsPage'
 import UserPage from './pages/app/UserPage'
+import SignUpPage from './pages/auth/SignupPage'
 
 function App() {
   const location = useLocation();
@@ -47,7 +47,7 @@ function App() {
     <NotificationProvider>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
 
         <Route path="/app/post/:id" element={<PostDetail />} />
         <Route path="/app/jobs/:id" element={<JobDetailPage />} />
